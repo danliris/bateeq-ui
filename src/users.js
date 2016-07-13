@@ -14,6 +14,8 @@ export class Users {
   }
 
   async activate() {
+    console.log(self);
+    console.log($);
     // ensure fetch is polyfilled before we create the http client
     await fetch;
     const http = this.http = this.getHttpClient();

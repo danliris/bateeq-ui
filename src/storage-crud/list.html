@@ -1,0 +1,7 @@
+<template>
+    <h3>Storages</h3>
+    <ul>
+        <li repeat.for="item of data" click.delegate="view(item)">${item.name}</li>
+    </ul>
+    <button class="btn btn-primary" click.delegate="create()">Create</button>
+</template>
