@@ -3,8 +3,11 @@
   <require from="bootstrap/dist/css/bootstrap.css"></require>
 
   <nav-bar router.bind="router"></nav-bar>
-
   <div class="page-host">
-    <router-view></router-view>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <router-view></router-view>
+      </div>
+    </div>
   </div>
 </template>

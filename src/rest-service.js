@@ -13,12 +13,11 @@ export class RestService {
 
     parseResult(result) {
         return new Promise((resolve, reject) => {
-            resolve(result);
-            // if (result.error)
-            //     reject(result.error);
-            // else {
-            //     resolve(result.data)
-            // }
+            if (result.error)
+                reject(result.error);
+            else {
+                resolve(result.data)
+            }
         });
     }
 
@@ -29,10 +28,20 @@ export class RestService {
         };
         return this.http.fetch(endpoint, request)
             .then(response => {
-                if (response.status == 200)
-                    return response.json();
-                else
-                    throw response.statusText;
+                return response.json();
+            })
+            .then(result => this.parseResult(result));
+    }
+
+    post(endpoint, data, header) {
+        var request = {
+            method: 'POST',
+            headers: new Headers(Object.assign({}, this.header, header)),
+            body: JSON.stringify(data)
+        };
+        return this.http.fetch(endpoint, request)
+            .then(response => {
+                return response.json();
             })
             .then(result => this.parseResult(result));
     }
@@ -46,26 +55,12 @@ export class RestService {
 
         return this.http.fetch(endpoint, request)
             .then(response => {
-                if (response.status == 200)
-                    return null;//response.json();
+                if (response.status != 204)
+                    return response.json();
                 else
-                    throw response.statusText;
-            })
-            .then(result => this.parseResult(result));
-    }
-
-    post(endpoint, data, header) {
-        var request = {
-            method: 'POST',
-            headers: new Headers(Object.assign({}, this.header, header)),
-            body: JSON.stringify(data)
-        };
-        return this.http.fetch(endpoint, request)
-            .then(response => {
-                if (response.status == 201)
-                    return null;//response.json();
-                else
-                    throw response.statusText;
+                    return new Promise((resolve, reject) => {
+                        resolve({});
+                    });
             })
             .then(result => this.parseResult(result));
     }
@@ -78,10 +73,12 @@ export class RestService {
         };
         return this.http.fetch(endpoint, request)
             .then(response => {
-                if (response.status == 200)
-                    return null;//response.json();
+                if (response.status != 204)
+                    return response.json();
                 else
-                    throw response.statusText;
+                    return new Promise((resolve, reject) => {
+                        resolve({});
+                    });
             })
             .then(result => this.parseResult(result));
     }

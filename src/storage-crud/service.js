@@ -2,7 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = 'https://bateeq-inventory-api-pinkgorilla.c9users.io/inventories/storages';
+const serviceUri = 'https://bateeq-inventory-api-pinkgorilla.c9users.io/v1/inventories/storages';
  
 export class Service extends RestService{
 

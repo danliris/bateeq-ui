@@ -1,0 +1,11 @@
+<template>
+    <h3>Edit Article Season</h3>
+    <require from="./data-form.html"></require>
+    <block>
+        <data-form data.bind="data"></data-form>
+        <hr/><div class="btn-group pull-right">
+            <button class="btn btn-default" click.delegate="view()">Back</button>
+            <button class="btn btn-success" click.delegate="save()">Save</button>
+        </div>
+    </block>
+</template>
