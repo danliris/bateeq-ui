@@ -2,7 +2,8 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = 'https://bateeq-inventory-api-pinkgorilla.c9users.io/v1/inventories/storages';
+const serviceUri = 'https://bateeq-inventory-api-pinkgorilla.c9users.io/v1/inventories/docs/transfer-out'; 
+const serviceUriStorages='https://bateeq-inventory-api-pinkgorilla.c9users.io/v1/inventories/storages';
  
 export class Service extends RestService{
 
@@ -18,25 +19,17 @@ export class Service extends RestService{
   {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
-  }
+  } 
 
   create(data)
   {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-  }
-
-  update(data)
+  } 
+   
+  getAllStorage()
   {
-    var endpoint = `${serviceUri}/${data._id}`;
-    return super.put(endpoint, data);
+    var endpoint = `${serviceUriStorages}`;
+    return super.get(endpoint);
   }  
-
-  delete(data)
-  {
-    var endpoint = `${serviceUri}/${data._id}`;
-    return super.delete(endpoint, data);
-  }
-  
- 
 }

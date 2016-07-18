@@ -1,0 +1,19 @@
+<template>
+    <h3>Finishing Keluar</h3>
+    <table border=1>
+        <tr>
+            <td>Code</td>
+            <td>Source ID</td>
+            <td>Destination ID</td>
+            <td>Reference</td> 
+        </tr> 
+        <tr repeat.for="item of data" click.delegate="view(item)">
+            <td>${item.code}</td>
+            <td>${item.sourceId}  -  ${item.source.name}</td>
+            <td>${item.destinationId}  -  ${item.source.name}</td>
+            <td>${item.reference}</td> 
+        </tr>
+    </table>
+    
+    <button class="btn btn-primary" click.delegate="create()">Buat</button>
+</template>

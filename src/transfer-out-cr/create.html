@@ -1,0 +1,45 @@
+<template>
+    <block>
+    <div class="form-group"> 
+        <label for="code">Code</label>
+        <input type="text" class="form-control" name="code" value.bind="data.code" />
+    </div>
+    <div class="form-group">
+        <label for="sumber">Sumber Penyimpanan</label>
+        <select class="form-control" name="sumber" value.bind="data.sourceId">  
+            <option repeat.for="storage of storages" value="${storage._id}">${storage.name}</option>
+        </select> 
+    </div>
+     <div class="form-group">
+        <label for="tujuan">Tujuan Penyimpanan</label>
+        <select class="form-control" name="tujuan" value.bind="data.destinationId">  
+            <option repeat.for="storage of storages" value="${storage._id}">${storage.name}</option>
+	    </select> 
+    </div>
+     <div class="form-group">
+        <label for="noReff">Nomor Referensi</label>
+        <input type="text" class="form-control" name="noReff" value.bind="data.reference" />
+    </div>
+    <div class="form-group"><button class="btn btn-default" click.delegate="search()">Cari</button></div>
+    <div class="form-group"> 
+        <table border="1">
+            <tr>
+                <td>Produk  </td>
+                <td>Kuantitas</td>  
+                <td>Catatan</td>
+                <td><button href="#" class="btn btn-default btn-raised" click.delegate="addItem()">+</button></td>
+            </tr>
+            <tr repeat.for="item of data.items">
+                <td><input type="text" name="code" value.bind="item.articleVariantId"/></td> 
+                <td><input type="number"  name="qty" value.bind="item.quantity"/></td>
+                <td><input type="text"  name="note" value.bind="item.remark"/></td>  
+                <td><button href="#" class="btn btn-default btn-raised" click.delegate="deleteItem($index)">x</button></td>
+            </tr>
+        </table>
+    </div>
+    <div class="btn-group">
+    <button class="btn btn-default" click.delegate="list()">Batal</button>
+    <button class="btn btn-default" click.delegate="save()">Simpan</button>
+    </div>
+    </block>
+</template>

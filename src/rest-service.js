@@ -12,13 +12,12 @@ export class RestService {
     }
 
     parseResult(result) {
-        return new Promise((resolve, reject) => {
-            resolve(result);
-            // if (result.error)
-            //     reject(result.error);
-            // else {
-            //     resolve(result.data)
-            // }
+        return new Promise((resolve, reject) => { 
+            if (result.error)
+                reject(result.error);
+            else {
+                resolve(result.data)
+            }
         });
     }
 
@@ -29,10 +28,7 @@ export class RestService {
         };
         return this.http.fetch(endpoint, request)
             .then(response => {
-                if (response.status == 200)
-                    return response.json();
-                else
-                    throw response.statusText;
+                return response.json();
             })
             .then(result => this.parseResult(result));
     }
@@ -46,10 +42,7 @@ export class RestService {
 
         return this.http.fetch(endpoint, request)
             .then(response => {
-                if (response.status == 200)
-                    return null;//response.json();
-                else
-                    throw response.statusText;
+                return response.json();
             })
             .then(result => this.parseResult(result));
     }
@@ -62,10 +55,7 @@ export class RestService {
         };
         return this.http.fetch(endpoint, request)
             .then(response => {
-                if (response.status == 201)
-                    return null;//response.json();
-                else
-                    throw response.statusText;
+                return response.json();
             })
             .then(result => this.parseResult(result));
     }
@@ -78,10 +68,7 @@ export class RestService {
         };
         return this.http.fetch(endpoint, request)
             .then(response => {
-                if (response.status == 200)
-                    return null;//response.json();
-                else
-                    throw response.statusText;
+                return response.json();
             })
             .then(result => this.parseResult(result));
     }

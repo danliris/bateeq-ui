@@ -1,0 +1,33 @@
+<template> 
+    <div class="btn-group">
+        <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a> 
+    </div>
+    <block>
+    <div class="form-group">
+        <label for="code">Code : ${data.code}</label> 
+    </div>
+    <div class="form-group">
+        <label for="sumber">Sumber Penyimpanan : ${data.sourceId}  -  ${data.source.name}</label> 
+    </div>
+     <div class="form-group">
+        <label for="tujuan">Tujuan Penyimpanan:${data.destinationId}  -  ${data.destination.name}</label> 
+    </div>
+     <div class="form-group">
+        <label for="noReff">Nomor Referensi:${data.reference} </label> 
+    </div>
+    <div class="form-group"> 
+        <table border="1">
+            <tr>
+                <td>Produk </td> 
+                <td>Kuantitas Pengiriman</td>
+                <td>Catatan</td> 
+            </tr>
+            <tr repeat.for="item of data.items">
+                <td>${item.articleVariantId }  </td> 
+                <td>${item.quantity}</td>
+                <td>${item.remark}</td> 
+            </tr>
+        </table>
+    </div> 
+    </block>
+</template>
