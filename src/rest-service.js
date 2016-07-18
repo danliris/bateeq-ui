@@ -12,7 +12,7 @@ export class RestService {
     }
 
     parseResult(result) {
-        return new Promise((resolve, reject) => { 
+        return new Promise((resolve, reject) => {
             if (result.error)
                 reject(result.error);
             else {
@@ -33,20 +33,6 @@ export class RestService {
             .then(result => this.parseResult(result));
     }
 
-    put(endpoint, data, header) {
-        var request = {
-            method: 'PUT',
-            headers: new Headers(Object.assign({}, this.header, header)),
-            body: JSON.stringify(data)
-        };
-
-        return this.http.fetch(endpoint, request)
-            .then(response => {
-                return response.json();
-            })
-            .then(result => this.parseResult(result));
-    }
-
     post(endpoint, data, header) {
         var request = {
             method: 'POST',
@@ -60,6 +46,25 @@ export class RestService {
             .then(result => this.parseResult(result));
     }
 
+    put(endpoint, data, header) {
+        var request = {
+            method: 'PUT',
+            headers: new Headers(Object.assign({}, this.header, header)),
+            body: JSON.stringify(data)
+        };
+
+        return this.http.fetch(endpoint, request)
+            .then(response => {
+                if (response.status != 204)
+                    return response.json();
+                else
+                    return new Promise((resolve, reject) => {
+                        resolve({});
+                    });
+            })
+            .then(result => this.parseResult(result));
+    }
+
     delete(endpoint, data, header) {
         var request = {
             method: 'DELETE',
@@ -68,7 +73,12 @@ export class RestService {
         };
         return this.http.fetch(endpoint, request)
             .then(response => {
-                return response.json();
+                if (response.status != 204)
+                    return response.json();
+                else
+                    return new Promise((resolve, reject) => {
+                        resolve({});
+                    });
             })
             .then(result => this.parseResult(result));
     }

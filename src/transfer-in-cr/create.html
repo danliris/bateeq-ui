@@ -1,35 +1,12 @@
 <template>
+    <h3>Create new Transfer Out</h3>
+    <require from="./data-form"></require>
     <block>
-    <div class="form-group"> 
-        <label for="code">Code</label>
-        <input type="text" class="form-control" name="code" value.bind="data.code" />
-    </div>
-    <div class="form-group">
-        <label for="reference">Nomor Referensi</label>
-        <input autocompalte="on|off" type="text" class="form-control" name="reference" value.bind="data.reference" placeholder="Masukkan Referensi Code Keluar"/>
-    </div>
-    <div class="form-group">
-        <button class="btn btn-default" click.delegate="search()"> Cari </button>
-    </div>
-    <div class="form-group"> 
-        <table border="1">
-            <tr>
-                <td> Produk  </td>
-                <td> Kuantitas Bon Keluar </td>
-                <td> Kuantitas Diterima </td>
-                <td> Catatan </td>
-            </tr> 
-            <tr repeat.for="item of data.items">
-                <td><input type="text" value.bind="item.articleVariantId" readonly/></td> 
-                <td><input type="text"  value.bind="item.quantityOut" readonly/></td>
-                <td><input type="number" value.bind="item.quantity"/></td>
-                <td><input type="text" value.bind="item.remark"/></td>   
-            </tr> 
-        </table>
-    </div>
-    <div class="btn-group">
-    <button class="btn btn-default" click.delegate="list()">Batal</button>
-    <button class="btn btn-default" click.delegate="save()">Simpan</button>
-    </div>
+        <data-form data.bind="data"></data-form>
+        <hr/>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default" click.delegate="list()">Back</button>
+            <button class="btn btn-success" click.delegate="save()">Save</button>
+        </div>
     </block>
 </template>
