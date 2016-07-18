@@ -1,0 +1,27 @@
+<template>
+    <h3>Transfer Out</h3>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Source ID</th>
+                <th>Destination ID</th>
+                <th>Reference</th> 
+            </tr> 
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.code}</td>
+                <td>${item.source.name}</td>
+                <td>${item.destination.name}</td>
+                <td>${item.reference}</td> 
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        There is no data found in the list.
+    </div>
+    <hr/><div class="btn-group pull-right">
+        <button class="btn btn-primary" click.delegate="create()">Create</button>
+    </div>
+</template>
