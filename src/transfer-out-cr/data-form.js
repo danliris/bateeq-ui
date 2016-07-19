@@ -6,6 +6,8 @@ import {Service} from './service';
 export class DataForm { 
     @bindable data = {};
     storages = [];
+    variants=[];
+     
     
     constructor(router, service) { 
         this.router = router;
@@ -17,8 +19,7 @@ export class DataForm {
             .then(storages => {
                 this.storages = storages;
             })  
-    } 
-    
+    }  
     addItem() {           
         var item = {};
         item.articleVariantId = '';
@@ -29,4 +30,25 @@ export class DataForm {
         var itemIndex = this.data.items.indexOf(item);
         this.data.items.splice(itemIndex, 1);
     }
+    
+    addProduct()
+    {
+        this.service.getAllArticleVariant() 
+            .then(variants => {
+                this.variants = variants;
+            })  
+    }
+    
+    searchVariant(keyword)
+    {
+          this.service.getOutByCodeName(keyword)
+            .then(variants=>{ 
+                 this.variants = variants;
+        })
+        .catch(e=> {
+            console.log(e);
+            alert('Produk tidak ditemukan');
+    })
+}
+    
 }

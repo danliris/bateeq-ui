@@ -2,8 +2,9 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = 'https://bateeq-inventory-api-pinkgorilla.c9users.io/v1/inventories/docs/transfer-out'; 
-const serviceUriStorages='https://bateeq-inventory-api-pinkgorilla.c9users.io/v1/inventories/storages';
+const serviceUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/transfer-out'; 
+const serviceUriStorages='http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages';
+const serviceUriArticleVariant='http://bateeq-article-api.au-syd.mybluemix.net/v1/articles/variants';
  
 export class Service extends RestService{
 
@@ -31,5 +32,17 @@ export class Service extends RestService{
   {
     var endpoint = `${serviceUriStorages}`;
     return super.get(endpoint);
-  }  
+  }
+  
+  getAllArticleVariant()
+  {
+     var endpoint = `${serviceUriArticleVariant}`;
+      return super.get(endpoint);
+  } 
+  
+  getOutByCodeName(keyword) 
+  {
+      var endpoint = `${serviceUriArticleVariant}?keyword=${keyword}`;
+      return super.get(endpoint);
+  }
 }

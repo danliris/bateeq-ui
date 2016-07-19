@@ -5,6 +5,8 @@ import {Service} from './service';
 
 @inject(Router, Service)
 export class Create { 
+    qty1=0;
+    qty2=0;
     
     constructor(router, service) {
         this.router = router;
@@ -20,7 +22,20 @@ export class Create {
         this.router.navigateToRoute('list');
     }
      
-    save() {
+    save(code) {
+        var qty1=document.getElementById("quantity1").value;
+        var qty2=document.getElementById("quantity2").value;
+        if (code ==undefined)
+        {
+             alert(`Kode harus diisi`);
+        }else if (qty1==0)
+        {
+             alert(`Tidak dapat menyimpan data karena ada produk yang tidak memiliki stok`);
+        }else if (qty2>qty1)
+        {
+             alert(`Tidak dapat menyimpan data karena ada pengiriman produk yang melebihi stok`); 
+        }else
+        {
         console.log(JSON.stringify(this.data));
         this.service.create(this.data)
             .then(result => {
@@ -29,5 +44,6 @@ export class Create {
             .catch(e => {
                 console.warn(e);
             })
+        }
     }
 }
