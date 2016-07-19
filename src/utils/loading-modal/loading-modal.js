@@ -20,6 +20,7 @@ export class LoadingModal {
             }
             else {
                 if (promise.isFulfilled()) {
+                    this.promises.splice(promiseIndex, 1);
                     this.show = false;
                 }
             }
