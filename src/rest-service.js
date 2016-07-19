@@ -1,14 +1,21 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
+import {EventAggregator} from 'aurelia-event-aggregator';
 
-// @inject(HttpClient)
+@inject(HttpClient, EventAggregator)
 export class RestService {
 
-    constructor() {
-        this.http = new HttpClient();
+    constructor(HttpClient, EventAggregator) {
+        this.http = HttpClient;
         this.header = {
             "Content-Type": "application/json; charset=UTF-8"
         };
+
+        this.eventAggregator = EventAggregator;
+    }
+
+    publish(promise) {
+        this.eventAggregator.publish('httpRequest', promise);
     }
 
     parseResult(result) {
@@ -26,11 +33,17 @@ export class RestService {
             method: 'GET',
             headers: new Headers(Object.assign({}, this.header, header))
         };
-        return this.http.fetch(endpoint, request)
+        var getRequest = this.http.fetch(endpoint, request)
+        this.publish(getRequest);
+        return getRequest
             .then(response => {
                 return response.json();
             })
-            .then(result => this.parseResult(result));
+            .then(result => {
+                this.publish(getRequest);
+                return this.parseResult(result);
+            });
+
     }
 
     post(endpoint, data, header) {
