@@ -20,12 +20,7 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
-    save(code) {
-        if (code ==undefined)
-        {
-             alert(`Kode harus diisi`);
-        }else
-        {
+    save() {
         console.log(JSON.stringify(this.data));
         this.service.create(this.data)
             .then(result => {
@@ -34,7 +29,6 @@ export class Create {
             .catch(e => {
                 console.warn(e);
             })
-        }
     } 
 }
  
