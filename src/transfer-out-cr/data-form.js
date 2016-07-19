@@ -19,9 +19,8 @@ export class DataForm {
             })  
     } 
     
-    addItem() {          
-        var transferOutItem = require('bateeq-models').inventory.TransferOutItem;
-        var item = new transferOutItem();
+    addItem() {           
+        var item = {};
         item.articleVariantId = '';
         this.data.items.push(item); 
     } 

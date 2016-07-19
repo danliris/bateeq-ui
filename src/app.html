@@ -1,12 +1,21 @@
 <template>
   <require from="./nav-bar.html"></require>
   <require from="bootstrap/dist/css/bootstrap.css"></require>
-
+  <require from="../styles/dashboard.css"></require>
   <nav-bar router.bind="router"></nav-bar>
   <div class="page-host">
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <router-view></router-view>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+              <a href.bind="row.href">${row.title}</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <router-view></router-view>
+        </div>
       </div>
     </div>
   </div>

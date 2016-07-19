@@ -15,8 +15,7 @@ export class DataForm {
 
     }  
     
-    search() { 
-        var transferInItem = require('bateeq-models').inventory.TransferInItem; 
+    search() {  
         this.service.getOutByCode(this.data.reference)
             .then(dataOut=>{
                 //this.dataOut = dataOut;
@@ -24,9 +23,8 @@ export class DataForm {
                 this.data.sourceId = dataOutFirst.sourceId
                 this.data.destinationId = dataOutFirst.destinationId
                 this.data.items = [];   
-                for(var i in dataOutFirst.items) {  
-                    var item = new transferInItem();
-                    var obj = dataOutFirst.items[i]; 
+                for(var obj of dataOutFirst.items) {  
+                    var item = {};
                     item.articleVariantId = obj.articleVariantId;
                     item.quantityOut = obj.quantity;
                     item.quantity = obj.quantity;
