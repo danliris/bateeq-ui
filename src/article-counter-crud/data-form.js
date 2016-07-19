@@ -3,7 +3,7 @@ import {inject, bindable} from 'aurelia-framework';
 export class DataForm {
     @bindable data = {};
 
-    constructor() {
+    constructor(http, aggregator) {
 
     }
 

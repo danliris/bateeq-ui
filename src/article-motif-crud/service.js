@@ -6,8 +6,8 @@ const serviceUri = 'http://bateeq-article-api.au-syd.mybluemix.net/v1/articles/m
  
 export class Service extends RestService{
 
-  constructor() {
-    super();
+  constructor(http, aggregator) {
+    super(http, aggregator);
   }
 
   search(keyword) {
