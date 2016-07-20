@@ -7,6 +7,22 @@
             </div>
         </div> 
         <div class="form-group">
+            <label for="code" class="col-sm-2 control-label">Sumber Penyimpanan</label>
+            <div class="col-sm-10"> 
+                <select class="form-control" name="sourceId" value.bind="data.sourceId">  
+                    <option repeat.for="storage of storages" value="${storage._id}">${storage.name}</option>
+                </select> 
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="code" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
+            <div class="col-sm-10"> 
+                <select class="form-control" name="destinationId" value.bind="data.destinationId">  
+                    <option repeat.for="storage of storages" value="${storage._id}">${storage.name}</option>
+                </select> 
+            </div>
+        </div>
+        <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Nomor Referensi</label>
             <div class="col-sm-10">
                 <textarea class="form-control" name="reference" value.bind="data.reference"></textarea>
@@ -21,20 +37,20 @@
             <tr>
                 <th>No.</th>
                 <th>Produk</th>
-                <th>Kuantitas Transfer Out</th>
-                <th>Kuantitas Transfer In</th>
+                <!--<th>Kuantitas Transfer Out</th>-->
+                <th>Kuantitas</th>
                 <th>Catatan</th> 
-                <!--<th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>-->
+                <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>
             </tr>
         </thead>
         <tbody>
             <tr repeat.for="item of data.items">
                 <td>${$index+1}</td>
-                <td><input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariantId" readonly/></td> 
-                <td><input class="form-control" type="text"  name="quantityOut" value.bind="item.quantityOut" readonly/></td> 
+                <td><input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariantId"/></td> 
+                <!--<td><input class="form-control" type="text"  name="quantityOut" value.bind="item.quantityOut" readonly/></td> -->
                 <td><input class="form-control" type="number"  name="quantity" value.bind="item.quantity"/></td>
                 <td><input class="form-control" type="text"  name="remark" value.bind="item.remark"/></td>  
-                <!--<td><button href="#" class="btn btn-default btn-raised" click.delegate="removeItem(item)">Remove</button></td> -->
+                <td><button href="#" class="btn btn-default btn-raised" click.delegate="removeItem(item)">Remove</button></td> 
             </tr> 
         </tbody>
     </table>

@@ -7,14 +7,12 @@ export class View {
     
     constructor(router, service) {
         this.router = router;
-        this.service = service; 
+        this.service = service;  
     } 
 
     activate(params) {
         var storageId = params.storageId;
-        var articleVariantId = params.articleVariantId;
-        this.storageName = params.storageName;
-        this.articleVariantName = params.articleVariantName;
+        var articleVariantId = params.articleVariantId; 
         
         this.service.getAllMovement(storageId, articleVariantId)
         .then(data=>{

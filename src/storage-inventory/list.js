@@ -30,7 +30,7 @@ export class List {
     
     view(data) {
         console.log(JSON.stringify(data));
-        this.router.navigateToRoute('view', { storageId: data.storageId, articleVariantId: data.articleVariantId, storageName: data.storage.name, articleVariantName: data.articleVariant.name });
+        this.router.navigateToRoute('view', { storageId: data.storageId, articleVariantId: data.articleVariantId });
     }   
     
 }

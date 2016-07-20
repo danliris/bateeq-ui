@@ -8,8 +8,8 @@ const serviceUriMovements = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1
 
 export class Service extends RestService{
   
-  constructor() {
-    super();
+  constructor(http, aggregator) {
+    super(http, aggregator);
   } 
 
   getAllStorage()

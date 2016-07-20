@@ -4,6 +4,7 @@ import {RestService} from '../rest-service';
  
 const serviceUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/transfer-in';
 const serviceOutUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/transfer-out';
+const serviceUriStorages='http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages';
  
 export class Service extends RestService{
 
@@ -33,4 +34,10 @@ export class Service extends RestService{
       return super.post(endpoint, data);
   } 
  
+  getAllStorage()
+  {
+        var endpoint = `${serviceUriStorages}`;
+        return super.get(endpoint);
+  }  
+  
 }

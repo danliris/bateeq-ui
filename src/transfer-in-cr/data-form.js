@@ -5,15 +5,19 @@ import {Service} from './service';
 @inject(Router, Service)
 export class DataForm {
     @bindable data = {};
+    storages = [];
     
     constructor(router, service) { 
         this.router = router;
         this.service = service;  
     }
 
-    activate(params) {
-
-    }  
+    attached() {    
+        this.service.getAllStorage() 
+            .then(storages => {
+                this.storages = storages;
+            })  
+    } 
     
     search() {  
         this.service.getOutByCode(this.data.reference)
@@ -37,5 +41,16 @@ export class DataForm {
             alert('Referensi Keluar tidak ditemukan');
         }) 
     } 
+    
+    addItem() {           
+        var item = {};
+        item.articleVariantId = '';
+        this.data.items.push(item); 
+    } 
+    
+    removeItem(item) { 
+        var itemIndex = this.data.items.indexOf(item);
+        this.data.items.splice(itemIndex, 1);
+    }
 }
  
