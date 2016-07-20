@@ -1,14 +1,21 @@
 import {inject} from 'aurelia-framework';
 import {HttpClient, json} from 'aurelia-fetch-client';
+import {EventAggregator} from 'aurelia-event-aggregator';
 
-// @inject(HttpClient)
+@inject(HttpClient, EventAggregator)
 export class RestService {
 
-    constructor() {
-        this.http = new HttpClient();
+    constructor(HttpClient, EventAggregator) {
+        this.http = HttpClient;
         this.header = {
             "Content-Type": "application/json; charset=UTF-8"
         };
+
+        this.eventAggregator = EventAggregator;
+    }
+
+    publish(promise) {
+        this.eventAggregator.publish('httpRequest', promise);
     }
 
     parseResult(result) {
@@ -26,11 +33,17 @@ export class RestService {
             method: 'GET',
             headers: new Headers(Object.assign({}, this.header, header))
         };
-        return this.http.fetch(endpoint, request)
+        var getRequest = this.http.fetch(endpoint, request)
+        this.publish(getRequest);
+        return getRequest
             .then(response => {
                 return response.json();
             })
-            .then(result => this.parseResult(result));
+            .then(result => {
+                this.publish(getRequest);
+                return this.parseResult(result);
+            });
+
     }
 
     post(endpoint, data, header) {
@@ -39,11 +52,16 @@ export class RestService {
             headers: new Headers(Object.assign({}, this.header, header)),
             body: JSON.stringify(data)
         };
-        return this.http.fetch(endpoint, request)
+        var postRequest = this.http.fetch(endpoint, request);
+        this.publish(postRequest);
+        return postRequest
             .then(response => {
                 return response.json();
             })
-            .then(result => this.parseResult(result));
+            .then(result => {
+                this.publish(postRequest);
+                return this.parseResult(result);
+            });
     }
 
     put(endpoint, data, header) {
@@ -53,7 +71,9 @@ export class RestService {
             body: JSON.stringify(data)
         };
 
-        return this.http.fetch(endpoint, request)
+        var putRequest = this.http.fetch(endpoint, request)
+        this.publish(putRequest);
+        return putRequest
             .then(response => {
                 if (response.status != 204)
                     return response.json();
@@ -62,7 +82,10 @@ export class RestService {
                         resolve({});
                     });
             })
-            .then(result => this.parseResult(result));
+            .then(result => {
+                this.publish(putRequest);
+                return this.parseResult(result);
+            });
     }
 
     delete(endpoint, data, header) {
@@ -71,7 +94,9 @@ export class RestService {
             headers: new Headers(Object.assign({}, this.header, header)),
             body: JSON.stringify(data)
         };
-        return this.http.fetch(endpoint, request)
+        var deleteRequest = this.http.fetch(endpoint, request)
+        this.publish(deleteRequest);
+        return deleteRequest
             .then(response => {
                 if (response.status != 204)
                     return response.json();
@@ -80,6 +105,9 @@ export class RestService {
                         resolve({});
                     });
             })
-            .then(result => this.parseResult(result));
+            .then(result => {
+                this.publish(deleteRequest);
+                return this.parseResult(result);
+            });
     }
 }
