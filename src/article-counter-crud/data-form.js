@@ -9,19 +9,17 @@ export class DataForm {
     }
 
     activate() {
-        console.log('data-form-activated');
+        
     }
 
     attached() {
-        console.log('data-form-attached');
-        console.log(this.data);
+        
     }
 
     addItem() {
         var newItem = { code: '', name: '', description: '' };
         this.data.subCounters = this.data.subCounters ? this.data.subCounters : [];
         this.data.subCounters.push(newItem);
-        console.log(this.data);
     }
 
     removeItem(item) { 

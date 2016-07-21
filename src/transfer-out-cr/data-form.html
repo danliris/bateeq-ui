@@ -4,6 +4,7 @@
             <label for="code" class="col-sm-2 control-label">Code</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="code" value.bind="data.code" />
+                <span class="help-block">${error.code}</span>
             </div>
         </div>
         <div class="form-group">
@@ -12,6 +13,7 @@
                 <select class="form-control" name="sourceId" value.bind="data.sourceId">  
                     <option repeat.for="storage of storages" value="${storage._id}">${storage.name}</option>
                 </select> 
+                <span class="help-block">${error.sourceId}</span>
             </div>
         </div>
         <div class="form-group">
@@ -20,12 +22,14 @@
                 <select class="form-control" name="destinationId" value.bind="data.destinationId">  
                     <option repeat.for="storage of storages" value="${storage._id}">${storage.name}</option>
                 </select> 
+                <span class="help-block">${error.destinationId}</span>
             </div>
         </div>
         <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Nomor Referensi</label>
             <div class="col-sm-10">
                 <textarea class="form-control" name="reference" value.bind="data.reference"></textarea>
+                <span class="help-block">${error.reference}</span>
             </div>
         </div>
     </form>
@@ -42,9 +46,18 @@
         <tbody>
             <tr repeat.for="item of data.items">
                 <td>${$index+1}</td>
-                <td><input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariantId"/></td> 
-                <td><input class="form-control" type="number"  name="quantity" value.bind="item.quantity"/></td>
-                <td><input class="form-control" type="text"  name="remark" value.bind="item.remark"/></td>  
+                <td>
+                    <input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariantId"/>
+                    <span class="help-block">${error.items[$index].articleVariantId}</span>
+                </td> 
+                <td>
+                    <input class="form-control" type="number"  name="quantity" value.bind="item.quantity"/>
+                    <span class="help-block">${error.items[$index].quantity}</span>
+                </td>
+                <td>
+                    <input class="form-control" type="text"  name="remark" value.bind="item.remark"/>
+                    <span class="help-block">${error.items[$index].remark}</span>
+                </td>  
                 <td><button href="#" class="btn btn-default btn-raised" click.delegate="removeItem(item)">Remove</button></td> 
             </tr> 
         </tbody>
