@@ -18,8 +18,7 @@ const title = 'Aurelia Navigation Skeleton';
 const baseUrl = '/';
 const rootDir = path.resolve();
 const srcDir = path.resolve('src');
-const outDir = path.resolve('dist');
-
+const outDir = path.resolve('dist'); 
 const coreBundles = {
   bootstrap: [
     'aurelia-polyfills',
@@ -52,8 +51,10 @@ const coreBundles = {
     'aurelia-templating',
     'aurelia-templating-binding',
     'aurelia-templating-router',
-    'aurelia-templating-resources'
-  ]
+    'aurelia-templating-resources',
+    // 'aurelia-validation',
+    // 'aurelia-validatejs'
+  ] 
 }
 
 const baseConfig = {
@@ -173,5 +174,5 @@ if (ENV === 'test') {
     require('@easy-webpack/config-test-coverage-istanbul')()
   );
 }
-
+// console.log(config);
 module.exports = config;
