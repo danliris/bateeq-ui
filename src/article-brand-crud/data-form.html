@@ -1,21 +1,25 @@
 <template bindable="data">
-    <form class="form-horizontal"> 
+    <form class="form-horizontal">
+        <!--<form class="form-horizontal" validation-renderer="bootstrap-form" validation-errors.bind="errors">  -->
         <div class="form-group">
             <label for="code" class="col-sm-2 control-label">Code</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="code" value.bind="data.code" />
+                <!--<input type="text" class="form-control" name="code" value.bind="data.code & validate" />-->
             </div>
         </div>
         <div class="form-group">
             <label for="code" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="name" value.bind="data.name" />
+                <!--<input type="text" class="form-control" name="name" value.bind="data.name & validate" />-->
             </div>
         </div>
         <div class="form-group">
             <label for="description" class="col-sm-2 control-label">Description</label>
             <div class="col-sm-10">
                 <textarea class="form-control" name="description" value.bind="data.description"></textarea>
+                <!--<textarea class="form-control" name="description" value.bind="data.description & validate"></textarea>-->
             </div>
         </div>
     </form>

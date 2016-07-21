@@ -52,11 +52,16 @@ export class RestService {
             headers: new Headers(Object.assign({}, this.header, header)),
             body: JSON.stringify(data)
         };
-        return this.http.fetch(endpoint, request)
+        var postRequest = this.http.fetch(endpoint, request);
+        this.publish(postRequest);
+        return postRequest
             .then(response => {
                 return response.json();
             })
-            .then(result => this.parseResult(result));
+            .then(result => {
+                this.publish(postRequest);
+                return this.parseResult(result);
+            });
     }
 
     put(endpoint, data, header) {
@@ -66,7 +71,9 @@ export class RestService {
             body: JSON.stringify(data)
         };
 
-        return this.http.fetch(endpoint, request)
+        var putRequest = this.http.fetch(endpoint, request)
+        this.publish(putRequest);
+        return putRequest
             .then(response => {
                 if (response.status != 204)
                     return response.json();
@@ -75,7 +82,10 @@ export class RestService {
                         resolve({});
                     });
             })
-            .then(result => this.parseResult(result));
+            .then(result => {
+                this.publish(putRequest);
+                return this.parseResult(result);
+            });
     }
 
     delete(endpoint, data, header) {
@@ -84,7 +94,9 @@ export class RestService {
             headers: new Headers(Object.assign({}, this.header, header)),
             body: JSON.stringify(data)
         };
-        return this.http.fetch(endpoint, request)
+        var deleteRequest = this.http.fetch(endpoint, request)
+        this.publish(deleteRequest);
+        return deleteRequest
             .then(response => {
                 if (response.status != 204)
                     return response.json();
@@ -93,6 +105,9 @@ export class RestService {
                         resolve({});
                     });
             })
-            .then(result => this.parseResult(result));
+            .then(result => {
+                this.publish(deleteRequest);
+                return this.parseResult(result);
+            });
     }
 }

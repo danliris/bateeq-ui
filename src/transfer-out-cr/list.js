@@ -14,7 +14,7 @@ export class List {
     activate() {
         this.service.search('')
             .then(data => {
-                console.log(data);
+                
                 this.data = data;
             })
     }
