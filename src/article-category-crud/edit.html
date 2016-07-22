@@ -1,8 +1,8 @@
 <template>
     <h3>Edit Article Category</h3>
-    <require from="./data-form.html"></require>
+    <require from="./data-form"></require>
     <block>
-        <data-form data.bind="data"></data-form>
+        <data-form data.bind="data" error.bind="error"></data-form>
         <hr/>
         <div class="btn-group pull-right">
             <button class="btn btn-default" click.delegate="view()">Back</button>
