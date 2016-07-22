@@ -65,8 +65,7 @@
   "homepage": "https://github.com/aurelia/skeleton-navigation#readme",
   "aurelia": {
     "build": {
-      "resources": [
-      ]
+      "resources": []
     }
   },
   "dependencies": {
@@ -88,6 +87,7 @@
     "bluebird": "^3.4.1",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.6.3",
+    "horsey": "^4.2.2",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.0.0",
     "moment": "^2.14.1"
