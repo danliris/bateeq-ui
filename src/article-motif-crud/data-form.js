@@ -6,5 +6,13 @@ export class DataForm {
 
     constructor() {
 
+    }
+
+    activate() {
+         
+    }
+
+    attached() { 
+        
     } 
 } 

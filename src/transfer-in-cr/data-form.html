@@ -1,13 +1,13 @@
 <template>  
     <form class="form-horizontal"> 
-        <div class="form-group">
+        <div class="form-group ${error.code?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Code</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="code" value.bind="data.code" />
                 <span class="help-block">${error.code}</span>
             </div>
         </div> 
-        <div class="form-group">
+        <div class="form-group ${error.sourceId?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Sumber Penyimpanan</label>
             <div class="col-sm-10"> 
                 <select class="form-control" name="sourceId" value.bind="data.sourceId">  
@@ -16,7 +16,7 @@
                 <span class="help-block">${error.sourceId}</span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group ${error.destinationId?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
             <div class="col-sm-10"> 
                 <select class="form-control" name="destinationId" value.bind="data.destinationId">  
@@ -25,7 +25,7 @@
                 <span class="help-block">${error.destinationId}</span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group ${error.reference?'has-error':''}">
             <label for="description" class="col-sm-2 control-label">Nomor Referensi</label>
             <div class="col-sm-10">
                 <textarea class="form-control" name="reference" value.bind="data.reference"></textarea>
@@ -51,17 +51,23 @@
             <tr repeat.for="item of data.items">
                 <td>${$index+1}</td>
                 <td>
-                    <input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariantId"/>
-                    <span class="help-block">${error.items[$index].articleVariantId}</span>
+                    <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                        <input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariantId"/>
+                        <span class="help-block">${error.items[$index].articleVariantId}</span>
+                    </div>
                 </td> 
                 <!--<td><input class="form-control" type="text"  name="quantityOut" value.bind="item.quantityOut" readonly/></td> -->
                 <td>
-                    <input class="form-control" type="number"  name="quantity" value.bind="item.quantity"/>
-                    <span class="help-block">${error.items[$index].quantity}</span>
+                    <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                        <input class="form-control" type="number"  name="quantity" value.bind="item.quantity"/>
+                        <span class="help-block">${error.items[$index].quantity}</span>
+                    </div>
                 </td>
                 <td>
-                    <input class="form-control" type="text"  name="remark" value.bind="item.remark"/>
-                    <span class="help-block">${error.items[$index].remark}</span>
+                    <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                        <input class="form-control" type="text"  name="remark" value.bind="item.remark"/>
+                        <span class="help-block">${error.items[$index].remark}</span>
+                    </div>
                 </td>  
                 <td><button href="#" class="btn btn-default btn-raised" click.delegate="removeItem(item)">Remove</button></td> 
             </tr> 
