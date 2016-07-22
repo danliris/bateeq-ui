@@ -5,6 +5,7 @@ import {Service} from './service';
 @inject(Router, Service)
 export class DataForm {
     @bindable data = {};
+    @bindable error = {};
     storages = [];
     
     constructor(router, service) { 

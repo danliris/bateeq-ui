@@ -29,7 +29,7 @@ export class Edit {
                 this.view();
             })
             .catch(e => {
-                console.warn(e);
+                this.error = e;
             })
     }
 }
