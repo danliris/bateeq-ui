@@ -22,14 +22,13 @@ export class Edit {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
-    save() {
-        console.log(this.data);
+    save() { 
         this.service.update(this.data)
             .then(result => {
                 this.view();
             })
             .catch(e => {
-                console.warn(e);
+                 this.error = e;
             })
     }
 }
