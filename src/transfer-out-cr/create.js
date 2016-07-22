@@ -27,6 +27,7 @@ export class Create {
                 this.list();
             })
             .catch(e => {
+                console.log(e);
                 this.error = e;
             })
     }

@@ -9,10 +9,10 @@ export class DataForm {
     }
 
     activate() {
-         
+        
     }
 
-    attached() { 
+    attached() {
         
     } 
 } 

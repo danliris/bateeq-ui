@@ -1,14 +1,14 @@
 <template>
     <require from="customs/elements/horsey"></require>
     <form class="form-horizontal">
-        <div class="form-group">
+        <div class="form-group ${error.code?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Code</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="code" value.bind="data.code" />
                 <span class="help-block">${error.code}</span>
-            </div>
+            </div>  
         </div>
-        <div class="form-group">
+        <div class="form-group ${error.sourceId?'has-error':''}"> 
             <label for="code" class="col-sm-2 control-label">Sumber Penyimpanan</label>
             <div class="col-sm-10">
                 <horsey src="http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages" selection.bind="data.source" value.bind="data.sourceId"
@@ -19,7 +19,7 @@
                 <span class="help-block">${error.sourceId}</span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group ${error.destinationId?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
             <div class="col-sm-10">
                 <horsey src="http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages" selection.bind="data.destination"
@@ -30,7 +30,7 @@
                 <span class="help-block">${error.destinationId}</span>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group ${error.reference?'has-error':''}">
             <label for="description" class="col-sm-2 control-label">Nomor Referensi</label>
             <div class="col-sm-10">
                 <div class="input-group">
@@ -57,23 +57,29 @@
         <tbody>
             <tr repeat.for="item of data.items">
                 <td>${$index+1}</td>
-                <td>
-                    <horsey src="http://bateeq-article-api.au-syd.mybluemix.net/v1/articles/variants" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
-                        options.bind="{value:'_id', label:'name'}"></horsey>
-                    <!--<input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariantId"/>-->
-                    <span class="help-block">${error.items[$index].articleVariantId}</span>
+                <td> 
+                    <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                        <horsey src="http://bateeq-article-api.au-syd.mybluemix.net/v1/articles/variants" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
+                            options.bind="{value:'_id', label:'name'}"></horsey>
+                        <!--<input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariantId"/>-->
+                        <span class="help-block">${error.items[$index].articleVariantId}</span>
+                    </div>
                 </td>
                 <!--<td><input class="form-control" type="text"  name="quantityOut" value.bind="item.quantityOut" readonly/></td> -->
                 <td>
-                    <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
-                    <span class="help-block">${error.items[$index].quantity}</span>
+                    <div class="form-group ${error.items[$index].quantity?'has-error':''}"> 
+                        <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
+                        <span class="help-block">${error.items[$index].quantity}</span>
+                    </div>
                 </td>
                 <td>
-                    <input class="form-control" type="text" name="remark" value.bind="item.remark" />
-                    <span class="help-block">${error.items[$index].remark}</span>
+                    <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                        <input class="form-control" type="text" name="remark" value.bind="item.remark" />
+                        <span class="help-block">${error.items[$index].remark}</span>
+                    </div>
                 </td>
                 <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
-            </tr>
+            </tr> 
         </tbody>
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
