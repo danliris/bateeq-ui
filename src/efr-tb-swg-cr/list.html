@@ -1,12 +1,13 @@
 <template>
-    <h3>Barang Jadi Pusat Terima Barang Jadi</h3>
+    <h3>Finishing Terima Barang Setengah Jadi  </h3>
     <table class="table table-striped table-hover">
-        <thead>
+         <thead>
             <tr>
-                <th>Code</th>
-                <th>Source ID</th>
-                <th>Destination ID</th>
+                <th>Nomor Dokumen</th>
+                <th>Sumber Penyimpanan</th>
+                <th>Tujuan Penyimpanan</th>
                 <th>Reference</th> 
+                <th>Tanggal</th> 
             </tr> 
         </thead>
         <tbody>
@@ -15,6 +16,7 @@
                 <td>${item.source.name}</td>
                 <td>${item.destination.name}</td>
                 <td>${item.reference}</td> 
+                <td>${item._createdDate}</td> 
             </tr>
         </tbody>
     </table>

@@ -4,7 +4,8 @@ import {RestService} from '../rest-service';
  
 const serviceUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/efr-kb-rtp'; 
 const serviceUriStorages='http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages';
- 
+const serviceSearch = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/efr-kb-rtp';
+
 export class Service extends RestService{
 
   constructor(http, aggregator) {
@@ -31,5 +32,11 @@ export class Service extends RestService{
   {
     var endpoint = `${serviceUriStorages}`;
     return super.get(endpoint);
+  }
+  
+   getOutByCode(code) 
+  {
+      var endpoint = `${serviceSearch}?keyword=${code}`;
+      return super.get(endpoint);
   }  
 }

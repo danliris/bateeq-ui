@@ -25,7 +25,7 @@ export class App {
 
       { route: 'efr-tb-bcd', name: 'efr-tb-bcd', moduleId: './efr-tb-bcd-cr/index', nav: true, title: 'Finishing Terima Barcode' },
       { route: 'efr-kb-rtt', name: 'efr-kb-rtt', moduleId: './efr-kb-rtt-cr/index', nav: true, title: 'Toko Transfer Stok' },
-      { route: 'efr-tb-swg', name: 'efr-tb-swg', moduleId: './efr-tb-swg-cr/index', nav: true, title: 'Barang Jadi Pusat Terima Barang Jadi' },
+      { route: 'efr-tb-swg', name: 'efr-tb-swg', moduleId: './efr-tb-swg-cr/index', nav: true, title: 'Finishing Terima Barang Setengah Jadi' },
       { route: 'efr-kb-rtp', name: 'efr-kb-rtp', moduleId: './efr-kb-rtp-cr/index', nav: true, title: 'Toko Kirim Barang Return' },
       { route: 'efr-tb-acc', name: 'efr-tb-acc', moduleId: './efr-tb-acc-cr/index', nav: true, title: 'Finishing Terima Aksesoris' },
       { route: 'efr-kb-rtf', name: 'efr-kb-rtf', moduleId: './efr-kb-rtf-cr/index', nav: true, title: 'Pusat Retur Toko Kirim Barang Retur' },
