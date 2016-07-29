@@ -1,10 +1,16 @@
 <template> 
-    <h3>View Finishing Terima Barcode</h3>
+    <h3>View</h3>
     <form class="form-horizontal">
         <div class="form-group">
             <label for="code" class="col-sm-2 control-label">Code</label>
             <div class="col-sm-10">
                 <p class="form-control-static">${data.code}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="reference" class="col-sm-2 control-label">Nomor Referensi</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.reference}</p>
             </div>
         </div>
         <div class="form-group">
@@ -17,12 +23,6 @@
             <label for="destinationName" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
             <div class="col-sm-10">
                 <p class="form-control-static">${data.destination.name}</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="reference" class="col-sm-2 control-label">Nomor Referensi</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.reference}</p>
             </div>
         </div>
     </form> 

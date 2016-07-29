@@ -10,7 +10,12 @@ export class Create {
         this.router = router;
         this.service = service;
         this.data = {
-            config:{}
+            config:{
+                source:{
+                },
+                destination:{                    
+                }
+            }
         };
     }
 

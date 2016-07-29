@@ -23,14 +23,14 @@ export class App {
       { route: 'articles/variants', name: 'articles-variants', moduleId: './article-variant-crud/index', nav: true, title: 'Variants' },
       { route: 'inventories/module', name: 'module', moduleId: './module-crud/index', nav: true, title: 'Module' },
 
-      { route: 'efr-tb-bcd', name: 'efr-tb-bcd', moduleId: './efr-tb-bcd-cr/index', nav: true, title: 'Finishing Terima Barcode' },
-      { route: 'efr-kb-rtt', name: 'efr-kb-rtt', moduleId: './efr-kb-rtt-cr/index', nav: true, title: 'Toko Transfer Stok' },
-      { route: 'efr-tb-swg', name: 'efr-tb-swg', moduleId: './efr-tb-swg-cr/index', nav: true, title: 'Finishing Terima Barang Setengah Jadi' },
-      { route: 'efr-kb-rtp', name: 'efr-kb-rtp', moduleId: './efr-kb-rtp-cr/index', nav: true, title: 'Toko Kirim Barang Return' },
-      { route: 'efr-tb-acc', name: 'efr-tb-acc', moduleId: './efr-tb-acc-cr/index', nav: true, title: 'Finishing Terima Aksesoris' },
-      { route: 'efr-kb-rtf', name: 'efr-kb-rtf', moduleId: './efr-kb-rtf-cr/index', nav: true, title: 'Pusat Retur Toko Kirim Barang Retur' },
-      { route: 'efr-tb-bjb', name: 'efr-tb-bjb', moduleId: './efr-tb-bjb-cr/index', nav: true, title: 'Pusat Barang Baru Terima Barang Baru' },
-      { route: 'efr-kb-fng', name: 'efr-kb-fng', moduleId: './efr-kb-fng-cr/index', nav: true, title: 'Finishing Kirim Barang Baru' }
+      { route: 'efr-tb-bcd', name: 'efr-tb-bcd', moduleId: './efr-tb-bcd-cr/index', nav: true, title: 'Finishing - Terima Barcode' },
+      { route: 'efr-kb-rtt', name: 'efr-kb-rtt', moduleId: './efr-kb-rtt-cr/index', nav: true, title: 'Toko - Transfer Stok' },
+      { route: 'efr-tb-swg', name: 'efr-tb-swg', moduleId: './efr-tb-swg-cr/index', nav: true, title: 'Finishing - Terima Barang Setengah Jadi' },
+      { route: 'efr-kb-rtp', name: 'efr-kb-rtp', moduleId: './efr-kb-rtp-cr/index', nav: true, title: 'Toko - Kirim Barang Return' },
+      { route: 'efr-tb-acc', name: 'efr-tb-acc', moduleId: './efr-tb-acc-cr/index', nav: true, title: 'Finishing - Terima Aksesoris' },
+      { route: 'efr-kb-rtf', name: 'efr-kb-rtf', moduleId: './efr-kb-rtf-cr/index', nav: true, title: 'Pusat Retur Toko - Kirim Barang Retur' },
+      { route: 'efr-tb-bjb', name: 'efr-tb-bjb', moduleId: './efr-tb-bjb-cr/index', nav: true, title: 'Pusat Barang Baru - Terima Barang Baru' },
+      { route: 'efr-kb-fng', name: 'efr-kb-fng', moduleId: './efr-kb-fng-cr/index', nav: true, title: 'Finishing - Kirim Barang Baru' }
     ]);
 
     this.router = router;
