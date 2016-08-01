@@ -4,9 +4,9 @@
         <thead>
             <tr>
                 <th>Nomor Dokumen</th>
+                <th>Nomor Referensi</th>
                 <th>Sumber Penyimpanan</th>
                 <th>Tujuan Penyimpanan</th>
-                <th>Nomor Referensi</th>
                 <th>Tanggal</th> 
                 <th>Dibuat Oleh</th>  
             </tr> 
@@ -14,9 +14,9 @@
         <tbody>
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.code}</td>
+                <td>${item.reference}</td> 
                 <td>${item.source.name}</td>
                 <td>${item.destination.name}</td>
-                <td>${item.reference}</td> 
                 <td>${item._createdDate}</td>
                 <td>${item._createdBy}</td> 
             </tr>
