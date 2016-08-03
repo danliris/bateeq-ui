@@ -41,7 +41,7 @@ export class App {
       { route: 'efr-tb-brd', name: 'efr-tb-brd', moduleId: './efr-tb-brd-cr/index', nav: true, title: 'Pusat Retur Toko - Terima Barang Retur (selesai perbaikan)' },
       { route: 'efr-tb-brt', name: 'efr-tb-brt', moduleId: './efr-tb-brt-cr/index', nav: true, title: 'Pusat Retur Toko - Terima Barang Jadi Retur' },
 
-      { route: 'erp-pk-bj', name: 'erp-pk-bj', moduleId: './erp-pk-bj-crud/index', nav: true, title: 'SPK Barang Jadi' }
+      { route: 'efr-tb-sab', name: 'efr-tb-sab', moduleId: './efr-tb-sab-cr/index', nav: true, title: 'Finishing Terima Komponen' }
 
     ]);
 
