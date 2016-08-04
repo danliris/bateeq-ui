@@ -1,5 +1,5 @@
 <template>
-    <h3>SPK Barang Jadi (Baru)</h3>
+    <h3>SPK Barang Embalase</h3>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -20,7 +20,7 @@
                 <td>${item.destination.name}</td>
                 <td>${item.date}</td> 
                 <td>${item.packingList}</td> 
-                <td if.bind="data.isDraft == false">Draft</td> 
+                <td if.bind="data.isDraft == 'false'">Draft</td> 
                 <td if.bind="data.isDraft == true"></td> 
             </tr>
         </tbody>

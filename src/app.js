@@ -38,6 +38,11 @@ export class App {
       { route: 'efr-tb-brt', name: 'efr-tb-brt', moduleId: './efr-tb-brt-cr/index', nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Pemasukan Retur Toko' },
       { route: 'efr-kb-rtf', name: 'efr-kb-rtf', moduleId: './efr-kb-rtf-cr/index', nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Retur ke Finishing' },
       { route: 'efr-tb-brd', name: 'efr-tb-brd', moduleId: './efr-tb-brd-cr/index', nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Pemasukan Retur Toko dari Finishing' },
+      
+      { route: 'efr-pk-pbj', name: 'efr-pk-pbj', moduleId: './efr-pk-pbj-crud/index', nav: true, title: 'MD - SPK Barang Jadi (Baru)' },
+      { route: 'efr-pk-pba', name: 'efr-pk-pba', moduleId: './efr-pk-pba-crud/index', nav: true, title: 'MD - SPK Barang Embalase' },
+      { route: 'efr-pk-pbr', name: 'efr-pk-pbr', moduleId: './efr-pk-pbr-crud/index', nav: true, title: 'Toko Pusat - SPK Barang Jadi (Retur)' },
+      
            
      
      

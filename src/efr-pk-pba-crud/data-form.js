@@ -50,8 +50,7 @@ export class DataForm {
             }) 
     }
 
-     
-
+    
     getQty(id) {
         this.service.getDataByIdVariant(id)
             .then(data => {
