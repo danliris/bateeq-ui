@@ -13,11 +13,7 @@ export class DataForm {
         this.service = service;  
     }
 
-    attached() {    
-        this.service.getAllStorage() 
-            .then(storages => {
-                this.storages = storages;
-            })  
+    attached() {     
     } 
     
     search() {  
@@ -36,8 +32,7 @@ export class DataForm {
                     this.data.items.push(item); 
                 }   
         })
-        .catch(e=> {
-            console.log(e);
+        .catch(e=> { 
             alert('Referensi Keluar tidak ditemukan');
         }) 
     } 

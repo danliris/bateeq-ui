@@ -2,10 +2,12 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/efr-kb-fng'; 
+// const serviceUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/erp-pk-pbj'; //seharusnya ini yang digunakan
+const serviceUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/efr-tb-swg';
 const serviceUriStorages='http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages';
-const serviceSearch = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/efr-kb-rtf';
-const serviceUriInventories = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages/578dcfd60b0aea003ebf0fd9/inventories'; // storeid pusat barang baru didatabase development: 578dcfd60b0aea003ebf0fd9
+const serviceSearch = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/core/module';
+const serviceUriInventories = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages/578dd0860b0aea003ebf0fda/inventories'; // storeid pusat barang baru didatabase development: 578dd0860b0aea003ebf0fda
+
  
 export class Service extends RestService{
 
@@ -22,6 +24,7 @@ export class Service extends RestService{
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
   } 
+  
   getDataByIdVariant(id)
   {
     var endpoint = `${serviceUriInventories}/${id}`;
@@ -40,9 +43,9 @@ export class Service extends RestService{
     return super.get(endpoint);
   }
   
-  getOutByCode(code) 
+  getByCode(code) 
   {
       var endpoint = `${serviceSearch}?keyword=${code}`;
       return super.get(endpoint);
-  }
+  } 
 }

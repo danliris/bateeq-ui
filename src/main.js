@@ -14,7 +14,7 @@ bootstrap(async (aurelia) => {
 
   //Anyone wanting to use HTMLImports to load views, will need to install the following plugin.
   // aurelia.use.plugin('aurelia-html-import-template-loader')
-
+  // .plugin('aurelia-bootstrap-datepicker');
   const rootElement = document.body;
   rootElement.setAttribute('aurelia-app', '');
 
