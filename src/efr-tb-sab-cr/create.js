@@ -21,8 +21,10 @@ export class Create {
     }
 
     save() { 
+        console.log("1");
         this.service.create(this.data)
             .then(result => {
+                console.log("2");
                 this.list();
             })
             .catch(e => {
