@@ -10,6 +10,7 @@ export class Create {
         this.router = router;
         this.service = service;
         this.data = { items: [] }; 
+        this.quantity=0;
     } 
     
     activate(params) {    

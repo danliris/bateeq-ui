@@ -5,7 +5,7 @@
             <label for="reference" class="col-sm-2 control-label">Nomor Referensi</label>
             <div class="col-sm-10">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="reference" value.bind="data.reference" placeholder="search reference document"/>
+                    <input type="text" class="form-control" name="reference" value.bind="data.reference" placeholder="Nomor Referensi"/>
                     <span class="input-group-btn">
                         <button class="btn btn-default" click.delegate="search()"> Cari </button>
                     </span>
@@ -58,10 +58,17 @@
             <tr repeat.for="spkDocument of data.spkDocuments">
                 <td>${$index+1}</td>
                 <td> 
+<<<<<<< HEAD
+                    <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                        <horsey src="http://bateeq-article-api.au-syd.mybluemix.net/v1/articles/variants" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
+                            options.bind="{value:'_id', label:'name'}"></horsey>
+                         <span class="help-block">${error.items[$index].articleVariantId}</span>
+=======
                     <div class="form-group ${error.spkDocuments[$index].spkDocumentId?'has-error':''}">
                         <horsey src="http://bateeq-article-api.au-syd.mybluemix.net/v1/merchandiser/efr-pk" selection.bind="spkDocument.spkDocument" value.bind="spkDocument.spkDocumentId"
                             options.bind="{value:'_id', label:'name'}" change.delegate="getQuantity(item)"></horsey>
                         <span class="help-block">${error.spkDocuments[$index].spkDocumentId}</span>
+>>>>>>> b71db5dbe96102e97282e0f17ec3b30ca51b27c8
                     </div>
                 </td>
                 <td>

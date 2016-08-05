@@ -31,4 +31,15 @@ export class Edit {
                  this.error = e;
             })
     }
+    
+    saveDraft()
+    { 
+        this.service.update(this.data)
+            .then(result => {
+                this.view();
+            })
+            .catch(e => {
+                 this.error = e;
+            })
+    }
 }

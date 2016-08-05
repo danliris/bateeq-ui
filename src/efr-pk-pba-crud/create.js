@@ -10,6 +10,7 @@ export class Create {
         this.router = router;
         this.service = service;
         this.data = { items: [] }; 
+        this.quantity=0;
     } 
     
     activate(params) {    
@@ -22,6 +23,17 @@ export class Create {
      
     save() { 
         this.service.create(this.data)
+            .then(result => {
+                this.list();
+            })
+            .catch(e => {
+                console.log(e);
+                this.error = e;
+            })
+    }
+    
+     saveDraft() { 
+        this.service.createDraft(this.data)
             .then(result => {
                 this.list();
             })
