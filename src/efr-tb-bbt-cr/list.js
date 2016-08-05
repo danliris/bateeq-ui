@@ -26,4 +26,8 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+
+    viewPending(){
+        this.router.navigateToRoute('pending');
+    }
 }

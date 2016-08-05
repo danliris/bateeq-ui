@@ -4,7 +4,7 @@ import {Service} from './service';
 
 
 @inject(Router, Service)
-export class List {
+export class Pending {
     data = [];
     constructor(router, service) {
         this.router = router;
@@ -12,22 +12,17 @@ export class List {
     }
 
     activate() {
-        this.service.search('')
+        this.service.searchPending()
             .then(data => {
-                
                 this.data = data;
             })
     }
 
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+    accept(data){
+        this.router.navigateToRoute('create',{ id: data._id })
     }
     
-    create() {
+    create(view) {
         this.router.navigateToRoute('create');
-    }
-
-    viewPending(){
-        this.router.navigateToRoute('pending');
     }
 }

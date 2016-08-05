@@ -13,7 +13,14 @@ export class Create {
     }
 
     activate(params) {
-
+        if(params.id!=undefined){
+            this.service.getPendingSPKById(params.id)
+            .then(data => {
+                    this.data = data;
+                    data.reference = data.packingList;
+                })
+            .catch()
+        }
     }
 
     list() {
