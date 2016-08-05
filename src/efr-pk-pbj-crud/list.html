@@ -20,8 +20,7 @@
                 <td>${item.destination.name}</td>
                 <td>${item.date}</td> 
                 <td>${item.packingList}</td> 
-                <td if.bind="data.isDraft == false">Draft</td> 
-                <td if.bind="data.isDraft == true"></td> 
+                <td>${item.isDraft}</td>  
             </tr>
         </tbody>
     </table>

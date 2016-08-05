@@ -21,7 +21,7 @@ export class Create {
         this.router.navigateToRoute('list');
     }
      
-    save() { 
+   save() { 
         this.service.create(this.data)
             .then(result => {
                 this.list();
@@ -33,7 +33,7 @@ export class Create {
     }
     
      saveDraft() { 
-        this.service.create(this.data)
+        this.service.createDraft(this.data)
             .then(result => {
                 this.list();
             })
