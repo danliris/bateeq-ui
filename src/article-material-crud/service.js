@@ -2,7 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = 'http://bateeq-article-api.au-syd.mybluemix.net/v1/articles/materials';
+const serviceUri = require('../host').core + '/articles/materials';
  
 export class Service extends RestService{
 

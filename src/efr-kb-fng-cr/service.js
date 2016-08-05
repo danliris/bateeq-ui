@@ -2,10 +2,10 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/efr-kb-fng'; 
-const serviceUriStorages='http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages';
-const serviceSearch = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/efr-kb-rtf';
-const serviceUriInventories = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages/578dcfd60b0aea003ebf0fd9/inventories'; // storeid pusat barang baru didatabase development: 578dcfd60b0aea003ebf0fd9
+const serviceUri = require('../host').inventory + '/docs/efr-kb-fng'; 
+const serviceUriStorages=require('../host').inventory + '/storages';
+const serviceSearch = require('../host').inventory + '/docs/efr-kb-rtf';
+const serviceUriInventories = require('../host').inventory + '/storages/578dcfd60b0aea003ebf0fd9/inventories'; // storeid pusat barang baru didatabase development: 578dcfd60b0aea003ebf0fd9
  
 export class Service extends RestService{
 

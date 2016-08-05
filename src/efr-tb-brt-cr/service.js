@@ -2,9 +2,9 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/efr-tb-brt';
-const serviceOutUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/docs/efr-kb-rtp';
-const serviceUriStorages='http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages';
+const serviceUri = require('../host').inventory + '/docs/efr-tb-brt';
+const serviceOutUri = require('../host').inventory + '/docs/efr-kb-rtp';
+const serviceUriStorages=require('../host').inventory + '/storages';
  
 export class Service extends RestService{
 

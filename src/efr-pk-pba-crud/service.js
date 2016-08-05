@@ -2,11 +2,11 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
 
-const serviceUri = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/merchandisers/docs/efr-pk-pba';
-const serviceUriDraft = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/merchandisers/docs/efr-pk-pba/draft';
-const serviceUriStorages = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages';
+const serviceUri = require('../host').merchandiser + '/docs/efr-pk-pba';
+const serviceUriDraft = require('../host').merchandiser + '/docs/efr-pk-pba/draft';
+const serviceUriStorages = require('../host').inventory + '/storages';
 const serviceSearch = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/core/module';
-const serviceUriInventories = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages/578dd0860b0aea003ebf0fda/inventories'; // storeid pusat barang baru didatabase development: 578dd0860b0aea003ebf0fda
+const serviceUriInventories = require('../host').inventory + '/storages/578dd0860b0aea003ebf0fda/inventories'; // storeid pusat barang baru didatabase development: 578dd0860b0aea003ebf0fda
 
 
 export class Service extends RestService {
