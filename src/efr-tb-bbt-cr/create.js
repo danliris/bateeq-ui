@@ -10,10 +10,18 @@ export class Create {
         this.router = router;
         this.service = service; 
         this.data = { items: [] };
+        this.packingList = "";
     }
 
     activate(params) {
-
+        if(params.id!=undefined){
+            this.service.getPendingSPKById(params.id)
+            .then(data => {
+                    this.data = data;
+                    data.reference = data.packingList;
+                })
+            .catch()
+        }
     }
 
     list() {
