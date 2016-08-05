@@ -23,9 +23,11 @@ export class App {
       { route: 'articles/variants', name: 'articles-variants', moduleId: './article-variant-crud/index', nav: true, title: 'Variants' },
       { route: 'inventories/module', name: 'module', moduleId: './module-crud/index', nav: true, title: 'Module' },
 
+ 
      
       { route: 'efr-tb-acc', name: 'efr-tb-acc', moduleId: './efr-tb-acc-cr/index', nav: true, title: 'Aksesoris - Pemasukan Aksesoris & Embalase' },
-      { route: 'efr-tb-sab', name: 'efr-tb-sab', moduleId: './efr-tb-sab-cr/index', nav: true, title: 'Finishing - Pemasukan Komponen Barang Jadi' },
+      { route: 'efr-tb-sab', name: 'efr-tb-sab', moduleId: './efr-tb-sab-cr/index', nav: true, title: 'Finishing - Pemasukan Komponen Barang Jadi' }, 
+      { route: 'efr-hp-fng', name: 'efr-hp-fng', moduleId: './efr-hp-fng-cr/index', nav: true, title: 'Finishing Hasil Produksi' },
       { route: 'efr-kb-fng', name: 'efr-kb-fng', moduleId: './efr-kb-fng-cr/index', nav: true, title: 'Finishing - Pengeluaran Barang Jadi' },
       { route: 'efr-tb-bjr', name: 'efr-tb-bjr', moduleId: './efr-tb-bjr-cr/index', nav: true, title: 'Finishing - Pemasukan Barang Retur Toko' },
       { route: 'efr-kb-rtd', name: 'efr-kb-rtd', moduleId: './efr-kb-rtd-cr/index', nav: true, title: 'Finishing - Penyelesaian Barang Retur Toko' },
@@ -43,19 +45,7 @@ export class App {
       { route: 'efr-pk-pba', name: 'efr-pk-pba', moduleId: './efr-pk-pba-crud/index', nav: true, title: 'MD - SPK Barang Embalase' },
       { route: 'efr-pk-pbr', name: 'efr-pk-pbr', moduleId: './efr-pk-pbr-crud/index', nav: true, title: 'Toko Pusat - SPK Barang Jadi (Retur)' },
       
-           
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
+            
      
      
       // { route: 'efr-kb-exr', name: 'efr-kb-exr', moduleId: './efr-kb-exr-cr/index', nav: true, title: 'Pusat Retur Toko - Kirim Barang Retur (selesai perbaikan)' },
@@ -63,19 +53,7 @@ export class App {
       // { route: 'efr-tb-swg', name: 'efr-tb-swg', moduleId: './efr-tb-swg-cr/index', nav: true, title: 'Finishing Terima Barang Setengah Jadi' }, 
 
 
-
-     
-      
-
-
-      
-
-
-
-
-
-     
-
+ 
     ]);
 
     this.router = router;

@@ -48,34 +48,39 @@
         <thead>
             <tr>
                 <th>No.</th>
-                <th>Packing List</th>
-                <!--<th>Kuantitas Transfer Out</th>-->
-                <th>Kuantitas Pengiriman</th>
+                <th>Packing List</th> 
+                <th>Kuantitas</th>
                 <th>Catatan</th>
                 <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="item of data.items">
+            <tr repeat.for="spkDocument of data.spkDocuments">
                 <td>${$index+1}</td>
                 <td> 
+<<<<<<< HEAD
                     <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
                         <horsey src="http://bateeq-article-api.au-syd.mybluemix.net/v1/articles/variants" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
                             options.bind="{value:'_id', label:'name'}"></horsey>
                          <span class="help-block">${error.items[$index].articleVariantId}</span>
+=======
+                    <div class="form-group ${error.spkDocuments[$index].spkDocumentId?'has-error':''}">
+                        <horsey src="http://bateeq-article-api.au-syd.mybluemix.net/v1/merchandiser/efr-pk" selection.bind="spkDocument.spkDocument" value.bind="spkDocument.spkDocumentId"
+                            options.bind="{value:'_id', label:'name'}" change.delegate="getQuantity(item)"></horsey>
+                        <span class="help-block">${error.spkDocuments[$index].spkDocumentId}</span>
+>>>>>>> b71db5dbe96102e97282e0f17ec3b30ca51b27c8
                     </div>
                 </td>
-                <!--<td><input class="form-control" type="text"  name="quantityOut" value.bind="item.quantityOut" readonly/></td> -->
                 <td>
-                    <div class="form-group ${error.items[$index].quantity?'has-error':''}"> 
-                        <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
-                        <span class="help-block">${error.items[$index].quantity}</span>
+                    <div class="form-group ${error.spkDocuments[$index].quantity?'has-error':''}"> 
+                        <input class="form-control" type="number" name="quantity" value.bind="spkDocument.quantity" />
+                        <span class="help-block">${error.spkDocuments[$index].quantity}</span>
                     </div>
                 </td>
                 <td>
-                    <div class="form-group ${error.items[$index].remark?'has-error':''}">
-                        <input class="form-control" type="text" name="remark" value.bind="item.remark" />
-                        <span class="help-block">${error.items[$index].remark}</span>
+                    <div class="form-group ${error.spkDocuments[$index].remark?'has-error':''}">
+                        <input class="form-control" type="text" name="remark" value.bind="spkDocument.remark" />
+                        <span class="help-block">${error.spkDocuments[$index].remark}</span>
                     </div>
                 </td>
                 <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
