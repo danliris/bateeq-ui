@@ -41,7 +41,7 @@ export class Service extends RestService{
         return super.get(endpoint);
   }  
 
-  searchPending(){
+  listPending(){
       var endpoint = `${serviceUri}/pending`;
       return super.get(endpoint);
   }
