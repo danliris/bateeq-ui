@@ -4,14 +4,18 @@ import {Service} from './service';
 
 
 @inject(Router, Service)
-export class Create { 
-    
+export class Create {      
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = { items: [] }; 
+        this.data = { spkDocuments: [] };         
         this.quantity=0;
     } 
+    
+    dataChanged(newValue, oldValue) {
+        console.log(newValue, oldValue);
+        console.log('dataChanged');
+    }
     
     activate(params) {    
         
