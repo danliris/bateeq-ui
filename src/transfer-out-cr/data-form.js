@@ -6,7 +6,8 @@ import {Service} from './service';
 export class DataForm { 
     @bindable data = {};
     @bindable error = {};
-    storages = [];
+    storageApiUri = require('../host').inventory + '/storages';
+    variantApiUri = require('../host').core + '/articles/variants';
     
     constructor(router, service) { 
         this.router = router;
@@ -14,10 +15,7 @@ export class DataForm {
     }
      
     attached() {    
-        this.service.getAllStorage() 
-            .then(storages => {
-                this.storages = storages;
-            })  
+        
     } 
     
     addItem() {           

@@ -6,18 +6,15 @@ import {Service} from './service';
 export class DataForm {
     @bindable data = {};
     @bindable error = {};
-    storages = [];
+    storageApiUri = require('../host').inventory + '/storages';
+    variantApiUri = require('../host').core + '/articles/variants';
     
     constructor(router, service) { 
         this.router = router;
         this.service = service;  
     }
 
-    attached() {    
-        this.service.getAllStorage() 
-            .then(storages => {
-                this.storages = storages;
-            })  
+    attached() {     
     } 
     
     search() {  
