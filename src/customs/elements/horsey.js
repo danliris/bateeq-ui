@@ -16,7 +16,8 @@ export class Horsey {
     }
 
     attached() {
-        console.log(this.options);
+        // console.log(this.options);
+        this.selection = {};
         var uri = `${this.src}?${this.filter ? this.filter : 'keyword'}`;
         HorseyJs(this.element.querySelector('input'), {
             predictNextSearch: info => {
@@ -36,7 +37,7 @@ export class Horsey {
                 //         }
                 //     });
                 // }
-                // this.element.dispatchEvent(changeEvent);
+                // this.element.dispatchEvent(changeEvent); 
                 this.selection = info.selection;
                 this.value = info.selection[eval(this.options).value]
             },
