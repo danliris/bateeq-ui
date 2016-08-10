@@ -23,8 +23,7 @@
                 <input type="number" class="form-control" name="weight" value.bind="data.weight" placeholder="Berat (Kg)"/>
                 <span class="help-block">${error.weight}</span>
             </div>
-        </div>  
-    </form>
+        </div> 
     <table class="table">
         <thead>
             <tr>
@@ -63,5 +62,6 @@
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
         There is no data found in the list.
-    </div>
+    </div> 
+    </form>
 </template>
