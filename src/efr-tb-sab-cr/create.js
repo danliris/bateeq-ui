@@ -20,11 +20,9 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
-    save() { 
-        console.log("1");
+    save() {  
         this.service.create(this.data)
-            .then(result => {
-                console.log("2");
+            .then(result => { 
                 this.list();
             })
             .catch(e => {
