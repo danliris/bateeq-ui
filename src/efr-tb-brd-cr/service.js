@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
 const serviceUri = require('../host').inventory + '/docs/efr-tb-brd';
-const serviceOutUri = require('../host').inventory + '/docs/efr-kb-rtf'; 
+const serviceOutUri = require('../host').inventory + '/docs/efr-kb-rtd'; 
  
 export class Service extends RestService{
 
@@ -21,7 +21,7 @@ export class Service extends RestService{
       return super.get(endpoint);
   }
 
-  getOutByCode(code) 
+  getEFRKBRTDByCode(code) 
   {
       var endpoint = `${serviceOutUri}?keyword=${code}`;
       return super.get(endpoint);
