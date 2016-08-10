@@ -23,7 +23,7 @@ export class Service extends RestService{
     return super.get(endpoint);
   } 
   
-  getDataByIdVariant(id)
+  getInventoryByIdVariantAndIdStorage(id)
   {
     var endpoint = `${serviceUriInventories}/${id}`;
     return super.get(endpoint);
