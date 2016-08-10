@@ -21,7 +21,7 @@ export class Service extends RestService{
       return super.get(endpoint);
   }
 
-  getOutByCode(code) 
+  getEFRKBRTFByCode(code) 
   {
       var endpoint = `${serviceOutUri}?keyword=${code}`;
       return super.get(endpoint);
