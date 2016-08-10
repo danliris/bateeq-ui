@@ -28,6 +28,6 @@ export class List {
     }
 
     viewPending(){
-        this.router.navigateToRoute('pending');
+        this.router.navigateToRoute('list-pending');
     }
 }

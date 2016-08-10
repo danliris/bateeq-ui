@@ -4,7 +4,7 @@ import {Service} from './service';
 
 
 @inject(Router, Service)
-export class Pending {
+export class ListPending {
     data = [];
     constructor(router, service) {
         this.router = router;
