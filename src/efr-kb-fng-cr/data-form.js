@@ -32,8 +32,7 @@ export class DataForm {
             })
     }
 
-    attached() {
-
+    attached() { 
     }
 
     addItem() {
@@ -47,10 +46,9 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
     search() {
-        this.service.getOutByCode(this.data.reference)
+        this.service.getEFRHPFNGByCode(this.data.reference)
             .then(dataOut => {
-                var dataOutFirst = dataOut[0];
-                this.data.sourceId = dataOutFirst.config.source.value
+                var dataOutFirst = dataOut[0]; 
             })
             .catch(e => {
                 alert('Referensi Keluar tidak ditemukan');
