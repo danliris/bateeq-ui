@@ -45,15 +45,6 @@ export class App {
       { route: 'efr-pk-pba', name: 'efr-pk-pba', moduleId: './efr-pk-pba-crud/index', nav: true, title: 'MD - SPK Barang Embalase' },
       { route: 'efr-pk-pbr', name: 'efr-pk-pbr', moduleId: './efr-pk-pbr-crud/index', nav: true, title: 'Toko Pusat - SPK Barang Jadi (Retur)' },
       
-            
-     
-     
-      // { route: 'efr-kb-exr', name: 'efr-kb-exr', moduleId: './efr-kb-exr-cr/index', nav: true, title: 'Pusat Retur Toko - Kirim Barang Retur (selesai perbaikan)' },
-      // { route: 'efr-tb-bcd', name: 'efr-tb-bcd', moduleId: './efr-tb-bcd-cr/index', nav: true, title: 'Finishing Terima Barcode' },
-      // { route: 'efr-tb-swg', name: 'efr-tb-swg', moduleId: './efr-tb-swg-cr/index', nav: true, title: 'Finishing Terima Barang Setengah Jadi' }, 
-
-
- 
     ]);
 
     this.router = router;
