@@ -27,15 +27,9 @@ export class Service extends RestService{
   {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-  } 
-   
-  getAllStorage()
-  {
-    var endpoint = `${serviceUriStorages}`;
-    return super.get(endpoint);
-  }
+  }  
   
-  getOutByCode(code) 
+  getEFRFKPBRDocByCode(code) 
   {
       var endpoint = `${serviceUriSearch}?keyword=${code}`;
       return super.get(endpoint);

@@ -25,8 +25,7 @@ export class Create {
             .then(result => {
                 this.list();
             })
-            .catch(e => {
-                console.log(e);
+            .catch(e => { 
                 this.error = e;
             })
     }

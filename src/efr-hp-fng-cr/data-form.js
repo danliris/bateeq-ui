@@ -5,12 +5,14 @@ import {Service} from './service';
 @inject(Router, Service)
 export class DataForm {
     @bindable data = {};
-    @bindable error = {};
-    storages = [];
+    @bindable error = {}; 
+    
+    serviceUriStorages = require('../host').inventory + '/storages';
+    variantApiUri = require('../host').core + '/articles/variants';
     
     constructor(router, service) { 
         this.router = router;
-        this.service = service;  
+        this.service = service;   
     }
 
     getQuantity(item) { 
@@ -39,8 +41,7 @@ export class DataForm {
     addItemDetail(index) {           
         var item = {};
         item.articleVariantId = ''; 
-        if(!this.data.items[index].articleVariant.finishings){
-            console.log(1);
+        if(!this.data.items[index].articleVariant.finishings){ 
             this.data.items[index].articleVariant.finishings= [];
         }  
         this.data.items[index].articleVariant.finishings.push(item); 

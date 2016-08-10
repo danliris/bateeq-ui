@@ -2,8 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = require('../host').inventory + '/docs/efr-kb-rtf'; 
-const serviceUriStorages=require('../host').inventory + '/storages';
+const serviceUri = require('../host').inventory + '/docs/efr-kb-rtf';  
 const serviceSearch = require('../host').inventory + '/docs/efr-kb-rtp';
 
  
@@ -27,15 +26,9 @@ export class Service extends RestService{
   {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-  } 
-   
-  getAllStorage()
-  {
-    var endpoint = `${serviceUriStorages}`;
-    return super.get(endpoint);
-  }  
+  }   
   
-  getOutByCode(code) 
+  getEFRKBRTPByCode(code) 
   {
       var endpoint = `${serviceSearch}?keyword=${code}`;
       return super.get(endpoint);

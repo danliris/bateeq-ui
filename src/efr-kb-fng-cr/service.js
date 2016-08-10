@@ -4,7 +4,7 @@ import {RestService} from '../rest-service';
 
 const serviceUri = require('../host').inventory + '/docs/efr-kb-fng';
 const serviceUriStorages = require('../host').inventory + '/storages';
-const serviceSearch = require('../host').inventory + '/docs/efr-kb-rtf';
+const serviceSearch = require('../host').inventory + '/docs/efr-hp-fng';
 const serviceUriInventories = require('../host').inventory + '/storages/578dcfd60b0aea003ebf0fd9/inventories'; // storeid pusat barang baru didatabase development: 578dcfd60b0aea003ebf0fd9
 
 export class Service extends RestService {
@@ -29,10 +29,9 @@ export class Service extends RestService {
   create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-  }
-
-
-  getOutByCode(code) {
+  } 
+  
+  getEFRHPFNGByCode(code) {
     var endpoint = `${serviceSearch}?keyword=${code}`;
     return super.get(endpoint);
   }

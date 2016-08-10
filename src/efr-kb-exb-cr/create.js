@@ -8,13 +8,10 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = { spkDocuments: [] };         
-        this.quantity=0;
+        this.data = { spkDocuments: [] };      
     } 
     
-    dataChanged(newValue, oldValue) {
-        console.log(newValue, oldValue);
-        console.log('dataChanged');
+    dataChanged(newValue, oldValue) { 
     }
     
     activate(params) {    
@@ -30,8 +27,7 @@ export class Create {
             .then(result => {
                 this.list();
             })
-            .catch(e => {
-                console.log(e);
+            .catch(e => { 
                 this.error = e;
             })
     }

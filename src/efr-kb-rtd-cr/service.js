@@ -4,8 +4,6 @@ import {RestService} from '../rest-service';
  
 const serviceUri = require('../host').inventory + '/docs/efr-kb-rtd'; 
 const serviceUriSearch = require('../host').inventory + '/docs/efr-kb-rtf';
-const serviceUriStorages=require('../host').inventory + '/storages';
-
  
 export class Service extends RestService{
 
@@ -27,15 +25,9 @@ export class Service extends RestService{
   {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-  } 
-   
-  getAllStorage()
-  {
-    var endpoint = `${serviceUriStorages}`;
-    return super.get(endpoint);
-  }
+  }  
   
-  getOutByCode(code) 
+  getEFRKBRTFByCode(code) 
   {
       var endpoint = `${serviceUriSearch}?keyword=${code}`;
       return super.get(endpoint);

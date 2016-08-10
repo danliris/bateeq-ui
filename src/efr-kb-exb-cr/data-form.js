@@ -5,8 +5,8 @@ import {Service} from './service';
 @inject(Router, Service, BindingEngine)
 export class DataForm {
     @bindable data = {};
-    @bindable error = {};
-    storages = [];
+    @bindable error = {}; 
+    
     serviceUriStorages = require('../host').inventory + '/storages';
     serviceUriMerchandiser = require('../host').merchandiser + '/docs/efr-pk'; 
 
@@ -20,15 +20,12 @@ export class DataForm {
         this.bindingEngine.collectionObserver(this.data.spkDocuments)
             .subscribe(splices => {
                 var spk = this.data.spkDocuments[splices[0].index]; 
-                this.bindingEngine.propertyObserver(spk, "spkDocumentId").subscribe((newValue, oldValue) => {
-                    // console.log(`value changed from ${oldValue} to ${newValue}`);
-                    // console.log(JSON.stringify(spk));
+                this.bindingEngine.propertyObserver(spk, "spkDocumentId").subscribe((newValue, oldValue) => { 
                     spk.quantity = 0;
                     for(var item of spk.spkDocument.items) {
                         spk.quantity = spk.quantity + parseInt(item.quantity);
                     }
-                });
-                // console.log(splices);
+                }); 
             });
     }
 
