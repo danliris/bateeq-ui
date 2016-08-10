@@ -7,47 +7,32 @@ import {Service} from './service';
 @inject(ObserverLocator)
 export class DataForm {
     @bindable data = {};
-    @bindable error = {};
-    storages = [];
-    @bindable quantity = 0;
-    sources = [];
-    destinations = [];
+    @bindable error = {}; 
+    @bindable quantity = 0; 
+    
+    variantApiUri = require('../host').core + '/articles/variants';
     
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.service.getModuleConfig()
+            .then(config => { 
+                Promise.all([this.service.getStorageById(config.source.value), this.service.getStorageById(config.destination.value)])
+                    .then(storages => {
+                        var source = storages[0];
+                        var destination = storages[1];
+                        this.data.sourceId = source._id;
+                        this.data.source = source;
+                        this.data.destinationId = destination._id;
+                        this.data.destination = destination; 
+                    })
+            })
+            .catch(e=>{
+                this.loadFailed = true;
+            })
     }
 
-    attached() { 
-        this.service.getByCode("EFR-PK/PBJ")
-            .then(data => {
-                var dataOutFirst = data[0];
-                var id = dataOutFirst.config.source.value;
-                if(dataOutFirst.config.source.type = "fix"){
-                     this.service.getAllStorageById(id)
-                        .then(dataStorage => {
-                            this.data.sourceId = dataStorage._id;
-                            this.data.source = dataStorage.name;
-                        })
-                }
-               
-               if(dataOutFirst.config.destination.type = "selected"){
-                    var getStorages = [];
-                    for(var value in dataOutFirst.config.destination.value){
-                        getStorages.push(this.service.getAllStorageById(dataOutFirst.config.destination.value[value]));
-                    }
-                    Promise.all(getStorages)
-                        .then(results => {
-                            for(var result in results){
-                                this.destinations.push(results[result]); 
-                            }  
-                        }) 
-                } 
-           
-            })
-            .catch(e => {
-                alert('Fill Configuration in Module');
-            }) 
+    attached() {  
     }
 
     
@@ -82,11 +67,7 @@ export class DataForm {
             .catch(e => {
                 alert('Referensi Keluar tidak ditemukan');
             })
-    }
-    onloadeddata()
-    {
-        getQty(this.data.item.articleVariantId);
-    }
+    }  
 }
 
 
