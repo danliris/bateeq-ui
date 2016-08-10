@@ -1,49 +1,49 @@
-import {inject, bindable} from 'aurelia-framework';
+import {inject, bindable, BindingEngine} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
- 
-@inject(Router, Service)
-export class DataForm { 
+
+@inject(Router, Service, BindingEngine)
+export class DataForm {
     @bindable data = {};
     @bindable error = {};
     storages = [];
-    
-    constructor(router, service) { 
+    serviceUriStorages = require('../host').inventory + '/storages';
+    serviceUriMerchandiser = require('../host').merchandiser + '/docs/efr-pk'; 
+
+    constructor(router, service, bindingEngine) {
         this.router = router;
-        this.service = service;  
+        this.service = service;
+        this.bindingEngine = bindingEngine;
     }
-     
-    attached() {     
-    } 
     
-    addItem() {           
-        var item = {};
-        item.articleVariantId = '';
-        this.data.items.push(item); 
-    } 
-    
-    removeItem(item) { 
-        var itemIndex = this.data.items.indexOf(item);
-        this.data.items.splice(itemIndex, 1);
+    attached() {
+        this.bindingEngine.collectionObserver(this.data.spkDocuments)
+            .subscribe(splices => {
+                var spk = this.data.spkDocuments[splices[0].index]; 
+                this.bindingEngine.propertyObserver(spk, "spkDocumentId").subscribe((newValue, oldValue) => {
+                    // console.log(`value changed from ${oldValue} to ${newValue}`);
+                    // console.log(JSON.stringify(spk));
+                    spk.quantity = 0;
+                    for(var item of spk.spkDocument.items) {
+                        spk.quantity = spk.quantity + parseInt(item.quantity);
+                    }
+                });
+                // console.log(splices);
+            });
     }
-     search() {  
-        this.service.getOutByCode(this.data.reference)
-            .then(dataOut=>{ 
-                var dataOutFirst = dataOut[0];
-                this.data.sourceId = dataOutFirst.sourceId
-                this.data.destinationId = dataOutFirst.destinationId
-                this.data.items = [];   
-                for(var obj of dataOutFirst.items) {  
-                    var item = {};
-                    item.articleVariantId = obj.articleVariantId;
-                    item.quantityOut = obj.quantity;
-                    item.quantity = obj.quantity;
-                    item.remark = obj.remark;
-                    this.data.items.push(item); 
-                }   
-        })
-        .catch(e=> { 
-            alert('Referensi Keluar tidak ditemukan');
-        }) 
+
+    addSpkDocument() {
+        var spkDocument = {};
+        spkDocument.spkDocumentId = '';
+        if (!this.data.spkDocuments) {
+            this.data.spkDocuments = [];
+        }
+        this.data.spkDocuments.push(spkDocument);
+    }
+
+    removeSpkDocument(spkDocument) {
+        var spkDocumentIndex = this.data.spkDocuments.indexOf(spkDocument);
+        this.data.spkDocuments.splice(spkDocumentIndex, 1);
     } 
+
 }
