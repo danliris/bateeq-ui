@@ -5,8 +5,11 @@ import {Service} from './service';
 @inject(Router, Service)
 export class DataForm {
     @bindable data = {};
-    @bindable error = {};
-    storages = [];
+    @bindable error = {}; 
+    
+    storageApiUri = require('../host').inventory + '/storages';
+    variantApiUri = require('../host').core + '/articles/variants'; 
+
     
     constructor(router, service) { 
         this.router = router;
@@ -17,7 +20,7 @@ export class DataForm {
     } 
     
     search() {  
-        this.service.getOutByCode(this.data.reference)
+        this.service.getEFRKBRTDByCode(this.data.reference)
             .then(dataOut=>{ 
                 var dataOutFirst = dataOut[0];
                 this.data.sourceId = dataOutFirst.sourceId
