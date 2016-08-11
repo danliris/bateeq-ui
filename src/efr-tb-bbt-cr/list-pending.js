@@ -12,7 +12,7 @@ export class Pending {
     }
 
     activate() {
-        this.service.searchPending()
+        this.service.listPending()
             .then(data => {
                 this.data = data;
             })
