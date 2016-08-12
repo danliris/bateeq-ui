@@ -9,8 +9,7 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = { items: [] }; 
-        this.quantity=0;
+        this.data = { items: [] };  
     } 
     
     activate(params) {    
@@ -26,8 +25,7 @@ export class Create {
             .then(result => {
                 this.list();
             })
-            .catch(e => {
-                console.log(e);
+            .catch(e => { 
                 this.error = e;
             })
     }
@@ -37,8 +35,7 @@ export class Create {
             .then(result => {
                 this.list();
             })
-            .catch(e => {
-                console.log(e);
+            .catch(e => { 
                 this.error = e;
             })
     }

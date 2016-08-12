@@ -3,9 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
 const serviceUri = require('../host').merchandiser + '/docs/efr-pk-pbr';  
-const serviceUriDraft = require('../host').merchandiser + '/docs/efr-pk-pbr/draft'; 
-const serviceUriStorages=require('../host').inventory + '/storages';
-const serviceSearch = 'http://bateeq-inventory-api.au-syd.mybluemix.net/v1/core/module';
+const serviceUriDraft = require('../host').merchandiser + '/docs/efr-pk-pbr/draft';  
 const serviceUriInventories = require('../host').inventory + '/storages/578dd0860b0aea003ebf0fda/inventories'; // storeid pusat barang baru didatabase development: 578dd0860b0aea003ebf0fda
 
  
@@ -25,7 +23,7 @@ export class Service extends RestService{
     return super.get(endpoint);
   } 
   
-  getDataByIdVariant(id)
+  getInventoryByIdVariantAndIdStorage(id)
   {
     var endpoint = `${serviceUriInventories}/${id}`;
     return super.get(endpoint);
@@ -35,16 +33,26 @@ export class Service extends RestService{
   {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-  } 
-   
-  getAllStorageById(id)
-  {
-    var endpoint = `${serviceUriStorages}/${id}`;
-    return super.get(endpoint);
-  }
+  }  
   
   delete(data) {
     var endpoint = `${serviceUriDraft}/${data._id}`;
     return super.delete(endpoint, data);
+  }
+  
+  getModuleConfig() {
+    var endpoint = require('../host').core + '/modules?keyword=EFR-PK/PBR';
+    return super.get(endpoint)
+      .then(results => {
+        if (results && results.length == 1)
+          return Promise.resolve(results[0].config);
+        else
+          return Promise.resolve(null);
+      });
+  }
+  
+  getStorageById(id) {
+    var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
+    return super.get(endpoint);
   }
 }

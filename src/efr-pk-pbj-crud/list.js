@@ -13,8 +13,7 @@ export class List {
 
     activate() {
         this.service.search('')
-            .then(data => {
-                
+            .then(data => { 
                 this.data = data;
             })
     }

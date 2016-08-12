@@ -1,6 +1,7 @@
 <template>
     <require from="customs/elements/horsey"></require>
-    <form class="form-horizontal">
+    <h2 if.bind="loadFailed">Load module failed</h2>
+    <form class="form-horizontal" if.bind="!loadFailed">
         <div class="form-group ${error.reference?'has-error':''}">
             <label for="description" class="col-sm-2 control-label">Nomor Referensi</label>
             <div class="col-sm-10">
@@ -16,7 +17,7 @@
         <div class="form-group ${error.sourceId?'has-error':''}"> 
             <label for="code" class="col-sm-2 control-label">Sumber Penyimpanan</label>
             <div class="col-sm-10">
-                <horsey src="http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages" selection.bind="data.source" value.bind="data.sourceId"
+                <horsey src.bind="storageApiUri" selection.bind="data.source" value.bind="data.sourceId"
                     options.bind="{value:'_id', label:'name'}"></horsey> 
                 <span class="help-block">${error.sourceId}</span>
             </div>
@@ -24,12 +25,11 @@
         <div class="form-group ${error.destinationId?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
             <div class="col-sm-10">
-                <horsey src="http://bateeq-inventory-api.au-syd.mybluemix.net/v1/inventories/storages" selection.bind="data.destination"
+                <horsey src.bind="storageApiUri" selection.bind="data.destination"
                     value.bind="data.destinationId" options.bind="{value:'_id', label:'name'}"></horsey> 
                 <span class="help-block">${error.destinationId}</span>
             </div>
-        </div>        
-    </form>
+        </div>
     <table class="table">
         <thead>
             <tr>
@@ -44,7 +44,7 @@
                 <td>${$index+1}</td>
                 <td> 
                     <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
-                        <horsey src="http://bateeq-article-api.au-syd.mybluemix.net/v1/articles/variants" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
+                        <horsey src.bind="variantApiUri" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
                             options.bind="{value:'_id', label:'name'}"></horsey>
                             <span class="help-block">${error.items[$index].articleVariantId}</span>
                     </div>
@@ -66,5 +66,6 @@
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
         There is no data found in the list.
-    </div>
+    </div>        
+    </form>
 </template>
