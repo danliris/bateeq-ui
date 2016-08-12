@@ -25,59 +25,61 @@
                 <span class="help-block">${error.destinationId}</span>
             </div>
         </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Produk</th>  
-                <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="item of data.items">
-                <td>${$index+1}</td>
-                <td> 
-                    <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
-                        <horsey src.bind="variantApiUri" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
-                            options.bind="{value:'_id', label:'name'}"></horsey>
-                        <span class="help-block">${error.items[$index].articleVariantId}</span> 
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Component</th> 
-                                    <th>Quantity</th> 
-                                    <th><button click.delegate="addItemDetail($index)" class="btn btn-success btn-sm pull-right">+</button></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr repeat.for="finishing of item.articleVariant.finishings">
-                                    <td>${$index+1}</td>
-                                    <td> 
-                                        <div class="form-group ${error.items[$parent.$index].articleVariant.finishings[$index].articleVariantId?'has-error':''}">
-                                            <horsey src.bind="variantApiUri" selection.bind="finishing.articleVariant" value.bind="finishing.articleVariantId"
-                                                options.bind="{value:'_id', label:'name'}"></horsey>
-                                            <span class="help-block">${error.items[$parent.$index].articleVariant.finishings[$index].articleVariantId}</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group ${error.items[$parent.$index].articleVariant.finishings[$index].quantity?'has-error':''}"> 
-                                            <input class="form-control" type="number" name="quantity" value.bind="finishing.quantity" />
-                                            <span class="help-block">${error.items[$parent.$index].articleVariant.finishings[$index].quantity}</span>
-                                        </div>
-                                    </td> 
-                                    <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItemDetail($parent.$index, finishing)">x</button></td>
-                                </tr> 
-                            </tbody>
-                        </table> 
-                    </div>
-                </td> 
-                <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
-            </tr> 
-        </tbody>
-    </table>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
-        There is no data found in the list.
-    </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Produk</th>  
+                    <th>Ukuran</th>  
+                    <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data.items">
+                    <td>${$index+1}</td>
+                    <td> 
+                        <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                            <horsey src.bind="variantApiUri" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
+                                options.bind="{value:'_id', label:'name'}"></horsey>
+                            <span class="help-block">${error.items[$index].articleVariantId}</span> 
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Component</th> 
+                                        <th>Quantity</th> 
+                                        <th><button click.delegate="addItemDetail($index)" class="btn btn-success btn-sm pull-right">+</button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr repeat.for="finishing of item.articleVariant.finishings">
+                                        <td>${$index+1}</td>
+                                        <td> 
+                                            <div class="form-group ${error.items[$parent.$index].articleVariant.finishings[$index].articleVariantId?'has-error':''}">
+                                                <horsey src.bind="variantApiUri" selection.bind="finishing.articleVariant" value.bind="finishing.articleVariantId"
+                                                    options.bind="{value:'_id', label:'name'}"></horsey>
+                                                <span class="help-block">${error.items[$parent.$index].articleVariant.finishings[$index].articleVariantId}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group ${error.items[$parent.$index].articleVariant.finishings[$index].quantity?'has-error':''}"> 
+                                                <input class="form-control" type="number" name="quantity" value.bind="finishing.quantity" />
+                                                <span class="help-block">${error.items[$parent.$index].articleVariant.finishings[$index].quantity}</span>
+                                            </div>
+                                        </td> 
+                                        <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItemDetail($parent.$index, finishing)">x</button></td>
+                                    </tr> 
+                                </tbody>
+                            </table> 
+                        </div>
+                    </td> 
+                    <td><p class="form-control-static">${item.articleVariant.size}</p></td>
+                    <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
+                </tr> 
+            </tbody>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
+            There is no data found in the list.
+        </div>
     </form>
 </template>
