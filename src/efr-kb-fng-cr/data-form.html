@@ -31,10 +31,14 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Produk</th>
-                    <th>Kuantitas Stok</th>
-                    <th>Kuantitas Pengiriman</th>
-                    <th>Catatan</th>
+                    <th>
+                        <div class="row">
+                            <div class="col-md-3"> Produk </div>
+                            <div class="col-md-2"> Kuantitas Stok </div>
+                            <div class="col-md-2"> Kuantitas Pengiriman </div>
+                            <div class="col-md-5">Catatan </div>
+                        </div>
+                    </th> 
                     <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>
                 </tr>
             </thead>
@@ -42,22 +46,33 @@
                 <tr repeat.for="item of data.items">
                     <td>${$index+1}</td>
                     <td>
-                        <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
-                            <horsey src.bind="variantApiUri" selection.bind="item.articleVariant" value.bind="item.articleVariantId" options.bind="{value:'_id', label:'name'}"></horsey>
-                            <span class="help-block">${error.items[$index].articleVariantId}</span>
-                        </div>
-                    </td>
-                    <td><input class="form-control" type="text" name="quantityOut" value.bind="quantity" readonly/></td>
-                    <td>
-                        <div class="form-group ${error.items[$index].quantity?'has-error':''}">
-                            <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
-                            <span class="help-block">${error.items[$index].quantity}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group ${error.items[$index].remark?'has-error':''}">
-                            <input class="form-control" type="text" name="remark" value.bind="item.remark" />
-                            <span class="help-block">${error.items[$index].remark}</span>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                                    <horsey src.bind="inventoryApiUri" selection.bind="item.selection" value.bind="item.articleVariantId" options.bind="{value:'_id', label: 'name'}"
+                                        map.bind="map"></horsey>
+                                    <span class="help-block">${error.items[$index].articleVariantId}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                                    <p class="form-control-static">${item.availableQuantity}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+
+                                <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                                    <input class="form-control" type="number" name="quantity" value.bind="item.quantity" max.bind="item.availableQuantity" min="0"
+                                    />
+                                    <span class="help-block">${error.items[$index].quantity}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                                    <input class="form-control" type="text" name="remark" value.bind="item.remark" />
+                                    <span class="help-block">${error.items[$index].remark}</span>
+                                </div>
+                            </div>
                         </div>
                     </td>
                     <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
