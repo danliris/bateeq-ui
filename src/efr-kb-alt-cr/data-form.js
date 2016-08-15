@@ -35,7 +35,6 @@ export class DataForm {
         this.service.getTransferInByCode(this.data.reference)
             .then(dataOut=>{ 
                 var dataOutFirst = dataOut[0];
-                this.data._id = dataOutFirst._id;
                 this.data.items = [];   
                 for(var obj of dataOutFirst.items) {  
                     var item = {};
