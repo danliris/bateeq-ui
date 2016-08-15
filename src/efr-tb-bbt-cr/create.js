@@ -19,6 +19,7 @@ export class Create {
             .then(data => {
                     this.data = data;
                     data.reference = data.packingList;
+                    data._id = undefined;
                 })
             .catch()
         }
