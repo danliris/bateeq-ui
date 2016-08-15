@@ -8,7 +8,7 @@ export class DataForm {
     @bindable error = {}; 
     
     serviceUriStorages = require('../host').inventory + '/storages';
-    serviceUriMerchandiser = require('../host').merchandiser + '/docs/efr-pk'; 
+    serviceUriMerchandiser = require('../host').merchandiser + '/docs/efr-pk/pending'; 
 
     constructor(router, service, bindingEngine) {
         this.router = router;
