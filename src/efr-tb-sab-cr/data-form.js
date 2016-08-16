@@ -24,8 +24,10 @@ export class DataForm {
     addItem() {           
         var item = {};
         item.articleVariantId = ''; 
-        item.articleVariant = { finishings: [] };
+        item.articleVariant = {};
+        item.articleVariant.finishings = [];
         this.data.items.push(item);  
+        console.log(JSON.stringify(this.data));    
     } 
     
     removeItem(item) { 
@@ -33,9 +35,13 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1); 
     }
     
-    addItemDetail(index) {           
+    addItemDetail(index) {    
+        console.log(JSON.stringify(this.data));       
         var item = {};
         item.articleVariantId = ''; 
+        if(!this.data.items[index].articleVariant){ 
+            this.data.items[index].articleVariant = {};
+        }  
         if(!this.data.items[index].articleVariant.finishings){ 
             this.data.items[index].articleVariant.finishings= [];
         }  
