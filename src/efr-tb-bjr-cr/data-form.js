@@ -23,11 +23,14 @@ export class DataForm {
             .then(dataOut => {
                 var dataOutFirst = dataOut[0];
                 this.data.sourceId = dataOutFirst.sourceId
+                this.data.source = dataOutFirst.source
                 this.data.destinationId = dataOutFirst.destinationId
+                this.data.destination = dataOutFirst.destination
                 this.data.items = [];
                 for (var obj of dataOutFirst.items) {
                     var item = {};
                     item.articleVariantId = obj.articleVariantId;
+                    item.articleVariant = obj.articleVariant;
                     item.quantityOut = obj.quantity;
                     item.quantity = obj.quantity;
                     item.remark = obj.remark;
