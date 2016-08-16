@@ -40,11 +40,16 @@ export class DataForm {
         this.bindingEngine.collectionObserver(this.data.items)
             .subscribe(splices => {
                 var item = this.data.items[splices[0].index];
-                this.bindingEngine.propertyObserver(item, "selection").subscribe((newValue, oldValue) => {
-                    item.articleVariant = newValue.articleVariant;
-                    item.availableQuantity = newValue.quantity;
-                });
+                this.observeItem(item);
             });
+    }
+
+    observeItem(item) {
+        this.bindingEngine.propertyObserver(item, "selection").subscribe((newValue, oldValue) => {
+            item.articleVariantId = newValue._id;
+            item.articleVariant = newValue.articleVariant;
+            item.availableQuantity = newValue.availableQuantity;
+        });
     }
 
     addItem() {
@@ -57,14 +62,26 @@ export class DataForm {
         var itemIndex = this.data.items.indexOf(item);
         this.data.items.splice(itemIndex, 1);
     }
+
     search() {
         this.service.getEFRHPFNGByCode(this.data.reference)
             .then(dataOut => {
-                var dataOutFirst = dataOut[0];
+                var items = dataOut[0].transferInDocument.items.map(item => {
+                    return {
+                        _id: item.articleVariantId,
+                        name: item.articleVariant.name,
+                        articleVariant: item.articleVariant,
+                        quantity: item.quantity
+                    }
+                });
+                for (var item of items) {
+                    var i = { selection: item, quantity: item.quantity };
+                    this.data.items.push(i)
+                }
             })
             .catch(e => {
                 alert('Referensi Keluar tidak ditemukan');
-            })
+            });
     }
 
     map(result) {
@@ -73,7 +90,7 @@ export class DataForm {
                 _id: item.articleVariantId,
                 name: item.articleVariant.name,
                 articleVariant: item.articleVariant,
-                quantity: item.quantity
+                availableQuantity: item.quantity
             }
         });
     }

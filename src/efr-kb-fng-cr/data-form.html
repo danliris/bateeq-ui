@@ -38,7 +38,7 @@
                             <div class="col-md-2"> Kuantitas Pengiriman </div>
                             <div class="col-md-5">Catatan </div>
                         </div>
-                    </th> 
+                    </th>
                     <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>
                 </tr>
             </thead>
@@ -49,8 +49,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
-                                    <horsey src.bind="inventoryApiUri" selection.bind="item.selection" value.bind="item.articleVariantId" options.bind="{value:'_id', label: 'name'}"
-                                        map.bind="map"></horsey>
+                                    <horsey src.bind="inventoryApiUri" selection.bind="item.selection" options.bind="{value:'_id', label: 'name'}" map.bind="map"></horsey>
                                     <span class="help-block">${error.items[$index].articleVariantId}</span>
                                 </div>
                             </div>

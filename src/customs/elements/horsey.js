@@ -1,41 +1,73 @@
-import {inject, bindable, bindingMode} from 'aurelia-framework';
-var HorseyJs = require('horsey');
+import {inject, bindable, bindingMode, computedFrom} from 'aurelia-framework';
+var horsey = require('horsey');
 
 @inject(Element)
 export class Horsey {
     @bindable src;
     @bindable filter;
+    @bindable options;
 
     @bindable({ defaultBindingMode: bindingMode.twoWay }) selection;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
     @bindable({ defaultBindingMode: bindingMode.twoWay }) map;
 
-    @bindable options;
+
     constructor(element) {
         this.element = element;
     }
 
     attached() {
-        this.selection = {};
         var uri = `${this.src}?${this.filter ? this.filter : 'keyword'}`;
-        HorseyJs(this.element.querySelector('input'), {
+
+        horsey(this.element.querySelector('input'), {
             predictNextSearch: info => {
-                this.selection = this.options.selection ? info.selection[this.options.selection] : info.selection;
-                this.value = info.selection[this.options.value];
-                this.text = info.selection[this.options.label]
+                this.setSelection(info.selection);
             },
             source: (data, done) => {
-                fetch(`${uri}=${data.input}`)
-                    .then(result => {
-                        result.json().then(json => {
-                            done(null, [{
-                                list: this.map ? this.map(json) : json.data
-                            }])
-                        })
+                this.fetch(`${uri}=${data.input}`)
+                    .then(list => {
+                        done(null, [{
+                            list: list
+                        }])
                     });
             },
             getText: this.options.label,
             getValue: this.options.value
-        })
+        });
+
+        if (this.selection) {
+            this.fetch(`${uri}=${this.text}`)
+                .then(list => {
+                    var item = list.find((item, index, arr) => {
+                        return this.getValue(item) == this.getValue(this.selection);
+                    });
+                    this.setSelection(item);
+                })
+        }
+    }
+
+    fetch(uri) {
+        return new Promise((resolve, reject) => {
+            fetch(uri)
+                .then(result => {
+                    result.json().then(json => {
+                        resolve(this.map ? this.map(json) : json.data);
+                    });
+                });
+        });
+    }
+
+    @computedFrom("selection", "options.label")
+    get text() {
+        return this.selection ? this.selection[this.options.label] : '';
+    }
+
+    setSelection(selection) {
+        this.selection = selection;
+        this.value = this.getValue(this.selection);
+    }
+    
+    getValue(data) {
+        return data[this.options.value];
     }
 }
