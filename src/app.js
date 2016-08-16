@@ -31,6 +31,8 @@ export class App {
       { route: 'efr-kb-fng', name: 'efr-kb-fng', moduleId: './efr-kb-fng-cr/index', nav: true, title: 'Finishing - Pengeluaran Barang Jadi' },
       { route: 'efr-tb-bjr', name: 'efr-tb-bjr', moduleId: './efr-tb-bjr-cr/index', nav: true, title: 'Finishing - Pemasukan Barang Retur Toko' },
       { route: 'efr-kb-rtd', name: 'efr-kb-rtd', moduleId: './efr-kb-rtd-cr/index', nav: true, title: 'Finishing - Penyelesaian Barang Retur Toko' },
+      { route: 'efr-kb-alt', name: 'efr-kb-alt', moduleId: './efr-kb-alt-cr/index', nav: true, title: 'Finishing - Pengeluaran Barang Retur Toko ke Sewing (alteration)'},      
+      { route: 'efr-tb-alt', name: 'efr-tb-alt', moduleId: './efr-tb-alt-cr/index', nav: true, title: 'Finishing - Penerimaan Barang Retur Toko dari Sewing (alteration)' },
       { route: 'efr-tb-bjb', name: 'efr-tb-bjb', moduleId: './efr-tb-bjb-cr/index', nav: true, title: 'Pusat Barang Jadi (Baru) - Pemasukan Barang Jadi' },
       { route: 'efr-kb-exb', name: 'efr-kb-exb', moduleId: './efr-kb-exb-cr/index', nav: true, title: 'Pusat Barang Jadi (Baru)/(Retur Toko) - Distribusi Barang ke Ekspedisi' },
       { route: 'efr-tb-bbt', name: 'efr-tb-bbt', moduleId: './efr-tb-bbt-cr/index', nav: true, title: 'Toko - Pemasukan Barang Jadi' },
@@ -41,6 +43,7 @@ export class App {
       { route: 'efr-kb-rtf', name: 'efr-kb-rtf', moduleId: './efr-kb-rtf-cr/index', nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Retur ke Finishing' },
       { route: 'efr-tb-brd', name: 'efr-tb-brd', moduleId: './efr-tb-brd-cr/index', nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Pemasukan Retur Toko dari Finishing' },
       
+
       { route: 'efr-pk-pbj', name: 'efr-pk-pbj', moduleId: './efr-pk-pbj-crud/index', nav: true, title: 'MD - SPK Barang Jadi (Baru)' },
       { route: 'efr-pk-pba', name: 'efr-pk-pba', moduleId: './efr-pk-pba-crud/index', nav: true, title: 'MD - SPK Barang Embalase' },
       { route: 'efr-pk-pbr', name: 'efr-pk-pbr', moduleId: './efr-pk-pbr-crud/index', nav: true, title: 'Toko Pusat - SPK Barang Jadi (Retur)' },
