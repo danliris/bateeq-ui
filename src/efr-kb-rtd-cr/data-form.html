@@ -35,6 +35,7 @@
             <tr>
                 <th>No.</th>
                 <th>Produk</th> 
+                <th>Produk Baru</th> 
                 <th>Kuantitas Pengiriman</th>
                 <th>Catatan</th> 
             </tr>
@@ -43,13 +44,18 @@
             <tr repeat.for="item of data.items">
                 <td>${$index+1}</td>
                 <td> 
-                    <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
-                        <horsey src.bind="variantApiUri" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
-                            options.bind="{value:'_id', label:'name'}"></horsey> 
+                    <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}"> 
+                        <input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariant.name" readonly />
                         <span class="help-block">${error.items[$index].articleVariantId}</span>
                     </div>
                 </td>
-                
+                <td> 
+                    <div class="form-group ${error.items[$index].articleVariantNewId?'has-error':''}"> 
+                        <horsey src.bind="variantApiUri" selection.bind="item.articleVariantNew" value.bind="item.articleVariantNewId" 
+                            options.bind="{value:'_id', label:'name'}"></horsey>  
+                        <span class="help-block">${error.items[$index].articleVariantNewId}</span>
+                    </div>
+                </td> 
                 <td>
                     <div class="form-group ${error.items[$index].quantity?'has-error':''}"> 
                         <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
