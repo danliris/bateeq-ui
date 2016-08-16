@@ -28,7 +28,7 @@ export class DataForm {
                 for(var obj of dataOutFirst.items) {  
                     var item = {};
                     item.articleVariantId = obj.articleVariantId;
-                    item.quantityOut = obj.quantity;
+                    item.articleVariant = obj.articleVariant; 
                     item.quantity = obj.quantity;
                     item.remark = obj.remark;
                     this.data.items.push(item); 

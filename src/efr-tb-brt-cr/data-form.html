@@ -37,42 +37,41 @@
                 <span class="help-block">${error.destinationId}</span>
             </div>
         </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Produk</th> 
-                <th>Kuantitas Diterima</th>
-                <th>Catatan</th>
-             </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="item of data.items">
-                <td>${$index+1}</td>
-                <td> 
-                    <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
-                        <horsey src.bind="variantApiUri" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
-                            options.bind="{value:'_id', label:'name'}"></horsey>
-                         <span class="help-block">${error.items[$index].articleVariantId}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="form-group ${error.items[$index].quantity?'has-error':''}"> 
-                        <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
-                        <span class="help-block">${error.items[$index].quantity}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="form-group ${error.items[$index].remark?'has-error':''}">
-                        <input class="form-control" type="text" name="remark" value.bind="item.remark" />
-                        <span class="help-block">${error.items[$index].remark}</span>
-                    </div>
-                </td>
-             </tr> 
-        </tbody>
-    </table>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
-        There is no data found in the list.
-    </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Produk</th> 
+                    <th>Kuantitas Diterima</th>
+                    <th>Catatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data.items">
+                    <td>${$index+1}</td>
+                    <td> 
+                        <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}"> 
+                            <input class="form-control" type="text" name="articleVariantId" value.bind="item.articleVariant.name" readonly />
+                            <span class="help-block">${error.items[$index].articleVariantId}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group ${error.items[$index].quantity?'has-error':''}"> 
+                            <input class="form-control" type="number" name="quantity" value.bind="item.quantity" readonly />
+                            <span class="help-block">${error.items[$index].quantity}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                            <input class="form-control" type="text" name="remark" value.bind="item.remark" />
+                            <span class="help-block">${error.items[$index].remark}</span>
+                        </div>
+                    </td>
+                </tr> 
+            </tbody>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
+            There is no data found in the list.
+        </div>
     </form>
 </template>
