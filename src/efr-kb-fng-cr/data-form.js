@@ -1,9 +1,9 @@
-import {inject, bindable, BindingEngine} from 'aurelia-framework';
+import {inject, bindable} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 import {RestService} from '../rest-service';
 
-@inject(Router, Service, BindingEngine)
+@inject(Router, Service)
 export class DataForm {
     @bindable data = {};
     @bindable error = {};
@@ -12,11 +12,9 @@ export class DataForm {
     storageApiUri = require('../host').inventory + '/storages';
     variantApiUri = require('../host').core + '/articles/variants';
 
-    constructor(router, service, bindingEngine) {
+    constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.bindingEngine = bindingEngine;
-
         this.service.getModuleConfig()
             .then(config => {
                 Promise.all([this.service.getStorageById(config.source.value), this.service.getStorageById(config.destination.value)])
@@ -27,8 +25,6 @@ export class DataForm {
                         this.data.source = source;
                         this.data.destinationId = destination._id;
                         this.data.destination = destination;
-
-                        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
                     })
             })
             .catch(e => {
@@ -37,20 +33,9 @@ export class DataForm {
     }
 
     attached() {
-        this.bindingEngine.collectionObserver(this.data.items)
-            .subscribe(splices => {
-                var item = this.data.items[splices[0].index];
-                this.observeItem(item);
-            });
     }
 
-    observeItem(item) {
-        this.bindingEngine.propertyObserver(item, "selection").subscribe((newValue, oldValue) => {
-            item.articleVariantId = newValue._id;
-            item.articleVariant = newValue.articleVariant;
-            item.availableQuantity = newValue.availableQuantity;
-        });
-    }
+
 
     addItem() {
         var item = {};
@@ -66,32 +51,21 @@ export class DataForm {
     search() {
         this.service.getEFRHPFNGByCode(this.data.reference)
             .then(dataOut => {
-                var items = dataOut[0].transferInDocument.items.map(item => {
-                    return {
-                        _id: item.articleVariantId,
-                        name: item.articleVariant.name,
-                        articleVariant: item.articleVariant,
-                        quantity: item.quantity
-                    }
-                });
-                for (var item of items) {
-                    var i = { selection: item, quantity: item.quantity };
-                    this.data.items.push(i)
+                for (var variant of dataOut[0].transferInDocument.items) {
+                    var item = {};
+                    item.articleVariantId = variant.articleVariantId;
+                    item.articleVariant = variant.articleVariant;
+                    item.quantity = variant.quantity;
+                    item.remark = variant.remark;
+                    this.service.getDataInventory(this.data.sourceId, item.articleVariantId)
+                        .then(inventoryData => {
+                            item.availableQuantity = inventoryData.quantity;
+                        }) 
+                    this.data.items.push(item);
                 }
             })
             .catch(e => {
-                alert('Referensi Keluar tidak ditemukan');
-            });
-    }
-
-    map(result) {
-        return result.data.map(item => {
-            return {
-                _id: item.articleVariantId,
-                name: item.articleVariant.name,
-                articleVariant: item.articleVariant,
-                availableQuantity: item.quantity
-            }
-        });
+                alert('Referensi tidak ditemukan');
+            })
     }
 }

@@ -2,10 +2,9 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
 
-const serviceUri = require('../host').inventory + '/docs/efr-kb-fng';
-const serviceUriStorages = require('../host').inventory + '/storages';
+const serviceUri = require('../host').inventory + '/docs/efr-kb-fng'; 
 const serviceSearch = require('../host').inventory + '/docs/efr-hp-fng';
-const serviceUriInventories = require('../host').inventory + '/storages/578dcfd60b0aea003ebf0fd9/inventories'; // storeid pusat barang baru didatabase development: 578dcfd60b0aea003ebf0fd9
+ 
 
 export class Service extends RestService {
 
@@ -49,6 +48,12 @@ export class Service extends RestService {
   
   getStorageById(id) {
     var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
+    return super.get(endpoint);
+  }
+
+  getDataInventory(storageId,articleVariantId)
+  {
+    var endpoint = `${require('../host').inventory + '/storages/' + storageId + '/inventories/'+articleVariantId}`;
     return super.get(endpoint);
   }
 }
