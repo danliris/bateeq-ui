@@ -1,49 +1,77 @@
-import {inject, bindable, ObserverLocator} from 'aurelia-framework';
+import {inject, bindable, BindingEngine} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
-import {Service} from './service'; 
+import {Service} from './service';
 
 
-@inject(Router, Service)
-@inject(ObserverLocator)
+@inject(Router, Service, BindingEngine)
 export class DataForm {
     @bindable data = {};
-    @bindable error = {}; 
-    @bindable quantity = 0; 
-    
+    @bindable error = {};
+
     variantApiUri = require('../host').core + '/articles/variants';
-    
-    constructor(router, service) {
+
+    constructor(router, service, bindingEngine) {
         this.router = router;
-        this.service = service; 
+        this.service = service;
+        this.bindingEngine = bindingEngine;
+        var getDestination = [];
         this.service.getModuleConfig()
-            .then(config => { 
-                Promise.all([this.service.getStorageById(config.source.value), this.service.getStorageById(config.destination.value)])
+            .then(config => {
+                var getStorages = [this.service.getStorageById(config.source.value)];
+
+                if (config.destination.type == "Selected") {
+                    for (var destinationId of config.destination.value) {
+                        getStorages.push(this.service.getStorageById(destinationId));
+                    }
+                }
+                else {
+                    getStorages.push(this.service.getStorageById(config.destination.value));
+                }
+
+                Promise.all(getStorages)
                     .then(storages => {
                         var source = storages[0];
-                        var destination = storages[1];
+                        this.destinations = storages.splice(1);
+                        this.inventoryApiUri = require('../host').inventory + '/storages/' + source._id + '/inventories';
+
                         this.data.sourceId = source._id;
                         this.data.source = source;
-                        this.data.destinationId = destination._id;
-                        this.data.destination = destination; 
+
+                        for (var item of this.data.items)
+                            item.selection = {
+                                _id: item.articleVariantId,
+                                name: item.articleVariant.name,
+                                articleVariant: item.articleVariant,
+                                quantity: item.quantity
+                            }
+
                     })
             })
-            .catch(e=>{
+            .catch(e => {
+                console.log(e)
                 this.loadFailed = true;
             })
     }
 
-    attached() {  
+    bind(bindingContext, overrideContext) {
+        console.log('bind');
     }
- 
-    getQty(id) {
-        this.service.getInventoryByIdVariantAndIdStorage(id)
-            .then(data => {
-                var dataOutFirst = data;
-                this.quantity = dataOutFirst.quantity;
-            })
-            .catch(e => {
-                this.quantity = 0;
-            })
+
+    attached() {
+        console.log('attached');
+        this.bindingEngine.collectionObserver(this.data.items)
+            .subscribe(splices => {
+                var item = this.data.items[splices[0].index];
+                this.observeItem(item);
+            });
+    }
+
+    observeItem(item) {
+        this.bindingEngine.propertyObserver(item, "selection").subscribe((newValue, oldValue) => {
+            item.articleVariantId = newValue._id;
+            item.articleVariant = newValue.articleVariant;
+            item.availableQuantity = newValue.availableQuantity;
+        });
     }
 
     addItem() {
@@ -57,9 +85,16 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    search() { 
-    } 
-    
+    map(result) {
+        return result.data.map(item => {
+            return {
+                _id: item.articleVariantId,
+                name: item.articleVariant.name,
+                articleVariant: item.articleVariant,
+                availableQuantity: item.quantity
+            }
+        });
+    }
+
+
 }
-
-
