@@ -1,49 +1,81 @@
-import {inject, bindable, ObserverLocator} from 'aurelia-framework';
+import {inject, bindable, BindingEngine} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
-import {Service} from './service'; 
+import {Service} from './service';
 
 
-@inject(Router, Service)
-@inject(ObserverLocator)
+@inject(Router, Service, BindingEngine)
 export class DataForm {
     @bindable data = {};
-    @bindable error = {}; 
-    @bindable quantity = 0; 
-    
+    @bindable error = {};
+    destinations = [];
+
     variantApiUri = require('../host').core + '/articles/variants';
-    
-    constructor(router, service) {
+
+    constructor(router, service, bindingEngine) {
         this.router = router;
-        this.service = service; 
+        this.service = service;
+        this.bindingEngine = bindingEngine;
+        var getDestination = [];
         this.service.getModuleConfig()
-            .then(config => { 
-                Promise.all([this.service.getStorageById(config.source.value), this.service.getStorageById(config.destination.value)])
+            .then(config => {
+                if (config.destination.type = "selected") {
+                    var getStorages = [];
+                    for (var value in config.destination.value) {
+                        getStorages.push(this.service.getStorageById(config.destination.value[value]));
+                    }
+                    Promise.all(getStorages)
+                        .then(results => {
+                            for (var result in results) {
+                                this.destinations.push(results[result]);
+                            }
+                        })
+                }
+                Promise.all([this.service.getStorageById(config.source.value)])
                     .then(storages => {
                         var source = storages[0];
-                        var destination = storages[1];
                         this.data.sourceId = source._id;
                         this.data.source = source;
-                        this.data.destinationId = destination._id;
-                        this.data.destination = destination; 
+
+                        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
                     })
+                 if (this.data._id!="")  
+                {
+                this.service.getById(this.data._id)
+                    .then(data => {
+                        var items = data.items.map(item => {
+                            return {
+                                _id: item.articleVariantId,
+                                name: item.articleVariant.name,
+                                articleVariant: item.articleVariant,
+                                quantity: item.quantity
+                            }
+                        });
+                        for (var item of items) {
+                            var i = { selection: item, quantity: item.quantity };
+                            this.data.items.push(i)
+                        }
+                    })
+                }
             })
-            .catch(e=>{
+            .catch(e => {
                 this.loadFailed = true;
             })
     }
 
-    attached() {  
+    attached() {
+        this.bindingEngine.collectionObserver(this.data.items)
+            .subscribe(splices => {
+                var item = this.data.items[splices[0].index];
+                this.observeItem(item);
+            });
     }
- 
-    getQty(id) {
-        this.service.getInventoryByIdVariantAndIdStorage(id)
-            .then(data => {
-                var dataOutFirst = data;
-                this.quantity = dataOutFirst.quantity;
-            })
-            .catch(e => {
-                this.quantity = 0;
-            })
+
+    observeItem(item) {
+        this.bindingEngine.propertyObserver(item, "selection").subscribe((newValue, oldValue) => {
+            item.articleVariantId = newValue._id;
+            item.articleVariant = newValue.articleVariant;
+            item.availableQuantity = newValue.availableQuantity;
+        });
     }
 
     addItem() {
@@ -57,9 +89,18 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    search() { 
-    } 
-    
+    map(result) {
+        return result.data.map(item => {
+            return {
+                _id: item.articleVariantId,
+                name: item.articleVariant.name,
+                articleVariant: item.articleVariant,
+                availableQuantity: item.quantity
+            }
+        });
+    }
+
+
 }
 
 
