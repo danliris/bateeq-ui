@@ -14,6 +14,12 @@ export class Service extends RestService{
     search(keyword) {
         return super.get(serviceUri);
     }
+
+    getById(id)
+    {
+      var endpoint = `${serviceUri}/${id}`;
+      return super.get(endpoint);
+    } 
     
     getTransferInByCode(code) 
     {
