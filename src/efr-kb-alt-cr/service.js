@@ -14,6 +14,12 @@ export class Service extends RestService{
     search(keyword) {
         return super.get(serviceUri);
     }
+
+    getById(id)
+    {
+      var endpoint = `${serviceUri}/${id}`;
+      return super.get(endpoint);
+    } 
     
     getTransferInByCode(code) 
     {
@@ -42,4 +48,10 @@ export class Service extends RestService{
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   } 
+  
+  getDataInventory(storageId,articleVariantId)
+  {
+    var endpoint = `${require('../host').inventory + '/storages/' + storageId + '/inventories/'+articleVariantId}`;
+    return super.get(endpoint);
+  }
 }
