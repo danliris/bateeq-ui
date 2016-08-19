@@ -1,15 +1,15 @@
 <template>
    <require from="customs/elements/horsey"></require>
     <h2 if.bind="loadFailed">Load module failed</h2>
-    <form class="form-horizontal" if.bind="!loadFailed">
+    <form class="form-horizontal" if.bind="!loadFailed"> 
         <div class="form-group ${error.destinationId?'has-error':''}">
             <label for="destinationId" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
-            <div class="col-sm-10">
-                <horsey src.bind="serviceUriStorages" selection.bind="data.destination"
-                    value.bind="data.destinationId" options.bind="{value:'_id', label:'name'}"></horsey> 
-                <span class="help-block">${error.destinationId}</span>
+            <div class="col-sm-10"> 
+                <select class="form-control" name="destination" value.bind="data.destinationId">
+                    <option repeat.for="destination of destinations" value.bind="destination._id">${destination.code} - ${destination.name}</option>
+                </select>
             </div>
-        </div>
+        </div>  
         <div class="form-group ${error.expedition?'has-error':''}">
             <label for="expedition" class="col-sm-2 control-label">Ekspedisi</label>
             <div class="col-sm-10"> 
