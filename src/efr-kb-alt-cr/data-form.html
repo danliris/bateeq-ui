@@ -32,7 +32,7 @@
             <tr>
                 <th>No.</th>
                 <th>Produk</th>
-                <!--<th>Kuantitas Stok</th>-->
+                <th>Kuantitas Stok</th>
                 <th>Kuantitas Pengiriman</th>
                 <th>Catatan</th>
                 <!--<th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>-->
@@ -46,6 +46,13 @@
                         <input class="form-control" readonly type="text" name="articleVariant_name" value.bind="item.articleVariant.name" />
                         <input class="form-control" type="hidden" name="articleVariantId" value.bind="item.articleVariantId" />
                          <span class="help-block">${error.items[$index].articleVariantId}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="col-md-2">
+                        <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                            <p class="form-control-static">${item.availableQuantity}</p>
+                        </div>
                     </div>
                 </td>
                 <!--<td><input class="form-control" type="text"  name="quantityOut" value.bind="item.quantityOut" readonly/></td> -->
