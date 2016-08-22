@@ -51,7 +51,7 @@ export class DataForm {
                 console.log(e)
                 this.loadFailed = true;
             })
-    } 
+    }
 
     getQuantity(item) {
         for (var finishing of item.articleVariant.finishings) {
@@ -66,7 +66,7 @@ export class DataForm {
                 this.bindingEngine.propertyObserver(item, "articleVariantId").subscribe((newValue, oldValue) => {
                     var getStock = [];
                     item.quantity = 0;
-                    for (var finishing of item.articleVariant.finishings) { 
+                    for (var finishing of item.articleVariant.finishings) {
                         finishing.quantityEach = 0;
                         finishing.quantity = 0;
                         getStock.push(this.service.getInventory(this.data.sourceId, finishing.articleVariantId))
@@ -74,40 +74,40 @@ export class DataForm {
                     Promise.all(getStock)
                         .then(inventories => {
                             var index = 0;
-                            for (var finishing of item.articleVariant.finishings) { 
+                            for (var finishing of item.articleVariant.finishings) {
                                 finishing.quantityStock = 0;
                                 if (inventories[index])
                                     finishing.quantityStock = inventories[index].quantity;
                                 index++;
                             }
-                        })  
+                        })
                 });
-    });
-}
-
-addItem() {
-    var item = {};
-    item.articleVariantId = '';
-    item.articleVariant = { finishings: [] };
-    this.data.items.push(item);
-}
-
-removeItem(item) {
-    var itemIndex = this.data.items.indexOf(item);
-    this.data.items.splice(itemIndex, 1);
-}
-
-addItemDetail(index) {
-    var item = {};
-    item.articleVariantId = '';
-    if (!this.data.items[index].articleVariant.finishings) {
-        this.data.items[index].articleVariant.finishings = [];
+            });
     }
-    this.data.items[index].articleVariant.finishings.push(item);
-}
 
-removeItemDetail(index, item) {
-    var itemIndex = this.data.items[index].articleVariant.finishings.indexOf(item);
-    this.data.items[index].articleVariant.finishings.splice(itemIndex, 1);
-}
+    addItem() {
+        var item = {};
+        item.articleVariantId = '';
+        item.articleVariant = { finishings: [] };
+        this.data.items.push(item);
+    }
+
+    removeItem(item) {
+        var itemIndex = this.data.items.indexOf(item);
+        this.data.items.splice(itemIndex, 1);
+    }
+
+    addItemDetail(index) {
+        var item = {};
+        item.articleVariantId = '';
+        if (!this.data.items[index].articleVariant.finishings) {
+            this.data.items[index].articleVariant.finishings = [];
+        }
+        this.data.items[index].articleVariant.finishings.push(item);
+    }
+
+    removeItemDetail(index, item) {
+        var itemIndex = this.data.items[index].articleVariant.finishings.indexOf(item);
+        this.data.items[index].articleVariant.finishings.splice(itemIndex, 1);
+    }
 }

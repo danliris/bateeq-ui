@@ -4,6 +4,7 @@ import {RestService} from '../rest-service';
 
 const serviceUri = require('../host').inventory + '/docs/efr-kb-rtd';
 const serviceUriSearch = require('../host').inventory + '/docs/efr-kb-rtf';
+const serviceUriInventories = require('../host').inventory + '/storages/{storageId}/inventories/{articleVariantId}';
 
 export class Service extends RestService {
 
@@ -43,6 +44,11 @@ export class Service extends RestService {
 
   getStorageById(id) {
     var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
+    return super.get(endpoint);
+  }
+
+  getInventory(storageId, articleVariantId) {
+    var endpoint = `${serviceUriInventories.replace("{storageId}", storageId).replace("{articleVariantId}", articleVariantId)}`;
     return super.get(endpoint);
   }
 

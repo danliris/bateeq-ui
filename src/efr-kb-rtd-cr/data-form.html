@@ -39,6 +39,7 @@
                         <th>No.</th>
                         <th>Produk</th> 
                         <th>Produk Baru</th> 
+                        <th>Kuantitas Stock</th> 
                         <th>Kuantitas Pengiriman</th>
                         <th>Catatan</th> 
                     </tr>
@@ -59,6 +60,12 @@
                                 <span class="help-block">${error.items[$index].articleVariantNewId}</span>
                             </div>
                         </td> 
+                         <td>
+                            <div class="form-group ${error.items[$index].quantityStock?'has-error':''}"> 
+                                <input class="form-control" type="number" name="quantityStock" value.bind="item.quantityStock" readonly />
+                                <span class="help-block">${error.items[$index].quantityStock}</span>
+                            </div>
+                        </td>
                         <td>
                             <div class="form-group ${error.items[$index].quantity?'has-error':''}"> 
                                 <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
