@@ -15,6 +15,7 @@
                   <select class="form-control" value.bind="data.sourceId"">
                     <option repeat.for="source of sources" value.bind="source._id">${source.code} - ${source.name}</option>
                 </select>
+                <span class="help-block">${error.sourceId}</span>
             </div> 
         </div>
         <div class="form-group ${error.destinationId?'has-error':''}">
@@ -23,6 +24,7 @@
                 <select class="form-control" name="destination" value.bind="data.destinationId">
                     <option repeat.for="destination of destinations" value.bind="destination._id">${destination.code} - ${destination.name}</option>
                 </select>
+                <span class="help-block">${error.destinationId}</span>
             </div>
         </div>  
         <div class="form-group ${error.items?'has-error':''}">

@@ -8,6 +8,7 @@
                 <select class="form-control" name="destination" value.bind="data.destinationId">
                     <option repeat.for="destination of destinations" value.bind="destination._id">${destination.code} - ${destination.name}</option>
                 </select>
+                <span class="help-block">${error.destinationId}</span>
             </div>
         </div>  
         <div class="form-group ${error.expedition?'has-error':''}">

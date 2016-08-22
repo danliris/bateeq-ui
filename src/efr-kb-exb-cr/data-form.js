@@ -18,13 +18,13 @@ export class DataForm {
         this.service.getModuleConfig()
             .then(config => {
                 var getStorages = [];
-                if (config.destination.type == "Selection") {
+                if (config.destination.type == "selection") {
                     for (var destinationId of config.destination.value) {
-                        getStorages.push(this.service.getStorageById(destinationId));
+                        getStorages.push(this.service.getStorageById(destinationId.toString()));
                     }
                 }
                 else {
-                    getStorages.push(this.service.getStorageById(config.destination.value));
+                    getStorages.push(this.service.getStorageById(config.destination.value.toString()));
                 }
                 Promise.all(getStorages)
                     .then(storages => {

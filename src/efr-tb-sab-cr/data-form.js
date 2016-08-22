@@ -18,23 +18,23 @@ export class DataForm {
             .then(config => {
                 var getStorages = [];
                 var indexSource = 0;
-                if (config.source.type == "Selection") {
+                if (config.source.type == "selection") {
                     for (var sourceId of config.source.value) {
-                        getStorages.push(this.service.getStorageById(sourceId));
+                        getStorages.push(this.service.getStorageById(sourceId.toString()));
                         indexSource++; 
                     }
                 }
                 else {
-                    getStorages.push(this.service.getStorageById(config.source.value)); 
+                    getStorages.push(this.service.getStorageById(config.source.value.toString())); 
                     indexSource++; 
                 }
-                if (config.destination.type == "Selection") {
+                if (config.destination.type == "selection") {
                     for (var destinationId of config.destination.value) {
-                        getStorages.push(this.service.getStorageById(destinationId)); 
+                        getStorages.push(this.service.getStorageById(destinationId.toString())); 
                     }
                 }
                 else {
-                    getStorages.push(this.service.getStorageById(config.destination.value)); 
+                    getStorages.push(this.service.getStorageById(config.destination.value.toString())); 
                 }
                 Promise.all(getStorages)
                     .then(storages => {
