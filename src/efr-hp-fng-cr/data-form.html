@@ -21,76 +21,89 @@
             </div>
         </div>  
         <div class="form-group ${error.items?'has-error':''}">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Produk</th>  
-                        <th>Quantity</th>  
-                        <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr repeat.for="item of data.items">
-                        <td>${$index+1}</td>
-                        <td> 
-                            <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
-                                <horsey src.bind="variantApiUri" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
-                                    options.bind="{value:'_id', label:'name'}"></horsey>
-                                <span class="help-block">${error.items[$index].articleVariantId}</span> 
-                                <div class="form-group ${error.items[$index].articleVariant.errorFinishings?'has-error':''}">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>Component</th> 
-                                                <th>Quantity Stock</th> 
-                                                <th>Quantity</th> 
-                                                <th>Quantity Used</th> 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr repeat.for="finishing of item.articleVariant.finishings">
-                                                <td>${$index+1}</td>
-                                                <td> 
-                                                    <div class="form-group ${error.items[$parent.$index].articleVariant.finishings[$index].articleVariantId?'has-error':''}">
-                                                        <p class="form-control-static">${finishing.articleVariant.name}</p> 
-                                                        <span class="help-block">${error.items[$parent.$index].articleVariant.finishings[$index].articleVariantId}</span>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="form-group"> 
-                                                        <input class="form-control" type="number" name="quantityStock" value.bind="finishing.quantityStock" readonly />
-                                                    </div>
-                                                </td> 
-                                                <td>
-                                                    <div class="form-group"> 
-                                                        <input class="form-control" type="number" name="quantityEach" value.bind="finishing.quantityEach" change.delegate="getQuantity(item)" />
-                                                    </div>
-                                                </td> 
-                                                <td>
-                                                    <div class="form-group ${error.items[$parent.$index].articleVariant.finishings[$index].quantity?'has-error':''}">  
-                                                        <p class="form-control-static">${finishing.quantity}</p> 
-                                                        <span class="help-block">${error.items[$parent.$index].articleVariant.finishings[$index].quantity}</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table> 
-                                    <span class="help-block">${error.items[$parent.$index].articleVariant.errorFinishings}</span>
-                                </div>
-                            </div>
-                            <span class="help-block">${error.items[$parent.$index].errorArticleVariant}</span>
-                        </td> 
-                        <td>
-                            <div class="form-group ${error.items[$index].quantity?'has-error':''}">
-                                <input class="form-control" type="number" name="quantity" value.bind="item.quantity" change.delegate="getQuantity(item)"/>
-                                <span class="help-block">${error.items[$index].quantity}</span> 
-                            </div>
-                        </td>
-                        <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
-                    </tr> 
-                </tbody>
+            <button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button>
+            <table class="table">  
+                <tr repeat.for="item of data.items"> 
+                    <td> 
+                         <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Produk</th>  
+                                    <th>Quantity</th>  
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>${$index+1}</td>
+                                    <td> 
+                                        <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                                            <horsey src.bind="variantApiUri" selection.bind="item.articleVariant" value.bind="item.articleVariantId" options.bind="{value:'_id', label:'name'}"></horsey>
+                                            <span class="help-block">${error.items[$index].articleVariantId}</span>  
+                                        </div>
+                                        <span class="help-block">${error.items[$parent.$index].errorArticleVariant}</span>
+                                    </td> 
+                                    <td>
+                                        <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                                            <input class="form-control" type="number" name="quantity" value.bind="item.quantity" change.delegate="getQuantity(item)"/>
+                                            <span class="help-block">${error.items[$index].quantity}</span> 
+                                        </div>
+                                    </td>
+                                    <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
+                                </tr> 
+                                <tr> 
+                                    <td></td>
+                                    <td colspan="2">
+                                        <div class="form-group ${error.items[$index].articleVariant.errorFinishings?'has-error':''}">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Component</th> 
+                                                        <th>Quantity Stock</th> 
+                                                        <th>Quantity</th> 
+                                                        <th>Quantity Used</th> 
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr repeat.for="finishing of item.articleVariant.finishings">
+                                                        <td>${$index+1}</td>
+                                                        <td> 
+                                                            <div class="form-group ${error.items[$parent.$index].articleVariant.finishings[$index].articleVariantId?'has-error':''}">
+                                                                <p class="form-control-static">${finishing.articleVariant.name}</p> 
+                                                                <span class="help-block">${error.items[$parent.$index].articleVariant.finishings[$index].articleVariantId}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group"> 
+                                                                <input class="form-control" type="number" name="quantityStock" value.bind="finishing.quantityStock" readonly />
+                                                            </div>
+                                                        </td> 
+                                                        <td>
+                                                            <div class="form-group"> 
+                                                                <input class="form-control" type="number" name="quantityEach" value.bind="finishing.quantityEach" change.delegate="getQuantity(item)" />
+                                                            </div>
+                                                        </td> 
+                                                        <td>
+                                                            <div class="form-group ${error.items[$parent.$index].articleVariant.finishings[$index].quantity?'has-error':''}">
+                                                                <input class="form-control" type="number" name="quantity" value.bind="finishing.quantity" readonly />
+                                                                <span class="help-block">${error.items[$parent.$index].articleVariant.finishings[$index].quantity}</span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table> 
+                                            <span class="help-block">${error.items[$parent.$index].articleVariant.errorFinishings}</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <span class="help-block">${error.errorItems}</span> 
+                    </td> 
+                </tr>  
             </table>
             <span class="help-block">${error.errorItems}</span> 
         </div>  
