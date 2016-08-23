@@ -12,7 +12,22 @@ export class DataForm {
     
     constructor(router, service) { 
         this.router = router;
-        this.service = service;  
+        this.service = service;
+        this.service.getModuleConfig()
+            .then(config => {
+                Promise.all([this.service.getStorageById(config.source.value), this.service.getStorageById(config.destination.value)])
+                    .then(storages => {
+                        var source = storages[0];
+                        var destination = storages[1];
+                        this.data.sourceId = source._id;
+                        this.data.source = source;
+                        this.data.destinationId = destination._id;
+                        this.data.destination = destination;
+                    })
+            })
+            .catch(e => {
+                this.loadFailed = true;
+            })  
     }
      
     attached() {    
