@@ -18,9 +18,9 @@ export class Service extends RestService{
     return super.get(endpoint);
   } 
    
-  getAllInvetory(storageId)
+  getAllInventory(storageId, keyword)
   {
-    var endpoint = `${serviceUriInventories.replace("{storageId}", storageId)}`;
+    var endpoint = `${serviceUriInventories.replace("{storageId}", storageId)}` + "?keyword=" + keyword;
     return super.get(endpoint);
   }
   

@@ -3,6 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
 
 const serviceUri = require('../host').inventory + '/docs/efr-hp-fng';
+const serviceUriInventories = require('../host').inventory + '/storages/{storageId}/inventories/{articleVariantId}';
 
 export class Service extends RestService {
 
@@ -22,7 +23,7 @@ export class Service extends RestService {
     create(data) {
         var endpoint = `${serviceUri}`;
         return super.post(endpoint, data);
-    } 
+    }
 
     getModuleConfig() {
         var endpoint = require('../host').core + '/modules?keyword=EFR-HP/FNG';
@@ -34,9 +35,14 @@ export class Service extends RestService {
                     return Promise.resolve(null);
             });
     }
-    
+
     getStorageById(id) {
         var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
+        return super.get(endpoint);
+    }
+
+    getInventory(storageId, articleVariantId) {
+        var endpoint = `${serviceUriInventories.replace("{storageId}", storageId).replace("{articleVariantId}", articleVariantId)}`;
         return super.get(endpoint);
     }
 

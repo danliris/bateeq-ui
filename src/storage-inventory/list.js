@@ -11,6 +11,7 @@ export class List {
         this.service = service;
         this.storageId = "";
         this.storages = [];
+        this.filter = "";
         //this.data = {};
     }
 
@@ -22,7 +23,7 @@ export class List {
     }
     
     reloadArticleVariant() { 
-        this.service.getAllInvetory(this.storageId) 
+        this.service.getAllInventory(this.storageId, this.filter) 
             .then(data => {
                 this.data = data;  
             })  

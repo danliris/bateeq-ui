@@ -1,8 +1,8 @@
-import {inject, bindable} from 'aurelia-framework';
+import {inject, bindable, BindingEngine} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
-@inject(Router, Service)
+@inject(Router, Service, BindingEngine)
 export class DataForm {
     @bindable data = {};
     @bindable error = {};
@@ -10,9 +10,11 @@ export class DataForm {
     storageApiUri = require('../host').inventory + '/storages';
     variantApiUri = require('../host').core + '/articles/variants';
 
-    constructor(router, service) {
+    constructor(router, service, bindingEngine) {
         this.router = router;
         this.service = service;
+        this.bindingEngine = bindingEngine;
+
         this.service.getModuleConfig()
             .then(config => {
                 var getStorages = [];
@@ -52,6 +54,18 @@ export class DataForm {
     }
 
     attached() {
+        this.bindingEngine.collectionObserver(this.data.items)
+            .subscribe(splices => { 
+                var item = this.data.items[splices[0].index];
+                this.bindingEngine.propertyObserver(item, "articleVariantNewId").subscribe((newValue, oldValue) => {
+                    item.quantityStock = 0;
+                    this.service.getInventory(this.data.sourceId, item.articleVariantNewId)
+                        .then(inventory => {
+                            if (inventory)
+                                item.quantityStock = inventory.quantity;
+                        })
+                });
+            });
     }
 
     addItem() {
@@ -68,10 +82,11 @@ export class DataForm {
     search() {
         this.service.getEFRKBRTFByCode(this.data.reference)
             .then(dataOut => {
+                var getStock = [];
                 var dataOutFirst = dataOut[0];
                 //this.data.sourceId = dataOutFirst.sourceId
                 //this.data.destinationId = dataOutFirst.destinationId
-                this.data.items = [];
+                this.data.items.splice(0);
                 for (var obj of dataOutFirst.items) {
                     var item = {};
                     item.articleVariantId = obj.articleVariantId;
@@ -80,7 +95,18 @@ export class DataForm {
                     item.quantity = obj.quantity;
                     item.remark = obj.remark;
                     this.data.items.push(item);
+                    getStock.push(this.service.getInventory(this.data.sourceId, item.articleVariantId))
                 }
+                Promise.all(getStock)
+                    .then(inventories => {
+                        var index = 0;
+                        for (var item of this.data.items) {
+                            item.quantityStock = 0;
+                            if (inventories[index])
+                                item.quantityStock = inventories[index].quantity;
+                            index++;
+                        }
+                    }) 
             })
             .catch(e => {
                 alert('Referensi Keluar tidak ditemukan');

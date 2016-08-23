@@ -1,8 +1,8 @@
-import {inject, bindable} from 'aurelia-framework';
+import {inject, bindable, BindingEngine} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
-@inject(Router, Service)
+@inject(Router, Service, BindingEngine)
 export class DataForm {
     @bindable data = {};
     @bindable error = {};
@@ -10,9 +10,11 @@ export class DataForm {
     serviceUriStorages = require('../host').inventory + '/storages';
     variantApiUri = require('../host').core + '/articles/variants';
 
-    constructor(router, service) {
+    constructor(router, service, bindingEngine) {
         this.router = router;
         this.service = service;
+        this.bindingEngine = bindingEngine;
+
         this.service.getModuleConfig()
             .then(config => {
                 var getStorages = [];
@@ -58,6 +60,29 @@ export class DataForm {
     }
 
     attached() {
+        this.bindingEngine.collectionObserver(this.data.items)
+            .subscribe(splices => {
+                var item = this.data.items[splices[0].index];
+                this.bindingEngine.propertyObserver(item, "articleVariantId").subscribe((newValue, oldValue) => {
+                    var getStock = [];
+                    item.quantity = 0;
+                    for (var finishing of item.articleVariant.finishings) {
+                        finishing.quantityEach = 0;
+                        finishing.quantity = 0;
+                        getStock.push(this.service.getInventory(this.data.sourceId, finishing.articleVariantId))
+                    }
+                    Promise.all(getStock)
+                        .then(inventories => {
+                            var index = 0;
+                            for (var finishing of item.articleVariant.finishings) {
+                                finishing.quantityStock = 0;
+                                if (inventories[index])
+                                    finishing.quantityStock = inventories[index].quantity;
+                                index++;
+                            }
+                        })
+                });
+            });
     }
 
     addItem() {

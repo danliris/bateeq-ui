@@ -44,7 +44,6 @@ export class DataForm {
             .subscribe(splices => {
                 var spk = this.data.spkDocuments[splices[0].index];
                 this.bindingEngine.propertyObserver(spk, "spkDocumentId").subscribe((newValue, oldValue) => {
-                    console.log(JSON.stringify(spk));
                     spk.quantity = 0;
                     for (var item of spk.spkDocument.items) {
                         spk.quantity = spk.quantity + parseInt(item.quantity);
