@@ -32,4 +32,20 @@ export class Service extends RestService{
       var endpoint = `${serviceSearch}?keyword=${code}`;
       return super.get(endpoint);
   }  
+
+  getModuleConfig() {
+    var endpoint = require('../host').core + '/modules?keyword=EFR-KB/RTP';
+    return super.get(endpoint)
+      .then(results => {
+        if (results && results.length == 1)
+          return Promise.resolve(results[0].config);
+        else
+          return Promise.resolve(null);
+      });
+  }
+  
+  getStorageById(id) {
+    var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
+    return super.get(endpoint);
+  }
 }
