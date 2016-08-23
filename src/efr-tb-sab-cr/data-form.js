@@ -21,20 +21,20 @@ export class DataForm {
                 if (config.source.type == "selection") {
                     for (var sourceId of config.source.value) {
                         getStorages.push(this.service.getStorageById(sourceId.toString()));
-                        indexSource++; 
+                        indexSource++;
                     }
                 }
                 else {
-                    getStorages.push(this.service.getStorageById(config.source.value.toString())); 
-                    indexSource++; 
+                    getStorages.push(this.service.getStorageById(config.source.value.toString()));
+                    indexSource++;
                 }
                 if (config.destination.type == "selection") {
                     for (var destinationId of config.destination.value) {
-                        getStorages.push(this.service.getStorageById(destinationId.toString())); 
+                        getStorages.push(this.service.getStorageById(destinationId.toString()));
                     }
                 }
                 else {
-                    getStorages.push(this.service.getStorageById(config.destination.value.toString())); 
+                    getStorages.push(this.service.getStorageById(config.destination.value.toString()));
                 }
                 Promise.all(getStorages)
                     .then(storages => {
@@ -43,7 +43,7 @@ export class DataForm {
                         this.data.source = this.sources[0];
                         this.destinations = storages.splice(0);
                         this.data.destinationId = this.destinations[0]._id;
-                        this.data.destination = this.destinations[0]; 
+                        this.data.destination = this.destinations[0];
                     })
             })
             .catch(e => {
@@ -61,7 +61,7 @@ export class DataForm {
     addItem() {
         var item = {};
         item.articleVariantId = '';
-        item.articleVariant = {};
+        item.articleVariant = { _id: '', name: '' };
         item.articleVariant.finishings = [];
         this.data.items.push(item);
         console.log(JSON.stringify(this.data));
@@ -72,12 +72,11 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    addItemDetail(index) {
-        console.log(JSON.stringify(this.data));
-        var item = {};
+    addItemDetail(index) { 
+        var item = { articleVariantId: '', articleVariant: { _id: '', name: '' } };
         item.articleVariantId = '';
         if (!this.data.items[index].articleVariant) {
-            this.data.items[index].articleVariant = {};
+            this.data.items[index].articleVariant = { _id: '', name: '' };
         }
         if (!this.data.items[index].articleVariant.finishings) {
             this.data.items[index].articleVariant.finishings = [];
