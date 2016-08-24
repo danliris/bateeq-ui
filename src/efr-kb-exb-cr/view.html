@@ -14,13 +14,13 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="expedition" class="col-sm-2 control-label">Expedition</label>
+            <label for="expedition" class="col-sm-2 control-label">Ekspedisi</label>
             <div class="col-sm-10">
                 <p class="form-control-static">${data.expedition}</p>
             </div>
         </div> 
         <div class="form-group">
-            <label for="weight" class="col-sm-2 control-label">Weight</label>
+            <label for="weight" class="col-sm-2 control-label">Berat (Kg)</label>
             <div class="col-sm-10">
                 <p class="form-control-static">${data.weight}</p>
             </div>
@@ -31,7 +31,7 @@
             <tr>
                 <th>No.</th>
                 <th>Packing List</th>
-                <th>Kuantitas</th>
+                <th>Total Barang</th>
                 <th>Catatan</th> 
             </tr>
         </thead>
@@ -44,8 +44,8 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Product</th> 
-                                <th>Quantity</th>   
+                                <th>Produk</th> 
+                                <th>Kuantitas Pengiriman</th>   
                             </tr>
                         </thead>
                         <tbody> 
@@ -63,10 +63,10 @@
         </tbody>
     </table> 
     <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
-        There is no data found in the list.
+       Tidak ada data.
     </div>
     <hr/>
     <div class="btn-group pull-right">
-        <a click.delegate="list()" class='btn btn-default btn-sm'>Back</a>
+        <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
     </div>
 </template>

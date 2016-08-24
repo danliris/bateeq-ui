@@ -6,7 +6,7 @@
             <label for="reference" class="col-sm-2 control-label">reference</label>
             <div class="col-sm-10">
                 <div class="input-group">
-                    <input type="reference" class="form-control" name="reference" value.bind="data.reference" placeholder="Input Reference"/> 
+                    <input type="reference" class="form-control" name="reference" value.bind="data.reference" placeholder="Retur Toko (EFR-KB/RTP)"/> 
                     <span class="input-group-btn">
                         <button class="btn btn-default" click.delegate="search()"> Cari </button>
                     </span>
@@ -62,7 +62,7 @@
             </tbody>
         </table>
         <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
-            There is no data found in the list.
+            Tidak ada data.
         </div>
     </form>
 </template>
