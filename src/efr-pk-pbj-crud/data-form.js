@@ -7,7 +7,7 @@ import {Service} from './service';
 export class DataForm {
     @bindable data = {};
     @bindable error = {};
-    destinations = [];
+
 
     variantApiUri = require('../host').core + '/articles/variants';
 
@@ -15,59 +15,72 @@ export class DataForm {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
-        var getDestination = [];
         this.service.getModuleConfig()
             .then(config => {
-                if (config.destination.type = "selected") {
-                    var getStorages = [];
-                    for (var value in config.destination.value) {
-                        getStorages.push(this.service.getStorageById(config.destination.value[value]));
+                var getStorages = [];
+                var indexSource = 0;
+
+                if (config.source.type == "selection") {
+                    for (var sourceId of config.source.value) {
+                        getStorages.push(this.service.getStorageById(sourceId.toString()));
+                        indexSource++;
                     }
-                    Promise.all(getStorages)
-                        .then(results => {
-                            for (var result in results) {
-                                this.destinations.push(results[result]);
-                            }
-                        })
                 }
-                Promise.all([this.service.getStorageById(config.source.value)])
+                else {
+                    getStorages.push(this.service.getStorageById(config.source.value.toString()));
+                    indexSource++;
+                }
+
+                var getStoragesDestination = [];
+                if (config.destination.type == "selection") {
+                    for (var destinationId of config.destination.value) {
+                        getStorages.push(this.service.getStorageById(destinationId.toString()));
+                    }
+                }
+                else {
+                    getStorages.push(this.service.getStorageById(config.destination.value.toString()));
+                }
+
+                Promise.all(getStorages)
                     .then(storages => {
-                        var source = storages[0];
-                        this.data.sourceId = source._id;
-                        this.data.source = source;
+                        this.sources = storages.splice(0, storages.length - indexSource);
+                        this.destinations = storages.splice(0);
+                        this.data.sourceId = this.sources[0]._id;
+                        this.data.source = this.sources[0];
+                        this.data.destinationId = this.destinations[0]._id;
+                        this.data.destination = this.destinations[0]; 
 
                         this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
-                    })
-                 if (this.data._id!="")  
-                {
-                this.service.getById(this.data._id)
-                    .then(data => {
-                        var items = data.items.map(item => {
-                            return {
+
+                        for (var item of this.data.items)
+                            item.selection = {
                                 _id: item.articleVariantId,
                                 name: item.articleVariant.name,
                                 articleVariant: item.articleVariant,
                                 quantity: item.quantity
                             }
-                        });
-                        for (var item of items) {
-                            var i = { selection: item, quantity: item.quantity };
-                            this.data.items.push(i)
-                        }
+
+
                     })
-                }
             })
             .catch(e => {
+                console.log(e)
                 this.loadFailed = true;
             })
     }
 
     attached() {
+
         this.bindingEngine.collectionObserver(this.data.items)
             .subscribe(splices => {
                 var item = this.data.items[splices[0].index];
                 this.observeItem(item);
             });
+    }
+
+    detached() {
+
+        console.log(this.data.source._id);
     }
 
     observeItem(item) {
@@ -100,7 +113,8 @@ export class DataForm {
         });
     }
 
-
+    selectionSource() {
+        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories'; 
+        this.data.items = [];
+    }
 }
-
-

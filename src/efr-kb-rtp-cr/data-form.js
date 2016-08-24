@@ -1,19 +1,19 @@
 import {inject, bindable} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
- 
+
 @inject(Router, Service)
-export class DataForm { 
+export class DataForm {
     @bindable data = {};
-    @bindable error = {}; 
-    
+    @bindable error = {};
+
     storageApiUri = require('../host').inventory + '/storages';
-    variantApiUri = require('../host').core + '/articles/variants'; 
-    
-    constructor(router, service) { 
+    variantApiUri = require('../host').core + '/articles/variants';
+
+    constructor(router, service) {
         this.router = router;
         this.service = service;
-         this.service.getModuleConfig()
+        this.service.getModuleConfig()
             .then(config => {
                 var getStorages = [];
                 var indexSource = 0;
@@ -41,53 +41,55 @@ export class DataForm {
 
                 Promise.all(getStorages)
                     .then(storages => {
-                        this.sources = storages.splice(0, indexSource);
-                        this.destinations = storages[0];
+                        this.sources = storages.splice(0,indexSource);
+                        this.destinations = storages.splice(0);
                         this.data.sourceId = this.sources[0]._id;
                         this.data.source = this.sources[0];
-                        this.data.destinationId = this.destinations._id;
-                        this.data.destination = this.destinations;
+                        this.data.destinationId = this.destinations[0]._id;
+                        this.data.destination = this.destinations[0];
                     })
             })
             .catch(e => {
                 console.log(e)
                 this.loadFailed = true;
-            })  
+            })
     }
-     
-    attached() {    
-         
-    } 
-    
-    addItem() {           
-        var item = {};
-        item.articleVariantId = '';
-        this.data.items.push(item); 
-    } 
-    
-    removeItem(item) { 
+    removeItem(item) {
         var itemIndex = this.data.items.indexOf(item);
         this.data.items.splice(itemIndex, 1);
     }
-    
-    search() {  
-        this.service.getEFRPKPBJByCode(this.data.reference)
-            .then(dataOut=>{ 
-                var dataOutFirst = dataOut[0];
-                this.data.sourceId = dataOutFirst.sourceId
-                this.data.destinationId = dataOutFirst.destinationId
-                this.data.items = [];   
-                for(var obj of dataOutFirst.items) {  
-                    var item = {};
-                    item.articleVariantId = obj.articleVariantId;
-                    item.quantityOut = obj.quantity;
-                    item.quantity = obj.quantity;
-                    item.remark = obj.remark;
-                    this.data.items.push(item); 
-                }   
-        })
-        .catch(e=> { 
-            alert('Referensi Keluar tidak ditemukan');
-        }) 
+
+    attached() {
+
     } 
+
+    search() {
+        this.service.getSPKByPackingList(this.data.reference)
+             .then(dataOut => {
+                var promises = [];
+                for (var variant of dataOut[0].items) {
+                    var p = new Promise((resolve, reject) => {
+                        var item = {};
+                        item.articleVariantId = variant.articleVariantId;
+                        item.articleVariant = variant.articleVariant;
+                        item.quantity = variant.quantity;
+                        item.remark = variant.remark;
+                        this.service.getDataInventory(this.data.sourceId, item.articleVariantId)
+                            .then(inventoryData => {
+                                item.availableQuantity = inventoryData.quantity;
+                                resolve(item);
+                            })
+                    })
+                    promises.push(p);
+                }
+
+                Promise.all(promises)
+                    .then(items => {
+                        this.data.items = items;
+                    })
+            })
+            .catch(e => {
+                alert('Referensi tidak ditemukan');
+            })
+    }
 }

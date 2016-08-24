@@ -27,9 +27,9 @@ export class Service extends RestService{
     return super.post(endpoint, data);
   }  
   
-   getEFRPKPBJByCode(code) 
+  getSPKByPackingList(packingList) 
   {
-      var endpoint = `${serviceSearch}?keyword=${code}`;
+      var endpoint = `${require('../host').merchandiser+'/docs/efr-pk/received?keyword='}${packingList}`;
       return super.get(endpoint);
   }  
 
@@ -46,6 +46,12 @@ export class Service extends RestService{
   
   getStorageById(id) {
     var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
+    return super.get(endpoint);
+  }
+
+  getDataInventory(storageId,articleVariantId)
+  {
+    var endpoint = `${require('../host').inventory + '/storages/' + storageId + '/inventories/'+articleVariantId}`;
     return super.get(endpoint);
   }
 }

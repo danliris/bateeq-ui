@@ -1,18 +1,19 @@
-import {inject, bindable} from 'aurelia-framework';
+import {inject, bindable, BindingEngine} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
- 
-@inject(Router, Service)
-export class DataForm { 
+
+@inject(Router, Service, BindingEngine)
+export class DataForm {
     @bindable data = {};
-    @bindable error = {}; 
-    
+    @bindable error = {};
+
     storageApiUri = require('../host').inventory + '/storages';
-    variantApiUri = require('../host').core + '/articles/variants'; 
-    
-    constructor(router, service) { 
+    variantApiUri = require('../host').core + '/articles/variants';
+
+    constructor(router, service, bindingEngine) {
         this.router = router;
         this.service = service;
+        this.bindingEngine = bindingEngine;
         this.service.getModuleConfig()
             .then(config => {
                 var getStorages = [];
@@ -41,34 +42,62 @@ export class DataForm {
 
                 Promise.all(getStorages)
                     .then(storages => {
-                         this.sources = storages.splice(0, storages.length - indexSource);
+                        this.sources = storages.splice(0, storages.length - indexSource);
                         this.destinations = storages.splice(0);
                         this.data.sourceId = this.sources[0]._id;
                         this.data.source = this.sources[0];
                         this.data.destinationId = this.destinations[0]._id;
-                        this.data.destination = this.destinations[0]; 
+                        this.data.destination = this.destinations[0];
+
+                        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
                     })
             })
             .catch(e => {
                 console.log(e)
                 this.loadFailed = true;
-            })  
+            })
     }
-     
-    attached() {   
-    } 
-    
-    addItem() {           
+
+    attached() {
+        this.bindingEngine.collectionObserver(this.data.items)
+            .subscribe(splices => {
+                var item = this.data.items[splices[0].index];
+                this.observeItem(item);
+            });
+    }
+
+    observeItem(item) {
+        this.bindingEngine.propertyObserver(item, "selection").subscribe((newValue, oldValue) => {
+            item.articleVariantId = newValue._id;
+            item.articleVariant = newValue.articleVariant;
+            item.availableQuantity = newValue.availableQuantity;
+        });
+    }
+
+    addItem() {
         var item = {};
         item.articleVariantId = '';
-        this.data.items.push(item); 
-    } 
-    
-    removeItem(item) { 
+        this.data.items.push(item);
+    }
+
+    removeItem(item) {
         var itemIndex = this.data.items.indexOf(item);
         this.data.items.splice(itemIndex, 1);
     }
+
+   map(result) {
+        return result.data.map(item => {
+            return {
+                _id: item.articleVariantId,
+                name: item.articleVariant.name,
+                articleVariant: item.articleVariant,
+                availableQuantity: item.quantity
+            }
+        });
+    }
     
-    search() {   
-    } 
+     selectionSource() {
+        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories'; 
+        this.data.items = [];
+    }
 }

@@ -6,7 +6,7 @@
             <label for="description" class="col-sm-2 control-label">Nomor Referensi</label>
             <div class="col-sm-10">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="reference" value.bind="data.reference" placeholder="Packing List (EFR-KB/PBJ atau EFR-KB/PBR)"/>
+                    <input type="text" class="form-control" name="reference" value.bind="data.reference" placeholder="Packing List SPK"/>
                     <span class="input-group-btn">
                         <button class="btn btn-default" click.delegate="search()"> Cari </button>
                     </span>
@@ -25,8 +25,10 @@
         </div>
         <div class="form-group ${error.destinationId?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
-            <div class="col-sm-10">
-                <p class="form-control-static">${data.destination.code} - ${data.destination.name}</p>
+            <div class="col-sm-10"> 
+                 <select class="form-control" name="destination"  value.bind="data.destinationId">
+                    <option repeat.for="destination of destinations" value.bind="destination._id">${destination.code} - ${destination.name}</option>
+                </select>
                 <span class="help-block">${error.destinationId}</span>
             </div>
         </div>
@@ -39,7 +41,7 @@
                             <div class="col-md-3"> Produk </div>
                             <div class="col-md-2"> Kuantitas Stok </div>
                             <div class="col-md-2"> Kuantitas Pengiriman </div>
-                            <div class="col-md-5">Catatan </div>
+                            <div class="col-md-5">Catatan </div> 
                         </div>
                     </th> 
                 </tr>
@@ -72,14 +74,15 @@
                                     <input class="form-control" type="text" name="remark" value.bind="item.remark" />
                                     <span class="help-block">${error.items[$index].remark}</span>
                                 </div>
-                            </div>
+                            </div> 
+                             <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Hapus</button></td>
                         </div>
                     </td> 
                 </tr>
             </tbody>
         </table>
         <div class="alert alert-info text-center" role="alert" if.bind="data.items.length == 0">
-            There is no data found in the list.
+            Tidak ada data.
         </div>
     </form>
 </template>

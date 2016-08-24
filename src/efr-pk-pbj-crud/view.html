@@ -2,7 +2,7 @@
     <h3>View</h3>
     <form class="form-horizontal">
         <div class="form-group">
-            <label for="code" class="col-sm-2 control-label">Code</label>
+            <label for="code" class="col-sm-2 control-label">Nomor Dokumen</label>
             <div class="col-sm-10">
                 <p class="form-control-static">${data.code}</p>
             </div>
@@ -10,7 +10,7 @@
         <div class="form-group">
             <label for="sourceName" class="col-sm-2 control-label">Sumber Penyimpanan</label>
             <div class="col-sm-10">
-                <p class="form-control-static">${data.source.name} - ${data.source.name}</p>
+                <p class="form-control-static">${data.source.code} - ${data.source.name}</p>
             </div>
         </div>
         <div class="form-group">
@@ -51,12 +51,12 @@
         </tbody>
     </table> 
     <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
-        There is no data found in the list.
+        Tidak ada data.
     </div>
     <hr/>
     <div class="btn-group pull-right">
-        <a click.delegate="edit()" class='btn btn-primary'>Edit</a>
-        <a click.delegate="delete()" class='btn btn-danger'>Delete</a> 
-        <a click.delegate="list()" class='btn btn-default'>Back</a>
+        <a click.delegate="edit()" class='btn btn-primary' if.bind="item.isDraft==true">Ubah</a>
+        <a click.delegate="delete()" class='btn btn-danger' if.bind="item.isDraft==true">Hapus</a> 
+        <a click.delegate="list()" class='btn btn-default'>Kembali</a>
     </div>
 </template>
