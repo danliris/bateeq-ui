@@ -20,6 +20,13 @@ export class Service extends RestService{
         var endpoint = `${serviceOutUri}?keyword=${code}`;
         return super.get(endpoint);
     }
+    
+
+    getById(id)
+    {
+      var endpoint = `${serviceUri}/${id}`;
+      return super.get(endpoint);
+    } 
 
     getModuleConfig() {
     var endpoint = require('../host').core + '/modules?keyword=EFR-TB/ALT';
@@ -30,16 +37,16 @@ export class Service extends RestService{
         else
           return Promise.resolve(null);
       });
-  }
-  
-  getStorageById(id) {
-    var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
-    return super.get(endpoint);
-  }
+    }
+    
+    getStorageById(id) {
+      var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
+      return super.get(endpoint);
+    }
 
-  create(data)
-  {
-    var endpoint = `${serviceUri}`;
-    return super.post(endpoint, data);
-  } 
+    create(data)
+    {
+      var endpoint = `${serviceUri}`;
+      return super.post(endpoint, data);
+    } 
 }
