@@ -41,7 +41,9 @@ export class Horsey {
                     var item = list.find((item, index, arr) => {
                         return this.getValue(item) == this.getValue(this.selection);
                     });
-                    this.setSelection(item);
+                    if (item) {
+                        this.setSelection(item);
+                    }
                 })
         }
     }
@@ -61,12 +63,15 @@ export class Horsey {
     get text() {
         return this.selection ? this.selection[this.options.label] : '';
     }
+    set text(value) {
+        this.selection[this.options.label] = value;
+    }
 
     setSelection(selection) {
         this.selection = selection;
         this.value = this.getValue(this.selection);
     }
-    
+
     getValue(data) {
         return data[this.options.value];
     }

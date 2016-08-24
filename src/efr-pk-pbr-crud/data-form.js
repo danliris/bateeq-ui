@@ -1,51 +1,94 @@
-import {inject, bindable, ObserverLocator} from 'aurelia-framework';
+import {inject, bindable, BindingEngine} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
-import {Service} from './service'; 
+import {Service} from './service';
 
 
-@inject(Router, Service)
-@inject(ObserverLocator)
+@inject(Router, Service, BindingEngine)
 export class DataForm {
     @bindable data = {};
-    @bindable error = {}; 
-    @bindable quantity = 0; 
-    
-    variantApiUri = require('../host').core + '/articles/variants'; 
-    
-    constructor(router, service) {
+    @bindable error = {};
+
+
+    variantApiUri = require('../host').core + '/articles/variants';
+
+    constructor(router, service, bindingEngine) {
         this.router = router;
         this.service = service;
+        this.bindingEngine = bindingEngine;
         this.service.getModuleConfig()
-            .then(config => { 
-                Promise.all([this.service.getStorageById(config.source.value), this.service.getStorageById(config.destination.value)])
+            .then(config => {
+                var getStorages = [];
+                var indexSource = 0;
+
+                if (config.source.type == "selection") {
+                    for (var sourceId of config.source.value) {
+                        getStorages.push(this.service.getStorageById(sourceId.toString()));
+                        indexSource++;
+                    }
+                }
+                else {
+                    getStorages.push(this.service.getStorageById(config.source.value.toString()));
+                    indexSource++;
+                }
+
+                var getStoragesDestination = [];
+                if (config.destination.type == "selection") {
+                    for (var destinationId of config.destination.value) {
+                        getStorages.push(this.service.getStorageById(destinationId.toString()));
+                    }
+                }
+                else {
+                    getStorages.push(this.service.getStorageById(config.destination.value.toString()));
+                }
+
+                Promise.all(getStorages)
                     .then(storages => {
-                        var source = storages[0];
-                        var destination = storages[1];
-                        this.data.sourceId = source._id;
-                        this.data.source = source;
-                        this.data.destinationId = destination._id;
-                        this.data.destination = destination; 
+                        this.sources = storages.splice(0, storages.length - indexSource);
+                        this.destinations = storages.splice(0);
+                        this.data.sourceId = this.sources[0]._id;
+                        this.data.source = this.sources[0];
+                        this.data.destinationId = this.destinations[0]._id;
+                        this.data.destination = this.destinations[0]; 
+
+                        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
+
+                        for (var item of this.data.items)
+                            item.selection = {
+                                _id: item.articleVariantId,
+                                name: item.articleVariant.name,
+                                articleVariant: item.articleVariant,
+                                quantity: item.quantity
+                            }
+
+
                     })
             })
-            .catch(e=>{
+            .catch(e => {
+                console.log(e)
                 this.loadFailed = true;
             })
     }
 
-    attached() {  
+    attached() {
+
+        this.bindingEngine.collectionObserver(this.data.items)
+            .subscribe(splices => {
+                var item = this.data.items[splices[0].index];
+                this.observeItem(item);
+            });
     }
 
-     
+    detached() {
 
-    getQty(id) {
-        this.service.getInventoryByIdVariantAndIdStorage(id)
-            .then(data => {
-                var dataOutFirst = data;
-                this.quantity = dataOutFirst.quantity;
-            })
-            .catch(e => {
-                this.quantity = 0;
-            })
+        console.log(this.data.source._id);
+    }
+
+    observeItem(item) {
+        this.bindingEngine.propertyObserver(item, "selection").subscribe((newValue, oldValue) => {
+            item.articleVariantId = newValue._id;
+            item.articleVariant = newValue.articleVariant;
+            item.availableQuantity = newValue.availableQuantity;
+        });
     }
 
     addItem() {
@@ -59,20 +102,19 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    search() {
-        this.service.getOutByCode(this.data.reference)
-            .then(dataOut => {
-                var dataOutFirst = dataOut[0];
-                this.data.sourceId = dataOutFirst.config.source.value
-            })
-            .catch(e => {
-                alert('Referensi Keluar tidak ditemukan');
-            })
+    map(result) {
+        return result.data.map(item => {
+            return {
+                _id: item.articleVariantId,
+                name: item.articleVariant.name,
+                articleVariant: item.articleVariant,
+                availableQuantity: item.quantity
+            }
+        });
     }
-    onloadeddata()
-    {
-        getQty(this.data.item.articleVariantId);
+
+    selectionSource() {
+        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories'; 
+        this.data.items = [];
     }
 }
-
-

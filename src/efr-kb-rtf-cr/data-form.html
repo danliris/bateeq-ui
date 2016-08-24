@@ -17,56 +17,67 @@
         <div class="form-group ${error.sourceId?'has-error':''}"> 
             <label for="code" class="col-sm-2 control-label">Sumber Penyimpanan</label>
             <div class="col-sm-10">
-                <horsey src.bind="storageApiUri" selection.bind="data.source" value.bind="data.sourceId"
-                    options.bind="{value:'_id', label:'name'}"></horsey> 
+               <p class="form-control-static">${data.source.code} - ${data.source.name}</p>
                 <span class="help-block">${error.sourceId}</span>
             </div>
         </div>
         <div class="form-group ${error.destinationId?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
-            <div class="col-sm-10">
-                <horsey src.bind="storageApiUri" selection.bind="data.destination"
-                    value.bind="data.destinationId" options.bind="{value:'_id', label:'name'}"></horsey> 
+            <div class="col-sm-10"> 
+                    <p class="form-control-static">${data.destination.code} - ${data.destination.name}</p>
                 <span class="help-block">${error.destinationId}</span>
             </div>
         </div>
     <table class="table">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Produk</th> 
-                <th>Kuantitas Pengiriman</th>
-                <th>Catatan</th> 
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="item of data.items">
-                <td>${$index+1}</td>
-                <td> 
-                    <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
-                        <horsey src.bind="variantApiUri" selection.bind="item.articleVariant" value.bind="item.articleVariantId"
-                            options.bind="{value:'_id', label:'name'}"></horsey>
-                         <span class="help-block">${error.items[$index].articleVariantId}</span>
-                    </div>
-                </td> 
-                <td>
-                    <div class="form-group ${error.items[$index].quantity?'has-error':''}"> 
-                        <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
-                        <span class="help-block">${error.items[$index].quantity}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="form-group ${error.items[$index].remark?'has-error':''}">
-                        <input class="form-control" type="text" name="remark" value.bind="item.remark" />
-                        <span class="help-block">${error.items[$index].remark}</span>
-                    </div>
-                </td>
-                <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
-            </tr> 
-        </tbody>
-    </table>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
-        There is no data found in the list.
-    </div>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>
+                        <div class="row">
+                            <div class="col-md-3"> Produk </div>
+                            <div class="col-md-2"> Kuantitas Stok </div>
+                            <div class="col-md-2"> Kuantitas Pengiriman </div>
+                            <div class="col-md-5">Catatan </div>
+                        </div>
+                    </th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data.items">
+                    <td>${$index+1}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                                   <p class="form-control-static">${item.articleVariant.name}</p>
+                                    <span class="help-block">${error.items[$index].articleVariantId}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                                    <p class="form-control-static">${item.availableQuantity}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                                    <input class="form-control" type="number" name="quantity" value.bind="item.quantity" max.bind="item.availableQuantity" min="0"
+                                    />
+                                    <span class="help-block">${error.items[$index].quantity}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                                    <input class="form-control" type="text" name="remark" value.bind="item.remark" />
+                                    <span class="help-block">${error.items[$index].remark}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td> 
+                </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.items.length == 0">
+            Tidak ada data.
+        </div>
     </form>
 </template>
