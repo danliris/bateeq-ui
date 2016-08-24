@@ -7,39 +7,39 @@ import {Service} from './service';
 export class Edit {
     constructor(router, service) {
         this.router = router;
-        this.service = service;
+        this.service = service; 
     }
 
     async activate(params) {
         var id = params.id;
-        this.data = await this.service.getById(id);
-        // .then(data => {
-        //     this.data = data;
-        // })
-        console.log("edit:activate")
+        this.service.getById(id)
+            .then(data => {
+                this.data = data;
+            })
     }
 
     view() {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
-    save() {
+    save() { 
         this.service.update(this.data)
             .then(result => {
                 this.view();
             })
             .catch(e => {
-                this.error = e;
+                 this.error = e;
             })
     }
-
-    saveDraft() {
+    
+    saveDraft()
+    { 
         this.service.update(this.data)
             .then(result => {
                 this.view();
             })
             .catch(e => {
-                this.error = e;
+                 this.error = e;
             })
     }
 }

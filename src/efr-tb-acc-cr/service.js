@@ -31,6 +31,27 @@ export class Service extends RestService{
       var endpoint = `${serviceUri}`;
       return super.post(endpoint, data);
   } 
+
+   getModuleConfig() {
+    var endpoint = require('../host').core + '/modules?keyword=EFR-TB/ACC';
+    return super.get(endpoint)
+      .then(results => {
+        if (results && results.length == 1)
+          return Promise.resolve(results[0].config);
+        else
+          return Promise.resolve(null);
+      });
+  }
   
+  getStorageById(id) {
+    var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
+    return super.get(endpoint);
+  }
+  
+
+  getSupplierById(id) {
+    var endpoint = `${require('../host').core + '/suppliers'}/${id}`;
+    return super.get(endpoint);
+  }
   
 }

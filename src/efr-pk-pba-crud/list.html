@@ -16,18 +16,18 @@
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.code}</td>
                 <td>${item.reference}</td> 
-                <td>${item.source.name}</td>
-                <td>${item.destination.name}</td>
+                <td>${item.source.code} - ${item.source.name}</td>
+                <td>${item.destination.code} - ${item.destination.name}</td>
                 <td>${item.date}</td> 
-                <td>${item.packingList}</td> 
-                <td>${item.isDraft}</td>  
+                <td>${item.packingList}</td>  
+                <td if.bind="item.isDraft==true">Draft</td>  
             </tr>
         </tbody>
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        There is no data found in the list.
+        Tidak ada data.
     </div>
     <hr/><div class="btn-group pull-right">
-        <button class="btn btn-primary" click.delegate="create()">Create</button>
+        <button class="btn btn-primary" click.delegate="create()">Buat</button>
     </div>
 </template>

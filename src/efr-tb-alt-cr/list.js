@@ -21,8 +21,4 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
-
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
-    }
 }

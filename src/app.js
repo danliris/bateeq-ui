@@ -37,7 +37,7 @@ export class App {
       { route: 'efr-kb-exb', name: 'efr-kb-exb', moduleId: './efr-kb-exb-cr/index', nav: true, title: 'Pusat Barang Jadi (Baru)/(Retur Toko) - Distribusi Barang ke Ekspedisi' },
       { route: 'efr-tb-bbt', name: 'efr-tb-bbt', moduleId: './efr-tb-bbt-cr/index', nav: true, title: 'Toko - Pemasukan Barang Jadi' },
       { route: 'efr-tb-bat', name: 'efr-tb-bat', moduleId: './efr-tb-bat-cr/index', nav: true, title: 'Toko - Pemasukan Embalase' },
-      { route: 'efr-kb-rtp', name: 'efr-kb-rtp', moduleId: './efr-kb-rtp-cr/index', nav: true, title: 'Toko - Retur Barang Jadi' },
+      { route: 'efr-kb-rtp', name: 'efr-kb-rtp', moduleId: './efr-kb-rtp-cr/index', nav: true, title: 'Toko - Retur Barang Jadi (Baru)' },
       { route: 'efr-kb-rtt', name: 'efr-kb-rtt', moduleId: './efr-kb-rtt-cr/index', nav: true, title: 'Toko - Transfer Stok' },
       { route: 'efr-tb-brt', name: 'efr-tb-brt', moduleId: './efr-tb-brt-cr/index', nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Pemasukan Retur Toko' },
       { route: 'efr-kb-rtf', name: 'efr-kb-rtf', moduleId: './efr-kb-rtf-cr/index', nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Retur ke Finishing' },
