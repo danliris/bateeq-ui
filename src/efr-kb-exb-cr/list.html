@@ -4,8 +4,8 @@
         <thead>
             <tr>
                 <th>Nomor Dokumen</th> 
-                <th>Expedition</th>
-                <th>Weight</th>
+                <th>Ekspedisi</th>
+                <th>Berat (Kg)</th>
                 <th>Tanggal</th> 
                 <th>Dibuat Oleh</th>  
             </tr> 
@@ -15,15 +15,15 @@
                 <td>${item.code}</td> 
                 <td>${item.expedition}</td>
                 <td>${item.weight}</td>
-                <td>${item._createdDate}</td>
+                <td>${item.date}</td>
                 <td>${item._createdBy}</td> 
             </tr>
         </tbody>
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        There is no data found in the list.
+        Tidak ada data.
     </div>
     <hr/><div class="btn-group pull-right">
-        <button class="btn btn-primary" click.delegate="create()">Create</button>
+        <button class="btn btn-primary" click.delegate="create()">Buat</button>
     </div>
 </template>

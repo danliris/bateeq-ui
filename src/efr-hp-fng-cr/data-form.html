@@ -23,7 +23,7 @@
             </div>
         </div>  
         <div class="form-group ${error.items?'has-error':''}">
-            <button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button>
+            <button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Tambah</button>
             <table class="table">  
                 <tr repeat.for="item of data.items"> 
                     <td> 
@@ -32,7 +32,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Produk</th>  
-                                    <th>Quantity</th>  
+                                    <th>Kuantitas Hasil Produksi</th>  
                                     <th></th>
                                 </tr>
                             </thead>
@@ -52,7 +52,7 @@
                                             <span class="help-block">${error.items[$index].quantity}</span> 
                                         </div>
                                     </td>
-                                    <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
+                                    <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Hapus</button></td>
                                 </tr> 
                                 <tr> 
                                     <td></td>
@@ -62,10 +62,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Component</th> 
-                                                        <th>Quantity Stock</th> 
-                                                        <th>Quantity</th> 
-                                                        <th>Quantity Used</th> 
+                                                        <th>Komponen</th> 
+                                                        <th>Kuantitas Stok</th> 
+                                                        <th>Kuantitas Packing List</th> 
+                                                        <th>Kuantitas Digunakan</th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -110,7 +110,7 @@
             <span class="help-block">${error.errorItems}</span> 
         </div>  
         <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
-            There is no data found in the list.
+            Tidak ada data.
         </div>
     </form>
 </template>

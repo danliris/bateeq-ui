@@ -54,18 +54,19 @@ export class DataForm {
     }
 
     attached() {
-        this.bindingEngine.collectionObserver(this.data.items)
-            .subscribe(splices => { 
-                var item = this.data.items[splices[0].index];
-                this.bindingEngine.propertyObserver(item, "articleVariantNewId").subscribe((newValue, oldValue) => {
-                    item.quantityStock = 0;
-                    this.service.getInventory(this.data.sourceId, item.articleVariantNewId)
-                        .then(inventory => {
-                            if (inventory)
-                                item.quantityStock = inventory.quantity;
-                        })
-                });
-            });
+        // this.bindingEngine.collectionObserver(this.data.items)
+        //     .subscribe(splices => { 
+        //         for (var item of this.data.items) {
+        //             this.bindingEngine.propertyObserver(item, "articleVariantNewId").subscribe((newValue, oldValue) => {
+        //                 item.quantityStock = 0;
+        //                 this.service.getInventory(this.data.sourceId, item.articleVariantNewId)
+        //                     .then(inventory => {
+        //                         if (inventory)
+        //                             item.quantityStock = inventory.quantity;
+        //                     })
+        //             });
+        //         }  
+        //     });
     }
 
     addItem() {
@@ -89,11 +90,14 @@ export class DataForm {
                 this.data.items.splice(0);
                 for (var obj of dataOutFirst.items) {
                     var item = {};
+                    item.articleVariantNewId = "";
+                    item.articleVariantNew = {};
                     item.articleVariantId = obj.articleVariantId;
                     item.articleVariant = obj.articleVariant;
                     item.quantityOut = obj.quantity;
                     item.quantity = obj.quantity;
                     item.remark = obj.remark;
+                    this.BindingItemVariantNewID(item);
                     this.data.items.push(item);
                     getStock.push(this.service.getInventory(this.data.sourceId, item.articleVariantId))
                 }
@@ -106,10 +110,25 @@ export class DataForm {
                                 item.quantityStock = inventories[index].quantity;
                             index++;
                         }
-                    }) 
+                    })
             })
             .catch(e => {
                 alert('Referensi Keluar tidak ditemukan');
             })
     }
+
+    BindingItemVariantNewID(item) {
+        this.bindingEngine.propertyObserver(item, "articleVariantNewId").subscribe((newValue, oldValue) => {
+            item.quantityStock = 0;
+            console.log(this.data.sourceId);
+            console.log(item.articleVariantNewId);
+            this.service.getInventory(this.data.sourceId, item.articleVariantNewId)
+                .then(inventory => {
+                    if (inventory)
+                        item.quantityStock = inventory.quantity;
+                })
+        });
+
+    }
+
 }

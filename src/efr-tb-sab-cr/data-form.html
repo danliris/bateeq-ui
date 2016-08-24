@@ -35,7 +35,7 @@
                         <th>No.</th>
                         <th>Produk</th>  
                         <th>Ukuran</th>  
-                        <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>
+                        <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Tambah</button></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,8 +51,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Component</th> 
-                                                <th>Quantity</th> 
+                                                <th>Komponen</th> 
+                                                <th>Kuantitas Diterima</th> 
                                                 <th><button click.delegate="addItemDetail($index)" class="btn btn-success btn-sm pull-right">+</button></th>
                                             </tr>
                                         </thead>
@@ -81,12 +81,12 @@
                             </div>
                         </td> 
                         <td><p class="form-control-static">${item.articleVariant.size}</p></td>
-                        <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Remove</button></td>
+                        <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Hapus</button></td>
                     </tr> 
                 </tbody>
             </table>
             <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
-                There is no data found in the list.
+                Tidak ada data.
             </div>
             <!--<span class="help-block">${error.items}</span>-->
         </div>
