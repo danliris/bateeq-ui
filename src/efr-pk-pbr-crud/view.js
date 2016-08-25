@@ -13,26 +13,31 @@ export class View {
     activate(params) {
         var id = params.id;
         this.service.getById(id)
-        .then(data=>{
-            this.data = data;
-        })
+            .then(data => {
+                this.data = data;
+                this.totalQuantity = 0;
+                for (var item of this.data.items) {
+                    this.totalQuantity += parseInt(item.quantity);
+                }
+            })
     }
 
-    list()
-    {
+    list() {
         this.router.navigateToRoute('list');
     }
 
-    edit()
-    {
+    edit() {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    delete()
-    {
+    delete() {
         this.service.delete(this.data)
-        .then(result=>{
-            this.list();
-        });
+            .then(result => {
+                this.list();
+            });
+    }
+
+    print() {
+        window.print();
     }
 }
