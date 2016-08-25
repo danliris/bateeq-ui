@@ -3,8 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
 
 const serviceUri = require('../host').merchandiser + '/docs/efr-pk-pba';
-const serviceUriDraft = require('../host').merchandiser + '/docs/efr-pk-pba/draft'; 
-const serviceUriInventories = require('../host').inventory + '/storages/578dd0860b0aea003ebf0fda/inventories';  
+const serviceUriDraft = require('../host').merchandiser + '/docs/efr-pk-pba/draft';   
 
 
 export class Service extends RestService {
@@ -20,17 +19,18 @@ export class Service extends RestService {
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
-  }
-
-  getInventoryByIdVariantAndIdStorage(id) {
-    var endpoint = `${serviceUriInventories}/${id}`;
-    return super.get(endpoint);
-  }
+  }  
 
   create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   } 
+
+   createDraft(data)
+  {
+    var endpoint = `${serviceUriDraft}`;
+    return super.post(endpoint, data);
+  }  
 
   getByCode(code) {
     var endpoint = `${serviceSearch}?keyword=${code}`;
@@ -56,5 +56,22 @@ export class Service extends RestService {
   getStorageById(id) {
     var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
     return super.get(endpoint);
+  }
+
+  update(data)
+  {
+    var endpoint = `${serviceUri}/${data._id}`;
+    return super.put(endpoint, data);
+  }  
+  
+  updateDraft(data)
+  {
+    var endpoint = `${serviceUriDraft}/${data._id}`;
+    return super.put(endpoint, data);
+  }  
+
+  delete(data) {
+    var endpoint = `${serviceUriDraft}/${data._id}`;
+    return super.delete(endpoint, data);
   }
 }

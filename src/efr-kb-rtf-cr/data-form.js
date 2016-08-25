@@ -31,13 +31,7 @@ export class DataForm {
     }
      
     attached() {    
-    } 
-    
-    addItem() {           
-        var item = {};
-        item.articleVariantId = '';
-        this.data.items.push(item); 
-    } 
+    }  
     
     removeItem(item) { 
         var itemIndex = this.data.items.indexOf(item);
