@@ -4,8 +4,6 @@ import {RestService} from '../rest-service';
  
  const serviceUri = require('../host').merchandiser + '/docs/efr-pk-pbj';  
  const serviceUriDraft = require('../host').merchandiser + '/docs/efr-pk-pbj/draft';   
-const serviceUriInventories = require('../host').inventory + '/storages/578dd0860b0aea003ebf0fda/inventories'; // storeid pusat barang baru didatabase development: 578dd0860b0aea003ebf0fda
-
  
 export class Service extends RestService{
 
@@ -21,13 +19,7 @@ export class Service extends RestService{
   {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
-  } 
-  
-  getInventoryByIdVariantAndIdStorage(id)
-  {
-    var endpoint = `${serviceUriInventories}/${id}`;
-    return super.get(endpoint);
-  }
+  }  
 
   create(data)
   {
