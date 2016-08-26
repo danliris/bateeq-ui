@@ -27,9 +27,31 @@ export class Service extends RestService{
     return super.post(endpoint, data);
   }  
   
-   getEFRPKPBJByCode(code) 
+  getSPKByPackingList(packingList) 
   {
-      var endpoint = `${serviceSearch}?keyword=${code}`;
+      var endpoint = `${require('../host').merchandiser+'/docs/efr-pk/received?keyword='}${packingList}`;
       return super.get(endpoint);
   }  
+
+  getModuleConfig() {
+    var endpoint = require('../host').core + '/modules?keyword=EFR-KB/RTP';
+    return super.get(endpoint)
+      .then(results => {
+        if (results && results.length == 1)
+          return Promise.resolve(results[0].config);
+        else
+          return Promise.resolve(null);
+      });
+  }
+  
+  getStorageById(id) {
+    var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
+    return super.get(endpoint);
+  }
+
+  getDataInventory(storageId,articleVariantId)
+  {
+    var endpoint = `${require('../host').inventory + '/storages/' + storageId + '/inventories/'+articleVariantId}`;
+    return super.get(endpoint);
+  }
 }

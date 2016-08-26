@@ -8,34 +8,49 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
+
     variantApiUri = require('../host').core + '/articles/variants';
 
     constructor(router, service, bindingEngine) {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
-        var getDestination = [];
         this.service.getModuleConfig()
             .then(config => {
-                var getStorages = [this.service.getStorageById(config.source.value)];
+                var getStorages = [];
+                var indexSource = 0;
 
-                if (config.destination.type == "Selected") {
-                    for (var destinationId of config.destination.value) {
-                        getStorages.push(this.service.getStorageById(destinationId));
+                if (config.source.type == "selection") {
+                    for (var sourceId of config.source.value) {
+                        getStorages.push(this.service.getStorageById(sourceId.toString()));
+                        indexSource++;
                     }
                 }
                 else {
-                    getStorages.push(this.service.getStorageById(config.destination.value));
+                    getStorages.push(this.service.getStorageById(config.source.value.toString()));
+                    indexSource++;
+                }
+
+                var getStoragesDestination = [];
+                if (config.destination.type == "selection") {
+                    for (var destinationId of config.destination.value) {
+                        getStorages.push(this.service.getStorageById(destinationId.toString()));
+                    }
+                }
+                else {
+                    getStorages.push(this.service.getStorageById(config.destination.value.toString()));
                 }
 
                 Promise.all(getStorages)
                     .then(storages => {
-                        var source = storages[0];
-                        this.destinations = storages.splice(1);
-                        this.inventoryApiUri = require('../host').inventory + '/storages/' + source._id + '/inventories';
+                        this.sources = storages.splice(0, storages.length - indexSource);
+                        this.destinations = storages.splice(0);
+                        this.data.sourceId = this.sources[0]._id;
+                        this.data.source = this.sources[0];
+                        this.data.destinationId = this.destinations[0]._id;
+                        this.data.destination = this.destinations[0]; 
 
-                        this.data.sourceId = source._id;
-                        this.data.source = source;
+                        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
 
                         for (var item of this.data.items)
                             item.selection = {
@@ -45,6 +60,7 @@ export class DataForm {
                                 quantity: item.quantity
                             }
 
+
                     })
             })
             .catch(e => {
@@ -53,17 +69,18 @@ export class DataForm {
             })
     }
 
-    bind(bindingContext, overrideContext) {
-        console.log('bind');
-    }
-
     attached() {
-        console.log('attached');
+
         this.bindingEngine.collectionObserver(this.data.items)
             .subscribe(splices => {
                 var item = this.data.items[splices[0].index];
                 this.observeItem(item);
             });
+    }
+
+    detached() {
+
+        console.log(this.data.source._id);
     }
 
     observeItem(item) {
@@ -96,5 +113,8 @@ export class DataForm {
         });
     }
 
-
+    selectionSource() {
+        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories'; 
+        this.data.items = [];
+    }
 }

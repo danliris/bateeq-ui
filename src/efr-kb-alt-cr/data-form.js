@@ -34,28 +34,28 @@ export class DataForm {
   search() {  
         this.service.getTransferInByCode(this.data.reference)
             .then(dataOut=>{ 
-                var promises = [];
+                var promises = [];
                 var dataOutFirst = dataOut[0];
                 this.data.items = [];   
                 for(var obj of dataOutFirst.items) {  
                    var p = new Promise((resolve, reject) => {
-                       var item = {};
-                       item.articleVariantId = obj.articleVariantId;
-                       item.articleVariant = obj.articleVariant;
-                       item.quantity = obj.quantity;
-                       item.remark = obj.remark;
-                       this.service.getDataInventory(this.data.sourceId, item.articleVariantId)
-                           .then(inventoryData => {
-                               item.availableQuantity = inventoryData.quantity;
-                               resolve(item);
-                           })
-                   })
+                       var item = {};
+                       item.articleVariantId = obj.articleVariantId;
+                       item.articleVariant = obj.articleVariant;
+                       item.quantity = obj.quantity;
+                       item.remark = obj.remark;
+                       this.service.getDataInventory(this.data.sourceId, item.articleVariantId)
+                           .then(inventoryData => {
+                               item.availableQuantity = inventoryData.quantity;
+                               resolve(item);
+                           })
+                   })
                     promises.push(p);
                 }
                 Promise.all(promises)
-                   .then(items => {
-                       this.data.items = items;
-                   })   
+                   .then(items => {
+                       this.data.items = items;
+                   })   
         })
         .catch(e=> { 
             alert('Referensi Keluar tidak ditemukan');

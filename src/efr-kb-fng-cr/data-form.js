@@ -51,18 +51,27 @@ export class DataForm {
     search() {
         this.service.getEFRHPFNGByCode(this.data.reference)
             .then(dataOut => {
+                var promises = [];
                 for (var variant of dataOut[0].transferInDocument.items) {
-                    var item = {};
-                    item.articleVariantId = variant.articleVariantId;
-                    item.articleVariant = variant.articleVariant;
-                    item.quantity = variant.quantity;
-                    item.remark = variant.remark;
-                    this.service.getDataInventory(this.data.sourceId, item.articleVariantId)
-                        .then(inventoryData => {
-                            item.availableQuantity = inventoryData.quantity;
-                        }) 
-                    this.data.items.push(item);
+                    var p = new Promise((resolve, reject) => {
+                        var item = {};
+                        item.articleVariantId = variant.articleVariantId;
+                        item.articleVariant = variant.articleVariant;
+                        item.quantity = variant.quantity;
+                        item.remark = variant.remark;
+                        this.service.getDataInventory(this.data.sourceId, item.articleVariantId)
+                            .then(inventoryData => {
+                                item.availableQuantity = inventoryData.quantity;
+                                resolve(item);
+                            })
+                    })
+                    promises.push(p);
                 }
+
+                Promise.all(promises)
+                    .then(items => {
+                        this.data.items = items;
+                    })
             })
             .catch(e => {
                 alert('Referensi tidak ditemukan');
