@@ -13,14 +13,21 @@ export class View {
     activate(params) {
         var id = params.id;
         this.service.getById(id)
-        .then(data=>{
-            this.data = data;
-        })
+            .then(data => {
+                this.data = data;
+                this.totalQuantity = 0;
+                for (var spkDocument of this.data.spkDocuments) {
+                    this.totalQuantity += parseInt(spkDocument.quantity);
+                }
+            })
     }
 
-    list()
-    {
+    list() {
         this.router.navigateToRoute('list');
-    } 
-     
+    }
+
+    print() {
+        window.print();
+    }
+
 }
