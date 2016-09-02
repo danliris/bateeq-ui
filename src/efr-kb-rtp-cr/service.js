@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
 const serviceUri = require('../host').inventory + '/docs/efr-kb-rtp';  
-const serviceSearch = require('../host').inventory + '/docs/efr-pk-pbj';
+const serviceSearch = require('../host').inventory + '/docs/efr-pk-pbj/submitted';
 
 export class Service extends RestService{
 

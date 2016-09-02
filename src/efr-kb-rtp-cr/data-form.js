@@ -16,18 +16,18 @@ export class DataForm {
         this.service.getModuleConfig()
             .then(config => {
                 var getStorages = [];
-                var indexSource = 0;
+               // var indexSource = 0;
 
-                if (config.source.type == "selection") {
-                    for (var sourceId of config.source.value) {
-                        getStorages.push(this.service.getStorageById(sourceId.toString()));
-                        indexSource++;
-                    }
-                }
-                else {
-                    getStorages.push(this.service.getStorageById(config.source.value.toString()));
-                    indexSource++
-                }
+                // if (config.source.type == "selection") {
+                //     for (var sourceId of config.source.value) {
+                //         getStorages.push(this.service.getStorageById(sourceId.toString()));
+                //         indexSource++;
+                //     }
+                // }
+                // else {
+                //     getStorages.push(this.service.getStorageById(config.source.value.toString()));
+                //     indexSource++
+                // }
 
                 var getStoragesDestination = [];
                 if (config.destination.type == "selection") {
@@ -41,10 +41,10 @@ export class DataForm {
 
                 Promise.all(getStorages)
                     .then(storages => {
-                        this.sources = storages.splice(0,indexSource);
+                        //this.sources = storages.splice(0, indexSource);
                         this.destinations = storages.splice(0);
-                        this.data.sourceId = this.sources[0]._id;
-                        this.data.source = this.sources[0];
+                        //this.data.sourceId = this.sources[0]._id;
+                        //this.data.source = this.sources[0];
                         this.data.destinationId = this.destinations[0]._id;
                         this.data.destination = this.destinations[0];
                     })
@@ -61,11 +61,13 @@ export class DataForm {
 
     attached() {
 
-    } 
+    }
 
     search() {
         this.service.getSPKByPackingList(this.data.reference)
-             .then(dataOut => {
+            .then(dataOut => {
+                this.data.sourceId = dataOut[0].destinationId;
+                this.data.source = dataOut[0].destination;
                 var promises = [];
                 for (var variant of dataOut[0].items) {
                     var p = new Promise((resolve, reject) => {
