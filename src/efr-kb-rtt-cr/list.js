@@ -13,9 +13,10 @@ export class List {
 
     activate() {
         this.service.search('')
-            .then(data => {
-                
-                this.data = data;
+            .then(data => { 
+                this.data = data; 
+                var spk= getSPKByReference(this.data.code);
+                this.password=spk[0].password;
             })
     }
 
