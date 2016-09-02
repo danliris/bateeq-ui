@@ -25,7 +25,7 @@ export class App {
 
  
      
-      { route: 'efr-tb-acc', name: 'efr-tb-acc', moduleId: './efr-tb-acc-cr/index', nav: true, title: 'Aksesoris - Pemasukan Aksesoris & Embalase' },
+      { route: 'efr-tb-act', name: 'efr-tb-act', moduleId: './efr-tb-act-cr/index', nav: true, title: 'Aksesoris - Pemasukan Aksesoris Toko' },
       { route: 'efr-tb-sab', name: 'efr-tb-sab', moduleId: './efr-tb-sab-cr/index', nav: true, title: 'Finishing - Pemasukan Komponen Barang Jadi' }, 
       { route: 'efr-hp-fng', name: 'efr-hp-fng', moduleId: './efr-hp-fng-cr/index', nav: true, title: 'Finishing - Hasil Produksi' },
       { route: 'efr-kb-fng', name: 'efr-kb-fng', moduleId: './efr-kb-fng-cr/index', nav: true, title: 'Finishing - Pengeluaran Barang Jadi' },
