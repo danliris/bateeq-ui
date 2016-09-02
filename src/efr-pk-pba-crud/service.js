@@ -2,7 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
 
-const serviceUri = require('../host').merchandiser + '/docs/efr-pk-pba';
+const serviceUri = require('../host').merchandiser + '/docs/efr-pk-pba/submitted';
 const serviceUriDraft = require('../host').merchandiser + '/docs/efr-pk-pba/draft';   
 
 
@@ -13,7 +13,7 @@ export class Service extends RestService {
   }
 
   search(keyword) {
-    return super.get(serviceUri);
+    return super.get(require('../host').merchandiser + '/docs/efr-pk-pba');
   }
 
   getById(id) {
@@ -73,5 +73,11 @@ export class Service extends RestService {
   delete(data) {
     var endpoint = `${serviceUriDraft}/${data._id}`;
     return super.delete(endpoint, data);
+  }
+
+  getDataInventory(storageId,articleVariantId)
+  {
+    var endpoint = `${require('../host').inventory + '/storages/' + storageId + '/inventories/'+articleVariantId}`;
+    return super.get(endpoint);
   }
 }
