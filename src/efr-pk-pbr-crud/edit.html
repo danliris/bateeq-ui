@@ -1,13 +1,12 @@
 <template>
-    <h3>Edit Article Brand</h3>
+    <h3>Ubah</h3>
     <require from="./data-form"></require>
     <block>
         <data-form data.bind="data" error.bind="error"></data-form>
         <hr/>
-        <div class="btn-group pull-right">
-            <button class="btn btn-default" click.delegate="saveDraft()" if.bind="item.isDraft==true">Draft</button>
-            <button class="btn btn-success" click.delegate="save()" if.bind="item.isDraft==true">Save</button>
-             <button class="btn btn-default" click.delegate="view()">Back</button>
+        <div class="btn-group pull-right"> 
+            <button class="btn btn-success" click.delegate="saveDraft()" if.bind="data.isDraft==true">Simpan Sebagai Draft</button>
+             <button class="btn btn-default" click.delegate="view()" if.bind="data.isDraft==true">Kembali</button>
         </div>
     </block>
 </template>

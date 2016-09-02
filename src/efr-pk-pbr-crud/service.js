@@ -2,10 +2,8 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = require('../host').merchandiser + '/docs/efr-pk-pbr';  
+const serviceUri = require('../host').merchandiser + '/docs/efr-pk-pbr/submitted';  
 const serviceUriDraft = require('../host').merchandiser + '/docs/efr-pk-pbr/draft';  
-const serviceUriInventories = require('../host').inventory + '/storages/578dd0860b0aea003ebf0fda/inventories'; // storeid pusat barang baru didatabase development: 578dd0860b0aea003ebf0fda
-
  
 export class Service extends RestService{
 
@@ -14,27 +12,26 @@ export class Service extends RestService{
   }
 
   search(keyword) {
-    return super.get(serviceUri);
+    return super.get(require('../host').merchandiser + '/docs/efr-pk-pbr');
   }
 
   getById(id)
   {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
-  } 
-  
-  getInventoryByIdVariantAndIdStorage(id)
-  {
-    var endpoint = `${serviceUriInventories}/${id}`;
-    return super.get(endpoint);
-  }
-
+  }   
   create(data)
   {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
   }  
   
+  createDraft(data)
+  {
+    var endpoint = `${serviceUriDraft}`;
+    return super.post(endpoint, data);
+  }  
+
   delete(data) {
     var endpoint = `${serviceUriDraft}/${data._id}`;
     return super.delete(endpoint, data);
@@ -55,4 +52,27 @@ export class Service extends RestService{
     var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
     return super.get(endpoint);
   }
+
+  getDataInventory(storageId,articleVariantId)
+  {
+    var endpoint = `${require('../host').inventory + '/storages/' + storageId + '/inventories/'+articleVariantId}`;
+    return super.get(endpoint);
+  }
+
+  update(data)
+  {
+    var endpoint = `${serviceUri}/${data._id}`;
+    return super.put(endpoint, data);
+  }  
+
+  update(data)
+  {
+    var endpoint = `${serviceUri}/${data._id}`;
+    return super.put(endpoint, data);
+  }  
+   updateDraft(data)
+  {
+    var endpoint = `${serviceUriDraft}/${data._id}`;
+    return super.put(endpoint, data);
+  }  
 }
