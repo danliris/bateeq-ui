@@ -13,7 +13,7 @@ export class List {
 
     activate() {
         this.service.search('')
-            .then(data => { 
+            .then(data => {
                 this.data = data;
             })
     }
@@ -21,8 +21,18 @@ export class List {
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
-    
+
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    save(data) {
+        this.service.update(data)
+            .then(result => {
+                this. activate();
+            })
+            .catch(e => {
+                this.error = e;
+            })
     }
 }

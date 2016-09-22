@@ -1,5 +1,5 @@
 <template>
-    <h3>Pemasukan Aksesoris & Embalase</h3>
+    <h3>Pemasukan Aksesoris Toko</h3>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -21,9 +21,9 @@
         </tbody>
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        There is no data found in the list.
+       Tidak ada data.
     </div>
     <hr/><div class="btn-group pull-right">
-        <button class="btn btn-primary" click.delegate="create()">Create</button>
+        <button class="btn btn-primary" click.delegate="create()">Buat</button>
     </div>
 </template>

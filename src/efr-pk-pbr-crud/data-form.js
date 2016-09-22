@@ -6,10 +6,7 @@ import {Service} from './service';
 @inject(Router, Service, BindingEngine)
 export class DataForm {
     @bindable data = {};
-    @bindable error = {};
-
-
-    variantApiUri = require('../host').core + '/articles/variants';
+    @bindable error = {}; 
 
     constructor(router, service, bindingEngine) {
         this.router = router;
@@ -59,23 +56,21 @@ export class DataForm {
                                 articleVariant: item.articleVariant,
                                 quantity: item.quantity
                             }
-
+                        for (var item of this.data.items) {
+                            this.service.getDataInventory(this.data.sourceId, item.articleVariantId)
+                                .then(inventoryData => {
+                                    item.availableQuantity = inventoryData.quantity; 
+                                })
+                        }
 
                     })
             })
-            .catch(e => {
-                console.log(e)
+            .catch(e => { 
                 this.loadFailed = true;
             })
     }
 
-    attached() {
-
-        this.bindingEngine.collectionObserver(this.data.items)
-            .subscribe(splices => {
-                var item = this.data.items[splices[0].index];
-                this.observeItem(item);
-            });
+    attached() { 
     }
 
     detached() {
@@ -95,6 +90,11 @@ export class DataForm {
         var item = {};
         item.articleVariantId = '';
         this.data.items.push(item);
+         this.bindingEngine.collectionObserver(this.data.items)
+            .subscribe(splices => {
+                var item = this.data.items[splices[0].index];
+                this.observeItem(item);
+            });
     }
 
     removeItem(item) {
@@ -116,5 +116,6 @@ export class DataForm {
     selectionSource() {
         this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories'; 
         this.data.items = [];
+        this.attached();
     }
 }

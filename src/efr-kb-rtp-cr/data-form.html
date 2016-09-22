@@ -17,9 +17,7 @@
         <div class="form-group ${error.sourceId?'has-error':''}"> 
             <label for="code" class="col-sm-2 control-label">Sumber Penyimpanan</label>
             <div class="col-sm-10">  
-                <select class="form-control" name="source" selection.bind="data.source" value.bind="data.sourceId">
-                    <option repeat.for="source of sources" value.bind="source._id">${source.code} - ${source.name}</option>
-                </select>
+                  <p class="form-control-static">${data.source.code} - ${data.source.name}</p>
                 <span class="help-block">${error.sourceId}</span>
             </div>
         </div>

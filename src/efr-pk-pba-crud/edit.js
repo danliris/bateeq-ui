@@ -10,31 +10,21 @@ export class Edit {
         this.service = service; 
     }
 
-    activate(params) {
+    async activate(params) {
         var id = params.id;
         this.service.getById(id)
             .then(data => {
-                this.data = data;
-            })
+                this.data = data;  
+            }) 
     }
 
     view() {
         this.router.navigateToRoute('view', { id: this.data._id });
-    }
-
-    save() { 
-        this.service.update(this.data)
-            .then(result => {
-                this.view();
-            })
-            .catch(e => {
-                 this.error = e;
-            })
-    }
+    } 
     
     saveDraft()
     { 
-        this.service.update(this.data)
+        this.service.updateDraft(this.data)
             .then(result => {
                 this.view();
             })
