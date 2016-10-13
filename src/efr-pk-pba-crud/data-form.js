@@ -17,6 +17,7 @@ export class DataForm {
         this.bindingEngine = bindingEngine;
         this.service.getModuleConfig()
             .then(config => {
+                console.log("3");
                 var getStorages = [];
                 var indexSource = 0;
 
@@ -48,10 +49,10 @@ export class DataForm {
                         this.data.sourceId = this.sources[0]._id;
                         this.data.source = this.sources[0];
                         this.data.destinationId = this.destinations[0]._id;
-                        this.data.destination = this.destinations[0]; 
+                        this.data.destination = this.destinations[0];
 
                         this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
-
+                        console.log(this.data.items);
                         for (var item of this.data.items)
                             item.selection = {
                                 _id: item.articleVariantId,
@@ -59,7 +60,14 @@ export class DataForm {
                                 articleVariant: item.articleVariant,
                                 quantity: item.quantity
                             }
-
+                        for (var item of this.data.items) {
+                            this.service.getDataInventory(this.data.sourceId, item.articleVariantId)
+                                .then(inventoryData => {
+                                    item.availableQuantity = inventoryData.quantity;
+                                })
+                        }
+                        var item = this.data.items[splices[0].index];
+                        this.observeItem(item);
 
                     })
             })
@@ -71,16 +79,9 @@ export class DataForm {
 
     attached() {
 
-        this.bindingEngine.collectionObserver(this.data.items)
-            .subscribe(splices => {
-                var item = this.data.items[splices[0].index];
-                this.observeItem(item);
-            });
     }
 
     detached() {
-
-        console.log(this.data.source._id);
     }
 
     observeItem(item) {
@@ -95,6 +96,11 @@ export class DataForm {
         var item = {};
         item.articleVariantId = '';
         this.data.items.push(item);
+        this.bindingEngine.collectionObserver(this.data.items)
+            .subscribe(splices => {
+                var item = this.data.items[splices[0].index];
+                this.observeItem(item);
+            });
     }
 
     removeItem(item) {
@@ -114,7 +120,8 @@ export class DataForm {
     }
 
     selectionSource() {
-        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories'; 
+        this.inventoryApiUri = require('../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
         this.data.items = [];
+        this.attached();
     }
 }

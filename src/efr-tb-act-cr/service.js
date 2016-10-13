@@ -2,7 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
  
-const serviceUri = require('../host').inventory + '/docs/efr-tb-acc';
+const serviceUri = require('../host').inventory + '/docs/efr-tb-act';
  
 export class Service extends RestService{
 
@@ -33,7 +33,7 @@ export class Service extends RestService{
   } 
 
    getModuleConfig() {
-    var endpoint = require('../host').core + '/modules?keyword=EFR-TB/ACC';
+    var endpoint = require('../host').core + '/modules?keyword=EFR-TB/ACT';
     return super.get(endpoint)
       .then(results => {
         if (results && results.length == 1)

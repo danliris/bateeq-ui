@@ -25,4 +25,14 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
+
+    save(data) {
+        this.service.update(data)
+            .then(result => {
+                this. activate();
+            })
+            .catch(e => {
+                this.error = e;
+            })
+    }
 }

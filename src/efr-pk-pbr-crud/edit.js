@@ -10,7 +10,7 @@ export class Edit {
         this.service = service; 
     }
 
-    activate(params) {
+    async activate(params) {
         var id = params.id;
         this.service.getById(id)
             .then(data => {
@@ -34,7 +34,7 @@ export class Edit {
     
     saveDraft()
     { 
-        this.service.update(this.data)
+        this.service.updateDraft(this.data)
             .then(result => {
                 this.view();
             })

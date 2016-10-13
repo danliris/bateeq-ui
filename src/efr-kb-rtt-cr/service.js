@@ -41,5 +41,11 @@ export class Service extends RestService{
     var endpoint = `${require('../host').inventory + '/storages'}/${id}`;
     return super.get(endpoint);
   }
+
+  getSPKByReference(codeRTT)
+  {
+     var endpoint = `${require('../host').merchandiser + '/docs/efr-pk/pending?reference='}/${codeRTT}`;
+      return super.get(endpoint);
+  }
    
 }
