@@ -101,8 +101,16 @@ export class DataForm {
         this.data.grandTotal = 0;
         //this.data.paymentDetail.voucherDiscount = 0;
         this.data.grandTotal = parseInt(this.data.total) - parseInt(this.data.paymentDetail.voucherDiscount);
-        //this.data.paymentDetail.cashAmount = 0;
-        //this.data.paymentDetail.cardAmount = 0;
+
+        if(this.isCash && this.isCard) { //partial
+            this.data.paymentDetail.cardAmount = parseInt(this.data.grandTotal) - parseInt(this.data.paymentDetail.cashAmount);
+            if(parseInt(this.data.paymentDetail.cardAmount) < 0)
+                this.data.paymentDetail.cardAmount = 0;
+        }
+        else if(this.isCard) //card
+            this.data.paymentDetail.cardAmount = this.data.grandTotal; 
+        else if(this.isCash) //cash
+            this.data.paymentDetail.cashAmount = this.data.grandTotal; 
         
         var refund = parseInt(this.data.paymentDetail.cashAmount) + parseInt(this.data.paymentDetail.cardAmount) - parseInt(this.data.grandTotal);
         if(refund < 0)
@@ -126,6 +134,9 @@ export class DataForm {
                     this.isCard = true;
                     this.isCash = true;
                 } 
+                this.data.paymentDetail.cashAmount = 0;
+                this.data.paymentDetail.cardAmount = 0;
+                this.refreshDetail();
             })
     }
 }
