@@ -19,7 +19,6 @@ export class DataForm {
         this.isCard = false;
         this.isCash = false;
         this.data.storeId = "";
-        
         var getData = [];
         getData.push(this.service.getBank());
         getData.push(this.service.getCardType());
@@ -33,6 +32,8 @@ export class DataForm {
     }
 
     attached() {    
+        this.data.datePicker = this.getStringDate(new Date());
+        this.data.date = new Date();
         this.data.discount = 0;
         this.data.totalProduct = 0;
         this.data.subTotal = 0;
@@ -98,6 +99,7 @@ export class DataForm {
     }
     
     refreshDetail() { 
+        console.log(JSON.stringify(this.data));
         this.data.grandTotal = 0;
         //this.data.paymentDetail.voucherDiscount = 0;
         this.data.grandTotal = parseInt(this.data.total) - parseInt(this.data.paymentDetail.voucherDiscount);
@@ -138,6 +140,24 @@ export class DataForm {
                 this.data.paymentDetail.cardAmount = 0;
                 this.refreshDetail();
             })
+    }
+    
+    getStringDate(date) { 
+        var dd = date.getDate();
+        var mm = date.getMonth()+1; //January is 0! 
+        var yyyy = date.getFullYear();
+        if(dd<10){
+            dd='0'+dd
+        } 
+        if(mm<10){
+            mm='0'+mm
+        } 
+        date = yyyy+'-'+mm+'-'+dd;
+        return date; 
+    }
+    
+    setDate() {
+        this.data.date = new Date(this.data.datePicker);        
     }
 }
  
