@@ -32,6 +32,7 @@
                         <th>Harga</th>
                         <th>Diskon 1</th>
                         <th>Diskon 2</th>
+                        <th>Diskon Nominal</th>
                         <th>Diskon Spesial</th>
                         <th>Margin</th>
                         <th>Total</th>
@@ -61,14 +62,20 @@
                         </td>
                         <td>
                             <div class="form-group ${error.items[$index].discount1?'has-error':''}">
-                                <input class="form-control" type="number" name="discount1" value.bind="item.discount1" change.delegate="sumRow(item)" readonly/>
+                                <input class="form-control" type="number" name="discount1" value.bind="item.discount1" change.delegate="sumRow(item)"/>
                                 <span class="help-block">${error.items[$index].discount1}</span>
                             </div>
                         </td>
                         <td>
                             <div class="form-group ${error.items[$index].discount2?'has-error':''}">
-                                <input class="form-control" type="number" name="discount2" value.bind="item.discount2" change.delegate="sumRow(item)" readonly/>
+                                <input class="form-control" type="number" name="discount2" value.bind="item.discount2" change.delegate="sumRow(item)"/>
                                 <span class="help-block">${error.items[$index].discount2}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group ${error.items[$index].discountNominal?'has-error':''}">
+                                <input class="form-control" type="number" name="discount2" value.bind="item.discountNominal" change.delegate="sumRow(item)"/>
+                                <span class="help-block">${error.items[$index].discountNominal}</span>
                             </div>
                         </td>
                         <td>
@@ -116,12 +123,12 @@
                     <tr>
                         <td colspan="2" style="text-align:right;">Total Kuantitas</td>
                         <td style="text-align:right;">${data.totalProduct}</td> 
-                        <td colspan="5" style="text-align:right;">Sub Total</td>
+                        <td colspan="6" style="text-align:right;">Sub Total</td>
                         <td style="text-align:right;">${data.subTotal}</td>
                         <td></td> 
                     </tr>
                     <tr> 
-                        <td colspan="8" style="text-align:right;">
+                        <td colspan="9" style="text-align:right;">
                             Diskon &nbsp;
                             <select name="discount" value.bind="data.discount" change.delegate="sumTotal()">
                                 <option value="0">0%</option>
@@ -151,7 +158,7 @@
                         <td></td> 
                     </tr>
                     <tr> 
-                        <td colspan="8" style="text-align:right;">Total</td>
+                        <td colspan="9" style="text-align:right;">Total</td>
                         <td style="text-align:right;">${data.total}</td>
                         <td></td> 
                     </tr>

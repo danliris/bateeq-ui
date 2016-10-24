@@ -49,9 +49,16 @@ export class DataForm {
                 var item = this.data.items[splices[0].index];
                 this.bindingEngine.propertyObserver(item, "articleVariantId").subscribe((newValue, oldValue) => {
                     item.price = parseInt(item.articleVariant.domesticSale);
-                    this.sumRow(item);
+                    this.refreshPromo();
                 });
             });
+        this.bindingEngine.propertyObserver(this.data, "storeId").subscribe((newValue, oldValue) => {
+            this.refreshPromo();
+        });
+        this.bindingEngine.propertyObserver(this.data, "date").subscribe((newValue, oldValue) => {
+            this.refreshPromo();
+        });
+            
     }  
     
     addItem() {           
@@ -63,6 +70,7 @@ export class DataForm {
         item.price = 0;
         item.discount1 = 0;
         item.discount2 = 0;
+        item.discountNominal = 0;
         item.specialDiscount = 0;
         item.margin = 0;
         item.total = 0;
@@ -79,7 +87,7 @@ export class DataForm {
     sumRow(item) {
         var itemIndex = this.data.items.indexOf(item);
         var itemDetail = this.data.items[itemIndex]
-        itemDetail.total = (parseInt(itemDetail.quantity) * parseInt(itemDetail.price)) * (1 - (parseInt(itemDetail.discount1) / 100)) * (1 - (parseInt(itemDetail.discount2) / 100)) * (1 - (parseInt(itemDetail.specialDiscount) / 100))
+        itemDetail.total = (((parseInt(itemDetail.quantity) * parseInt(itemDetail.price)) * (1 - (parseInt(itemDetail.discount1) / 100)) * (1 - (parseInt(itemDetail.discount2) / 100))) - parseInt(itemDetail.discountNominal)) * (1 - (parseInt(itemDetail.specialDiscount) / 100))
         this.sumTotal(); 
     }
     
@@ -98,8 +106,7 @@ export class DataForm {
         this.refreshDetail();
     }
     
-    refreshDetail() { 
-        console.log(JSON.stringify(this.data));
+    refreshDetail() {  
         this.data.grandTotal = 0;
         //this.data.paymentDetail.voucherDiscount = 0;
         this.data.grandTotal = parseInt(this.data.total) - parseInt(this.data.paymentDetail.voucherDiscount);
@@ -158,6 +165,45 @@ export class DataForm {
     
     setDate() {
         this.data.date = new Date(this.data.datePicker);        
+    }
+    
+    refreshPromo() { 
+        var getPromoes = [];
+        var storeId = this.data.storeId;
+        var date = this.data.date;
+         
+        for(var item of this.data.items) {
+            var variantId = item.articleVariantId;
+            getPromoes.push(this.service.getPromoByStoreVariantDatetime(storeId, variantId, date));
+        }
+        
+        Promise.all(getPromoes)
+            .then(results => {   
+                var index = 0;
+                for(var item of this.data.items) {
+                    item.discount1 = 0;
+                    item.discount2 = 0;
+                    item.discountNominal = 0;
+                    var promo = results[index];
+                    if(promo) {
+                        for(var promoProduct of promo.promoProducts) {
+                            if(promoProduct.articleVariantId == item.articleVariantId) {
+                                if(promoProduct.promoDiscount) {
+                                    if(promoProduct.promoDiscount.unit.toLowerCase() == "percentage") {
+                                        item.discount1 = promoProduct.promoDiscount.discount1;
+                                        item.discount2 = promoProduct.promoDiscount.discount2;
+                                    }
+                                    else if(promoProduct.promoDiscount.unit.toLowerCase() == "nominal") {
+                                        item.discountNominal = promoProduct.promoDiscount.nominal;
+                                    }
+                                }
+                            } 
+                        }
+                    }
+                    this.sumRow(item);
+                    index += 1; 
+                }
+            })
     }
 }
  

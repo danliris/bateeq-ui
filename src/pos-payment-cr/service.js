@@ -6,6 +6,7 @@ const serviceUri = require('../host').pos + '/docs/payment';
 const serviceUriBank = require('../host').pos + '/banks';
 const serviceUriCardType = require('../host').pos + '/cardtypes';
 const serviceUriPaymentType = require('../host').pos + '/paymenttypes'; 
+const serviceUriPromo = require('../host').promo + '/docs/promoes'; 
 
 export class Service extends RestService {
 
@@ -41,6 +42,11 @@ export class Service extends RestService {
     
     getPaymentTypeById(id) {
         var endpoint = `${serviceUriPaymentType}/${id}`;
+        return super.get(endpoint);
+    }
+    
+    getPromoByStoreVariantDatetime(storeId, variantId, datetime) {
+        var endpoint = `${serviceUriPromo}/${storeId}/${variantId}/${datetime}`;
         return super.get(endpoint);
     }
 }
