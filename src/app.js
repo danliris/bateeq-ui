@@ -48,6 +48,8 @@ export class App {
       { route: 'efr-pk-pba', name: 'efr-pk-pba', moduleId: './efr-pk-pba-crud/index', nav: true, title: 'MD - SPK Barang Embalase' },
       { route: 'efr-pk-pbr', name: 'efr-pk-pbr', moduleId: './efr-pk-pbr-crud/index', nav: true, title: 'Toko Pusat - SPK Barang Jadi (Retur)' },
       
+      { route: 'payment', name: 'payment', moduleId: './pos-payment-cr/index', nav: true, title: 'payment' },
+      
     ]);
 
     this.router = router;
