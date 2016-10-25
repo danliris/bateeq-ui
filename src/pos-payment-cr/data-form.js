@@ -47,10 +47,13 @@ export class DataForm {
         this.bindingEngine.collectionObserver(this.data.items)
             .subscribe(splices => {
                 var item = this.data.items[splices[0].index];
-                this.bindingEngine.propertyObserver(item, "articleVariantId").subscribe((newValue, oldValue) => {
-                    item.price = parseInt(item.articleVariant.domesticSale);
-                    this.refreshPromo();
-                });
+                if(item)
+                {
+                    this.bindingEngine.propertyObserver(item, "articleVariantId").subscribe((newValue, oldValue) => {
+                        item.price = parseInt(item.articleVariant.domesticSale);
+                        this.refreshPromo();
+                    });
+                }
             });
         this.bindingEngine.propertyObserver(this.data, "storeId").subscribe((newValue, oldValue) => {
             this.refreshPromo();
@@ -87,7 +90,17 @@ export class DataForm {
     sumRow(item) {
         var itemIndex = this.data.items.indexOf(item);
         var itemDetail = this.data.items[itemIndex]
-        itemDetail.total = (((parseInt(itemDetail.quantity) * parseInt(itemDetail.price)) * (1 - (parseInt(itemDetail.discount1) / 100)) * (1 - (parseInt(itemDetail.discount2) / 100))) - parseInt(itemDetail.discountNominal)) * (1 - (parseInt(itemDetail.specialDiscount) / 100))
+        itemDetail.total = 0;
+        if(parseInt(itemDetail.quantity) > 0) {
+            //Price
+            itemDetail.total = parseInt(itemDetail.quantity) * parseInt(itemDetail.price);
+            //Diskon
+            itemDetail.total = (itemDetail.total * (1 - (parseInt(itemDetail.discount1) / 100)) * (1 - (parseInt(itemDetail.discount2) / 100))) - parseInt(itemDetail.discountNominal);
+            //Spesial Diskon 
+            itemDetail.total = itemDetail.total * (1 - (parseInt(itemDetail.specialDiscount) / 100));
+            //Margin
+            itemDetail.total = itemDetail.total * (1 - (parseInt(itemDetail.margin) / 100));
+        } 
         this.sumTotal(); 
     }
     
@@ -106,7 +119,7 @@ export class DataForm {
         this.refreshDetail();
     }
     
-    refreshDetail() {  
+    refreshDetail() {
         this.data.grandTotal = 0;
         //this.data.paymentDetail.voucherDiscount = 0;
         this.data.grandTotal = parseInt(this.data.total) - parseInt(this.data.paymentDetail.voucherDiscount);
@@ -119,7 +132,8 @@ export class DataForm {
         else if(this.isCard) //card
             this.data.paymentDetail.cardAmount = this.data.grandTotal; 
         else if(this.isCash) //cash
-            this.data.paymentDetail.cashAmount = this.data.grandTotal; 
+            if(parseInt(this.data.paymentDetail.cashAmount) <= 0)
+                this.data.paymentDetail.cashAmount = this.data.grandTotal; 
         
         var refund = parseInt(this.data.paymentDetail.cashAmount) + parseInt(this.data.paymentDetail.cardAmount) - parseInt(this.data.grandTotal);
         if(refund < 0)
@@ -167,7 +181,7 @@ export class DataForm {
         this.data.date = new Date(this.data.datePicker);        
     }
     
-    refreshPromo() { 
+    refreshPromo() {
         var getPromoes = [];
         var storeId = this.data.storeId;
         var date = this.data.date;

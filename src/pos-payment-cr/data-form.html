@@ -30,11 +30,11 @@
                         <th>Produk</th> 
                         <th>Kuantitas</th>
                         <th>Harga</th>
-                        <th>Diskon 1</th>
-                        <th>Diskon 2</th>
+                        <th>Diskon 1 (%)</th>
+                        <th>Diskon 2 (%)</th>
                         <th>Diskon Nominal</th>
                         <th>Diskon Spesial</th>
-                        <th>Margin</th>
+                        <th>Margin (%)</th>
                         <th>Total</th>
                         <th><button click.delegate="addItem()" class="btn btn-success btn-sm pull-right">Add Item</button></th>
                     </tr>
@@ -108,7 +108,7 @@
                         </td>
                         <td>
                             <div class="form-group ${error.items[$index].margin?'has-error':''}">
-                                <input class="form-control" type="number" name="margin" value.bind="item.margin" change.delegate="sumRow(item)" readonly/>
+                                <input class="form-control" type="number" name="margin" value.bind="item.margin" change.delegate="sumRow(item)"/>
                                 <span class="help-block">${error.items[$index].margin}</span>
                             </div>
                         </td>
