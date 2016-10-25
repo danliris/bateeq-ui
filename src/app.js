@@ -23,8 +23,6 @@ export class App {
       { route: 'articles/variants', name: 'articles-variants', moduleId: './article-variant-crud/index', nav: true, title: 'Variants' },
       { route: 'inventories/module', name: 'module', moduleId: './module-crud/index', nav: true, title: 'Module' },
 
- 
-     
       { route: 'efr-tb-act', name: 'efr-tb-act', moduleId: './efr-tb-act-cr/index', nav: true, title: 'Aksesoris - Pemasukan Aksesoris Toko' },
       { route: 'efr-tb-sab', name: 'efr-tb-sab', moduleId: './efr-tb-sab-cr/index', nav: true, title: 'Finishing - Pemasukan Komponen Barang Jadi' }, 
       { route: 'efr-hp-fng', name: 'efr-hp-fng', moduleId: './efr-hp-fng-cr/index', nav: true, title: 'Finishing - Hasil Produksi' },
@@ -43,12 +41,10 @@ export class App {
       { route: 'efr-kb-rtf', name: 'efr-kb-rtf', moduleId: './efr-kb-rtf-cr/index', nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Retur ke Finishing' },
       { route: 'efr-tb-brd', name: 'efr-tb-brd', moduleId: './efr-tb-brd-cr/index', nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Pemasukan Retur Toko dari Finishing' },
       
-
       { route: 'efr-pk-pbj', name: 'efr-pk-pbj', moduleId: './efr-pk-pbj-crud/index', nav: true, title: 'MD - SPK Barang Jadi (Baru)' },
       { route: 'efr-pk-pba', name: 'efr-pk-pba', moduleId: './efr-pk-pba-crud/index', nav: true, title: 'MD - SPK Barang Embalase' },
       { route: 'efr-pk-pbr', name: 'efr-pk-pbr', moduleId: './efr-pk-pbr-crud/index', nav: true, title: 'Toko Pusat - SPK Barang Jadi (Retur)' },
-      
-      { route: 'sales', name: 'sales', moduleId: './sales-cr/index', nav: true, title: 'sales' },
+      { route: 'sales', name: 'sales', moduleId: './sales-cr/index', nav: true, title: 'sales' }
       
     ]);
 
