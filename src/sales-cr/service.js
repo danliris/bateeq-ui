@@ -2,11 +2,10 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../rest-service';
 
-const serviceUri = require('../host').pos + '/docs/payment';
-const serviceUriBank = require('../host').pos + '/banks';
-const serviceUriCardType = require('../host').pos + '/cardtypes';
-const serviceUriPaymentType = require('../host').pos + '/paymenttypes'; 
-const serviceUriPromo = require('../host').promo + '/docs/promoes'; 
+const serviceUri = require('../host').sales + '/docs/sales';
+const serviceUriBank = require('../host').master + '/banks';
+const serviceUriCardType = require('../host').master + '/cardtypes';
+const serviceUriPromo = require('../host').sales + '/docs/promos'; 
 
 export class Service extends RestService {
 
@@ -34,15 +33,6 @@ export class Service extends RestService {
     
     getCardType() {
         return super.get(serviceUriCardType);
-    }
-    
-    getPaymentType() {
-        return super.get(serviceUriPaymentType);
-    }
-    
-    getPaymentTypeById(id) {
-        var endpoint = `${serviceUriPaymentType}/${id}`;
-        return super.get(endpoint);
     }
     
     getPromoByStoreVariantDatetime(storeId, variantId, datetime) {

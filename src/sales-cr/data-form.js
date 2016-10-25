@@ -7,7 +7,7 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
         
-    storeApiUri = require('../host').inventory + '/stores';
+    storeApiUri = require('../host').master + '/stores';
     variantApiUri = require('../host').core + '/articles/variants';
     voucherApiUri = '';
     
@@ -22,12 +22,10 @@ export class DataForm {
         var getData = [];
         getData.push(this.service.getBank());
         getData.push(this.service.getCardType());
-        getData.push(this.service.getPaymentType()); 
         Promise.all(getData)
             .then(results => { 
                 this.Banks = results[0]; 
                 this.CardTypes = results[1];
-                this.PaymentTypes = results[2];
             })          
     }
 
@@ -40,10 +38,10 @@ export class DataForm {
         this.data.totalDiscount = 0;
         this.data.total = 0;
         this.data.grandTotal = 0;
-        this.data.paymentDetail.voucherDiscount = 0; 
-        this.data.paymentDetail.cashAmount = 0;
-        this.data.paymentDetail.cardAmount = 0;
-        this.data.paymentDetail.refund = 0;
+        this.data.salesDetail.voucherDiscount = 0; 
+        this.data.salesDetail.cashAmount = 0;
+        this.data.salesDetail.cardAmount = 0;
+        this.data.salesDetail.refund = 0;
         this.bindingEngine.collectionObserver(this.data.items)
             .subscribe(splices => {
                 var item = this.data.items[splices[0].index];
@@ -121,46 +119,42 @@ export class DataForm {
     
     refreshDetail() {
         this.data.grandTotal = 0;
-        //this.data.paymentDetail.voucherDiscount = 0;
-        this.data.grandTotal = parseInt(this.data.total) - parseInt(this.data.paymentDetail.voucherDiscount);
+        //this.data.salesDetail.voucherDiscount = 0;
+        this.data.grandTotal = parseInt(this.data.total) - parseInt(this.data.salesDetail.voucherDiscount);
 
         if(this.isCash && this.isCard) { //partial
-            this.data.paymentDetail.cardAmount = parseInt(this.data.grandTotal) - parseInt(this.data.paymentDetail.cashAmount);
-            if(parseInt(this.data.paymentDetail.cardAmount) < 0)
-                this.data.paymentDetail.cardAmount = 0;
+            this.data.salesDetail.cardAmount = parseInt(this.data.grandTotal) - parseInt(this.data.salesDetail.cashAmount);
+            if(parseInt(this.data.salesDetail.cardAmount) < 0)
+                this.data.salesDetail.cardAmount = 0;
         }
         else if(this.isCard) //card
-            this.data.paymentDetail.cardAmount = this.data.grandTotal; 
+            this.data.salesDetail.cardAmount = this.data.grandTotal; 
         else if(this.isCash) //cash
-            if(parseInt(this.data.paymentDetail.cashAmount) <= 0)
-                this.data.paymentDetail.cashAmount = this.data.grandTotal; 
+            if(parseInt(this.data.salesDetail.cashAmount) <= 0)
+                this.data.salesDetail.cashAmount = this.data.grandTotal; 
         
-        var refund = parseInt(this.data.paymentDetail.cashAmount) + parseInt(this.data.paymentDetail.cardAmount) - parseInt(this.data.grandTotal);
+        var refund = parseInt(this.data.salesDetail.cashAmount) + parseInt(this.data.salesDetail.cardAmount) - parseInt(this.data.grandTotal);
         if(refund < 0)
             refund = 0;
-        this.data.paymentDetail.refund = refund;
+        this.data.salesDetail.refund = refund;
     }
     
     checkPaymentType() {
         this.isCard = false;
-        this.isCash = false;
-        this.service.getPaymentTypeById(this.data.paymentDetail.paymentTypeId)
-            .then(result => {  
-                var _PaymentTypeResult = result; 
-                if(_PaymentTypeResult.name.toLowerCase() == 'cash'){  
-                    this.isCash = true;
-                }
-                else if(_PaymentTypeResult.name.toLowerCase() == 'card'){  
-                    this.isCard = true;
-                }
-                else if(_PaymentTypeResult.name.toLowerCase() == 'partial'){  
-                    this.isCard = true;
-                    this.isCash = true;
-                } 
-                this.data.paymentDetail.cashAmount = 0;
-                this.data.paymentDetail.cardAmount = 0;
-                this.refreshDetail();
-            })
+        this.isCash = false;   
+        if(this.data.salesDetail.paymentType.toLowerCase() == 'cash'){  
+            this.isCash = true;
+        }
+        else if(this.data.salesDetail.paymentType.toLowerCase() == 'card'){  
+            this.isCard = true;
+        }
+        else if(this.data.salesDetail.paymentType.toLowerCase() == 'partial'){  
+            this.isCard = true;
+            this.isCash = true;
+        } 
+        this.data.salesDetail.cashAmount = 0;
+        this.data.salesDetail.cardAmount = 0;
+        this.refreshDetail(); 
     }
     
     getStringDate(date) { 

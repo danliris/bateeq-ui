@@ -27,14 +27,14 @@ export class View {
     checkPaymentType() {
         this.isCard = false;
         this.isCash = false;   
-        var _PaymentTypeResult = this.data.paymentDetail.paymentType; 
-        if(_PaymentTypeResult.name.toLowerCase() == 'cash'){  
+        var paymentType = this.data.salesDetail.paymentType; 
+        if(paymentType.toLowerCase() == 'cash'){  
             this.isCash = true;
         }
-        else if(_PaymentTypeResult.name.toLowerCase() == 'card'){  
+        else if(paymentType.toLowerCase() == 'card'){  
             this.isCard = true;
         }
-        else if(_PaymentTypeResult.name.toLowerCase() == 'partial'){  
+        else if(paymentType.toLowerCase() == 'partial'){  
             this.isCard = true;
             this.isCash = true;
         }  

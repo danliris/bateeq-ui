@@ -1,5 +1,5 @@
 <template> 
-    <h3>View Payment</h3>
+    <h3>View Sales</h3>
     <form class="form-horizontal">
         <div class="form-group">
             <label for="code" class="col-sm-2 control-label">Nomor Pembayaran</label>
@@ -44,51 +44,51 @@
             </div>
         </div>  
         <div class="form-group">
-            <label for="paymentTypeName" class="col-sm-2 control-label">Jenis Pembayaran</label>
+            <label for="paymentType" class="col-sm-2 control-label">Jenis Pembayaran</label>
             <div class="col-sm-10">
-                <p class="form-control-static">${data.paymentDetail.paymentType.name}</p>
+                <p class="form-control-static">${data.salesDetail.paymentType}</p>
             </div>
         </div>  
         <div class="form-group" if.bind="isCard">
             <label for="card" class="col-sm-2 control-label">Jenis Kartu</label>
             <div class="col-sm-10">
-                <p class="form-control-static">${data.paymentDetail.card}</p>
+                <p class="form-control-static">${data.salesDetail.card}</p>
             </div>
         </div>  
         <div class="form-group" if.bind="isCard">
             <label for="cardTypeName" class="col-sm-2 control-label">Kartu</label>
             <div class="col-sm-10">
-                <p class="form-control-static">${data.paymentDetail.cardType.name}</p>
+                <p class="form-control-static">${data.salesDetail.cardType.name}</p>
             </div>
         </div>  
         <div class="form-group" if.bind="isCard">
             <label for="bankName" class="col-sm-2 control-label">Bank / EDC</label>
             <div class="col-sm-10">
-                <p class="form-control-static">${data.paymentDetail.bank.name}</p>
+                <p class="form-control-static">${data.salesDetail.bank.name}</p>
             </div>
         </div>   
         <div class="form-group" if.bind="isCard">
             <label for="cardNumber" class="col-sm-2 control-label">Nomor Kartu</label>
             <div class="col-sm-10">
-                <p class="form-control-static">${data.paymentDetail.cardNumber}</p>
+                <p class="form-control-static">${data.salesDetail.cardNumber}</p>
             </div>
         </div> 
         <div class="form-group" if.bind="isCard">
             <label for="cardName" class="col-sm-2 control-label">Nama Kartu</label>
             <div class="col-sm-10">
-                <p class="form-control-static">${data.paymentDetail.cardName}</p>
+                <p class="form-control-static">${data.salesDetail.cardName}</p>
             </div>
         </div>  
         <div class="form-group" if.bind="isCash">
             <label for="cardAmount" class="col-sm-2 control-label">Cash</label>
             <div class="col-sm-10">
-                <p class="form-control-static">${data.paymentDetail.cashAmount}</p>
+                <p class="form-control-static">${data.salesDetail.cashAmount}</p>
             </div>
         </div>   
         <div class="form-group" if.bind="isCard">
             <label for="cardAmount" class="col-sm-2 control-label">Card</label>
             <div class="col-sm-10">
-                <p class="form-control-static">${data.paymentDetail.cardAmount}</p>
+                <p class="form-control-static">${data.salesDetail.cardAmount}</p>
             </div>
         </div> 
     </form> 
@@ -102,7 +102,7 @@
                 <th>Diskon 1 (%)</th> 
                 <th>Diskon 2 (%)</th> 
                 <th>Diskon Nominal</th> 
-                <!--<th>Margin</th> -->
+                <th>Margin</th> 
                 <th>Spesial Diskon</th> 
                 <th>Total</th> 
             </tr>
@@ -116,7 +116,7 @@
                 <td>${item.discount1}</td> 
                 <td>${item.discount2}</td> 
                 <td>${item.discountNominal}</td> 
-                <!--<td>${item.margin}</td> -->
+                <td>${item.margin}</td> 
                 <td>${item.specialDiscount}</td> 
                 <td>${item.total}</td>  
             </tr>

@@ -174,63 +174,65 @@
     
     <div>
         <form class="form-horizontal"> 
-            <div class="form-group ${error.paymentDetail.paymentTypeId?'has-error':''}">
-                <label for="paymentTypeId" class="col-sm-2 control-label">Tipe Pembayaran</label>
+            <div class="form-group ${error.salesDetail.paymentType?'has-error':''}">
+                <label for="paymentType" class="col-sm-2 control-label">Tipe Pembayaran</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="paymentType" value.bind="data.paymentDetail.paymentTypeId" change.delegate="checkPaymentType()">
+                    <select class="form-control" name="paymentType" value.bind="data.salesDetail.paymentType" change.delegate="checkPaymentType()">
                         <option value=""></option>
-                        <option repeat.for="paymentType of PaymentTypes" value="${paymentType._id}">${paymentType.name}</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Card">Card</option>
+                        <option value="Partial">Partial</option> 
                     </select>
-                    <span class="help-block">${error.paymentDetail.paymentTypeId}</span>
+                    <span class="help-block">${error.salesDetail.paymentType}</span>
                 </div>
             </div>  
-            <!--<div class="form-group ${error.paymentDetail.voucherId?'has-error':''}">
+            <!--<div class="form-group ${error.salesDetail.voucherId?'has-error':''}">
                 <label for="voucherId" class="col-sm-2 control-label">Voucher</label>
                 <div class="col-sm-10">
-                    <horsey src.bind="voucherApiUri" selection.bind="data.paymentDetail.voucher" value.bind="data.paymentDetail.voucherId" options.bind="{value:'_id', label:'name'}"></horsey>
-                    <span class="help-block">${error.paymentDetail.voucherId}</span>
+                    <horsey src.bind="voucherApiUri" selection.bind="data.salesDetail.voucher" value.bind="data.salesDetail.voucherId" options.bind="{value:'_id', label:'name'}"></horsey>
+                    <span class="help-block">${error.salesDetail.voucherId}</span>
                 </div>
             </div>  -->  
-            <div class="form-group ${error.paymentDetail.card?'has-error':''}" if.bind="isCard"> 
+            <div class="form-group ${error.salesDetail.card?'has-error':''}" if.bind="isCard"> 
                 <label for="card" class="col-sm-2 control-label">Jenis Kartu</label>
                 <div class="col-sm-10"> 
-                    <input type="radio" name="card" checked.bind="data.paymentDetail.card" value="Debit"/> Debit
-                    <input type="radio" name="card" checked.bind="data.paymentDetail.card" value="Credit"/> Kredit  
-                    <span class="help-block">${error.paymentDetail.card}</span>
+                    <input type="radio" name="card" checked.bind="data.salesDetail.card" value="Debit"/> Debit
+                    <input type="radio" name="card" checked.bind="data.salesDetail.card" value="Credit"/> Kredit  
+                    <span class="help-block">${error.salesDetail.card}</span>
                 </div>
             </div> 
-            <div class="form-group ${error.paymentDetail.cardTypeId?'has-error':''}" if.bind="isCard">
+            <div class="form-group ${error.salesDetail.cardTypeId?'has-error':''}" if.bind="isCard">
                 <label for="cardTypeId" class="col-sm-2 control-label">Kartu</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="cardType" value.bind="data.paymentDetail.cardTypeId"> 
+                    <select class="form-control" name="cardType" value.bind="data.salesDetail.cardTypeId"> 
                         <option value=""></option>
                         <option repeat.for="cardType of CardTypes" value="${cardType._id}">${cardType.name}</option>
                     </select>
-                    <span class="help-block">${error.paymentDetail.cardTypeId}</span>
+                    <span class="help-block">${error.salesDetail.cardTypeId}</span>
                 </div>
             </div>  
-            <div class="form-group ${error.paymentDetail.bankId?'has-error':''}" if.bind="isCard">
+            <div class="form-group ${error.salesDetail.bankId?'has-error':''}" if.bind="isCard">
                 <label for="bankId" class="col-sm-2 control-label">Bank / EDC</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="bank" value.bind="data.paymentDetail.bankId">
+                    <select class="form-control" name="bank" value.bind="data.salesDetail.bankId">
                         <option value=""></option>
                         <option repeat.for="bank of Banks" value="${bank._id}">${bank.name}</option>
                     </select>
-                    <span class="help-block">${error.paymentDetail.bankId}</span>
+                    <span class="help-block">${error.salesDetail.bankId}</span>
                 </div>
             </div>  
-            <div class="form-group ${error.paymentDetail.cardNumber?'has-error':''}" if.bind="isCard">
+            <div class="form-group ${error.salesDetail.cardNumber?'has-error':''}" if.bind="isCard">
                 <label for="cardNumber" class="col-sm-2 control-label">Nomor Kartu</label>
                 <div class="col-sm-10"> 
-                    <input type="text" class="form-control" name="cardNumber" value.bind="data.paymentDetail.cardNumber"/>  
-                    <span class="help-block">${error.paymentDetail.cardNumber}</span>
+                    <input type="text" class="form-control" name="cardNumber" value.bind="data.salesDetail.cardNumber"/>  
+                    <span class="help-block">${error.salesDetail.cardNumber}</span>
                 </div>
             </div>
-            <div class="form-group ${error.paymentDetail.cardName?'has-error':''}" if.bind="isCard">
+            <div class="form-group ${error.salesDetail.cardName?'has-error':''}" if.bind="isCard">
                 <label for="cardName" class="col-sm-2 control-label">Nama Kartu</label>
                 <div class="col-sm-10"> 
-                    <input type="text" class="form-control" name="cardName" value.bind="data.paymentDetail.cardName"/>  
-                    <span class="help-block">${error.paymentDetail.cardName}</span>
+                    <input type="text" class="form-control" name="cardName" value.bind="data.salesDetail.cardName"/>  
+                    <span class="help-block">${error.salesDetail.cardName}</span>
                 </div>
             </div> 
             
@@ -243,7 +245,7 @@
             <!--<div class="form-group">
                 <label for="voucherDiscount" class="col-sm-2 control-label">Voucher</label>
                 <div class="col-sm-10"> 
-                    <input type="number" class="form-control" name="voucherDiscount" value.bind="data.paymentDetail.voucherDiscount" readonly/>   
+                    <input type="number" class="form-control" name="voucherDiscount" value.bind="data.salesDetail.voucherDiscount" readonly/>   
                 </div>
             </div>-->
             <div class="form-group ${error.grandTotal?'has-error':''}">
@@ -253,24 +255,24 @@
                     <span class="help-block">${error.grandTotal}</span>  
                 </div>
             </div>
-            <div class="form-group ${error.paymentDetail.cardAmount?'has-error':''}" if.bind="isCard">
+            <div class="form-group ${error.salesDetail.cardAmount?'has-error':''}" if.bind="isCard">
                 <label for="cardAmount" class="col-sm-2 control-label">Card</label>
                 <div class="col-sm-10"> 
-                    <input type="number" class="form-control" name="cardAmount" value.bind="data.paymentDetail.cardAmount" change.delegate="refreshDetail()" readonly/>  
-                    <span class="help-block">${error.paymentDetail.cardAmount}</span>
+                    <input type="number" class="form-control" name="cardAmount" value.bind="data.salesDetail.cardAmount" change.delegate="refreshDetail()" readonly/>  
+                    <span class="help-block">${error.salesDetail.cardAmount}</span>
                 </div>
             </div> 
-            <div class="form-group ${error.paymentDetail.cashAmount?'has-error':''}" if.bind="isCash">
+            <div class="form-group ${error.salesDetail.cashAmount?'has-error':''}" if.bind="isCash">
                 <label for="cashAmount" class="col-sm-2 control-label">Cash</label>
                 <div class="col-sm-10"> 
-                    <input type="number" class="form-control" name="cashAmount" value.bind="data.paymentDetail.cashAmount" change.delegate="refreshDetail()"/>  
-                    <span class="help-block">${error.paymentDetail.cashAmount}</span>
+                    <input type="number" class="form-control" name="cashAmount" value.bind="data.salesDetail.cashAmount" change.delegate="refreshDetail()"/>  
+                    <span class="help-block">${error.salesDetail.cashAmount}</span>
                 </div>
             </div>
             <div class="form-group">
                 <label for="refund" class="col-sm-2 control-label">Kembali</label>
                 <div class="col-sm-10"> 
-                    <input type="number" class="form-control" name="refund" value.bind="data.paymentDetail.refund" readonly/>   
+                    <input type="number" class="form-control" name="refund" value.bind="data.salesDetail.refund" readonly/>   
                 </div>
             </div> 
         </form>
