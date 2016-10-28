@@ -1,0 +1,65 @@
+<template>
+    <require from="customs/elements/horsey"></require>
+    <h3>Report Sales Payment</h3>
+    <form class="form-horizontal"> 
+        <div class="form-group ${error.filter.storeId?'has-error':''}">
+            <label for="store" class="col-sm-2 control-label">Toko</label>
+            <div class="col-sm-10">
+                <horsey src.bind="storeApiUri" selection.bind="data.filter.store" value.bind="data.filter.storeId" options.bind="{value:'_id', label:'name'}"></horsey>
+                <span class="help-block">${error.filter.storeId}</span>
+            </div>
+        </div> 
+        <div class="form-group ${error.filter.dateFrom?'has-error':''}">
+            <label for="dateFrom" class="col-sm-2 control-label">From</label>
+            <div class="col-sm-10"> 
+                <input type="date" class="form-control" name="date" value.bind="dateFromPicker" change.delegate="setDateFrom()"/>
+                <span class="help-block">${error.filter.dateFrom}</span>
+            </div>
+        </div> 
+        <div class="form-group ${error.filter.dateTo?'has-error':''}">
+            <label for="dateTo" class="col-sm-2 control-label">To</label>
+            <div class="col-sm-10"> 
+                <input type="date" class="form-control" name="date" value.bind="dateToPicker" change.delegate="setDateTo()"/>
+                <span class="help-block">${error.filter.dateTo}</span>
+            </div>
+        </div>
+        <div class="btn-group col-sm-12">
+            <button class="btn btn-success pull-right" click.delegate="filter()">View Report</button>
+        </div> 
+        <div class="col-sm-12" if.bind="isFilter"> 
+            <div class="pre-scrollable" innerHTML.bind="reportHTML | sanitizeHTML"></div>
+            
+            <table>
+                <tr>
+                    <td width='300px'>Total Pcs</td>
+                    <td class='text-right'>${totalQty.toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td>Total Omset Bruto</td>
+                    <td class='text-right'>${totalOmsetBruto.toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td>Total Omset Netto</td>
+                    <td class='text-right'>${totalOmsetNetto.toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td>Target Per Bulan</td>
+                    <td class='text-right'>${targetPerMonth.toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td>Sisa Target (nominal)</td>
+                    <td class='text-right'>${sisaTargetNominal.toLocaleString()}</td>
+                </tr>
+                <tr>
+                    <td>Sisa Target (percentage)</td>
+                    <td class='text-right'>${sisaTargetPercentage.toLocaleString()} %</td>
+                </tr>
+            </table>
+        
+        </div>  
+        
+        
+        
+        
+    </form> 
+</template>
