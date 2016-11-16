@@ -22,7 +22,7 @@ body {
 }
 
 .sidebar {
-  background-color: #173250 !important;
+  background-color: #112 !important;
   color: #ffffff;
 }
 
@@ -44,7 +44,7 @@ body {
 }
 
 .navbar-inverse {
-  background-color: #061b30;
+  background-color: #112;
 }
 
 .navbar-inverse .navbar-brand {
