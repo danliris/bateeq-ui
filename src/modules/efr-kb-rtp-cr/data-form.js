@@ -65,13 +65,13 @@ export class DataForm {
                 this.data.sourceId = dataOut[0].destinationId;
                 this.data.source = dataOut[0].destination;
                 var promises = [];
-                for (var item of dataOut[0].items) {
+                for (var itemData of dataOut[0].items) {
                     var p = new Promise((resolve, reject) => {
                         var item = {};
-                        item.itemId = item.itemId;
-                        item.item = item.item;
-                        item.quantity = item.quantity;
-                        item.remark = item.remark;
+                        item.itemId = itemData.itemId;
+                        item.item = itemData.item;
+                        item.quantity = itemData.quantity;
+                        item.remark = itemData.remark;
                         this.service.getDataInventory(this.data.sourceId, item.itemId)
                             .then(inventoryData => {
                                 item.availableQuantity = inventoryData.quantity;
