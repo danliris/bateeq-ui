@@ -50,13 +50,13 @@
                     <td>
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
-                                   <p class="form-control-static">${item.articleVariant.name}</p>
-                                    <span class="help-block">${error.items[$index].articleVariantId}</span>
+                                <div class="form-group ${error.items[$index].itemId?'has-error':''}">
+                                   <p class="form-control-static">${item.item.name}</p>
+                                    <span class="help-block">${error.items[$index].itemId}</span>
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                                <div class="form-group ${error.items[$index].availableQuantity?'has-error':''}">
                                     <p class="form-control-static">${item.availableQuantity}</p>
                                 </div>
                             </div>

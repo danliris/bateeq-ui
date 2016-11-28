@@ -39,7 +39,7 @@
             <tbody>
                 <tr repeat.for="item of data.items">
                     <td>${$index+1}</td>
-                    <td>${item.articleVariant.name }  </td> 
+                    <td>${item.item.name }  </td> 
                     <td>${item.quantity}</td>
                     <td>${item.remark}</td> 
                 </tr>
@@ -128,8 +128,8 @@
                 <tbody>
                     <tr repeat.for="item of data.items">
                         <td class="text-center">${$index+1}</td>
-                        <td class="text-center">${item.articleVariant.code}</td>
-                        <td class="text-center">${item.articleVariant.name}</td>
+                        <td class="text-center">${item.item.code}</td>
+                        <td class="text-center">${item.item.name}</td>
                         <td class="text-right">${item.quantity}</td>
                         <td class="text-right">${item.remark}</td>
                     </tr>

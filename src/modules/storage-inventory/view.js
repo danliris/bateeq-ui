@@ -12,9 +12,9 @@ export class View {
 
     activate(params) {
         var storageId = params.storageId;
-        var articleVariantId = params.articleVariantId; 
+        var itemId = params.itemId; 
         
-        this.service.getAllMovement(storageId, articleVariantId)
+        this.service.getAllMovement(storageId, itemId)
         .then(data=>{
             this.data = data;  
             var moment = require('moment');
