@@ -22,7 +22,7 @@ export class List {
             })  
     }
     
-    reloadArticleVariant() { 
+    reloadItem() { 
         this.service.getAllInventory(this.storageId, this.filter) 
             .then(data => {
                 this.data = data;  
@@ -31,7 +31,7 @@ export class List {
     
     view(data) {
         console.log(JSON.stringify(data));
-        this.router.navigateToRoute('view', { storageId: data.storageId, articleVariantId: data.articleVariantId });
+        this.router.navigateToRoute('view', { storageId: data.storageId, itemId: data.itemId });
     }   
     
 }

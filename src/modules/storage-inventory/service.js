@@ -4,7 +4,7 @@ import {RestService} from '../../rest-service';
   
 const serviceUriStorages = require('../../host').inventory + '/storages';
 const serviceUriInventories = require('../../host').inventory + '/storages/{storageId}/inventories';
-const serviceUriMovements = require('../../host').inventory + '/storages/{storageId}/inventories/{articleVariantId}/movements';
+const serviceUriMovements = require('../../host').inventory + '/storages/{storageId}/inventories/{itemId}/movements';
 
 export class Service extends RestService{
   
@@ -24,9 +24,9 @@ export class Service extends RestService{
     return super.get(endpoint);
   }
   
-  getAllMovement(storageId, articleVariantId)
+  getAllMovement(storageId, itemId)
   {
-    var endpoint = `${serviceUriMovements.replace("{storageId}", storageId).replace("{articleVariantId}", articleVariantId)}`;
+    var endpoint = `${serviceUriMovements.replace("{storageId}", storageId).replace("{itemId}", itemId)}`;
     return super.get(endpoint);
   }
    

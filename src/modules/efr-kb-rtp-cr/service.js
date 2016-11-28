@@ -34,7 +34,7 @@ export class Service extends RestService{
   }  
 
   getModuleConfig() {
-    var endpoint = require('../../host').core + '/modules?keyword=EFR-KB/RTP';
+    var endpoint = require('../../host').master + '/modules?keyword=EFR-KB/RTP';
     return super.get(endpoint)
       .then(results => {
         if (results && results.length == 1)
@@ -45,13 +45,13 @@ export class Service extends RestService{
   }
   
   getStorageById(id) {
-    var endpoint = `${require('../../host').inventory + '/storages'}/${id}`;
+    var endpoint = `${require('../../host').master + '/storages'}/${id}`;
     return super.get(endpoint);
   }
 
-  getDataInventory(storageId,articleVariantId)
+  getDataInventory(storageId,itemId)
   {
-    var endpoint = `${require('../../host').inventory + '/storages/' + storageId + '/inventories/'+articleVariantId}`;
+    var endpoint = `${require('../../host').master + '/storages/' + storageId + '/inventories/' + itemId}`;
     return super.get(endpoint);
   }
 }
