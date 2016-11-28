@@ -14,7 +14,7 @@ export class View {
         var id = params.id;
         this.service.getById(id)
         .then(data=>{
-            this.data = data;
+            this.data = data.data;
         })
     }
 
