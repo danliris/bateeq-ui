@@ -27,6 +27,11 @@ export class Service extends RestService{
     return super.post(endpoint, data);
   }  
   
+  generateExcel() {
+    var endpoint = `${serviceUri}/exportall`;
+    return super.getXls(endpoint);
+  }
+  
   getSPKByPackingList(packingList) 
   {
       var endpoint = `${require('../../host').merchandiser+'/docs/efr-pk/received?keyword='}${packingList}`;
@@ -51,7 +56,7 @@ export class Service extends RestService{
 
   getDataInventory(storageId,itemId)
   {
-    var endpoint = `${require('../../host').master + '/storages/' + storageId + '/inventories/' + itemId}`;
+    var endpoint = `${require('../../host').inventory + '/storages/' + storageId + '/inventories/' + itemId}`;
     return super.get(endpoint);
   }
 }
