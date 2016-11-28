@@ -29,4 +29,8 @@ export class View {
     print() {
         window.print();
     }
+    
+    exportToExcel() {
+        this.service.generateExcel(this.data._id);
+    } 
 }
