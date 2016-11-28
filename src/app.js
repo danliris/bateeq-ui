@@ -49,7 +49,7 @@ export class App {
       { route: 'efr-kb-rtp',          name: 'efr-kb-rtp',         moduleId: './modules/efr-kb-rtp-cr/index',          nav: true, title: 'Retur ke Pusat' ,                                                   settings: { group:"Toko", roles:["admin"] }},
       // { route: 'efr-kb-rtt',          name: 'efr-kb-rtt',         moduleId: './modules/efr-kb-rtt-cr/index',          nav: true, title: 'Toko - Transfer Stok' ,                                                    settings: { group:"store", roles:["admin"] }},
       // { route: 'efr-pk-pbr',          name: 'efr-pk-pbr',         moduleId: './modules/efr-pk-pbr-crud/index',        nav: true, title: 'Toko Pusat - SPK Barang Jadi (Retur)' ,                                    settings: { group:"store", roles:["admin"] }},
-
+ 
       // { route: 'efr-pk-pbj',          name: 'efr-pk-pbj',         moduleId: './modules/efr-pk-pbj-crud/index',        nav: true, title: 'MD - SPK Barang Jadi (Baru)' ,                                             settings: { group:"merchandiser", roles:["admin"] }},
       // { route: 'efr-pk-pba',          name: 'efr-pk-pba',         moduleId: './modules/efr-pk-pba-crud/index',        nav: true, title: 'MD - SPK Barang Embalase' ,                                                settings: { group:"merchandiser", roles:["admin"] }},
 
