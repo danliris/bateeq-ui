@@ -28,7 +28,7 @@ export class Service extends RestService{
   }  
   
   generateExcel(id) {
-    var endpoint = `${serviceUri}/exportall/${id}`;
+    var endpoint = `${serviceUri}/${id}/exportall`;
     return super.getXls(endpoint);
   }
   
