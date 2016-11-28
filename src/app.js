@@ -1,5 +1,5 @@
-import {Aurelia, inject} from 'aurelia-framework';
-import {Session} from './utils/session';
+import { Aurelia, inject } from 'aurelia-framework';
+import { Session } from './utils/session';
 
 @inject(Session)
 export class App {
@@ -8,8 +8,8 @@ export class App {
   }
 
   configureRouter(config, router) {
-    config.title = ''; 
-    var routes = [ 
+    config.title = '';
+    var routes = [
       { route: ['', 'Welcome'], name: 'welcome', moduleId: './welcome', nav: false, title: 'Home' },
 
 
@@ -27,7 +27,7 @@ export class App {
       // { route: 'articles/types',      name: 'articles-types',     moduleId: './modules/article-type-crud/index',      nav: true, title: 'Types' ,                                                                   settings: { group:"master", roles:["admin"] }},
       // { route: 'articles/variants',   name: 'articles-variants',  moduleId: './modules/article-variant-crud/index',   nav: true, title: 'Variants' ,                                                                settings: { group:"master", roles:["admin"] }},
       // { route: 'inventories/module',  name: 'module',             moduleId: './modules/module-crud/index',            nav: true, title: 'Module' ,                                                                  settings: { group:"master", roles:["admin"] }},
-      { route: 'inventories',         name: 'inventories',        moduleId: './modules/storage-inventory/index',      nav: true, title: 'Laporan Stok' ,                                                             settings: { group:"inventory", roles:["admin"] }},
+      { route: 'inventories', name: 'inventories', moduleId: './modules/storage-inventory/index', nav: true, title: 'Laporan Stok', settings: { group: "inventory", roles: ["admin"] } },
       // { route: 'transferin',          name: 'transferin',         moduleId: './modules/transfer-in-cr/index',         nav: true, title: 'Transfer In' ,                                                             settings: { group:"inventory", roles:["admin"] }},
       // { route: 'transferout',         name: 'transferout',        moduleId: './modules/transfer-out-cr/index',        nav: true, title: 'Transfer Out' ,                                                            settings: { group:"inventory", roles:["admin"] }},
 
@@ -44,17 +44,19 @@ export class App {
       // { route: 'efr-tb-brt',          name: 'efr-tb-brt',         moduleId: './modules/efr-tb-brt-cr/index',          nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Pemasukan Retur Toko' ,                   settings: { group:"finished-goods", roles:["admin"] }},
       // { route: 'efr-kb-rtf',          name: 'efr-kb-rtf',         moduleId: './modules/efr-kb-rtf-cr/index',          nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Retur ke Finishing' ,                     settings: { group:"finished-goods", roles:["admin"] }},
       // { route: 'efr-tb-brd',          name: 'efr-tb-brd',         moduleId: './modules/efr-tb-brd-cr/index',          nav: true, title: 'Pusat Barang Jadi (Retur Toko) - Pemasukan Retur Toko dari Finishing' ,    settings: { group:"finished-goods", roles:["admin"] }},
-      { route: 'efr-tb-bbt',          name: 'efr-tb-bbt',         moduleId: './modules/efr-tb-bbt-cr/index',          nav: true, title: 'Pemasukan Barang Jadi' ,                                            settings: { group:"Toko", roles:["admin"] }},
-      { route: 'efr-tb-bat',          name: 'efr-tb-bat',         moduleId: './modules/efr-tb-bat-cr/index',          nav: true, title: 'Pemasukan Embalase' ,                                               settings: { group:"Toko", roles:["admin"] }},
-      { route: 'efr-kb-rtp',          name: 'efr-kb-rtp',         moduleId: './modules/efr-kb-rtp-cr/index',          nav: true, title: 'Retur ke Pusat' ,                                                   settings: { group:"Toko", roles:["admin"] }},
+      { route: 'efr-tb-bbt', name: 'efr-tb-bbt', moduleId: './modules/efr-tb-bbt-cr/index', nav: true, title: 'Pemasukan Barang Jadi', settings: { group: "Toko", roles: ["admin"] } },
+      { route: 'efr-tb-bat', name: 'efr-tb-bat', moduleId: './modules/efr-tb-bat-cr/index', nav: true, title: 'Pemasukan Embalase', settings: { group: "Toko", roles: ["admin"] } },
+      { route: 'efr-kb-rtp', name: 'efr-kb-rtp', moduleId: './modules/efr-kb-rtp-cr/index', nav: true, title: 'Retur ke Pusat', settings: { group: "Toko", roles: ["admin"] } },
       // { route: 'efr-kb-rtt',          name: 'efr-kb-rtt',         moduleId: './modules/efr-kb-rtt-cr/index',          nav: true, title: 'Toko - Transfer Stok' ,                                                    settings: { group:"store", roles:["admin"] }},
       // { route: 'efr-pk-pbr',          name: 'efr-pk-pbr',         moduleId: './modules/efr-pk-pbr-crud/index',        nav: true, title: 'Toko Pusat - SPK Barang Jadi (Retur)' ,                                    settings: { group:"store", roles:["admin"] }},
- 
+
       // { route: 'efr-pk-pbj',          name: 'efr-pk-pbj',         moduleId: './modules/efr-pk-pbj-crud/index',        nav: true, title: 'MD - SPK Barang Jadi (Baru)' ,                                             settings: { group:"merchandiser", roles:["admin"] }},
       // { route: 'efr-pk-pba',          name: 'efr-pk-pba',         moduleId: './modules/efr-pk-pba-crud/index',        nav: true, title: 'MD - SPK Barang Embalase' ,                                                settings: { group:"merchandiser", roles:["admin"] }},
 
-      { route: 'upload-file-pbj',     name: 'upload-file-pbj',    moduleId: './modules/upload-file-pbj/index',        nav: true, title: 'Upload Data Barang Jadi ke Toko' ,                                   settings: { group:"Gudang Pusat", roles:["admin"] }},
-      { route: 'upload-file-pba',     name: 'upload-file-pba',    moduleId: './modules/upload-file-pba/index',        nav: true, title: 'Upload Data Embalase ke Toko' ,                                      settings: { group:"Gudang Pusat", roles:["admin"] }}
+      { route: 'upload-file-pbj', name: 'upload-file-pbj', moduleId: './modules/upload-file-pbj/index', nav: true, title: 'Upload Data Barang Jadi ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
+      { route: 'upload-file-pba', name: 'upload-file-pba', moduleId: './modules/upload-file-pba/index', nav: true, title: 'Upload Data Embalase ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
+
+      { route: 'power-bi', name: 'power-bi', moduleId: './modules/power-bi/index', nav: true, title: 'Power BI Reports', settings: { group: "reports", roles: ["admin"] } }
     ];
 
     if (!this.session.isAuthenticated)
