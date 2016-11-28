@@ -7,17 +7,13 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    storageApiUri = require('../../host').inventory + '/storages';
-    variantApiUri = require('../../host').core + '/articles/variants';
-
     constructor(router, service) {
         this.router = router;
         this.service = service;
         this.service.getModuleConfig()
             .then(config => {
                 var getStorages = [];
-               // var indexSource = 0;
-
+                // var indexSource = 0; 
                 // if (config.source.type == "selection") {
                 //     for (var sourceId of config.source.value) {
                 //         getStorages.push(this.service.getStorageById(sourceId.toString()));
@@ -69,14 +65,14 @@ export class DataForm {
                 this.data.sourceId = dataOut[0].destinationId;
                 this.data.source = dataOut[0].destination;
                 var promises = [];
-                for (var variant of dataOut[0].items) {
+                for (var item of dataOut[0].items) {
                     var p = new Promise((resolve, reject) => {
                         var item = {};
-                        item.articleVariantId = variant.articleVariantId;
-                        item.articleVariant = variant.articleVariant;
-                        item.quantity = variant.quantity;
-                        item.remark = variant.remark;
-                        this.service.getDataInventory(this.data.sourceId, item.articleVariantId)
+                        item.itemId = item.itemId;
+                        item.item = item.item;
+                        item.quantity = item.quantity;
+                        item.remark = item.remark;
+                        this.service.getDataInventory(this.data.sourceId, item.itemId)
                             .then(inventoryData => {
                                 item.availableQuantity = inventoryData.quantity;
                                 resolve(item);
