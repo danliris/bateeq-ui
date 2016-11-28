@@ -13,7 +13,7 @@ export class Service extends RestService {
   } 
 
   getModuleConfig() {
-    var endpoint = require('../../host').core + '/modules?keyword=EFR-PK/PBJ';
+    var endpoint = require('../../host').master + '/modules?keyword=EFR-PK/PBJ';
     return super.get(endpoint)
       .then(results => {
         if (results && results.length == 1)
@@ -24,7 +24,7 @@ export class Service extends RestService {
   }
 
   getStorageById(id) {
-    var endpoint = `${require('../../host').core + '/storages'}/${id}`;
+    var endpoint = `${require('../../host').master + '/storages'}/${id}`;
     return super.get(endpoint);
   }
 }

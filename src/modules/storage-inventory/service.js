@@ -2,7 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../rest-service';
   
-const serviceUriStorages = require('../../host').inventory + '/storages';
+const serviceUriStorages = require('../../host').master + '/storages';
 const serviceUriInventories = require('../../host').inventory + '/storages/{storageId}/inventories';
 const serviceUriMovements = require('../../host').inventory + '/storages/{storageId}/inventories/{itemId}/movements';
 
