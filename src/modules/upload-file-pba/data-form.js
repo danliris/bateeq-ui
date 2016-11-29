@@ -1,17 +1,18 @@
-import { inject, bindable } from 'aurelia-framework';
+import { inject, bindable, BindingEngine } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
 
-@inject(Router, Service, Element)
+@inject(Router, Service, BindingEngine, Element)
 export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    constructor(router, service, element) {
+    constructor(router, service, bindingEngine, element) {
         this.router = router;
         this.service = service;
         this.element = element;
+        this.bindingEngine = bindingEngine;
         this.service.getModuleConfig()
             .then(config => {
                 var getStorages = [];
@@ -59,6 +60,21 @@ export class DataForm {
             })
     }
     attached() {
+        this.bindingEngine.propertyObserver(this.data, "sourceId").subscribe((newValue, oldValue) => {
+            for(var source of this.sources) {
+                if(source._id == this.data.sourceId) {
+                    this.data.source = source; 
+                }
+            }
+        });
+        
+        this.bindingEngine.propertyObserver(this.data, "destinationId").subscribe((newValue, oldValue) => {
+            for(var destination of this.destinations) {
+                if(destination._id == this.data.destinationId) {
+                    this.data.destination = destination; 
+                }
+            }
+        });
     }
 
     detached() {
