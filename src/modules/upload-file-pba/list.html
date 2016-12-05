@@ -1,22 +1,27 @@
 <template>
     <h3>Upload Data Barang Jadi ke Toko</h3>
     <table class="table table-striped table-hover">
-      <thead>
+        <thead>
             <tr>
-                <th>Nomor Dokumen</th> 
+                <th>Packing List</th>
+                <th>Password</th>
                 <th>Sumber Penyimpanan</th>
                 <th>Tujuan Penyimpanan</th>
                 <th>Tanggal Kirim</th>
-                <th>Packing List</th>  
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="item of data">
-                <td>${item.code}</td> 
+            <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.packingList}</td>
+                <td>${item.password}</td>
                 <td>${item.source.code} - ${item.source.name}</td>
                 <td>${item.destination.code} - ${item.destination.name}</td>
                 <td>${item.date}</td>
-                <td>${item.packingList}</td>  
+                <td>
+                    <dv if.bind="item.isReceived==true">Sudah Diterima</dv>
+                    <dv if.bind="item.isReceived==false">Belum Diterima</dv>
+                </td>
             </tr>
         </tbody>
     </table>
