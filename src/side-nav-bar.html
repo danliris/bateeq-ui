@@ -1,0 +1,11 @@
+<template>
+    <template repeat.for="[key, value] of group">
+        <h4>${key.toUpperCase()}</h4>
+        <hr />
+        <ul class="nav nav-sidebar"> 
+            <li repeat.for="row of value" class="${row.isActive ? 'active' : ''}">
+                <a data-toggle="collapse" data-target="#skeleton-navigation-navbar-collapse.in" href.bind="row.href">${row.title}</a>
+            </li>
+        </ul>
+    </template> 
+</template>
