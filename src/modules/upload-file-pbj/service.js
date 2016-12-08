@@ -32,4 +32,14 @@ export class Service extends RestService {
     var endpoint = `${require('../../host').merchandiser + '/docs/efr-pk-pbj/draft'}/${id}`;
     return super.get(endpoint);
   }
+  
+  _downloadFile(response)
+  {
+    return super._downloadFile(response);
+  }
+  
+  publish(response)
+  {
+    return super.publish(response);
+  }
 }
