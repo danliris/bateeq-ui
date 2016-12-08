@@ -53,8 +53,8 @@ export class App {
       // { route: 'efr-pk-pbj',          name: 'efr-pk-pbj',         moduleId: './modules/efr-pk-pbj-crud/index',        nav: true, title: 'MD - SPK Barang Jadi (Baru)' ,                                             settings: { group:"merchandiser", roles:["admin"] }},
       // { route: 'efr-pk-pba',          name: 'efr-pk-pba',         moduleId: './modules/efr-pk-pba-crud/index',        nav: true, title: 'MD - SPK Barang Embalase' ,                                                settings: { group:"merchandiser", roles:["admin"] }},
 
-      { route: 'upload-file-pbj', name: 'upload-file-pbj', moduleId: './modules/upload-file-pbj/index', nav: true, title: 'Upload Data Barang Jadi ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
-      { route: 'upload-file-pba', name: 'upload-file-pba', moduleId: './modules/upload-file-pba/index', nav: true, title: 'Upload Data Embalase ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
+      { route: 'upload-file-pbj', name: 'upload-file-pbj', moduleId: './modules/upload-file-pbj/index', nav: true, title: 'Upload Packing List Barang Jadi ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
+      { route: 'upload-file-pba', name: 'upload-file-pba', moduleId: './modules/upload-file-pba/index', nav: true, title: 'Upload Packing List Embalase ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
        { route: 'inventories', name: 'inventories', moduleId: './modules/storage-inventory/index', nav: true, title: 'Laporan Stok', settings: { group: "Laporan", roles: ["admin"] } },
       { route: 'power-bi', name: 'power-bi', moduleId: './modules/power-bi/index', nav: true, title: 'Power BI Reports', settings: { group: "Dashboard", roles: ["admin"] } }
     ];
