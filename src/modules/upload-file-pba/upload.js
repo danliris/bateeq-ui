@@ -46,7 +46,7 @@ export class Create {
             formData.append("date", date);
             formData.append("fileUpload", fileList[0]);
 
-            var uri = require('../../host').merchandiser + '/upload';;
+            var uri = require('../../host').merchandiser + '/upload/pba';
             var request = {
                 method: 'POST',
                 headers: {
