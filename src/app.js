@@ -27,7 +27,7 @@ export class App {
       // { route: 'articles/types',      name: 'articles-types',     moduleId: './modules/article-type-crud/index',      nav: true, title: 'Types' ,                                                                   settings: { group:"master", roles:["admin"] }},
       // { route: 'articles/variants',   name: 'articles-variants',  moduleId: './modules/article-variant-crud/index',   nav: true, title: 'Variants' ,                                                                settings: { group:"master", roles:["admin"] }},
       // { route: 'inventories/module',  name: 'module',             moduleId: './modules/module-crud/index',            nav: true, title: 'Module' ,                                                                  settings: { group:"master", roles:["admin"] }},
-      { route: 'inventories', name: 'inventories', moduleId: './modules/storage-inventory/index', nav: true, title: 'Laporan Stok', settings: { group: "inventory", roles: ["admin"] } },
+     
       // { route: 'transferin',          name: 'transferin',         moduleId: './modules/transfer-in-cr/index',         nav: true, title: 'Transfer In' ,                                                             settings: { group:"inventory", roles:["admin"] }},
       // { route: 'transferout',         name: 'transferout',        moduleId: './modules/transfer-out-cr/index',        nav: true, title: 'Transfer Out' ,                                                            settings: { group:"inventory", roles:["admin"] }},
 
@@ -53,10 +53,10 @@ export class App {
       // { route: 'efr-pk-pbj',          name: 'efr-pk-pbj',         moduleId: './modules/efr-pk-pbj-crud/index',        nav: true, title: 'MD - SPK Barang Jadi (Baru)' ,                                             settings: { group:"merchandiser", roles:["admin"] }},
       // { route: 'efr-pk-pba',          name: 'efr-pk-pba',         moduleId: './modules/efr-pk-pba-crud/index',        nav: true, title: 'MD - SPK Barang Embalase' ,                                                settings: { group:"merchandiser", roles:["admin"] }},
 
-      { route: 'upload-file-pbj', name: 'upload-file-pbj', moduleId: './modules/upload-file-pbj/index', nav: true, title: 'Upload Data Barang Jadi ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
-      { route: 'upload-file-pba', name: 'upload-file-pba', moduleId: './modules/upload-file-pba/index', nav: true, title: 'Upload Data Embalase ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
-
-      { route: 'power-bi', name: 'power-bi', moduleId: './modules/power-bi/index', nav: true, title: 'Power BI Reports', settings: { group: "reports", roles: ["admin"] } }
+      { route: 'upload-file-pbj', name: 'upload-file-pbj', moduleId: './modules/upload-file-pbj/index', nav: true, title: 'Upload Packing List Barang Jadi ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
+      { route: 'upload-file-pba', name: 'upload-file-pba', moduleId: './modules/upload-file-pba/index', nav: true, title: 'Upload Packing List Embalase ke Toko', settings: { group: "Gudang Pusat", roles: ["admin"] } },
+       { route: 'inventories', name: 'inventories', moduleId: './modules/storage-inventory/index', nav: true, title: 'Laporan Stok', settings: { group: "Laporan", roles: ["admin"] } },
+      { route: 'power-bi', name: 'power-bi', moduleId: './modules/power-bi/index', nav: true, title: 'Power BI Reports', settings: { group: "Dashboard", roles: ["admin"] } }
     ];
 
     if (!this.session.isAuthenticated)

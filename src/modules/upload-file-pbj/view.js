@@ -4,26 +4,21 @@ import { Service } from './service';
 
 
 @inject(Router, Service)
-export class List {
-    data = [];
+export class View {
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
 
-    activate() {
-        this.service.search('')
+    activate(params) {
+        var id = params.id;
+        this.service.getById(id)
             .then(data => {
-                this.data = data.data;
+                this.data = data;
             })
     }
 
-
-    upload() {
-        this.router.navigateToRoute('upload');
-    }
-
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+    list() {
+        this.router.navigateToRoute('list');
     }
 }
