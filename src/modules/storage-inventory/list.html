@@ -1,5 +1,5 @@
 <template>
-    <h3>Storage Inventories</h3> 
+    <h3>Laporan Stok</h3> 
     <form class="form-horizontal">  
         <div class="form-group"> 
             <div class="form-group"> 
@@ -17,15 +17,15 @@
                     <input type="text" class="form-control" name="filter" value.bind="filter"/> 
                 </div>
             </div> 
-            <button click.delegate="reloadItem()" class="btn btn-success btn-sm pull-right">Search</button>
+            <button click.delegate="reloadItem()" class="btn btn-success btn-sm pull-right">Cari</button>
         </div> 
     </form> 
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Quantity</th>
+                <th>Barcode</th>
+                <th>Nama</th>
+                <th>Kuantitas</th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +37,7 @@
         </tbody>
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        There is no data found in the list.
+       Tidak ada data.
     </div>
     <hr/> 
 </template>
