@@ -41,7 +41,7 @@ export class DataForm {
 
                 Promise.all(getStorages)
                     .then(storages => {
-                        this.sources = storages.splice(0, storages.length - indexSource);
+                        this.sources = storages.splice(0, indexSource);
                         this.destinations = storages.splice(0);
                         this.data.sourceId = this.sources[0]._id;
                         this.data.source = this.sources[0];
