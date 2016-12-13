@@ -14,7 +14,7 @@ export class Service extends RestService{
 
   getAllStorage()
   {
-    var endpoint = `${serviceUriStorages}`;
+    var endpoint = `${serviceUriStorages}?size=1000`;
     return super.get(endpoint);
   } 
    
