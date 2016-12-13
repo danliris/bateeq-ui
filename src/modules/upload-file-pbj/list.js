@@ -21,4 +21,8 @@ export class List {
     upload() {
         this.router.navigateToRoute('upload');
     }
+
+    view(data) {
+        this.router.navigateToRoute('view', { id: data._id });
+    }
 }

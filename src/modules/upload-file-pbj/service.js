@@ -1,6 +1,6 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../rest-service'; 
+import { RestService } from '../../rest-service';
 
 export class Service extends RestService {
 
@@ -10,7 +10,7 @@ export class Service extends RestService {
 
   search(keyword) {
     return super.get(require('../../host').merchandiser + '/docs/efr-pk-pbj');
-  } 
+  }
 
   getModuleConfig() {
     var endpoint = require('../../host').master + '/modules?keyword=EFR-PK/PBJ';
@@ -26,5 +26,20 @@ export class Service extends RestService {
   getStorageById(id) {
     var endpoint = `${require('../../host').master + '/storages'}/${id}`;
     return super.get(endpoint);
+  }
+
+  getById(id) {
+    var endpoint = `${require('../../host').merchandiser + '/docs/efr-pk-pbj/draft'}/${id}`;
+    return super.get(endpoint);
+  }
+  
+  _downloadFile(response)
+  {
+    return super._downloadFile(response);
+  }
+  
+  publish(response)
+  {
+    return super.publish(response);
   }
 }
