@@ -2,7 +2,7 @@
    <require from="customs/elements/horsey"></require>
     <h2 if.bind="loadFailed">Load module failed</h2>
     <form class="form-horizontal" if.bind="!loadFailed">
-    <div class="form-group ${error.reference?'has-error':''}">
+        <div class="form-group ${error.reference?'has-error':''}">
             <label for="description" class="col-sm-2 control-label">Nomor Referensi</label>
             <div class="col-sm-10">
                 <div class="input-group">
@@ -17,20 +17,23 @@
         <div class="form-group ${error.sourceId?'has-error':''}"> 
             <label for="code" class="col-sm-2 control-label">Sumber Penyimpanan</label>
             <div class="col-sm-10">  
-                  <p class="form-control-static">${data.source.code} - ${data.source.name}</p>
+                <select class="form-control" name="source"  value.bind="data.sourceId">
+                    <option repeat.for="source of sources" value.bind="source._id">${source.code} - ${source.name}</option>
+                </select>
+                <!--<p class="form-control-static">${data.source.code} - ${data.source.name}</p>-->
                 <span class="help-block">${error.sourceId}</span>
             </div>
         </div>
         <div class="form-group ${error.destinationId?'has-error':''}">
             <label for="code" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
             <div class="col-sm-10"> 
-                 <select class="form-control" name="destination"  value.bind="data.destinationId">
+                <select class="form-control" name="destination"  value.bind="data.destinationId">
                     <option repeat.for="destination of destinations" value.bind="destination._id">${destination.code} - ${destination.name}</option>
                 </select>
                 <span class="help-block">${error.destinationId}</span>
             </div>
         </div>
-    <table class="table">
+        <table class="table">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -39,9 +42,10 @@
                             <div class="col-md-3"> Produk </div>
                             <div class="col-md-2"> Kuantitas Stok </div>
                             <div class="col-md-2"> Kuantitas Pengiriman </div>
-                            <div class="col-md-5">Catatan </div> 
+                            <div class="col-md-5"> Catatan </div> 
                         </div>
                     </th> 
+                    <th><button href="#" class="btn btn-success btn-sm pull-right" click.delegate="addItem()">Tambah</button></th>
                 </tr>
             </thead>
             <tbody>
@@ -50,10 +54,12 @@
                     <td>
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="form-group ${error.items[$index].itemId?'has-error':''}">
-                                   <p class="form-control-static">${item.item.name}</p>
+                                <finishedgoods-auto-suggest label="" value.bind="item.item" error.bind="error.items[$index].itemId" read-only.bind="false" change.delegate="itemChanged($event, item)"></finishedgoods-auto-suggest>
+                                
+                                <!--<div class="form-group ${error.items[$index].itemId?'has-error':''}">
+                                    <p class="form-control-static">${item.item.name}</p>
                                     <span class="help-block">${error.items[$index].itemId}</span>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group ${error.items[$index].availableQuantity?'has-error':''}">
@@ -62,8 +68,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group ${error.items[$index].quantity?'has-error':''}">
-                                    <input class="form-control" type="number" name="quantity" value.bind="item.quantity" max.bind="item.availableQuantity" min="0"
-                                    />
+                                    <input class="form-control" type="number" name="quantity" value.bind="item.quantity" max.bind="item.availableQuantity" min="0"/>
                                     <span class="help-block">${error.items[$index].quantity}</span>
                                 </div>
                             </div>
@@ -73,9 +78,9 @@
                                     <span class="help-block">${error.items[$index].remark}</span>
                                 </div>
                             </div> 
-                             <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Hapus</button></td>
                         </div>
                     </td> 
+                    <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Hapus</button></td>
                 </tr>
             </tbody>
         </table>
