@@ -12,6 +12,7 @@ export function configure(config) {
         './basic/textbox',
 
         './auto-suggests/auto-suggest',
+        './auto-suggests/finishedgoods-auto-suggest',
         './auto-suggests/store-auto-suggest',
         './auto-suggests/store-by-pbj-auto-suggest'
     );

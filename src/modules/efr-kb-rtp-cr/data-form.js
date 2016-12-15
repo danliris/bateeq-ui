@@ -1,62 +1,111 @@
-import {inject, bindable} from 'aurelia-framework';
+import {inject, bindable, BindingEngine} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
-@inject(Router, Service)
+@inject(Router, Service, BindingEngine)
 export class DataForm {
     @bindable data = {};
     @bindable error = {};
-
-    constructor(router, service) {
+    
+    constructor(router, service, bindingEngine) {
         this.router = router;
         this.service = service;
+        this.bindingEngine = bindingEngine;
         this.service.getModuleConfig()
             .then(config => {
                 var getStorages = [];
-                // var indexSource = 0; 
-                // if (config.source.type == "selection") {
-                //     for (var sourceId of config.source.value) {
-                //         getStorages.push(this.service.getStorageById(sourceId.toString()));
-                //         indexSource++;
-                //     }
-                // }
-                // else {
-                //     getStorages.push(this.service.getStorageById(config.source.value.toString()));
-                //     indexSource++
-                // }
+                var indexSource = 0;
+                if (config.source.type && config.source.type == "selection") {
+                    for (var sourceId of config.source.value) {
+                        getStorages.push(this.service.getStorageById(sourceId.toString()));
+                        indexSource++;
+                    }
+                }
+                else {
+                    if (config.source.value) {
+                        getStorages.push(this.service.getStorageById(config.source.value.toString()));
+                        indexSource++
+                    }
+                }
 
                 var getStoragesDestination = [];
-                if (config.destination.type == "selection") {
+                if (config.destination.type && config.destination.type == "selection") {
                     for (var destinationId of config.destination.value) {
                         getStorages.push(this.service.getStorageById(destinationId.toString()));
                     }
                 }
                 else {
-                    getStorages.push(this.service.getStorageById(config.destination.value.toString()));
+                    if (config.destination.value) {
+                        getStorages.push(this.service.getStorageById(config.destination.value.toString()));
+                    }
                 }
 
                 Promise.all(getStorages)
                     .then(storages => {
-                        //this.sources = storages.splice(0, indexSource);
+                        this.sources = storages.splice(0, indexSource);
                         this.destinations = storages.splice(0);
-                        //this.data.sourceId = this.sources[0]._id;
-                        //this.data.source = this.sources[0];
+                        this.data.sourceId = this.sources[0]._id;
+                        this.data.source = this.sources[0];
                         this.data.destinationId = this.destinations[0]._id;
                         this.data.destination = this.destinations[0];
                     })
             })
             .catch(e => {
-                console.log(e)
+                console.log(e);
                 this.loadFailed = true;
             })
     }
+
+    itemChanged(e, item) {
+        var itemData = e.detail;
+        if (itemData) {
+            item.itemId = itemData._id;
+            item.availableQuantity = 0;
+            this.service.getDataInventory(this.data.sourceId, item.itemId)
+                .then(inventoryData => {
+                    if (inventoryData) {
+                        item.availableQuantity = inventoryData.quantity;
+                    }
+                })
+                .catch(e => {
+                    console.log(e);
+                })
+        }
+    }
+
+    addItem() {
+        var newItem = {};
+        newItem.itemId = "";
+        newItem.item = {};
+        newItem.availableQuantity = 0;
+        newItem.quantity = 0;
+        newItem.remark = "";
+        this.data.items.push(newItem);
+    }
+
     removeItem(item) {
         var itemIndex = this.data.items.indexOf(item);
         this.data.items.splice(itemIndex, 1);
     }
 
     attached() {
-
+        this.bindingEngine.propertyObserver(this.data, "sourceId").subscribe((newValue, oldValue) => {
+            var getDatas = [];
+            for (var item of this.data.items) {
+                item.availableQuantity = 0;
+                getDatas.push(this.service.getDataInventory(this.data.sourceId, item.itemId))
+            }
+            Promise.all(getDatas)
+                .then(inventoryDatas => {
+                    for (var item of this.data.items) {
+                        var index = this.data.items.indexOf(item);
+                        console.log(inventoryDatas[index]);
+                        if (inventoryDatas[index]) {
+                            item.availableQuantity = inventoryDatas[index].quantity;
+                        }
+                    }
+                })
+        });
     }
 
     search() {
