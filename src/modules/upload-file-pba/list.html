@@ -1,0 +1,35 @@
+<template>
+    <h3>Upload Packing List Embalase</h3>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Packing List</th>
+                <th>Password</th>
+                <th>Sumber Penyimpanan</th>
+                <th>Tujuan Penyimpanan</th>
+                <th>Tanggal Kirim</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.packingList}</td>
+                <td>${item.password}</td>
+                <td>${item.source.code} - ${item.source.name}</td>
+                <td>${item.destination.code} - ${item.destination.name}</td>
+                <td>${item.date}</td>
+                <td>
+                    <dv if.bind="item.isReceived==true">Sudah Diterima</dv>
+                    <dv if.bind="item.isReceived==false">Belum Diterima</dv>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        Tidak ada data.
+    </div>
+    <hr/>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary" click.delegate="upload()">Upload File</button>
+    </div>
+</template>
