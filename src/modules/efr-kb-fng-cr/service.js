@@ -1,12 +1,13 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../rest-service';
+import {SecureService} from '../../utils/secure-service';
 
 const serviceUri = require('../../host').inventory + '/docs/efr-kb-fng'; 
 const serviceSearch = require('../../host').inventory + '/docs/efr-hp-fng';
  
 
-export class Service extends RestService {
+export class Service extends SecureService {
 
   constructor(http, aggregator) {
     super(http, aggregator);
