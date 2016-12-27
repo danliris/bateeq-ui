@@ -27,10 +27,10 @@
         </div> 
         <div class="form-group ${error.spkDocuments?'has-error':''}">
             <button click.delegate="addSpkDocument()" class="btn btn-success btn-sm pull-right">Tambah</button>
-            <table class="table"> 
+            <table class="table table-bordered"> 
                 <tr repeat.for="spkDocument of data.spkDocuments">
                     <td>
-                        <table class="table">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -68,7 +68,7 @@
                                 <tr>
                                     <td></td>
                                     <td colspan="3">
-                                        <table class="table table-striped">
+                                        <table class="table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>

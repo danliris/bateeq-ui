@@ -1,4 +1,4 @@
-<template>
+<!--<template>
   <require from="./utils/loading-modal/loading-modal"></require>
   <loading-modal></loading-modal>
 
@@ -22,7 +22,37 @@
       <button class="btn btn-lg btn-primary btn-block" click.delegate="login()">Sign in</button>
     </form>
   </div>
-  <!-- /container -->
-  <!--<div class="container-fluid">
-  </div>-->
+</template>-->
+
+<template>
+  <require from="./utils/loading-modal/loading-modal"></require>
+  <loading-modal></loading-modal>
+
+  <div class="container login">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default panel-login">
+          <div class="panel-body">
+            <h2 class="form-title">Sign In</h2>
+            <form>
+              <div class="form-group">
+                <label for="" class="control-label">Username</label>
+                <input type="text" class="form-control" placeholder="Username" value.bind="username" required autofocus />
+              </div>
+              <div class="form-group">
+                <label for="" class="control-label">Password</label>
+                <input type="password" class="form-control" placeholder="Password" value.bind="password" required />
+              </div>
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" value="remember-me"> Remember me
+                </label>
+              </div>
+              <button type="submit" class="btn btn-lg btn-block" style="background-color:#e20d6a;color:#fff;" click.delegate="login()">Sign in</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

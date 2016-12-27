@@ -10,6 +10,10 @@ export class NavBar {
         this.session = session;
     }
 
+    get isAuthenticated() {
+        return this.session.isAuthenticated;
+    }
+
     logout() {
         this.session.remove();
         this.router.navigate('/')
