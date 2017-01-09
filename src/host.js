@@ -18,6 +18,6 @@ module.exports = {
     core: "https://bateeq-core-api.mybluemix.net/v1/core",
     master: "https://bateeq-core-api.mybluemix.net/v1/master",  
     inventory: "https://bateeq-inventory-api.mybluemix.net/v1/inventory",
-    merchandiser: "https://bateeq-inventory-uat.mybluemix.net/v1/merchandiser",
+    merchandiser: "https://bateeq-inventory.mybluemix.net/v1/merchandiser",
     sales: "https://bateeq-pos-api.mybluemix.net/v1/sales"
 }
