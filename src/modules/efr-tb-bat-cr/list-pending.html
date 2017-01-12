@@ -10,8 +10,7 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data">
-                <td>${item.packingList}</td>
-                <!--<td><a href="#/efr-tb-bbt/create?${item.packingList}" class="btn btn-primary">Terima</a></td>-->
+                <td>${item.packingList}</td> 
                 <td><button class="btn btn-primary" click.delegate="accept(item)">Terima</buttona></td>
             </tr>
         </tbody>
