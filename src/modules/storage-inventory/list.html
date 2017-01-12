@@ -1,27 +1,18 @@
 <template>
-    <h3>Laporan Stok</h3> 
-    <form class="form-horizontal">  
-        <div class="form-group"> 
-            <div class="form-group"> 
-                <label for="storage" class="col-sm-2 control-label">Penyimpanan</label>
-                <div class="col-sm-10"> 
-                    <select class="form-control" name="destinationId" value.bind="storageId">  
-                        <option value=""></option>
-                        <option repeat.for="storage of storages" value="${storage._id}">${storage.name}</option>
-                    </select> 
-                </div>
-            </div> 
-            <div class="form-group"> 
-                <label for="filter" class="col-sm-2 control-label">filter</label>
-                <div class="col-sm-10"> 
-                    <input type="text" class="form-control" name="filter" value.bind="filter"/> 
-                </div>
-            </div> 
-            <button click.delegate="reloadItem()" class="btn btn-success btn-sm pull-right">Cari</button>
-        </div> 
+    <h1 class="page-header">Laporan Stok</h1>
+    <form class="form-horizontal">     
+        <storage-auto-suggest   label="Penyimpanan"     value.bind="storage"      error.bind="error.storage"     read-only.bind="readOnly"   ></storage-auto-suggest>
+        <textbox                label="filter"          value.bind="filter"  read-only.bind="readOnly"></textbox> 
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="reloadItem()" class="btn btn-success btn-sm pull-right">Cari</button> 
+            </div>
+        </div>
     </form> 
-    <table class="table table-striped table-hover">
-        <thead>
+    <table class="table table-bordered table-hover">
+        <thead> 
+            Total : ${total}
             <tr>
                 <th>Barcode</th>
                 <th>Nama</th>
@@ -34,6 +25,7 @@
                 <td>${item.item.name}</td>
                 <td>${item.quantity}</td>
             </tr>
+            
         </tbody>
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">

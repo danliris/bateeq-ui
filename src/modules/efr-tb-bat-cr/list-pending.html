@@ -1,7 +1,7 @@
 <template>
     <h3>Packing List</h3>
 
-    <table class="table table-striped table-hover">
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Packing List</th>
@@ -10,8 +10,7 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data">
-                <td>${item.packingList}</td>
-                <!--<td><a href="#/efr-tb-bbt/create?${item.packingList}" class="btn btn-primary">Terima</a></td>-->
+                <td>${item.packingList}</td> 
                 <td><button class="btn btn-primary" click.delegate="accept(item)">Terima</buttona></td>
             </tr>
         </tbody>

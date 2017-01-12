@@ -1,45 +1,35 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../rest-service';
+import { RestService } from '../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
+
+const serviceUri = '/docs/efr-pk-pbj';
 
 export class Service extends RestService {
-
-  constructor(http, aggregator) {
-    super(http, aggregator);
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "merchandiser");
   }
 
   search(keyword) {
-    return super.get(require('../../host').merchandiser + '/docs/efr-pk-pbj');
+    return super.get(serviceUri);
   }
 
   getModuleConfig() {
-    var endpoint = require('../../host').master + '/modules?keyword=EFR-PK/PBJ';
-    return super.get(endpoint)
-      .then(results => {
-        if (results && results.length == 1)
-          return Promise.resolve(results[0].config);
-        else
-          return Promise.resolve(null);
-      });
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'modules?keyword=EFR-PK/PBJ';
+    return super.get(endpoint);
   }
 
   getStorageById(id) {
-    var endpoint = `${require('../../host').master + '/storages'}/${id}`;
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'storages/' + id;
     return super.get(endpoint);
   }
 
   getById(id) {
-    var endpoint = `${require('../../host').merchandiser + '/docs/efr-pk-pbj/draft'}/${id}`;
+    var endpoint = '/docs/efr-pk-pbj/draft/' + id;
     return super.get(endpoint);
   }
-  
-  _downloadFile(response)
-  {
-    return super._downloadFile(response);
-  }
-  
-  publish(response)
-  {
-    return super.publish(response);
-  }
+
 }

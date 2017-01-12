@@ -1,25 +1,24 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
 export class Create {
-    
+
     constructor(router, service) {
         this.router = router;
-        this.service = service; 
+        this.service = service;
         this.data = { items: [] };
     }
 
     activate(params) {
-        if(params.id!=undefined){
+        if (params.id != undefined) {
             this.service.getPendingSPKById(params.id)
-            .then(data => {
+                .then(data => {
                     this.data = data;
                     data.reference = data.packingList;
                 })
-            .catch()
         }
     }
 
@@ -27,7 +26,7 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
-    save() { 
+    save() {
         this.service.create(this.data)
             .then(result => {
                 this.list();
@@ -35,5 +34,5 @@ export class Create {
             .catch(e => {
                 this.error = e;
             })
-    } 
+    }
 }
