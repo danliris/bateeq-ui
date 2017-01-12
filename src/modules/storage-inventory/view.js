@@ -1,32 +1,29 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 @inject(Router, Service)
-export class View { 
-    
+export class View {
+
     constructor(router, service) {
         this.router = router;
-        this.service = service;  
-    } 
+        this.service = service;
+    }
 
     activate(params) {
         var storageId = params.storageId;
         var itemId = params.itemId; 
-        
         this.service.getAllMovement(storageId, itemId)
-        .then(data=>{
-            this.data = data;  
-            var moment = require('moment');
-            for(var obj of this.data) {  
-                //2016-07-19T08:04:09.676Z
-                obj.date = moment(obj.date, "YYYY-MM-DDTHH:mm:SSSZ").format("DD MMM YYYY - HH:mm:SS")
-            }   
-        })
+            .then(data => {
+                this.data = data;
+                var moment = require('moment');
+                for (var obj of this.data) {
+                    obj.date = moment(obj.date, "YYYY-MM-DDTHH:mm:SSSZ").format("DD MMM YYYY - HH:mm:SS")
+                }
+            })
     }
 
-    list()
-    {
+    list() {
         this.router.navigateToRoute('list');
     }
 }

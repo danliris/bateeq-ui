@@ -1,14 +1,3 @@
-<!--<template>
-    <template repeat.for="[key, value] of group">
-        <h4>${key.toUpperCase()}</h4>
-        <hr />
-        <ul class="nav nav-sidebar"> 
-            <li repeat.for="row of value" class="${row.isActive ? 'active' : ''}">
-                <a data-toggle="collapse" data-target="#skeleton-navigation-navbar-collapse.in" href.bind="row.href">${row.title}</a>
-            </li>
-        </ul>
-    </template> 
-</template>-->
 <template>
     <div class="side-nav-bar ${minimized ? 'minimized' : ''} ${expand ? 'expand' : ''}" if.bind="isAuthenticated">
         <aside class="main-sidebar">
@@ -23,10 +12,10 @@
                 <li repeat.for="[key, value] of group" click.delegate="selectMenu(value, key)" value.bind="activeMenu" class.bind="activeMenu == key ? 'active' : ''">
                     <a href="#" title.bind="key.toUpperCase()">
                         <i class="fa fa-shopping-bag" if.bind="key.toUpperCase() == 'TOKO'"></i>
-                        <i class="fa fa-bank" if.bind="key.toUpperCase() == 'GUDANG PUSAT'"></i>
+                        <i class="fa fa-bank" if.bind="key.toUpperCase() == 'GUDANG PUSAT'"></i> 
                         <i class="fa fa-table" if.bind="key.toUpperCase() == 'LAPORAN'"></i>
                         <i class="fa fa-bar-chart" if.bind="key.toUpperCase() == 'DASHBOARD'"></i>
-
+                         <i class="fa fa-user-o" if.bind="key.toUpperCase() == 'AUTH'"></i> 
                         <span if.bind="!minimized">${key.toUpperCase()}</span>
                         <div class="pull-right" if.bind="value.length > 0 && !minimized">
                             <i class="fa fa-angle-right"></i>

@@ -1,29 +1,49 @@
 import { inject, bindable, containerless, computedFrom } from 'aurelia-framework';
-import { Session } from './utils/session';
+import { AuthService } from "aurelia-authentication";
+import jwtDecode from 'jwt-decode';
 
 @containerless()
-@inject(Session)
+@inject(AuthService)
 export class SideNavBar {
     @bindable router = null;
     @bindable navigations = null;
-    
-    constructor(session) {
-        // this.router = router;
-        this.session = session;
+
+    constructor(authService) {
         this.minimized = false;
         this.activeMenu = [];
         this.activeSubMenu = {};
-        this.group = new Map();
-        // var a = new Array(this.router.navigation);
-        // this.router.navigation.forEach(route => {
-        //     console.log(1);
-        // });
-        // console.log(this.router.navigation instanceof Array);
+        this.authService = authService;
+    }
 
+    @computedFrom('authService.authenticated')
+    get isAuthenticated() {
+        return this.authService.authenticated;
+    }
+
+    @computedFrom('activeMenu')
+    get expand() {
+        return (this.activeMenu || []).length > 0;
     }
 
     attached() {
-        for (var route of this.router.navigation) {
+
+        this.group = new Map();
+        const config = this.authService.authentication.config;
+        const storage = this.authService.authentication.storage;
+        const token = JSON.parse(storage.get(config.storageKey));
+        var me = jwtDecode(token.data);
+        // var me = meResult.data;
+
+        var routes = this.router.navigation.filter(route => {
+            var routeRoles = route.settings.roles || [];
+            var myRoles = me.roles;
+            myRoles.push("*");
+            return myRoles.some(role => {
+                return routeRoles.indexOf(role) >= 0;
+            })
+        })
+
+        for (var route of routes) {
             if (route.settings && ((route.settings.group || "").trim().length > 0)) {
                 var key = (route.settings.group || "").trim();
                 if (!this.group.has(key))
@@ -34,15 +54,6 @@ export class SideNavBar {
                 this.group.set(key, groupedRoutes);
             }
         };
-    }
-
-    get isAuthenticated() {
-        return this.session.isAuthenticated;
-    }
-
-    @computedFrom('activeMenu')
-    get expand() {
-        return (this.activeMenu || []).length > 0;
     }
 
     toggleSideMenu() {
