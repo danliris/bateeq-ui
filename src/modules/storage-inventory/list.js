@@ -5,7 +5,7 @@ import { Service } from './service';
 
 @inject(Router, Service)
 export class List { 
-    total=0;
+    total;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -17,6 +17,7 @@ export class List {
     }
 
     reloadItem() { 
+        this.total=0;
         this.storageId= this.storage._id;
         this.service.getAllInventory(this.storageId, this.filter)
             .then(data => {
