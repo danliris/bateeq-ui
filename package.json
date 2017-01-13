@@ -38,10 +38,6 @@
     "webpack": "cross-env BABEL_ENV=node ./node_modules/.bin/webpack",
     "webpack-dev-server": "cross-env BABEL_ENV=node ./node_modules/.bin/webpack-dev-server"
   },
-  "engines": {
-    "node": "6.3.0",
-    "npm": "3.10.9"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/aurelia/skeleton-navigation.git"
