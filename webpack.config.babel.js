@@ -104,9 +104,9 @@ let config = generateConfig(
     globalBluebird(),
     globalJquery(),
     globalRegenerator(),
-    generateIndexHtml({ minify: ENV === 'inventory' }),
+    generateIndexHtml({ minify: ENV === 'production' }),
 
-    ...(ENV === 'inventory' || ENV === 'development' ? [
+    ...(ENV === 'production' || ENV === 'development' ? [
         commonChunksOptimize({ appChunkName: 'app', firstChunk: 'aurelia-bootstrap' }),
         copyFiles({ patterns: [{ from: 'favicon.ico', to: 'favicon.ico' }] })
     ] : [
@@ -114,7 +114,8 @@ let config = generateConfig(
             generateCoverage({ options: { 'force-sourcemap': true, esModules: true } })
         ]),
 
-    ENV === 'inventory' ?
+    ENV === 'production' ?
         uglify({ debug: false, mangle: { except: ['cb', '__webpack_require__'] } }) : {}
-) 
+)
+console.log(config.module);
 module.exports = stripMetadata(config)
