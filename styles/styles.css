@@ -257,6 +257,10 @@ div.au-stagger {
     display: block;
     margin-top:.5cm;
     /*margin-bottom:.5cm;*/
+    position: absolute;
+    left:0;
+    top:0;
+    padding:12pt; 
   }
   
   .print-wrapper:first-of-type {
@@ -337,6 +341,10 @@ div.au-stagger {
   }
             
  .display-wrapper {
+    display: none;
+  }
+
+  .side-nav-bar{
     display: none;
   }
 }
