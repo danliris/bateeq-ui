@@ -1,6 +1,16 @@
 <template>
     <h3>Upload Packing List Barang Jadi</h3>
-    <table class="table table-striped table-hover">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="input-group">
+                <input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Packing List</th>
@@ -28,8 +38,10 @@
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
         Tidak ada data.
     </div>
+    <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
     <hr/>
     <div class="btn-group pull-right">
         <button class="btn btn-primary" click.delegate="upload()">Upload File</button>
     </div>
+
 </template>
