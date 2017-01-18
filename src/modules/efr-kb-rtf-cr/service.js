@@ -3,9 +3,10 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../rest-service';
 import {SecureService} from '../../utils/secure-service';
  
-const serviceUri = require('../../host').inventory + '/docs/efr-kb-rtp';  
-const serviceSearch = require('../../host').inventory + '/docs/efr-pk-pbj/submitted';
+const serviceUri = require('../../host').inventory + '/docs/efr-kb-rtf';  
+const serviceSearch = require('../../host').inventory + '/docs/efr-kb-rtp';
 
+ 
 export class Service extends SecureService{
 
   constructor(http, aggregator) {
@@ -26,21 +27,16 @@ export class Service extends SecureService{
   {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-  }  
+  }   
   
-  generateExcel(id) {
-    var endpoint = `${serviceUri}/${id}/exportall`;
-    return super.getXls(endpoint);
-  }
-  
-  getSPKByPackingList(packingList) 
+  getEFRKBRTPByCode(code) 
   {
-      var endpoint = `${require('../../host').merchandiser+'/docs/efr-pk/received?keyword='}${packingList}`;
+      var endpoint = `${serviceSearch}?keyword=${code}`;
       return super.get(endpoint);
-  }  
+  }
 
   getModuleConfig() {
-    var endpoint = require('../../host').master + '/modules?keyword=EFR-KB/RTP';
+    var endpoint = require('../../host').core + '/modules?keyword=EFR-KB/RTF';
     return super.get(endpoint)
       .then(results => {
         if (results && results.length == 1)
@@ -51,13 +47,13 @@ export class Service extends SecureService{
   }
   
   getStorageById(id) {
-    var endpoint = `${require('../../host').master + '/storages'}/${id}`;
+    var endpoint = `${require('../../host').inventory + '/storages'}/${id}`;
     return super.get(endpoint);
   }
 
-  getDataInventory(storageId,itemId)
+  getDataInventory(storageId,articleVariantId)
   {
-    var endpoint = `${require('../../host').inventory + '/storages/' + storageId + '/inventories/' + itemId}`;
+    var endpoint = `${require('../../host').inventory + '/storages/' + storageId + '/inventories/'+articleVariantId}`;
     return super.get(endpoint);
   }
 }

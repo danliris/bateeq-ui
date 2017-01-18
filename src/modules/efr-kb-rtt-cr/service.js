@@ -3,8 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../rest-service';
 import {SecureService} from '../../utils/secure-service';
  
-const serviceUri = require('../../host').inventory + '/docs/efr-kb-rtp';  
-const serviceSearch = require('../../host').inventory + '/docs/efr-pk-pbj/submitted';
+const serviceUri = require('../../host').inventory + '/docs/efr-kb-rtt';  
 
 export class Service extends SecureService{
 
@@ -28,19 +27,8 @@ export class Service extends SecureService{
     return super.post(endpoint, data);
   }  
   
-  generateExcel(id) {
-    var endpoint = `${serviceUri}/${id}/exportall`;
-    return super.getXls(endpoint);
-  }
-  
-  getSPKByPackingList(packingList) 
-  {
-      var endpoint = `${require('../../host').merchandiser+'/docs/efr-pk/received?keyword='}${packingList}`;
-      return super.get(endpoint);
-  }  
-
   getModuleConfig() {
-    var endpoint = require('../../host').master + '/modules?keyword=EFR-KB/RTP';
+    var endpoint = require('../../host').core + '/modules?keyword=EFR-KB/RTT';
     return super.get(endpoint)
       .then(results => {
         if (results && results.length == 1)
@@ -51,13 +39,14 @@ export class Service extends SecureService{
   }
   
   getStorageById(id) {
-    var endpoint = `${require('../../host').master + '/storages'}/${id}`;
+    var endpoint = `${require('../../host').inventory + '/storages'}/${id}`;
     return super.get(endpoint);
   }
 
-  getDataInventory(storageId,itemId)
+  getSPKByReference(codeRTT)
   {
-    var endpoint = `${require('../../host').inventory + '/storages/' + storageId + '/inventories/' + itemId}`;
-    return super.get(endpoint);
+     var endpoint = `${require('../../host').merchandiser + '/docs/efr-pk/pending?reference='}/${codeRTT}`;
+      return super.get(endpoint);
   }
+   
 }

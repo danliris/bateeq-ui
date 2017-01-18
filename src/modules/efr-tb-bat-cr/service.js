@@ -1,15 +1,17 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../utils/rest-service';
-  
-const serviceUri = '/docs/efr-tb-bat';
-const serviceOutUri = '/docs/efr-tb-bat';
-const serviceUriStorages= '/storages';
+import {RestService} from '../../rest-service';
+import {SecureService} from '../../utils/secure-service';
  
-export class Service extends RestService{
+// const serviceUri = 'http://localhost:9080/v1/inventories/docs/efr-tb-bat';
+const serviceUri = require('../../host').inventory + '/docs/efr-tb-bat';
+const serviceOutUri = require('../../host').inventory + '/docs/efr-kb-bat';
+const serviceUriStorages=require('../../host').inventory + '/storages';
+ 
+export class Service extends SecureService{
 
-  constructor(http, aggregator, config, api) {
-      super(http, aggregator, config, "inventory");
+  constructor(http, aggregator) {
+      super(http, aggregator);
   }
 
   search(keyword) {
