@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../rest-service';
 import {SecureService} from '../../utils/secure-service';
  
-const serviceUri = require('../../host').core + '/power-bi/reports';
+const serviceUri = require('../../host').inventory + '/docs/transfer-out';  
  
 export class Service extends SecureService{
 
@@ -19,25 +19,11 @@ export class Service extends SecureService{
   {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
-  }
+  } 
 
   create(data)
   {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-  }
-
-  update(data)
-  {
-    var endpoint = `${serviceUri}/${data._id}`;
-    return super.put(endpoint, data);
   }  
-
-  delete(data)
-  {
-    var endpoint = `${serviceUri}/${data._id}`;
-    return super.delete(endpoint, data);
-  }
-  
- 
 }
