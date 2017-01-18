@@ -3,7 +3,7 @@ import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../rest-service';
 import {SecureService} from '../../utils/secure-service';
  
-const serviceUri = require('../../host').core + '/power-bi/reports';
+const serviceUri = require('../../host').inventory + '/storages';
  
 export class Service extends SecureService{
 
