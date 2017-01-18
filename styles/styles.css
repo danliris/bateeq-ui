@@ -44,7 +44,7 @@ body {
 }
 
 .navbar-inverse {
-  background-color: #112;
+  background-color: #000;
 }
 
 .navbar-inverse .navbar-brand {
@@ -257,6 +257,10 @@ div.au-stagger {
     display: block;
     margin-top:.5cm;
     /*margin-bottom:.5cm;*/
+    position: absolute;
+    left:0;
+    top:0;
+    padding:12pt; 
   }
   
   .print-wrapper:first-of-type {
@@ -339,11 +343,15 @@ div.au-stagger {
  .display-wrapper {
     display: none;
   }
+
+  .side-nav-bar{
+    display: none;
+  }
 }
 
-label {
+/*label {
   padding-top: 0 !important;  
-}
+}*/
 
 .padding-right-10 {
   padding-right: 10px;
@@ -368,4 +376,24 @@ select {
     padding: 10px 16px;
     border: border-box;
     border-radius: 4px;
+}
+
+.page-header {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    /*color: #173250;*/
+    color: #2a2a2a;
+    text-transform: uppercase;
+}
+
+h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    /*color: #173250;*/
+    color: #2a2a2a;
+    text-transform: uppercase;
 }

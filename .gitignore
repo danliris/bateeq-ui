@@ -8,3 +8,6 @@ npm-debug.log*
 /electron.js*
 /release
 /test/coverage
+yarn.lock
+src/host.js
+src/modules/efr-kb-rtp-cr/data-form.html

@@ -6,10 +6,9 @@ import { Service } from './service';
 @inject(Router, Service, Element)
 export class Create {
 
-    constructor(router, service, element) {
+    constructor(router, service) {
         this.router = router;
-        this.service = service;
-        this.element = element;
+        this.service = service; 
         this.data = { items: [] };
     }
 
@@ -46,7 +45,7 @@ export class Create {
             formData.append("date", date);
             formData.append("fileUpload", fileList[0]);
 
-            var uri = require('../../host').merchandiser + '/upload/pba';
+            var endpoint = '/upload/pba';
             var request = {
                 method: 'POST',
                 headers: {
@@ -54,10 +53,10 @@ export class Create {
                 body: formData
             };
 
-            fetch(uri, request)
+           this.service.endpoint.client.fetch(endpoint, request)
                 .then(response => {
                     if (response.status == 200) {
-                        var getRequest = fetch(uri, request);
+                        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
                         this.service._downloadFile(getRequest);
                         this.service.publish(getRequest);
                         alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat Error Log untuk melihat detil dari error tersebut.");
