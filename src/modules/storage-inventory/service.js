@@ -1,28 +1,33 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../utils/rest-service';
-import { Container } from 'aurelia-dependency-injection';
-import { Config } from "aurelia-api";
-
-const serviceUriStorages = '/storages';  
-
-export class Service extends RestService{
+import {RestService} from '../../rest-service';
+import {SecureService} from '../../utils/secure-service';
   
-  constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "master");
-  }  
+const serviceUriStorages = require('../../host').master + '/storages';
+const serviceUriInventories = require('../../host').inventory + '/storages/{storageId}/inventories';
+const serviceUriMovements = require('../../host').inventory + '/storages/{storageId}/inventories/{itemId}/movements';
+
+export class Service extends SecureService{
   
+  constructor(http, aggregator) {
+    super(http, aggregator);
+  } 
+
+  getAllStorage()
+  {
+    var endpoint = `${serviceUriStorages}?size=1000`;
+    return super.get(endpoint);
+  } 
+   
   getAllInventory(storageId, keyword)
   {
-    var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+ '/inventories?keyword=' + keyword; 
+    var endpoint = `${serviceUriInventories.replace("{storageId}", storageId)}` + "?keyword=" + keyword;
     return super.get(endpoint);
   }
   
   getAllMovement(storageId, itemId)
   {
-    var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+"/inventories/"+itemId+"/movements";  
+    var endpoint = `${serviceUriMovements.replace("{storageId}", storageId).replace("{itemId}", itemId)}`;
     return super.get(endpoint);
   }
    
