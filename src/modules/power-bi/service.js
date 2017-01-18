@@ -1,14 +1,13 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../rest-service';
-import {SecureService} from '../../utils/secure-service';
+import {RestService} from '../../utils/rest-service';
  
-const serviceUri = require('../../host').core + '/power-bi/reports';
+const serviceUri = 'power-bi/reports';
  
-export class Service extends SecureService{
+export class Service extends RestService{
 
-  constructor(http, aggregator) {
-    super(http, aggregator);
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "core");
   }
 
   search(keyword) {
@@ -37,7 +36,5 @@ export class Service extends SecureService{
   {
     var endpoint = `${serviceUri}/${data._id}`;
     return super.delete(endpoint, data);
-  }
-  
- 
+  } 
 }

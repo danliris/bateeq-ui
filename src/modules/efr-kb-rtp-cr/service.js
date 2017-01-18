@@ -1,63 +1,57 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../rest-service';
-import {SecureService} from '../../utils/secure-service';
- 
-const serviceUri = require('../../host').inventory + '/docs/efr-kb-rtp';  
-const serviceSearch = require('../../host').inventory + '/docs/efr-pk-pbj/submitted';
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
 
-export class Service extends SecureService{
+const serviceUri = 'docs/efr-kb-rtp';
+const serviceSearch = 'docs/efr-pk-pbj/submitted';
 
-  constructor(http, aggregator) {
-    super(http, aggregator);
+export class Service extends RestService {
+
+  constructor(http, aggregator, config, api) {
+    super(http, aggregator, config, "inventory");
   }
 
   search(keyword) {
     return super.get(serviceUri);
   }
 
-  getById(id)
-  {
+  getById(id) {
     var endpoint = `${serviceUri}/${id}`;
     return super.get(endpoint);
-  } 
+  }
 
-  create(data)
-  {
+  create(data) {
     var endpoint = `${serviceUri}`;
     return super.post(endpoint, data);
-  }  
-  
+  }
+
   generateExcel(id) {
     var endpoint = `${serviceUri}/${id}/exportall`;
     return super.getXls(endpoint);
   }
-  
-  getSPKByPackingList(packingList) 
-  {
-      var endpoint = `${require('../../host').merchandiser+'/docs/efr-pk/received?keyword='}${packingList}`;
-      return super.get(endpoint);
-  }  
 
-  getModuleConfig() {
-    var endpoint = require('../../host').master + '/modules?keyword=EFR-KB/RTP';
-    return super.get(endpoint)
-      .then(results => {
-        if (results && results.length == 1)
-          return Promise.resolve(results[0].config);
-        else
-          return Promise.resolve(null);
-      });
-  }
-  
-  getStorageById(id) {
-    var endpoint = `${require('../../host').master + '/storages'}/${id}`;
+  getSPKByPackingList(packingList) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("merchandiser").client.baseUrl + 'docs/efr-pk/received?keyword=' + packingList;
     return super.get(endpoint);
   }
 
-  getDataInventory(storageId,itemId)
-  {
-    var endpoint = `${require('../../host').inventory + '/storages/' + storageId + '/inventories/' + itemId}`;
+  getModuleConfig() {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'modules?keyword=EFR-KB/RTP';
+    return super.get(endpoint); 
+  }
+
+  getStorageById(id) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'storages/' + id;
+    return super.get(endpoint);
+  }
+
+  getDataInventory(storageId, itemId) {
+    var endpoint = 'storages/' + storageId + '/inventories/' + itemId;
     return super.get(endpoint);
   }
 }
