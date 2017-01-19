@@ -34,6 +34,7 @@ export async function configure(aurelia) {
       var merchandiser = "https://bateeq-inventory-api.mybluemix.net/v1/merchandiser/";
       var sales = "https://bateeq-pos-api.mybluemix.net/v1/sales/";
     
+    
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('master', master);
