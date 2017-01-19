@@ -14,10 +14,20 @@
            BATEEQ MANAGEMENT SYSTEM
         </a>
       </div>
-      <div id="navbar" class="navbar-collapse collapse" if.bind="isAuthenticated">
+
+
+
+     <div id="navbar" class="navbar-collapse collapse" if.bind="isAuthenticated">
         <ul class="nav navbar-nav navbar-right">
+          <li style="padding-top:8px;">
+            <!--<select class="form-control" name="storeId" value.bind="storeId"> 
+                <option repeat.for="store of stores" value="${store._id}">${store.name}</option>
+            </select>-->
+          </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome, <span style="font-weight:bold;">${me.profile.firstname}</span> <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Welcome, <span style="font-weight:bold;">${user.data.profile.firstname}</span> <span class="caret"></span></a>
+
+
             <ul class="dropdown-menu">
               <li><a href="#">Profile</a></li>
               <li role="separator" class="divider"></li>

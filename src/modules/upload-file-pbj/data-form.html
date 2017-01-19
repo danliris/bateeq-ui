@@ -1,35 +1,14 @@
-<template>
-    <!--<require from="customs/elements/horsey"></require>-->
+<template> 
     <form class="form-horizontal">
-        <div class="form-group ${error.dateFrom?'has-error':''}">
-            <label for="code" class="col-sm-2 control-label">Tanggal Kirim</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="date" name="date" value.bind="data.date" />
-                <span class="help-block">${error.dateFrom}</span>
-            </div>
-        </div>
-        <div class="form-group ${error.sourceId?'has-error':''}">
-            <label for="code" class="col-sm-2 control-label">Sumber Penyimpanan</label>
-            <div class="col-sm-10">
-                <select class="form-control" value.bind="data.sourceId">
-                    <option repeat.for="source of sources" value="${source._id}">${source.code} - ${source.name}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group ${error.destinationId?'has-error':''}">
-            <label for="destinationId" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
-            <div class="col-sm-10">
-                <select class="form-control" value.bind="data.destinationId">
-                    <option repeat.for="destination of destinations" value="${destination._id}">${destination.code} - ${destination.name}</option>
-                </select>
-            </div>
-        </div>
+        <datepicker             label="Tanggal Kirim"           value.bind="data.date"              error.bind="error.dateFrom"               read-only.bind="readOnly"></datepicker>
+        <dropdown               label="Sumber Penyimpanan"      value.bind="data.source"         items.bind="sources"></dropdown>
+        <dropdown               label="Tujuan Penyimpanan"      value.bind="data.destination"    items.bind="destinations"></dropdown>
         <div class="form-group ${error.file?'has-error':''}">
-            <label for="dataFile" class="col-sm-2 control-label">File Path</label>
-            <div class="col-sm-10">
+            <label for="dataFile" class="col-sm-4 control-label">File Path</label>
+            <div class="col-sm-5">
                 <input type="file" id="fileCsv" name="fileUpload">
                 <span class="help-block">${error.file}</span>
             </div>
         </div>
-    </form>
+    </form> 
 </template>
