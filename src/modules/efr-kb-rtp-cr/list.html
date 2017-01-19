@@ -17,7 +17,7 @@
                 <td>${item.reference}</td> 
                 <td>${item.source.code} - ${item.source.name}</td>
                 <td>${item.destination.code} - ${item.destination.name}</td>
-                <td>${item._createdDate}</td>
+                <td>${(item._createdDate).substring(0, 10)}</td>
                 <td>${item._createdBy}</td> 
             </tr>
         </tbody>
