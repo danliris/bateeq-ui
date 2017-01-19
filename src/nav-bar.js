@@ -1,3 +1,6 @@
+
+
+
 import { inject, Aurelia, BindingEngine, computedFrom } from 'aurelia-framework';
 import { AuthService } from 'aurelia-authentication';
 import { Router } from 'aurelia-router';
@@ -12,15 +15,21 @@ export class NavBar {
         this.authService = authService;
         this.localStorage = localStorage;
         this.storeId = this.localStorage.store._id;
+
         this.user = this.localStorage.me;
     }
 
     attached() {
+
+
+
         this.stores = [];
         var storage = this.authService.authentication.storage;
         if (storage.get("me")) {
             this.stores = JSON.parse(storage.get("me")).data.stores;
         }
+
+
         this.bindingEngine.propertyObserver(this, "storeId").subscribe((newValue, oldValue) => {
             for (var store of this.stores) {
                 if (store._id.toString() === this.storeId.toString()) {
@@ -31,6 +40,11 @@ export class NavBar {
             }
         });
     }
+
+
+
+
+
 
     @computedFrom('authService.authenticated')
     get isAuthenticated() {
@@ -56,5 +70,8 @@ export class NavBar {
         this.authService.logout("#/login");
         this.authService.authentication.storage.remove("store");
         this.authService.authentication.storage.remove("me");
+
+
+
     }
 }
