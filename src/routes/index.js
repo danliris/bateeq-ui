@@ -5,4 +5,4 @@ var publicRoutes = require("./public");
 var reportRoutes = require("./report"); 
 var authRoutes = require("./auth"); 
 
-export default [].concat(publicRoutes, tokoRoutes, gudangPusatRoutes, laporanRoutes,reportRoutes, authRoutes);
+export default [].concat(publicRoutes, tokoRoutes, gudangPusatRoutes, laporanRoutes,reportRoutes);
