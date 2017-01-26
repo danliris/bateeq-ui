@@ -1,41 +1,40 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {HttpClient} from 'aurelia-fetch-client';
-import {RestService} from '../../utils/rest-service';
-  
+import { inject, Lazy } from 'aurelia-framework';
+import { HttpClient } from 'aurelia-fetch-client';
+import { RestService } from '../../utils/rest-service';
+
 const serviceUri = '/docs/efr-tb-bbt';
 const serviceOutUri = '/docs/efr-pk-ba';
-const serviceUriStorages= '/storages';
- 
-export class Service extends RestService{
+const serviceUriStorages = '/storages';
 
-  constructor(http, aggregator, config, api) {
-      super(http, aggregator, config, "inventory");
-  }
+export class Service extends RestService {
 
-  search(keyword) {
-      return super.get(serviceUri);
-  }
+    constructor(http, aggregator, config, api) {
+        super(http, aggregator, config, "inventory");
+    }
 
-  getById(id)
-  {
-      var endpoint = `${serviceUri}/${id}`;
-      return super.get(endpoint);
-  }
-  
-  create(data)
-  {
-      var endpoint = `${serviceUri}`;
-      return super.post(endpoint, data);
-  } 
+    search(info) {
+        var endpoint = `${serviceUri}`;
+        return super.list(endpoint, info);
+    }
 
-  listPending(){
-      var endpoint = `${serviceUri}/pending`;
-      return super.get(endpoint);
-  }
+    getById(id) {
+        var endpoint = `${serviceUri}/${id}`;
+        return super.get(endpoint);
+    }
 
-  getPendingSPKById(id){
-      var endpoint = `${serviceUri}/pending/${id}`;
-      return super.get(endpoint);
-  }
-  
+    create(data) {
+        var endpoint = `${serviceUri}`;
+        return super.post(endpoint, data);
+    }
+
+    listPending(info) {
+        var endpoint = `${serviceUri}/pending`;
+        return super.list(endpoint, info);
+    }
+
+    getPendingSPKById(id) {
+        var endpoint = `${serviceUri}/pending/${id}`;
+        return super.get(endpoint);
+    }
+
 }
