@@ -25,7 +25,9 @@
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
         Tidak ada data.
     </div>
-    <hr/><div class="btn-group pull-right">
+    <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
+    <hr/>
+    <div class="btn-group pull-right">
         <button class="btn btn-primary" click.delegate="create()">Buat</button>
     </div>
 </template>
