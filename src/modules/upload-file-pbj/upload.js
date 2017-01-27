@@ -53,17 +53,19 @@ export class Create {
                 },
                 body: formData
             };
-
-           this.service.endpoint.client.fetch(endpoint, request)
-                .then(response => {
-                    if (response.status == 200) {
+            var promise = this.service.endpoint.client.fetch(endpoint, request);
+            this.service.publish(promise);
+            return promise
+                .then((result) => {
+                    this.service.publish(promise);
+                    if (result.status == 200) {
                         var getRequest = this.service.endpoint.client.fetch(endpoint, request);
                         this.service._downloadFile(getRequest);
                         this.service.publish(getRequest);
                         alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat Error Log untuk melihat detil dari error tersebut.");
                         this.list();
                     }
-                    else if (response.status == 404) {
+                    else if (result.status == 404) {
                         alert("Urutan format kolom CSV tidak sesuai.\n Format: Packing List, Password, Barcode, Name, Size, Price, UOM, QTY, RO");
                     }
                     else {
@@ -71,7 +73,8 @@ export class Create {
                         this.list();
 
                     }
-                })
+                    return Promise.resolve(result);
+                });
         }
     }
 }
