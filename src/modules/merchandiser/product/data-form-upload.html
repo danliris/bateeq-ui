@@ -1,0 +1,11 @@
+<template>
+    <form class="form-horizontal">
+        <div class="form-group ${error.file?'has-error':''}">
+            <label for="dataFile" class="col-sm-4 control-label">File Path</label>
+            <div class="col-sm-5">
+                <input type="file" id="fileCsv" name="fileUpload">
+                <span class="help-block">${error.file}</span>
+            </div>
+        </div>
+    </form>
+</template>
