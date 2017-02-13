@@ -1,0 +1,31 @@
+<template>
+    <h3>Upload Image Barang</h3>
+    <form class="form-horizontal">
+        <label class="col-sm-4 control-label"></label>
+        <div class="col-sm-5"><input type="radio" name="ro" />RO</div>
+        <div slot="body">
+            <au-autocomplete value.bind="data.autocomplete" label="search user: " change.delegate="valueChanged($event)" select.delegate="select($event)"
+                options.bind="controlOptions" loader.bind="dataLoader" key="id" text="login" template="modules/project/user"></au-autocomplete>
+        </div>
+        <br/>
+        <label class="col-sm-4 control-label"></label>
+        <div class="col-sm-5"><input type="radio" name="name" />Nama Product</div>
+        <br/><br/>
+        <label class="col-sm-4 control-label"></label>
+        <div class="contact-list">
+            <ul class="list-group">
+                <li repeat.for="contact of contacts" class="list-group-item ${contact.id === selectedId ? 'active' : ''}">
+                    <a route-href="route: contacts; params.bind: {id:contact.id}" click.delegate="select(contact)">
+                        <p class="list-group-item-text">${contact.email}</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <label class="col-sm-4 control-label"></label>
+        <div class="col-sm-5">
+            <button class="btn btn-primary" click.delegate="upload()">Upload Image</button>
+            <button class="btn btn-default" click.delegate="list()">Kembali</button>
+        </div>
+    </form>
+</template>

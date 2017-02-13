@@ -48,5 +48,9 @@ export class List {
         this.router.navigateToRoute('upload');
     }
 
+    uploadImage() {
+        this.router.navigateToRoute('upload-image');
+    }
+
 
 }
