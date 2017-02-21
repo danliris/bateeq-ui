@@ -8,7 +8,8 @@ export class DataForm {
     @bindable error = {};
     sources = [];
     destinations = [];
-
+    item;
+    barcode;
     indexSource = 0;
     constructor(router, service) {
         this.router = router;
@@ -46,21 +47,83 @@ export class DataForm {
 
     }
 
-    itemChanged(e, item) {
-        var itemData = e.detail;
-        if (itemData) {
-            item.itemId = itemData._id;
-            item.availableQuantity = 0;
-            this.service.getDataInventory(this.data.source._id, item.itemId)
-                .then(inventoryData => {
-                    if (inventoryData) {
-                        item.availableQuantity = inventoryData.quantity;
+    // itemChanged(e, item) {
+    //     var itemData = e.detail;
+    //     if (itemData) {
+    //         item.itemId = itemData._id;
+    //         item.availableQuantity = 0;
+    //         this.service.getDataInventory(this.data.source._id, item.itemId)
+    //             .then(inventoryData => {
+    //                 if (inventoryData) {
+    //                     item.availableQuantity = inventoryData.quantity;
+    //                 }
+    //             })
+    //     }
+    // }
+
+
+    async barcodeChoose(e) {
+        debugger
+        var itemData = e.srcElement.defaultValue;
+        if (itemData != "") {
+            var fgTemp = await this.service.getByCode(itemData);
+            var fg = fgTemp[0];
+            if (Object.getOwnPropertyNames(fg).length > 0) {
+                var newItem = {};
+                var _data = this.data.items.find((item) => item.code === fg.code);
+                if (!_data) {
+                    newItem.itemId = fg._id;
+                    newItem.availableQuantity = 0;
+                    var result = await this.getQuantity(this.data.source._id, newItem.itemId);
+                    if (result != undefined) {
+                        newItem.availableQuantity = result;
                     }
-                })
+                    newItem.name = fg.name;
+                    newItem.code = fg.code;
+                    newItem.quantity = 1;
+                    newItem.remark = "";
+                    this.data.items.push(newItem);
+                    this.item = {};
+                }
+            }
+
         }
+
     }
 
-    addItem() { 
+    getQuantity(source, itemId) {
+        this.service.getDataInventory(source, itemId)
+            .then(inventoryData => {
+                if (inventoryData) {
+                    return inventoryData.quantity;
+                }
+            })
+    }
+
+    async nameChoose(e) {
+        var itemData = e.detail;
+        if (Object.getOwnPropertyNames(itemData).length > 0) {
+            var newItem = {};
+            var _data = this.data.items.find((item) => item.code === itemData.code);
+            if (!_data) {
+                newItem.itemId = itemData._id;
+                newItem.availableQuantity = 0;
+                var result = await this.getQuantity(this.data.source._id, newItem.itemId);
+                if (result != undefined) {
+                    newItem.availableQuantity = result;
+                }
+                newItem.name = itemData.name;
+                newItem.code = itemData.code;
+                newItem.quantity = 1;
+                newItem.remark = "";
+                this.data.items.push(newItem);
+                this.item = {};
+            }
+        }
+
+    }
+
+    addItem() {
         var newItem = {};
         newItem.itemId = "";
         newItem.item = {};
@@ -92,7 +155,7 @@ export class DataForm {
                 return this.name;
             }
             return destination;
-        }) 
+        })
     }
 
     search() {

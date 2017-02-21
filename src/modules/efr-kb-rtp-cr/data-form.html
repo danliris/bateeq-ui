@@ -3,6 +3,8 @@
         <textbox label="Nomor Referensi" value.bind="data.reference" error.bind="error.reference" read-only.bind="readOnly" aria-placeholder="Packing List SPK"></textbox>
         <dropdown label="Sumber Penyimpanan" value.bind="data.source" items.bind="sources"></dropdown>
         <dropdown label="Tujuan Penyimpanan" value.bind="data.destination" items.bind="destinations"></dropdown>
+        <textbox label="Produk" value.bind="barcode" class="col-md-4" aria-placeholder="Barcode" change.delegate="barcodeChoose($event)"></textbox>
+        <finishedgoods-auto-suggest label="" value.bind="item" class="col-md-4" read-only.bind="readOnly" change.delegate="nameChoose($event)"></finishedgoods-auto-suggest>
     </form>
     <table class="table table-bordered table-hover">
         <thead>
@@ -10,13 +12,15 @@
                 <th>No.</th>
                 <th>
                     <div class="row">
-                        <div class="col-md-3"> Produk </div>
+                        <div class="col-md-2"> Barcode </div>
+                        <div class="col-md-2"> Nama </div>
                         <div class="col-md-2"> Kuantitas Stok </div>
                         <div class="col-md-2"> Kuantitas Pengiriman </div>
-                        <div class="col-md-5"> Catatan </div>
+                        <div class="col-md-3"> Catatan </div>
                     </div>
                 </th>
-                <th><button href="#" class="btn btn-success btn-sm pull-right" click.delegate="addItem()">Tambah</button></th>
+                <th></th>
+                <!--<th><button href="#" class="btn btn-success btn-sm pull-right" click.delegate="addItem()">Tambah</button></th>-->
             </tr>
         </thead>
         <tbody>
@@ -24,12 +28,17 @@
                 <td>${$index+1}</td>
                 <td>
                     <div class="row">
-                        <div class="col-md-3"> 
-                            <finishedgoods-auto-suggest   label=""     value.bind="item.item"      error.bind="error.items[$index].itemId"     read-only.bind="readOnly"  change.delegate="itemChanged($event, item)" ></finishedgoods-auto-suggest>
+                        <div class="col-md-2">
+                            <p class="form-control-static">${item.code}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="form-control-static">${item.name}</p>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group ${error.items[$index].availableQuantity?'has-error':''}">
-                                <center><p class="form-control-static">${item.availableQuantity}</p></center>
+                                <center>
+                                    <p class="form-control-static">${item.availableQuantity}</p>
+                                </center>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -39,7 +48,7 @@
                                 <span class="help-block">${error.items[$index].quantity}</span>
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                             <div class="form-group ${error.items[$index].remark?'has-error':''}">
                                 <input class="form-control" type="text" name="remark" value.bind="item.remark" />
                                 <span class="help-block">${error.items[$index].remark}</span>
