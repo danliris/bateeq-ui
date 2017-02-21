@@ -10,24 +10,19 @@
                     </span>
 			</div>
 		</div>
-		<div class="col-sm-4">
-			<div class="pull-right">
-				<button class="btn btn-primary" click.delegate="upload()">Upload Data</button>
-			</div>
-		</div>
 	</div>
 	<table class="table table-bordered table-hover">
 		<thead>
 			<tr>
 				<th>Kode Barang</th>
 				<th>Nama Barang</th>
-				<th>RO</th> 
+				<th>RO</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr repeat.for="item of data" click.delegate="view(item)">
 				<td>${item.code}</td>
-				<td>${item.name}</td> 
+				<td>${item.name}</td>
 				<td>${item.article.realizationOrder}</td>
 
 			</tr>
@@ -40,4 +35,8 @@
 	<!--<pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>-->
 
 	<hr/>
+	<div class="pull-right">
+		<button class="btn btn-primary" click.delegate="uploadImage()">Upload Image</button>
+		<button class="btn btn-primary" click.delegate="upload()">Upload Data</button>
+	</div>
 </template>
