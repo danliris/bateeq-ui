@@ -83,7 +83,7 @@ export class DataForm {
                     newItem.quantity = 1;
                     newItem.remark = "";
                     this.data.items.push(newItem);
-                    this.item = {};
+                    this.barcode = "";
                 }
             }
 
