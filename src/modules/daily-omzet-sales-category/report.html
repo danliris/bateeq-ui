@@ -1,0 +1,24 @@
+<template>
+    <h3>Laporan Omset Harian (per Penjualan)</h3>
+
+    <div class="col-md-6 col-sm-12">
+        <table class="table table-bordered">
+            <tr>
+                <td>Total Omset</td>
+                <td class="text-right">
+                    <b> ${totalPrice.toLocaleString()} </b>
+                    <!--<numeric label="" value.bind="totalPrice" read-only.bind="true"></numeric>-->
+                </td>
+            </tr>
+            <tr>
+                <td>Total Kuantitas</td>
+                <td class="text-right">
+                    <b>${totalItems.toLocaleString()}</b>
+                    <!--<numeric label="" value.bind="totalItems" read-only.bind="true"></numeric>-->
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-12" innerHTML.bind="reportHTML| sanitizeHTML">
+    </div>
+</template>

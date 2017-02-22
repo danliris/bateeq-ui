@@ -13,8 +13,9 @@ export class Service extends RestService {
     super(http, aggregator, config, "inventory");
   }
 
-  search(keyword) {
-    return super.get(serviceUri);
+  search(info) {
+    var endpoint = `${serviceUri}`;
+    return super.list(endpoint, info);
   }
 
   getById(id) {
@@ -41,7 +42,7 @@ export class Service extends RestService {
   getModuleConfig() {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("master").client.baseUrl + 'modules?keyword=EFR-KB/RTP';
-    return super.get(endpoint); 
+    return super.get(endpoint);
   }
 
   getStorageById(id) {
@@ -52,6 +53,12 @@ export class Service extends RestService {
 
   getDataInventory(storageId, itemId) {
     var endpoint = 'storages/' + storageId + '/inventories/' + itemId;
+    return super.get(endpoint);
+  }
+
+  getByCode(code) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'items/finished-goods/code/' + code;
     return super.get(endpoint);
   }
 }
