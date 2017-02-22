@@ -19,7 +19,7 @@ export class Service extends RestService {
   getModuleConfig() {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("master").client.baseUrl + 'modules?keyword=EFR-PK/PBA';
-    return super.get(endpoint);       
+    return super.get(endpoint);
   }
 
   getStorageById(id) {
@@ -30,6 +30,12 @@ export class Service extends RestService {
 
   getById(id) {
     var endpoint = '/docs/efr-pk-pba/draft/' + id;
+    return super.get(endpoint);
+  }
+
+  getByCode(code) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'items/finished-goods/code/' + code;
     return super.get(endpoint);
   }
 

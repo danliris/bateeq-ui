@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import moment from 'moment';
 
 
 @inject(Router, Service)
@@ -29,7 +30,6 @@ export class Report {
     }
 
     calculateSum() {
-        debugger
         this.totalPrice = 0;
         this.totalItems = 0;
         for (var item of this.summary) {
@@ -39,9 +39,9 @@ export class Report {
     }
 
     activate() {
-        var dateFrom = this.getStringDate(new Date()) + 'T00:00:00';
-        var dateTo = this.getStringDate(new Date()) + 'T23:59:59';
-        this.service.getSummaryStore(dateFrom, dateTo)
+        var dateFrom = moment(new Date()).startOf('day');
+        var dateTo = moment(new Date()).endOf('day');
+        this.service.getSummaryStore(dateFrom.format(), dateTo.format())
             .then((result) => {
                 this.summary = result;
                 this.calculateSum();
