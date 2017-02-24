@@ -1,6 +1,6 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service } from './service'; 
 
 @inject(Router, Service)
 export class DataForm {
@@ -10,7 +10,9 @@ export class DataForm {
     destinations = [];
     item;
     barcode;
+    qtyFg;
     indexSource = 0;
+    hasFocus = false;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -59,65 +61,80 @@ export class DataForm {
     //                 }
     //             })
     //     }
-    // }
-
+    // } 
 
     async barcodeChoose(e) {
-        debugger
         var itemData = e.srcElement.defaultValue;
-        if (itemData != "") {
+        if (itemData && itemData.length >= 13) {
             var fgTemp = await this.service.getByCode(itemData);
-            var fg = fgTemp[0];
-            if (Object.getOwnPropertyNames(fg).length > 0) {
-                var newItem = {};
-                var _data = this.data.items.find((item) => item.code === fg.code);
-                if (!_data) {
-                    newItem.itemId = fg._id;
-                    newItem.availableQuantity = 0;
-                    var result = await this.getQuantity(this.data.source._id, newItem.itemId);
-                    if (result != undefined) {
-                        newItem.availableQuantity = result;
+            if (fgTemp != undefined) {
+                if (Object.getOwnPropertyNames(fgTemp).length > 0) {
+                    var fg = fgTemp[0];
+                    if (fg != undefined && Object.getOwnPropertyNames(fg).length > 0) {
+                        var newItem = {};
+                        var _data = this.data.items.find((item) => item.code === fg.code);
+                        if (!_data) {
+                            this.qtyFg = 0;
+                            newItem.itemId = fg._id;
+                            newItem.availableQuantity = 0;
+                            var result = await this.service.getDataInventory(this.data.source._id, newItem.itemId);
+                            if (result != undefined) {
+                                newItem.availableQuantity = result.quantity;
+                            }
+                            newItem.name = fg.name;
+                            newItem.code = fg.code;
+                            this.qtyFg = this.qtyFg + 1;
+                            newItem.quantity = 1;
+                            newItem.remark = "";
+                            this.data.items.push(newItem);
+                        } else {
+                            this.qtyFg = this.qtyFg + 1;
+                            _data.quantity = this.qtyFg;
+                        }
+                        this.barcode = "";
                     }
-                    newItem.name = fg.name;
-                    newItem.code = fg.code;
-                    newItem.quantity = 1;
-                    newItem.remark = "";
-                    this.data.items.push(newItem);
-                    this.barcode = "";
                 }
             }
-
         }
 
     }
 
-    getQuantity(source, itemId) {
-        this.service.getDataInventory(source, itemId)
-            .then(inventoryData => {
-                if (inventoryData) {
-                    return inventoryData.quantity;
-                }
-            })
-    }
+
 
     async nameChoose(e) {
-        var itemData = e.detail;
-        if (Object.getOwnPropertyNames(itemData).length > 0) {
-            var newItem = {};
-            var _data = this.data.items.find((item) => item.code === itemData.code);
-            if (!_data) {
-                newItem.itemId = itemData._id;
-                newItem.availableQuantity = 0;
-                var result = await this.getQuantity(this.data.source._id, newItem.itemId);
-                if (result != undefined) {
-                    newItem.availableQuantity = result;
+        var itemData = e;
+        // console.log(itemData);
+        // e.detail = null;
+        // console.log(itemData);
+        if (itemData != undefined) {
+            if (Object.getOwnPropertyNames(itemData).length > 0) {
+                var newItem = {};
+                var _data = this.data.items.find((item) => item.code === itemData.code);
+                if (!_data) {
+                    this.qtyFg = 0;
+                    newItem.itemId = itemData._id;
+                    newItem.availableQuantity = 0;
+                    var result = await this.service.getDataInventory(this.data.source._id, newItem.itemId);
+                    if (result != undefined) {
+                        newItem.availableQuantity = result.quantity;
+                    }
+                    newItem.name = itemData.name;
+                    newItem.code = itemData.code;
+                    newItem.quantity = 1;
+                    this.qtyFg = this.qtyFg + 1;
+                    newItem.remark = "";
+                    // console.log(this.item);
+                    this.data.items.push(newItem);
+
+                } else if (_data && _data != undefined) {
+                    // console.log(this.item);
+                    this.item = {};
+
+                    // this.qtyFg = this.qtyFg + 1;
+                    // _data.quantity = this.qtyFg;
+                    // this.barcode.hasFocus = true;
                 }
-                newItem.name = itemData.name;
-                newItem.code = itemData.code;
-                newItem.quantity = 1;
-                newItem.remark = "";
-                this.data.items.push(newItem);
-                this.item = {};
+                this.item = null;
             }
         }
 
