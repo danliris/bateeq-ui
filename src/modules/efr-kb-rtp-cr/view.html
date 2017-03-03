@@ -1,4 +1,4 @@
-<template> 
+<template>
     <div class="display-wrapper">
         <h3>View</h3>
         <form class="form-horizontal">
@@ -25,26 +25,32 @@
                 <div class="col-sm-10">
                     <p class="form-control-static">${data.destination.code} - ${data.destination.name}</p>
                 </div>
-            </div> 
-        </form> 
+            </div>
+        </form>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Produk</th>
+                    <th> Barcode </th>
+                    <th> Nama </th>
                     <th>Kuantitas Pengiriman</th>
-                    <th>Catatan</th> 
+                    <th> Harga </th>
+                    <th>Catatan</th>
                 </tr>
             </thead>
             <tbody>
                 <tr repeat.for="item of data.items">
                     <td>${$index+1}</td>
-                    <td>${item.item.name }  </td> 
+                    <td>${item.item.code } </td>
+                    <td>${item.item.name } </td>
                     <td>${item.quantity}</td>
-                    <td>${item.remark}</td> 
+                    <td>
+                        <numeric label="" read-only.bind="true" value.bind="item.item.domesticSale*item.quantity" class="col-md-1"></numeric>
+                    </td>
+                    <td>${item.remark}</td>
                 </tr>
             </tbody>
-        </table> 
+        </table>
         <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
             Tidak ada data.
         </div>
@@ -54,40 +60,42 @@
             <a click.delegate="print()" class='btn btn-success btn-sm'>Print</a>
             <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
         </div>
-    </div><!-- /.display-wrapper -->
-     
+    </div>
+    <!-- /.display-wrapper -->
+
     <div class="print-wrapper a4">
-        <div class="row"><center><label class="header">BON RETUR TOKO (BARANG BARU)</label></center><br/></div>
+        <div class="row">
+            <center><label class="header">BON RETUR TOKO (BARANG BARU)</label></center><br/></div>
         <div class="row">
             <div class="col-xs-6">
                 <address>
-                    <b>PT EFRATA RETAILINDO</b><br />
-                    Kel. Banaran, Kec. Grogol, Kab. Sukoharjo 57193<br />
-                    Jawa Tengah, Indonesia<br /> 
-                </address> 
-            </div> 
-            <div class="col-xs-6"">
-                <div class="row">
-                    <div class="col-xs-3">
+                    <b>PT EFRATA RETAILINDO</b><br /> Kel. Banaran, Kec. Grogol, Kab. Sukoharjo 57193<br /> Jawa Tengah,
+                    Indonesia
+                    <br />
+                </address>
+            </div>
+            <div class="col-xs-6">
+                <div class="row ">
+                    <div class="col-xs-3 ">
                         No Bon
                     </div>
-                    <div class="col-xs-9">
+                    <div class="col-xs-9 ">
                         ${data.code}
                     </div>
-                </div> 
-                <div class="row">
-                    <div class="col-xs-3">
+                </div>
+                <div class="row ">
+                    <div class="col-xs-3 ">
                         Tanggal
                     </div>
-                    <div class="col-xs-9">
+                    <div class="col-xs-9 ">
                         ${data._createdDate}
                     </div>
                 </div>
-            </div>  
+            </div>
             <br/>
         </div>
-        <div class="row"> 
-            <div class="col-xs-12"">
+        <div class="row">
+            <div class="col-xs-12">
                 <div class="row">
                     <div class="col-xs-3">
                         Dari
@@ -103,7 +111,7 @@
                     <div class="col-xs-9">
                         ${data.destination.name}
                     </div>
-                </div> 
+                </div>
                 <div class="row">
                     <div class="col-xs-3">
                         Nomor Referensi
@@ -111,19 +119,20 @@
                     <div class="col-xs-9">
                         ${data.reference}
                     </div>
-                </div> 
+                </div>
                 <br/>
-            </div>   
-        </div> 
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th class="text-center">No</th>
-                        <th class="text-center">Produk</th>
-                        <th class="text-center">Nama Produk</th>
+                        <th class="text-center"> Barcode </th>
+                        <th class="text-center"> Nama </th>
                         <th class="text-center">Kuantitas</th>
-                        <th class="text-center">Catatan</th>
+                        <th class="text-center"> Harga </th>
+                        <th class="text-center"> Catatan </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -132,18 +141,21 @@
                         <td class="text-center">${item.item.code}</td>
                         <td class="text-center">${item.item.name}</td>
                         <td class="text-right">${item.quantity}</td>
+                        <td class="text-right">${item.quantity*item.item.domesticSale}</td>
                         <td class="text-right">${item.remark}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td class="text-right" colspan="3">Total</td> 
+                        <td class="text-right" colspan="3">Total</td>
                         <td class="text-right">${totalQuantity}</td>
+                        <td class="text-right">${totalPrice}</td>
                         <td class="text-right"></td>
-                    </tr> 
+                    </tr>
                 </tfoot>
             </table>
-        </div> 
+        </div>
         <div style="page-break-after:always;"></div>
-    </div><!-- /.print-wrapper -->
+</div>
+<!-- /.print-wrapper -->
 </template>

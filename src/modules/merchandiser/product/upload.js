@@ -19,7 +19,7 @@ export class Upload {
         this.router.navigateToRoute('list');
     }
 
-    upload() { 
+    upload() {
         var e = {};
         var formData = new FormData();
         var fileInput = document.getElementById("fileCsv");
@@ -28,7 +28,7 @@ export class Upload {
         if (fileList[0] == undefined) {
             e.file = "File Path harus dipilih";
             this.error = e;
-        } else { 
+        } else {
             formData.append("fileUpload", fileList[0]);
             var endpoint = 'upload';
             var request = {
@@ -51,6 +51,9 @@ export class Upload {
                     }
                     else if (result.status == 404) {
                         alert("Urutan format kolom CSV tidak sesuai.\n Format: Barcode, Nama, UOM, Size, HPP, Harga Jual (Domestic), Harga Jual (Internasional), RO");
+                    }
+                    else if (result.status != 201) {
+                        alert(result.statusText);
                     }
                     else {
                         alert("Data Berhasil Diupload");
