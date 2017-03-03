@@ -8,11 +8,13 @@ export class DataForm {
     @bindable error = {};
     sources = [];
     destinations = [];
+
     item;
     barcode;
     qtyFg;
     price;
     firstPrice = 0;
+
     indexSource = 0;
     hasFocus = true;
     constructor(router, service) {
@@ -52,6 +54,7 @@ export class DataForm {
         })
 
     }
+
 
     // itemChanged(e, item) {
     //     var itemData = e.detail;
@@ -170,9 +173,10 @@ export class DataForm {
                 this.sumTotalQty = this.sumTotalQty + parseInt(items[i].quantity);
                 this.sumPrice += items[i].price;
             }
-        }
 
+        }
     }
+
 
     // addItem() {
     //     var newItem = {};
@@ -183,6 +187,7 @@ export class DataForm {
     //     newItem.remark = "";
     //     this.data.items.push(newItem);
     // }
+
 
     removeItem(item) {
         var itemIndex = this.data.items.indexOf(item);
@@ -209,7 +214,7 @@ export class DataForm {
                 return this.name;
             }
             return destination;
-        })
+        }) 
     }
 
     search() {
