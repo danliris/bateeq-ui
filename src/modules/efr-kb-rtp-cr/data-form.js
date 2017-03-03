@@ -91,9 +91,9 @@ export class DataForm {
                             newItem.name = fg.name;
                             newItem.code = fg.code;
                             this.qtyFg = this.qtyFg + 1;
-                            newItem.quantity = 1; 
+                            newItem.quantity = 1;
                             newItem.price = parseFloat(fg.domesticSale)
-                            newItem.remark = ""; 
+                            newItem.remark = "";
                             this.data.items.push(newItem);
                         } else {
                             this.firstPrice = 0;
@@ -109,7 +109,7 @@ export class DataForm {
             this.barcode = "";
         }
 
-    } 
+    }
 
     async nameChoose(e) {
         this.hasFocus = false;
@@ -143,10 +143,14 @@ export class DataForm {
 
     }
 
-    qtyChange(code, qty) {
+    async qtyChange(code, qty) {
         var barcode = code;
         var quantity = qty;
+        this.price = 0;
         if (quantity != undefined) {
+            var fgTemp = await this.service.getByCode(code);
+            var fg = fgTemp[0];
+            this.price = fg.domesticSale;
             var newItem = {};
             var _data = this.data.items.find((item) => item.code === barcode);
             if (_data) {
