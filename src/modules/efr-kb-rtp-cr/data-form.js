@@ -69,11 +69,13 @@ export class DataForm {
 
     async barcodeChoose(e) {
         var itemData = e.target.value;
+        this.price = 0;
         if (itemData && itemData.length >= 13) {
             var fgTemp = await this.service.getByCode(itemData);
             if (fgTemp != undefined) {
                 if (Object.getOwnPropertyNames(fgTemp).length > 0) {
                     var fg = fgTemp[0];
+                    this.price = fg.domesticSale;
                     if (fg != undefined && Object.getOwnPropertyNames(fg).length > 0) {
                         var newItem = {};
                         var _data = this.data.items.find((item) => item.code === fg.code);
@@ -90,10 +92,8 @@ export class DataForm {
                             newItem.code = fg.code;
                             this.qtyFg = this.qtyFg + 1;
                             newItem.quantity = 1;
-                            this.price = fg.domesticSale;
                             newItem.price = parseFloat(fg.domesticSale)
                             newItem.remark = "";
-
                             this.data.items.push(newItem);
                         } else {
                             this.firstPrice = 0;
@@ -110,8 +110,6 @@ export class DataForm {
         }
 
     }
-
-
 
     async nameChoose(e) {
         this.hasFocus = false;
@@ -145,10 +143,14 @@ export class DataForm {
 
     }
 
-    qtyChange(code, qty) {
+    async qtyChange(code, qty) {
         var barcode = code;
         var quantity = qty;
+        this.price = 0;
         if (quantity != undefined) {
+            var fgTemp = await this.service.getByCode(code);
+            var fg = fgTemp[0];
+            this.price = fg.domesticSale;
             var newItem = {};
             var _data = this.data.items.find((item) => item.code === barcode);
             if (_data) {
