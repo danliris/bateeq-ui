@@ -12,6 +12,7 @@ export class DataForm {
     barcode;
     qtyFg;
     price;
+    firstPrice = 0;
     indexSource = 0;
     hasFocus = true;
     constructor(router, service) {
@@ -95,9 +96,10 @@ export class DataForm {
 
                             this.data.items.push(newItem);
                         } else {
+                            this.firstPrice = 0;
                             this.qtyFg = parseInt(_data.quantity) + 1;
-                            this.price = this.qtyFg * this.price
-                            _data.price = parseFloat(this.price)
+                            this.firstPrice = this.qtyFg * this.price
+                            _data.price = parseFloat(this.firstPrice)
                             _data.quantity = this.qtyFg;
                         }
                     }
@@ -143,17 +145,15 @@ export class DataForm {
 
     }
 
-    qtyChange(e) {
-        var itemData = e.detail;
-        if (itemData != undefined) {
-            if (Object.getOwnPropertyNames(itemData).length > 0) {
-                var newItem = {};
-                var _data = this.data.items.find((item) => item.code === itemData.code);
-                if (_data) {
-                    this.price = parseInt(_data.quantity) * this.price
-                    _data.price = parseFloat(this.price);
-
-                }
+    qtyChange(code, qty) {
+        var barcode = code;
+        var quantity = qty;
+        if (quantity != undefined) {
+            var newItem = {};
+            var _data = this.data.items.find((item) => item.code === barcode);
+            if (_data) {
+                this.price = parseInt(_data.quantity) * this.price
+                _data.price = parseFloat(this.price);
             }
         }
         this.makeTotal(this.data.items);
