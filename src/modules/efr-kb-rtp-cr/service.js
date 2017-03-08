@@ -16,7 +16,7 @@ export class Service extends RestService {
   search(info) {
     var endpoint = `${serviceUri}`;
     return super.list(endpoint, info);
-  } 
+  }
 
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
@@ -53,6 +53,12 @@ export class Service extends RestService {
 
   getDataInventory(storageId, itemId) {
     var endpoint = 'storages/' + storageId + '/inventories/' + itemId;
+    return super.get(endpoint);
+  }
+
+  getByCode(code) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'items/finished-goods/code/' + code;
     return super.get(endpoint);
   }
 }
