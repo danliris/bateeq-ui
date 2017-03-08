@@ -17,7 +17,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "toko",
-            roles: ["*"],
+            permission: { "SLO.01": 7, "SLO.02": 7, "SLO.03": 7 },
             iconClass: 'fa fa-shopping-bag'
         }
     },
@@ -30,7 +30,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "toko",
-            roles: ["*"],
+            permission: { "SLO.01": 1, "SLO.02": 1, "SLO.03": 1 },
             iconClass: 'fa fa-shopping-bag'
         }
     },
@@ -43,7 +43,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "toko",
-            roles: ["*"],
+            permission: { "SLO.01": 1, "SLO.02": 1, "SLO.03": 1 },
             iconClass: 'fa fa-shopping-bag'
         }
-    } ]
+    }]
