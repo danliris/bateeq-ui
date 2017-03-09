@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dashboard",
-            roles: ["*"],
+            permission: { "PJL1": 7 },
             iconClass: 'fa fa-bar-chart'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "dashboard",
-            roles: ["admin"]
+            permission: { "PJL1": 1 },
         }
     },
     {
@@ -33,6 +33,6 @@ module.exports = [
         auth: true,
         settings: {
             group: "dashboard",
-            roles: ["admin"]
+            permission: { "PJL1": 1 },
         }
     }]
