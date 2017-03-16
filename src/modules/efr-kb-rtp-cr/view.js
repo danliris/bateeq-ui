@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -16,8 +16,10 @@ export class View {
             .then(data => {
                 this.data = data;
                 this.totalQuantity = 0;
+                this.totalPrice = 0;
                 for (var item of this.data.items) {
                     this.totalQuantity += parseInt(item.quantity);
+                    this.totalPrice += parseInt(item.quantity * item.item.domesticSale);
                 }
             })
     }
@@ -29,8 +31,8 @@ export class View {
     print() {
         window.print();
     }
-    
+
     exportToExcel() {
         this.service.generateExcel(this.data._id);
-    } 
+    }
 }

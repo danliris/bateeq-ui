@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "gudang pusat",
-            roles: ["*"],
+            permission: { "GDG1": 1 },
             iconClass: 'fa fa-bank'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "gudang pusat",
-            roles: ["*"],
+            permission: { "GDG2": 1 },
             iconClass: 'fa fa-bank'
         }
     }]

@@ -253,7 +253,7 @@ div.au-stagger {
   }
   
   .print-wrapper {
-    page-break-after: always;
+    /*page-break-after: always;*/
     display: block;
     margin-top:.5cm;
     /*margin-bottom:.5cm;*/
@@ -323,7 +323,7 @@ div.au-stagger {
   .a4 {
     width: 207mm;
     height: 302mm;
-    overflow: hidden;
+    /*overflow: hidden;*/
   }
   
   .a5 {
