@@ -16,20 +16,28 @@ export class Login {
     }
 
     login() {
-        return this.authService.login({ "username": this.username, "password": this.password })
+        // return this.authService.login({ "username": this.username, "password": this.password })
+        //     .then(response => {
+        //         console.log("success logged " + response);
+        //         this.authService.getMe(response.data)
+        //             .then(account => {
+        //                 // this.session.token = token;
+        //                 // this.session.data = account;
+        //                 if (account) {
+        //                     this.authService.authentication.storage.set("me", JSON.stringify(account));
+        //                 } else {
+        //                     this.authService.authentication.storage.remove("me");
+        //                 }
+        //                 this.aurelia.setRoot('app');
+        //             })
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //         console.log("login failure");
+        //     });
+         return this.authService.login({ "username": this.username, "password": this.password })
             .then(response => {
                 console.log("success logged " + response);
-                this.authService.getMe(response.data)
-                    .then(account => {
-                        // this.session.token = token;
-                        // this.session.data = account;
-                        if (account) {
-                            this.authService.authentication.storage.set("me", JSON.stringify(account));
-                        } else {
-                            this.authService.authentication.storage.remove("me");
-                        }
-                        this.aurelia.setRoot('app');
-                    })
             })
             .catch(err => {
                 console.log(err);
