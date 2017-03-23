@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "gudang pusat",
-            permission: { "GDG2": 1 },
+            permission: { "GDG1": 1 },
             iconClass: 'fa fa-bank'
         }
     }]
