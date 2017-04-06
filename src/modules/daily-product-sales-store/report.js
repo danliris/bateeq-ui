@@ -10,7 +10,7 @@ export class Report {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.summary = {};
+        this.summary = [];
         this.reportHTML = "";
         this.query = {
             page: 1,
@@ -77,13 +77,35 @@ export class Report {
                 this.query.size = parseInt(result.query.size || 15);
                 this.query.totalPage = parseInt(result.query.totalPage || 1);
                 this.query.page = parseInt(result.query.page || 1);
-                this.generateHtmlReport();
+                this.summarizeReport();
             });
     }
 
     changeSize(e) {
         this.query.size = e.detail || e.target.value;
         this.getData();
+    }
+
+    toggleTable(item) {
+        item.item.maximized = !item.item.maximized;
+    }
+
+    summarizeReport() {
+        for (var item of this.summary) {
+            item.maximized = false;
+            var stores = [];
+            for (var store of item.stores) {
+                var index = stores.map(function (e) { return (e.store ? e.store.code || "" : "") }).indexOf(store.store.code);
+                if (index != -1) {
+                    stores[index].quantity += store.quantity;
+                } else {
+                    stores.push(store);
+                }
+            }
+            // stores.sort(function (a, b) { return (a.quantity > b.quantity) ? -1 : ((b.last_nom > a.last_nom) ? 1 : 0); });
+            stores.sort(function (a, b) { return -(a.quantity - b.quantity) });
+            item.stores = stores;
+        }
     }
 
     generateHtmlReport() {
@@ -110,8 +132,13 @@ export class Report {
                     stores.push(store);
                 }
             }
+            var toggle = `"<button type="button" class="sidebar-toggle" data-toggle="sidebar-toggle" click.delegate="toggleTable($this)">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>"`;
 
-            var table = "<div class='row'><div class='col-md-12'><table class='table table-bordered table-striped' style='margin-bottom:30px'>";
+            var table = "<div class='row' class.bind='minimized'><div class='col-md-12'><table class='table table-bordered table-striped' style='margin-bottom:30px'>";
             table += "        <thead>";
             table += "            <tr style='background-color:#ffffff; color:#000000;'>";
             table += `<td style='width:80%'>Toko</td>`;
@@ -125,6 +152,7 @@ export class Report {
                 table += "</tr>";
             }
             table += "</table></div></div>";
+            this.reportHTML += toggle;
             this.reportHTML += table;
         }
         this.reportHTML += "    </div>"

@@ -397,3 +397,20 @@ h3 {
     color: #2a2a2a;
     text-transform: uppercase;
 }
+
+
+.report-table {
+  -webkit-transition: opacity 0.3s ease; 
+  -moz-transition: opacity 0.3s ease; 
+  -ms-transition: opacity 0.3s ease; 
+  -o-transition: opacity 0.3s ease; 
+  transition: opacity 0.3s ease;  
+  overflow-y:hidden;
+  opacity:0;
+  height:0;
+}
+
+.report-table.maximized{
+  height:auto;
+  opacity:1;
+}

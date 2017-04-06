@@ -1,15 +1,60 @@
 <template>
-    <p><h3>Laporan Produk Harian (per Toko)</h3></p>
+    <p>
+        <h3>Laporan Produk Harian (per Toko)</h3>
+    </p>
     <div class="text-center col-md-10">
         <label>page ${query.page} / ${query.totalPage}</label> &nbsp;&nbsp;
         <button class="btn btn-sm btn-default" style="width:50px;" click.delegate="first()" disabled.bind="query.page == 1"><i class="fa fa-2x fa-angle-double-left"></i></button>
-        <button class="btn btn-sm btn-default" style="width:50px;" click.delegate="prev()" disabled.bind="query.page == 1"><i class="fa fa-2x fa-angle-left"></i></button>
-        <button class="btn btn-sm btn-default" style="width:50px;" click.delegate="next()" disabled.bind="query.page == query.totalPage"><i class="fa fa-2x fa-angle-right"></i></button>
-        <button class="btn btn-sm btn-default" style="width:50px;" click.delegate="last()" disabled.bind="query.page == query.totalPage"><i class="fa fa-2x fa-angle-double-right"></i></button>        &nbsp; &nbsp;
+<button class="btn btn-sm btn-default" style="width:50px;" click.delegate="prev()" disabled.bind="query.page == 1"><i class="fa fa-2x fa-angle-left"></i></button>
+<button class="btn btn-sm btn-default" style="width:50px;" click.delegate="next()" disabled.bind="query.page == query.totalPage"><i class="fa fa-2x fa-angle-right"></i></button>
+<button class="btn btn-sm btn-default" style="width:50px;" click.delegate="last()" disabled.bind="query.page == query.totalPage"><i class="fa fa-2x fa-angle-double-right"></i></button>
+&nbsp; &nbsp;
+</div>
+<div class="text-right col-md-2" style="margin-top:-15px">
+<au-dropdown items.bind="sizeOptions" value.bind="query.size" change.delegate="changeSize($event)"></au-dropdown>
+</div>
+<div class="col-md-12 report">
+    <div class="row" style="margin-top:20px">
+<div repeat.for="item of summary">
+
+    <div class="row">
+        <div class="col-md-2">
+            <img class="img-responsive" src="${item.masterItem.imagePath || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY9Y3rGTwbyc9GoAOyxRClRz7b5GnCnjVsHx_qK_CUXN79yis4'}">
+        </div>
+        <div class="col-md-10">
+            <p>
+                <strong>${(item.masterItem[0]) ? item.masterItem[0].name || "" : ""}</strong>
+            </p>
+            <p>${(item.masterItem[0].colorDoc) ? item.masterItem[0].colorDoc.name || "No Color" : "No Color"}</p>
+            <p>Total Kuantitas : ${item.quantity}</p>
+        </div>
     </div>
-    <div class="text-right col-md-2" style="margin-top:-15px">
-        <au-dropdown items.bind="sizeOptions" value.bind="query.size" change.delegate="changeSize($event)"></au-dropdown>
-    </div>
-    <div class="col-md-12" innerHTML.bind="reportHTML">
-    </div>
+
+    <div class="row">
+        <div class="col-md-12" style="margin-top:10px; margin-bottom:10px;">
+            <button type="button" class="btn btn-sm" data-toggle="sidebar-toggle" click.delegate="toggleTable($this)">
+                    <i class="fa ${item.maximized ? 'fa-angle-up' : 'fa-angle-down'}"> &nbsp;&nbsp; ${item.maximized ? "hide stores" : "show stores"}</i>
+                </button>
+        </div>
+        <div class="col-md-12 report-table ${item.maximized ? 'maximized' : ''}">
+            <table class="table table-bordered table-striped" style="margin-bottom:30px">
+<thead>
+    <tr style="background-color:#ffffff; color:#000000;">
+<td style="width:80%">Toko</td>
+<td>Kuantitas</td>
+</tr>
+</thead>
+<tbody>
+    <tr repeat.for="store of item.stores">
+        <td>${store.store.name}</td>
+        <td>${store.quantity}</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
 </template>
