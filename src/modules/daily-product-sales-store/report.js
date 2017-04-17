@@ -8,6 +8,9 @@ import { ProductDetailDialog } from './dialogs/products-detail-dialog';
 @inject(Router, Service, Dialog)
 export class Report {
 
+    query = {
+        page: 1, size:1
+    }
 
     constructor(router, service, dialog) {
         this.router = router;
@@ -15,12 +18,8 @@ export class Report {
         this.summary = [];
         this.reportHTML = "";
         this.dialog = dialog;
-        this.query = {
-            page: 1,
-            size: 25,
-            totalPage: 1
-        }
-        this.sizeOptions = [25, 50, 100, 200];
+        this.sizeOptions = [1, 2, 3];
+        // this.sizeOptions = [25, 50, 100, 200];
     }
 
     getStringDate(date) {
@@ -69,6 +68,14 @@ export class Report {
         }
     }
 
+
+
+    changePage(e) {
+        var page = e.detail;
+        this.query.page = page;
+        this.getData();
+    }
+
     getData() {
         var dateFrom = moment(new Date()).startOf('day');
         var dateTo = moment(new Date()).endOf('day');
@@ -80,6 +87,7 @@ export class Report {
                 this.query.size = parseInt(result.query.size || 15);
                 this.query.totalPage = parseInt(result.query.totalPage || 1);
                 this.query.page = parseInt(result.query.page || 1);
+                this.query.total = parseInt(result.query.total || 1);
                 this.summarizeReport();
             });
     }
@@ -122,6 +130,6 @@ export class Report {
 
     showDialog(item) {
         this.dialog.data = item;
-        this.dialog.show(ProductDetailDialog, {data : item}).then(response => { });
+        this.dialog.show(ProductDetailDialog, { data: item }).then(response => { });
     }
 }

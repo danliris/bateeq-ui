@@ -9,7 +9,7 @@ export class SideNavBar {
     @bindable navigations = null;
 
     constructor(authService) {
-        this.minimized = false;
+        this.minimized = true;
         this.activeMenu = [];
         this.activeSubMenu = {};
         this.authService = authService;
@@ -87,7 +87,6 @@ export class SideNavBar {
     }
 
     selectSubMenu(subMenu) {
-        this.minimized = false;
         this.activeMenu = [];
         this.activeSubMenu = {};
 
