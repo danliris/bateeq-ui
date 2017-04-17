@@ -2,16 +2,19 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import moment from 'moment';
+import { Dialog } from '../../au-components/dialog/dialog';
+import { ProductDetailDialog } from './dialogs/products-detail-dialog';
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class Report {
 
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
         this.summary = [];
         this.reportHTML = "";
+        this.dialog = dialog;
         this.query = {
             page: 1,
             size: 25,
@@ -70,8 +73,8 @@ export class Report {
         var dateFrom = moment(new Date()).startOf('day');
         var dateTo = moment(new Date()).endOf('day');
         dateFrom = moment("2017-01-01").startOf('day');
-        dateTo = moment("2017-01-31").startOf('day');
-        this.service.getSummary(dateFrom.format(), dateTo.format(), this.query)
+        dateTo = moment("2017-01-01").endOf('day');
+        this.service.getStoreSummary(dateFrom.format(), dateTo.format(), this.query)
             .then((result) => {
                 this.summary = result.data;
                 this.query.size = parseInt(result.query.size || 15);
@@ -91,70 +94,34 @@ export class Report {
     }
 
     summarizeReport() {
-        for (var item of this.summary) {
-            item.maximized = false;
-            var stores = [];
-            for (var store of item.stores) {
-                var index = stores.map(function (e) { return (e.store ? e.store.code || "" : "") }).indexOf(store.store.code);
+        for (var store of this.summary) {
+            var items = [];
+            for (var item of store.items) {
+                var index = -1;
+                if (items.length > 0) {
+                    var index = items.map(function (e) {
+                        var code = e.item.code || "";
+                        var size = e.item.size || "";
+                        return (`${code}-${size}`)
+                    }).indexOf(`${item.item.code}-${item.item.size}`);
+                }
                 if (index != -1) {
-                    stores[index].quantity += store.quantity;
+                    items[index].quantity += item.quantity;
                 } else {
-                    stores.push(store);
+                    items.push(item);
                 }
             }
-            // stores.sort(function (a, b) { return (a.quantity > b.quantity) ? -1 : ((b.last_nom > a.last_nom) ? 1 : 0); });
-            stores.sort(function (a, b) { return -(a.quantity - b.quantity) });
-            item.stores = stores;
+            items.sort(function (a, b) { return -(a.quantity - b.quantity) });
+            store.items = items;
         }
     }
 
-    generateHtmlReport() {
-        this.reportHTML = "";
-        this.reportHTML += "    <div class='row' style='margin-top:20px'>";
-        for (var item of this.summary) {
-            var productName = "";
-            productName = (item.masterItem[0]) ? item.masterItem[0].name || "" : "";
-            var color = "";
-            color = (item.masterItem[0].colorDoc) ? item.masterItem[0].colorDoc.name || "No Color" : "No Color";
+    __productCallback(item) {
+        this.showDialog(item);
+    }
 
-            var strItem = `<div class='row'><div class='col-md-2'><img class="img-responsive" src='${item.masterItem.imagePath || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY9Y3rGTwbyc9GoAOyxRClRz7b5GnCnjVsHx_qK_CUXN79yis4"}'></div>`;
-            strItem += `<div class='col-md-10'><p><strong>${productName}</strong></p><p>${color}</p><p>Total Kuantitas : ${item.quantity}</p></div></div>`
-            this.reportHTML += "<div class='col-md-12' style='margin-bottom:10px'>";
-            this.reportHTML += `<td colspan='2'>${strItem}</td>`;
-            this.reportHTML += "</div>";
-
-            var stores = [];
-            for (var store of item.stores) {
-                var index = stores.map(function (e) { return (e.store ? e.store.code || "" : "") }).indexOf(store.store.code);
-                if (index != -1) {
-                    stores[index].quantity += store.quantity;
-                } else {
-                    stores.push(store);
-                }
-            }
-            var toggle = `"<button type="button" class="sidebar-toggle" data-toggle="sidebar-toggle" click.delegate="toggleTable($this)">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>"`;
-
-            var table = "<div class='row' class.bind='minimized'><div class='col-md-12'><table class='table table-bordered table-striped' style='margin-bottom:30px'>";
-            table += "        <thead>";
-            table += "            <tr style='background-color:#ffffff; color:#000000;'>";
-            table += `<td style='width:80%'>Toko</td>`;
-            table += `<td>Kuantitas</td>`;
-            table += "</tr>";
-            table += "        </thead>";
-            for (var store of stores) {
-                table += "<tr>";
-                table += `<td>${store.store.name}</td>`;
-                table += `<td>${store.quantity}</td>`;
-                table += "</tr>";
-            }
-            table += "</table></div></div>";
-            this.reportHTML += toggle;
-            this.reportHTML += table;
-        }
-        this.reportHTML += "    </div>"
+    showDialog(item) {
+        this.dialog.data = item;
+        this.dialog.show(ProductDetailDialog, {data : item}).then(response => { });
     }
 }

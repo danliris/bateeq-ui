@@ -5,6 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
 const serviceUri = "docs/sales/products"
+const reportSalesUri = "docs/sales/reports/daily/stores-product"
 
 export class Service extends RestService {
 
@@ -14,6 +15,11 @@ export class Service extends RestService {
 
     getSummary(dateFrom, dateTo, query) {
         var endpoint = `${serviceUri}/${dateFrom}/${dateTo}?page=${query.page}&size=${query.size}`;
+        return super.get(endpoint);
+    }
+
+    getStoreSummary(dateFrom, dateTo, query){
+        var endpoint = `${reportSalesUri}/${dateFrom}/${dateTo}?page=${query.page}&size=${query.size}`;
         return super.get(endpoint);
     }
 }

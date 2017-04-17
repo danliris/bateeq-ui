@@ -414,3 +414,14 @@ h3 {
   height:auto;
   opacity:1;
 }
+
+.report .store{
+  padding:20px;
+  background-color:#d4e9f1;
+  margin-bottom:20px;
+}
+
+.report .store table{
+  max-height:200px;
+  overflow-y:scroll;
+}

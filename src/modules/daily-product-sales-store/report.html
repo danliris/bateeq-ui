@@ -15,45 +15,27 @@
 </div>
 <div class="col-md-12 report">
     <div class="row" style="margin-top:20px">
-<div repeat.for="item of summary">
-
-    <div class="row">
-        <div class="col-md-2">
-            <img class="img-responsive" src="${item.masterItem.imagePath || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY9Y3rGTwbyc9GoAOyxRClRz7b5GnCnjVsHx_qK_CUXN79yis4'}">
-        </div>
-        <div class="col-md-10">
-            <p>
-                <strong>${(item.masterItem[0]) ? item.masterItem[0].name || "" : ""}</strong>
-            </p>
-            <p>${(item.masterItem[0].colorDoc) ? item.masterItem[0].colorDoc.name || "No Color" : "No Color"}</p>
-            <p>Total Kuantitas : ${item.quantity}</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12" style="margin-top:10px; margin-bottom:10px;">
-            <button type="button" class="btn btn-sm" data-toggle="sidebar-toggle" click.delegate="toggleTable($this)">
-                    <i class="fa ${item.maximized ? 'fa-angle-up' : 'fa-angle-down'}"> &nbsp;&nbsp; ${item.maximized ? "hide stores" : "show stores"}</i>
-                </button>
-        </div>
-        <div class="col-md-12 report-table ${item.maximized ? 'maximized' : ''}">
-            <table class="table table-bordered table-striped" style="margin-bottom:30px">
-<thead>
-    <tr style="background-color:#ffffff; color:#000000;">
-<td style="width:80%">Toko</td>
-<td>Kuantitas</td>
-</tr>
-</thead>
-<tbody>
-    <tr repeat.for="store of item.stores">
-        <td>${store.store.name}</td>
-        <td>${store.quantity}</td>
-    </tr>
-</tbody>
-</table>
-</div>
-</div>
-
+<div repeat.for="store of summary" class="col-md-12 store">
+    <label class="col-md-12"><strong>${store.store.name} : ${store.quantity} items</strong></label>
+    <table class="table table-bordered table-striped" style="margin-bottom:30px">
+        <thead>
+            <tr style="background-color:#ffffff; color:#000000;">
+                <th style="width:30%">Nama Barang</th>
+                <th>Warna</th>
+                <th>Ukuran</th>
+                <th>Nomor RO</th>
+                <th>Total Kuantitas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of store.items" click.delegate="__productCallback($this)">
+                <td>${item.item.name}</td>
+                <td>${item.color || "No Color"}</td>
+                <td>${item.item.size}</td>
+                <td>${item.item.article.realizationOrder}</td>
+                <td>${item.quantity}</td>
+            </tr>
+        </tbody>
 </div>
 </div>
 </div>
