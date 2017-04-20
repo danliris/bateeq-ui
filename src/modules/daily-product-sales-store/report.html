@@ -42,7 +42,7 @@
 <div repeat.for="store of summary" class="col-md-12 store">
     <label class="col-md-12"><strong>${store.store.name} : ${store.quantity} items</strong></label>
     <div class="table-responsive">
-    <table class="table table-bordered table-striped" style="margin-bottom:30px">
+    <table class="report-table table table-bordered table-striped" style="margin-bottom:30px">
         <thead>
             <tr>
                 <th style="width:40%">Nama Barang</th>
@@ -55,7 +55,7 @@
         <tbody>
             <tr repeat.for="item of store.items" click.delegate="__productCallback($this.item)">
                 <td>${item.item.name}</td>
-                <td>${item.color || "No Color"}</td>
+                <td>${item.item.colorDoc.name || "No Color"}</td>
                 <td>${item.item.size}</td>
                 <td>${item.item.article.realizationOrder}</td>
                 <td>${item.quantity}</td>

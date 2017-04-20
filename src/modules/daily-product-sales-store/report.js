@@ -9,7 +9,7 @@ import { ProductDetailDialog } from './dialogs/products-detail-dialog';
 export class Report {
 
     query = {
-        page: 1, size:1
+        page: 1, size:25
     }
 
     constructor(router, service, dialog) {
@@ -18,8 +18,8 @@ export class Report {
         this.summary = [];
         this.reportHTML = "";
         this.dialog = dialog;
-        this.sizeOptions = [1, 2, 3];
-        // this.sizeOptions = [25, 50, 100, 200];
+        // this.sizeOptions = [1, 2, 3];
+        this.sizeOptions = [25, 50, 100, 200];
     }
 
     getStringDate(date) {
@@ -79,8 +79,6 @@ export class Report {
     getData() {
         var dateFrom = moment(new Date()).startOf('day');
         var dateTo = moment(new Date()).endOf('day');
-        dateFrom = moment("2017-01-01").startOf('day');
-        dateTo = moment("2017-01-01").endOf('day');
         this.service.getStoreSummary(dateFrom.format(), dateTo.format(), this.query)
             .then((result) => {
                 this.summary = result.data;
