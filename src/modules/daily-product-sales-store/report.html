@@ -1,0 +1,42 @@
+<template>
+    <p>
+        <h3>Laporan Produk Harian (per Toko)</h3>
+    </p>
+    <div class="text-center col-md-10">
+        <label>page ${query.page} / ${query.totalPage}</label> &nbsp;&nbsp;
+        <button class="btn btn-sm btn-default" style="width:50px;" click.delegate="first()" disabled.bind="query.page == 1"><i class="fa fa-2x fa-angle-double-left"></i></button>
+<button class="btn btn-sm btn-default" style="width:50px;" click.delegate="prev()" disabled.bind="query.page == 1"><i class="fa fa-2x fa-angle-left"></i></button>
+<button class="btn btn-sm btn-default" style="width:50px;" click.delegate="next()" disabled.bind="query.page == query.totalPage"><i class="fa fa-2x fa-angle-right"></i></button>
+<button class="btn btn-sm btn-default" style="width:50px;" click.delegate="last()" disabled.bind="query.page == query.totalPage"><i class="fa fa-2x fa-angle-double-right"></i></button>
+&nbsp; &nbsp;
+</div>
+<div class="text-right col-md-2" style="margin-top:-15px">
+<au-dropdown items.bind="sizeOptions" value.bind="query.size" change.delegate="changeSize($event)"></au-dropdown>
+</div>
+<div class="col-md-12 report">
+    <div class="row" style="margin-top:20px">
+<div repeat.for="store of summary" class="col-md-12 store">
+    <label class="col-md-12"><strong>${store.store.name} : ${store.quantity} items</strong></label>
+    <table class="table table-bordered table-striped" style="margin-bottom:30px">
+        <thead>
+            <tr style="background-color:#ffffff; color:#000000;">
+                <th style="width:30%">Nama Barang</th>
+                <th>Warna</th>
+                <th>Ukuran</th>
+                <th>Nomor RO</th>
+                <th>Total Kuantitas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of store.items" click.delegate="__productCallback($this)">
+                <td>${item.item.name}</td>
+                <td>${item.color || "No Color"}</td>
+                <td>${item.item.size}</td>
+                <td>${item.item.article.realizationOrder}</td>
+                <td>${item.quantity}</td>
+            </tr>
+        </tbody>
+</div>
+</div>
+</div>
+</template>

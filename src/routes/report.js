@@ -35,4 +35,16 @@ module.exports = [
             group: "dashboard",
             permission: { "PJL1": 1 },
         }
+    },
+    {
+        route: 'daily-product-sales-store',
+        name: 'daily-product-sales-store',
+        moduleId: './modules/daily-product-sales-store/index',
+        nav: true,
+        title: 'Laporan Produk Harian (Per Toko)',
+        auth: true,
+        settings: {
+            group: "dashboard",
+            permission: { "PJL1": 1 },
+        }
     }]
