@@ -1,0 +1,19 @@
+<template>
+    <h1 class="page-header">Laporan Transfer Stok</h1>
+    <form class="form-horizontal">
+        <datepicker label="From" value.bind="data.filter.dateFrom" error.bind="error.filter.dateFrom" read-only.bind="(readOnly)"></datepicker>
+        <datepicker label="To" value.bind="data.filter.dateTo" error.bind="error.filter.dateTo" read-only.bind="(readOnly)"></datepicker>
+        <dropdown label="Status" error.bind="error.filter.status" value.bind="status" items.bind="statuses" change.delegate="setStatus($event)"></dropdown>
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="reloadItem()" class="btn btn-success btn-sm pull-right">Tampilkan</button>
+            </div>
+        </div>
+
+        <div class="col-sm-12" if.bind="isFilter">
+            <div class="pre-scrollable" innerHTML.bind="reportHTML | sanitizeHTML"></div>
+            </table>
+        </div>
+    </form>
+</template>
