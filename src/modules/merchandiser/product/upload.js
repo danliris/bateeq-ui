@@ -30,7 +30,7 @@ export class Upload {
             this.error = e;
         } else {
             formData.append("fileUpload", fileList[0]);
-            var endpoint = 'upload-finished-goods';
+            var endpoint = 'upload';
             var request = {
                 method: 'POST',
                 headers: {
