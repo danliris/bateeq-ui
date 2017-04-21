@@ -9,10 +9,12 @@ export class SideNavBar {
     @bindable navigations = null;
 
     constructor(authService) {
-        this.minimized = false;
+        this.minimized = true;
         this.activeMenu = [];
         this.activeSubMenu = {};
         this.authService = authService;
+        this.group = new Map();
+        this.isShown = true;
     }
 
     @computedFrom('authService.authenticated')
@@ -41,7 +43,7 @@ export class SideNavBar {
             var myPermission = me.permission;
 
             var routeKeys = Object.getOwnPropertyNames(routePermission);
-            
+
             if (routeKeys.find(key => key === "*"))
                 return true;
 
@@ -61,8 +63,6 @@ export class SideNavBar {
             })
         })
 
-        console.log(routes);
-
         for (var route of routes) {
             if (route.settings && ((route.settings.group || "").trim().length > 0)) {
                 var key = (route.settings.group || "").trim();
@@ -81,13 +81,18 @@ export class SideNavBar {
     }
 
     selectMenu(menu, title) {
-        this.activeMenu = menu;
-        this.activeTitle = title;
-        this.activeSubMenu = [];
+        if (this.activeMenu != menu) {
+            this.activeMenu = menu;
+            this.activeTitle = title;
+            this.activeSubMenu = [];
+        } else {
+            this.activeMenu = [];
+            this.activeTitle = '';
+            this.activeSubMenu = [];
+        }
     }
 
     selectSubMenu(subMenu) {
-        this.minimized = false;
         this.activeMenu = [];
         this.activeSubMenu = {};
 

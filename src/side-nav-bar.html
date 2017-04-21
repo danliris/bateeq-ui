@@ -1,5 +1,5 @@
 <template>
-    <div class="side-nav-bar ${minimized ? 'minimized' : ''} ${expand ? 'expand' : ''}" if.bind="isAuthenticated">
+    <div class="side-nav-bar ${minimized ? 'minimized' : ''} ${expand ? 'expand' : ''}" if.bind="isAuthenticated && isShown">
         <aside class="main-sidebar">
             <div class="sidebar-header">
                 <button type="button" class="sidebar-toggle" data-toggle="sidebar-toggle" click.delegate="toggleSideMenu()">
@@ -11,12 +11,12 @@
             <ul class="sidebar-menu">
                 <li repeat.for="[key, value] of group" click.delegate="selectMenu(value, key)" value.bind="activeMenu" class.bind="activeMenu == key ? 'active' : ''">
                     <a href="#" title.bind="key.toUpperCase()">
-                         <i class="fa fa-adjust" if.bind="key.toUpperCase() == 'MERCHANDISER'"></i>
+                        <i class="fa fa-adjust" if.bind="key.toUpperCase() == 'MERCHANDISER'"></i>
                         <i class="fa fa-shopping-bag" if.bind="key.toUpperCase() == 'TOKO'"></i>
-                        <i class="fa fa-bank" if.bind="key.toUpperCase() == 'GUDANG PUSAT'"></i> 
+                        <i class="fa fa-bank" if.bind="key.toUpperCase() == 'GUDANG PUSAT'"></i>
                         <i class="fa fa-table" if.bind="key.toUpperCase() == 'LAPORAN'"></i>
                         <i class="fa fa-bar-chart" if.bind="key.toUpperCase() == 'DASHBOARD'"></i>
-                         <i class="fa fa-user-o" if.bind="key.toUpperCase() == 'AUTH'"></i> 
+                        <i class="fa fa-user-o" if.bind="key.toUpperCase() == 'AUTH'"></i>
                         <span if.bind="!minimized">${key.toUpperCase()}</span>
                         <div class="pull-right" if.bind="value.length > 0 && !minimized">
                             <i class="fa fa-angle-right"></i>

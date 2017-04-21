@@ -397,3 +397,63 @@ h3 {
     color: #2a2a2a;
     text-transform: uppercase;
 }
+/*
+
+.report-table {
+  -webkit-transition: opacity 0.3s ease; 
+  -moz-transition: opacity 0.3s ease; 
+  -ms-transition: opacity 0.3s ease; 
+  -o-transition: opacity 0.3s ease; 
+  transition: opacity 0.3s ease;  
+  overflow-y:hidden;
+  opacity:0;
+  height:0;
+}
+
+.report-table.maximized{
+  height:auto;
+  opacity:1;
+}*/
+
+.report-table thead tr{
+  background-color: #000000;
+  color:#ffffff;
+}
+
+.report-table tbody tr:hover td{
+  cursor: pointer;
+  background-color:#d4e9f1;
+}
+
+.report .store{
+  padding:20px;
+  background-color:#d4e9f1;
+  margin-bottom:20px;
+}
+
+.report .store table{
+  overflow:scroll;    
+  width: 100%;
+  max-width:100%;
+}
+
+.table-responsive{
+  width:100%;
+}
+
+.product-report-dialog{
+    margin:auto;
+    width:70%;
+}
+@media (max-width: 767px) {
+  .product-report-dialog{
+      margin:auto;
+      margin-left:45px;
+      width:90%;
+  }
+}
+
+.pagination2 .pagination{
+  margin:0px;
+  margin-right:10px;
+}

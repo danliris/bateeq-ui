@@ -1,26 +1,64 @@
 <template>
     <h3>Upload Image Barang</h3>
     <form class="form-horizontal">
-        <label class="col-sm-4 control-label"></label>
-        <div class="col-sm-5"><input type="radio" name="ro" />RO</div>
-        <div slot="body">
-            <au-autocomplete value.bind="data.autocomplete" label="search user: " change.delegate="valueChanged($event)" select.delegate="select($event)"
-                options.bind="controlOptions" loader.bind="dataLoader" key="id" text="login" template="modules/project/user"></au-autocomplete>
+        <div class="col-md-2"><input type="radio" id="ro" value="ro" change.delegate="updateType($event)" name="type" checked/><label for="ro">RO</label></div>
+        <div class="col-md-4">
+            <au-textbox read-only.bind="isNotRO" value.bind="ro" keypress.trigger="check($event)"></au-textbox>
         </div>
-        <br/>
-        <label class="col-sm-4 control-label"></label>
-        <div class="col-sm-5"><input type="radio" name="name" />Nama Product</div>
-        <br/><br/>
-        <label class="col-sm-4 control-label"></label>
-        <div class="contact-list">
-            <ul class="list-group">
-                <li repeat.for="contact of contacts" class="list-group-item ${contact.id === selectedId ? 'active' : ''}">
-                    <a route-href="route: contacts; params.bind: {id:contact.id}" click.delegate="select(contact)">
-                        <p class="list-group-item-text">${contact.email}</p>
-                    </a>
-                </li>
-            </ul>
+        <div class="clearfix"></div>
+
+        <div class="col-md-2"><input type="radio" id="name" value="name" change.delegate="updateType($event)" name="type" /><label for="name">Nama Product</label></div>
+        <div class="col-md-4">
+            <au-autocomplete read-only.bind="isNotName" change.delegate="finishedGoodsChange($event)" loader.bind="finishedGoodsLoader"
+                key="code" value.bind="product" query.bind="itemFilter"></au-autocomplete>
         </div>
+        <div class="clearfix"></div>
+
+        <div class="form-group col-md-5 ${error.dataSource?'has-error':''}">
+            <span class="help-block">${error.dataSource}</span>
+            <au-collection items.bind="dataSource" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
+                read-only.bind="true"></au-collection>
+        </div>
+        <div class="col-md-1" style="padding-top:50px;">
+            <button class="btn btn-sm btn-default col-sm-12" click.delegate="moveRight()"><i class="fa fa-2x fa-angle-double-right"></i></button>
+            <br/><br/>
+            <button class="btn btn-sm btn-default col-sm-12" click.delegate="moveLeft()"><i class="fa fa-2x fa-angle-double-left"></i></button>
+        </div>
+        <div class="form-group col-md-5 ${error.dataDestination?'has-error':''}">
+            <span class="help-block">${error.dataDestination}</span>
+            <au-collection items.bind="dataDestination" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
+                read-only.bind="true"></au-collection>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group col-md-4 ${error.imageUpload?'has-error':''}">
+            <label class="col-sm-12"><strong>Gambar :</strong></label>
+            <div class="col-sm-12">
+                <input type="file" id="imageUpload" name="imageUpload" accept="image/*">
+                <span class="help-block">${error.imageUpload}</span>
+            </div>
+        </div>
+        <div class="form-group col-md-4 ${error.motifUpload?'has-error':''}">
+            <label><strong>Motif : </strong></label><label>${article_motif.name}</label>
+            <div class="col-sm-12">
+                <input type="file" id="motifUpload" name="motifUpload" accept="image/*">
+                <span class="help-block">${error.motifUpload}</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div><label><strong>Warna :</strong></label></div>
+            <div class="form-group">
+                <label class="col-sm-2"><strong>Kode</strong></label>
+                <div class="col-sm-10"><input type="color" id="color" name="color" value.bind="color" change.delegate="changeColor($event)" /></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2"><strong>Nama</strong></label>
+                <div class="col-sm-10">
+                    <au-dropdown items.bind="article_colors" value.bind="article_color"></au-dropdown>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
         <hr/>
         <label class="col-sm-4 control-label"></label>
         <div class="col-sm-5">
