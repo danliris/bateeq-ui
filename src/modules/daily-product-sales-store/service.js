@@ -17,14 +17,20 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/${dateFrom}/${dateTo}?page=${query.page}&size=${query.size}`;
         return super.get(endpoint);
     }
-    
+
     getSummaryByProductID(dateFrom, dateTo, productId) {
         var endpoint = `${reportSalesUri}/${dateFrom}/${dateTo}/${productId}`;
         return super.get(endpoint);
     }
 
-    getStoreSummary(dateFrom, dateTo, query){
+    getStoreSummary(dateFrom, dateTo, query) {
         var endpoint = `${reportSalesUri}/${dateFrom}/${dateTo}?page=${query.page}&size=${query.size}`;
+        return super.get(endpoint);
+    }
+
+    getImage(itemId) {
+        var config = Container.instance.get(Config);
+        var endpoint = `${config.getEndpoint("master").client.baseUrl}items/finished-goods/image/${itemId}`;
         return super.get(endpoint);
     }
 }
