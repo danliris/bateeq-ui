@@ -5,5 +5,5 @@ var publicRoutes = require("./public");
 var reportRoutes = require("./report");
 var authRoutes = require("./auth");
 var merchandiser = require("./merchandiser");
-// export default [].concat(merchandiser, publicRoutes, tokoRoutes, gudangPusatRoutes, laporanRoutes,reportRoutes);
-export default [].concat(publicRoutes, tokoRoutes, gudangPusatRoutes, laporanRoutes, reportRoutes, merchandiser);
+// export default [].concat(publicRoutes, tokoRoutes, gudangPusatRoutes, laporanRoutes,reportRoutes, merchandiser);
+export default [].concat(publicRoutes, tokoRoutes, gudangPusatRoutes, laporanRoutes, reportRoutes);
