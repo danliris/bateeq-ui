@@ -68,7 +68,6 @@ export class Service extends RestService {
 
 
   updateProductImage(data) {
-
     var header;
     var request = {
       method: "POST",
@@ -82,9 +81,17 @@ export class Service extends RestService {
     this.publish(promise);
     return promise.then(
       response => {
-        return response.json().then(result => {
-          return result;
-        });
+        this.publish(promise);
+        if (response) {
+          return response.json().then(result => {
+            if (result)
+              return Promise.reject(result.error);
+            else
+              return Promise.resolve(result.data);
+          });
+        }else{
+              return Promise.resolve({});
+        }
       }
     )
   }
