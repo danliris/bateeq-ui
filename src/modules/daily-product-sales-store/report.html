@@ -1,0 +1,70 @@
+<template>
+    <p>
+        <h3>Laporan Produk Harian (per Toko)</h3>
+    </p>
+    
+    <div class="row">
+            <div class="col-md-12 text-right">
+                
+                <!--<label>page ${query.page} / ${query.totalPage}</label> &nbsp;&nbsp;-->
+                <div style="width:70px;float:right">
+                    <select value.bind="query.size" class="form-control" matcher.bind="_matcher" if.bind="!readOnly" change.delegate="changeSize($event)">
+                    <option repeat.for="item of sizeOptions" model.bind="item">${item}</option>
+                </select>
+                
+                </div>
+                <pagination if.bind="query" style="float:right" info.bind="query" class="pagination2" change.delegate="changePage($event)"></pagination>
+                
+            </div>
+    </div>
+    <!--<div class="row">
+            <div class="col-md-12 text-right">
+                
+                <label>page ${query.page} / ${query.totalPage}</label> &nbsp;&nbsp;
+                <button class="btn btn-sm btn-default" style="width:40px; font-size:10px" click.delegate="first()" disabled.bind="query.page == 1"><i class="fa fa-2x fa-angle-double-left"></i></button>
+                <button class="btn btn-sm btn-default" style="width:40px; font-size:10px" click.delegate="prev()" disabled.bind="query.page == 1"><i class="fa fa-2x fa-angle-left"></i></button>
+                <button class="btn btn-sm btn-default" style="width:40px; font-size:10px" click.delegate="next()" disabled.bind="query.page == query.totalPage"><i class="fa fa-2x fa-angle-right"></i></button>
+                <button class="btn btn-sm btn-default" style="width:40px; font-size:10px" click.delegate="last()" disabled.bind="query.page == query.totalPage"><i class="fa fa-2x fa-angle-double-right"></i></button>
+               <div style="width:70px;display:inline-block">
+                    <select value.bind="query.size" class="form-control" matcher.bind="_matcher" if.bind="!readOnly" change.delegate="changeSize($event)">
+                    <option repeat.for="item of sizeOptions" model.bind="item">${item}</option>
+                </select>
+                </div>
+            </div>
+    </div>-->
+    <br>
+<div class="row">
+<div class="alert alert-info text-center" role="alert" if.bind="summary.length == 0">
+    Tidak ada data.
+</div>
+<div class="col-md-12 report">
+    <div class="row">
+<div repeat.for="store of summary" class="col-md-12 store">
+    <label class="col-md-12"><strong>${store.store.name} : ${store.quantity} items</strong></label>
+    <div class="table-responsive">
+    <table class="report-table table table-bordered table-striped" style="margin-bottom:30px">
+        <thead>
+            <tr>
+                <th style="width:40%">Nama Barang</th>
+                <th style="width:15%">Warna</th>
+                <th style="width:15%">Ukuran</th>
+                <th style="width:15%">Nomor RO</th>
+                <th style="width:15%">Total Kuantitas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of store.items" click.delegate="__productCallback($this.item)">
+                <td>${item.item.name}</td>
+                <td>${item.item.colorDoc.name || "No Color"}</td>
+                <td>${item.item.size}</td>
+                <td>${item.item.article.realizationOrder}</td>
+                <td>${item.quantity}</td>
+            </tr>
+        </tbody>
+        </table>
+        </div>
+</div>
+</div>
+</div>
+</div>
+</template>

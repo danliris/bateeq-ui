@@ -1,0 +1,69 @@
+<template>
+    <form class="form-horizontal">
+       <div class="form-group ${error.reference?'has-error':''}">
+            <label for="reference" class="col-sm-2 control-label">Nomor Referensi</label>
+            <div class="col-sm-10">
+                    <input type="text" class="form-control" name="reference" value.bind="data.packingList"/> 
+                <span class="help-block">${error.reference}</span>
+            </div>
+        </div> 
+        <div class="form-group ${error.password?'has-error':''}">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" name="password" value.bind="data.password" placeholder="Password Packing List"
+                />
+                <span class="help-block">${error.password}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.sourceId?'has-error':''}">
+            <label for="sourceId" class="col-sm-2 control-label">Sumber Penyimpanan</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.source.code} - ${data.source.name}</p>
+                <span class="help-block">${error.sourceId}</span>
+            </div>
+        </div>
+        <div class="form-group ${error.destinationId?'has-error':''}">
+            <label for="destinationId" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.destination.code} - ${data.destination.name}</p>
+                <span class="help-block">${error.destinationId}</span>
+            </div>
+        </div>
+    </form>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Produk</th>
+                <th>Kuantitas Diterima</th>
+                <th>Catatan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data.items">
+                <td>${$index+1}</td>
+                <td>
+                    <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                        <input class="form-control" type="text" name="articleVariantName" value.bind="item.item.name" />
+                        <span class="help-block">${error.items[$index].articleVariantId}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                        <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
+                        <span class="help-block">${error.items[$index].quantity}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                        <input class="form-control" type="text" name="remark" value.bind="item.remark" />
+                        <span class="help-block">${error.items[$index].remark}</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
+        Tidak ada data.
+    </div>
+</template>

@@ -1,0 +1,54 @@
+<template> 
+    <h3>View</h3>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="code" class="col-sm-2 control-label">Nomor Dokumen</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.code}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="reference" class="col-sm-2 control-label">Nomor Referensi</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.reference}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="sourceName" class="col-sm-2 control-label">Sumber Penyimpanan</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.source.name}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="destinationName" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">${data.destination.name}</p>
+            </div>
+        </div>
+    </form> 
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Produk</th>
+                <th>Kuantitas Diterima</th>
+                <th>Catatan</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data.items">
+                <td>${$index+1}</td>
+                <td>${item.item.name }  </td> 
+                <td>${item.quantity}</td>
+                <td>${item.remark}</td> 
+            </tr>
+        </tbody>
+    </table> 
+    <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
+        Tidak ada data.
+    </div>
+    <hr/>
+    <div class="btn-group pull-right">
+        <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
+    </div>
+</template>

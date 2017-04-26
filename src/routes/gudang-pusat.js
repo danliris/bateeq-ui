@@ -24,4 +24,32 @@ module.exports = [
             permission: { "GDG1": 1 },
             iconClass: 'fa fa-bank'
         }
-    }]
+    }
+    // ,
+    // {
+    //     route: 'efr-tb-bbp',
+    //     name: 'efr-tb-bbp',
+    //     moduleId: './modules/efr-tb-bbp-cr/index',
+    //     nav: true,
+    //     title: 'Pemasukan Barang Jadi',
+    //     auth: true,
+    //     settings: {
+    //         group: "gudang pusat",
+    //         permission: { "GDG1": 1 },
+    //         iconClass: 'fa fa-bank'
+    //     }
+    // },
+    // {
+    //     route: 'packingList',
+    //     name: 'packingList',
+    //     moduleId: './modules/packing-list-cr/index',
+    //     nav: true,
+    //     title: 'PackingList',
+    //     auth: true,
+    //     settings: {
+    //         group: "gudang pusat",
+    //         permission: { "GDG1": 1 },
+    //         iconClass: 'fa fa-bank'
+    //     }
+    // }
+    ]
