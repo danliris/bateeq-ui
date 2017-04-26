@@ -16,6 +16,7 @@ Bluebird.config({ warnings: false });
 export async function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
+    .feature('au-components')
     .feature('components')
     .feature('converters')
     .plugin("aurelia-api", config => {
@@ -32,6 +33,11 @@ export async function configure(aurelia) {
       //var inventory = "https://bateeq-inventory-api.mybluemix.net/v1/inventory/";
       //var merchandiser = "https://bateeq-inventory-api.mybluemix.net/v1/merchandiser/";
       //var sales = "https://bateeq-pos-api.mybluemix.net/v1/sales/";
+      // var merchandiser = "http://localhost:9070/v1/merchandiser/";
+      // var inventory = "http://localhost:9070/v1/inventory/";
+      // var core = "http://localhost:9090/v1/core/";
+      // var master = "http://localhost:9090/v1/master/";
+      // var sales = "http://localhost:9080/v1/sales/";
       
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
