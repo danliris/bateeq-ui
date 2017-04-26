@@ -1,7 +1,8 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
 
 @inject(Router, Service)
 export class Upload {
@@ -30,7 +31,8 @@ export class Upload {
             this.error = e;
         } else {
             formData.append("fileUpload", fileList[0]);
-            var endpoint = 'upload';
+            var config = Container.instance.get(Config);
+            var endpoint = `${config.getEndpoint("inventory").client.baseUrl}upload-finishgoods`;
             var request = {
                 method: 'POST',
                 headers: {
