@@ -84,13 +84,17 @@ export class Service extends RestService {
         this.publish(promise);
         if (response) {
           return response.json().then(result => {
-            if (result)
-              return Promise.reject(result.error);
-            else
-              return Promise.resolve(result.data);
-          });
-        }else{
+            if (result) {
+              if (result.error)
+                return Promise.reject(result.error);
+              else
+                return Promise.resolve(result.data);
+            } else {
               return Promise.resolve({});
+            }
+          });
+        } else {
+          return Promise.resolve({});
         }
       }
     )
