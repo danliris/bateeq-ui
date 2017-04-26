@@ -91,9 +91,9 @@ export class Upload {
         this.isNotRO = type != "ro";
         this.isNotName = type != "name";
 
-        if(this.isNotRO)
+        if (this.isNotRO)
             this.ro = "";
-        if(this.isNotName)
+        if (this.isNotName)
             this.name = "";
     }
 
@@ -218,20 +218,26 @@ export class Upload {
             var promise = this.service.endpoint.client.fetch(endpoint, request)
             this.service.publish(promise);
             return promise.then(response => {
-                response.json().then(result => {
-                    var data = {}
-                    data.products = this.dataDestination;
-                    data.colorCode = this.color;
-                    data.articleColor = this.article_color;
-                    data.imagePath = result.data[0];
-                    data.motifPath = result.data[1];
-                    this.service.updateProductImage(data).then(id => {
-                        this.list();
-                    })
-                        .catch(e => {
-                            this.error = e;
-                        })
-                });
+                this.service.publish(promise);
+                if (response) {
+                    return response.json().then(result => {
+                        var data = {}
+                        data.products = this.dataDestination;
+                        data.colorCode = this.color;
+                        data.articleColor = this.article_color;
+                        data.imagePath = result.data[0];
+                        data.motifPath = result.data[1];
+                        this.service.updateProductImage(data)
+                            .then(result2 => {
+                                this.list();
+                            }).catch(e => {
+                                this.error = e;
+                            });
+                    });
+                } else {
+                    return Promise.resolve({});
+                }
+
             })
         }
 
