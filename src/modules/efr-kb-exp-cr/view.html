@@ -1,0 +1,58 @@
+<template> 
+    <require from="./data-form"></require>
+    <block class="display-wrapper">
+    <!--<block class="display-wrapper" style="display:none">-->
+        <data-form title="Detail Distribusi Barang" read-only="true"></data-form>
+        <hr/>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default" click.delegate="list()">Kembali</button>
+            <button class="btn btn-success" click.delegate="print()">Print</button>
+        </div>
+    </block>
+
+    <div class="print-wrapper">
+    <!--<div class="print-wrapper"  style="display:block">-->
+        <h2 class="text-center bold"><strong>BON PENGELUARAN BARANG</strong></h2>
+        <div class="col-md-6">
+                <p><strong>PT EFRATA RETAILINDO</strong></p>
+                <p>Kel. Banaran, Kec. Grogol, Kab. Sukoharjo 57193<p>
+                <p>Jawa Tengah, Indonesia</p>
+        </div>
+        <div class="col-md-6">
+                <table style="float:right">
+                    <tr><td><b>No Bon</b></td><td>${data.code}</td></tr>
+                    <tr><td><b>Tanggal</b></td><td>${data._createdDate}</td></tr>
+                </table>
+        </div>
+        <div class="col-md-12">
+                <table>
+                    <tr><td><b>Tujuan</b></td><td>${data.spkDocuments[0].destination.name || ""}</td></tr>
+                    <tr><td><b>Ekspedisi</b></td><td>${data.expedition}</td></tr>
+                    <tr><td><b>Total Berat (Kg)</b></td><td>${data.weight}</td></tr>
+                </table>
+        </div>
+        <div class="col-md-12">
+            <table class="table text-center" style="width:100%; border:1px solid black">
+                <tr>
+                    <th>NO</th>
+                    <th>Packing List</th>
+                    <th>Berat (Kg)</th>
+                    <th style="width:20%">Total Barang</th>
+                </tr>
+                <tr repeat.for="item of data.spkDocuments">
+                    <td>${$index+1}</td>
+                    <td>${item.code}</td>
+                    <td>${item.weight}</td>
+                    <td>${item.quantity}</td>
+                </tr>
+            </table>
+            <br>
+            <table class="table text-center" style="width:100%; border:1px solid black">
+                <tr>
+                    <td colspan="3"><b>Total</b></td>
+                    <td style="width:20%">1</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</template>
