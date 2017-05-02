@@ -1,0 +1,39 @@
+<template>
+    <h3>Distribusi Barang ke Ekspedisi</h3>
+
+    <au-table 
+        data.bind="loader" 
+        columns.bind="columns" 
+        sortable.bind="true" 
+        page-size="25" 
+        context.bind="context" 
+        context-click.delegate="contextCallback($event)">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="create()">Buat</button>
+        </div>
+    </au-table>
+<!--<!--
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nomor Dokumen</th>
+                <th>Ekspedisi</th>
+                <th>Berat (Kg)</th>
+                <th>Tanggal</th>
+                <th>Dibuat Oleh</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.code}</td>
+                <td>${item.expedition}</td>
+                <td>${item.weight}</td>
+                <td>${item.date}</td>
+                <td>${item._createdBy}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        Tidak ada data.
+    </div>-->
+</template>

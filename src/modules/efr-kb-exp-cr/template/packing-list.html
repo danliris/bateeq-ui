@@ -1,0 +1,80 @@
+<template>
+    <tr>
+        <td class="col-md-3">
+            <au-autocomplete value.bind="data.code" error.bind="error.code" loader.bind="packingListLoader" text="code" change.delegate="packingListChangeCallback($event)"
+                read-only.bind="packingListReadOnly || options.readOnly">
+            </au-autocomplete>
+        </td>
+        <td class="col-sm-3">
+            <au-numeric value.bind="data.weight" error.bind="error.weight" read-only.bind="options.readOnly">
+            </au-numeric>
+        </td>
+        <td class="col-sm-3">
+            <au-textbox value.bind="data.quantity" read-only.bind="true">
+            </au-textbox>
+        </td>
+        <td class="col-sm-3">
+            <au-textbox value.bind="data.notes" read-only.bind="options.readOnly" placeholder="catatan">
+            </au-textbox>
+        </td>
+        <td class="col-sm-2" if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+    </tr>
+    <tr>
+        <td>
+            <button click.delegate="refresh()">refresh</button> ${test}
+        </td>
+        <td colspan="4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Produk</th>
+                        <th>Kuantitas Packing List</th>
+                        <th>Kuantitas Stok</th>
+                        <th>Kuantitas Pengiriman</th>
+                        <th>Catatan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="item of data.items">
+                        <td>
+                            <div class="form-group">
+                                <p class="form-control-static">${item.item.code}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group ${error.items[$index].articleVariantId?'has-error':''}">
+                                <p class="form-control-static">${item.item.name}</p>
+                                <span class="help-block">${error.items[$index].articleVariantId}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                                <p class="form-control-static">${item.quantity}</p>
+                                <span class="help-block">${error.items[$index].quantity}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group ${error.items[$index].quantityStock?'has-error':''}">
+                                <au-numeric label="" value.bind="item.quantityStock" read-only.bind="options.readOnly"></au-class>
+                                <span class="help-block">${error.items[$index].quantityStock}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group ${error.items[$index].quantitySend?'has-error':''}">
+                                <au-numeric label="" value.bind="item.quantitySend" read-only.bind="options.readOnly"></au-numeric>
+                                <span class="help-block">${error.items[$index].quantitySend}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                                <au-textbox label="" placeholder="catatan" value.bind="item.remark" read-only.bind="options.readOnly"></au-textbox>
+                                <span class="help-block">${error.items[$index].remark}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</template>
