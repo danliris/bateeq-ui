@@ -10,7 +10,7 @@
         <div class="col-md-2"><input type="radio" id="name" value="name" change.delegate="updateType($event)" name="type" /><label for="name">Nama Product</label></div>
         <div class="col-md-4">
             <au-autocomplete read-only.bind="isNotName" change.delegate="finishedGoodsChange($event)" loader.bind="finishedGoodsLoader"
-                key="code" value.bind="product" query.bind="itemFilter"></au-autocomplete>
+                key="code" text="name" value.bind="product" query.bind="itemFilter"></au-autocomplete>
         </div>
         <div class="clearfix"></div>
 

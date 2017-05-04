@@ -11,7 +11,7 @@ export class Upload {
     contacts = [];
 
     productFilter = {};
-    product;
+    product = {};
 
     dataSource = [];
     dataDestination = [];
@@ -47,6 +47,10 @@ export class Upload {
                     }
                 });
             })
+
+        this.product.toString = function(){
+            return this.name || "";
+        }
     }
 
     controlOptions = {
@@ -94,7 +98,7 @@ export class Upload {
         if (this.isNotRO)
             this.ro = "";
         if (this.isNotName)
-            this.name = "";
+            this.product = {};
     }
 
     get finishedGoodsLoader() {
@@ -222,6 +226,7 @@ export class Upload {
                 if (response) {
                     return response.json().then(result => {
                         var data = {}
+                        debugger
                         data.products = this.dataDestination;
                         data.colorCode = this.color;
                         data.articleColor = this.article_color;
