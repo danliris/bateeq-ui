@@ -1,7 +1,7 @@
 import { bindable, bindingMode, containerless, inject, computedFrom, customElement } from "aurelia-framework"; 
  
-@customElement("au-datepicker") 
-export class Datepicker{
+@customElement("au-datetimepicker") 
+export class DateTimepicker{
   // control properties
   @bindable({ defaultBindingMode: bindingMode.twoWay }) label;
   @bindable({ defaultBindingMode: bindingMode.twoWay }) value;
@@ -13,6 +13,6 @@ export class Datepicker{
   @bindable({ defaultBindingMode: bindingMode.twoWay }) format;
 
   bind() { 
-    this.format = this.format || "DD-MMM-YYYY";
+    this.format = this.format || "DD-MMM-YYYY HH:mm";
   }
 }
