@@ -1,0 +1,31 @@
+<template>
+  <au-input-form 
+        title.bind="title" 
+        with.bind="context">
+        <au-dropdown value.bind="data.expedition" label="Expedisi" error.bind="error.expedition" items.bind="expeditionServices"
+            key="code" text="name" read-only.bind="readOnly"></au-dropdown>
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><strong>Berat(kg)</strong></label>
+            <span class="col-sm-9"><p class="form-control-static">${sumWeight}</p></<span>
+        </div>
+        <au-collection 
+            items.bind="data.spkDocuments" 
+            errors.bind="error.spkDocuments"
+            columns.bind="spkDocumentsInfo.columns" 
+            add.bind="spkDocumentsInfo.onAdd" 
+            remove.bind="spkDocumentsInfo.onRemove"
+            title="Packing List"
+            read-only.bind="readOnly"
+            item-template="modules/efr-kb-exp-cr/template/packing-list">
+        </au-collection>
+
+  </au-input-form>
+    <div class="col-md-6">
+    <button click.delegate="refresh()">refresh</button>
+        ${test}
+    </div>
+    <div class="col-md-6">
+    <button click.delegate="refresh2()">refresh</button>
+        ${test2}
+    </div>
+</template>
