@@ -18,13 +18,13 @@ export class List {
         var result = await this.service.search(this.info);
         var spk;
         var dataTemp = [];
-        for (var i = 0; i < result.length; i++) {
+        for (var i = 0; i < result.data.length; i++) {
             spk = [];
             var newItem = {};
 
-            newItem = result[i];
+            newItem = result.data[i];
             newItem.password = '';
-            spk = await this.service.getSPKByReference(result[i].code);
+            spk = await this.service.getSPKByReference(result.data[i].code);
             if (spk != undefined && spk.length > 0) {
                 newItem.password = spk[0].password;
             }
