@@ -1,5 +1,6 @@
 <template>
     <h3>Upload Image Barang</h3>
+    <br/>
     <form class="form-horizontal">
         <div class="col-md-2"><input type="radio" id="ro" value="ro" change.delegate="updateType($event)" name="type" checked/><label for="ro">RO</label></div>
         <div class="col-md-4">
@@ -16,7 +17,7 @@
 
         <div class="form-group col-md-5 ${error.dataSource?'has-error':''}">
             <span class="help-block">${error.dataSource}</span>
-            <au-collection title="Please select product" checkall.delegate="onClickAllDataSource($event)" items.bind="dataSource" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
+            <au-collection title="Pilih Produk" checkall.delegate="onClickAllDataSource($event)" items.bind="dataSource" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
                 read-only.bind="true"></au-collection>
         </div>
         <div class="col-md-1" style="padding-top:50px;">
@@ -26,7 +27,7 @@
         </div>
         <div class="form-group col-md-5 ${error.dataDestination?'has-error':''}">
             <span class="help-block">${error.dataDestination}</span>
-            <au-collection title="Selected Product" checkall.delegate="onClickAllDataDestination($event)"  items.bind="dataDestination" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
+            <au-collection title="Produk Terpilih" checkall.delegate="onClickAllDataDestination($event)"  items.bind="dataDestination" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
                 read-only.bind="true"></au-collection>
         </div>
         <div class="clearfix"></div>
