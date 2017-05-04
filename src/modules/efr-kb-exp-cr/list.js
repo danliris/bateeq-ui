@@ -69,7 +69,6 @@ export class List {
     }
 
     contextCallback(event) {
-        debugger
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {

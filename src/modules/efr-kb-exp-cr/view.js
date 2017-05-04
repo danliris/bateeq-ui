@@ -16,6 +16,9 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.data.expedition.toString = function(){
+            return this.name;
+        }
 
         this.data.spkDocuments = this.data.spkDocuments.map(spk => {
                 spk.toString = function () {
@@ -35,7 +38,8 @@ export class View {
     }
 
     print() {
-        window.print();
+        console.log(this.data._id);
+        this.service.getPdfById(this.data._id);
     }
 
 }

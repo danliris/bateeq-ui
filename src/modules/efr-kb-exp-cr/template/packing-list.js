@@ -20,6 +20,8 @@ export class PackingList {
         this.options = context.options;
 
         this.packingListReadOnly = this.data.code && this.data.code != '';
+        // if(this.options.readOnly)
+            this.isDetail = this.options.readOnly;
     }
 
     get packingListLoader() {
@@ -46,7 +48,6 @@ export class PackingList {
             this.data.notes = '';
             this.data.code = temp.code;
 
-            debugger
             var stock = [];
             for (var item of this.data.items) {
                 item.quantitySend = 0;
