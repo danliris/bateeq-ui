@@ -211,6 +211,7 @@ export class Upload {
             }
         }
 
+        debugger
         if (Object.keys(e).length > 0) {
             this.error = e;
         } else {

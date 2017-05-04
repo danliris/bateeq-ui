@@ -443,7 +443,7 @@ h3 {
 
 .product-report-dialog{
     margin:auto;
-    width:70%;
+    width:700px;
 }
 @media (max-width: 767px) {
   .product-report-dialog{
