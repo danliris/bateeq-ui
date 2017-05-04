@@ -24,7 +24,7 @@ export class Upload {
     ro = "";
 
     columns = [
-        { header: "", value: "check" },
+        { header: "", value: "__check" },
         { header: "Code", value: "code" },
         { header: "Name", value: "name" }
     ]
@@ -137,10 +137,21 @@ export class Upload {
             if (i != -1) {
                 temp.splice(i, 1);
             }
+            item.check = false;
         }
         this.dataSource = [].concat(temp);
     }
 
+    onClickAllDataSource($event){
+        for(var item of this.dataSource){
+            item.check = $event.detail.target.checked;
+        }
+    }
+    onClickAllDataDestination($event){
+        for(var item of this.dataDestination){
+            item.check = $event.detail.target.checked;
+        }
+    }
 
     moveLeft() {
         var filter = this.dataDestination.filter(function (item) {
@@ -155,6 +166,7 @@ export class Upload {
             if (i != -1) {
                 temp.splice(i, 1);
             }
+            item.check = false;
         }
         this.dataDestination = [].concat(temp);
     }

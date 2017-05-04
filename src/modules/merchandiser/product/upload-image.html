@@ -16,7 +16,7 @@
 
         <div class="form-group col-md-5 ${error.dataSource?'has-error':''}">
             <span class="help-block">${error.dataSource}</span>
-            <au-collection items.bind="dataSource" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
+            <au-collection title="Please select product" checkall.delegate="onClickAllDataSource($event)" items.bind="dataSource" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
                 read-only.bind="true"></au-collection>
         </div>
         <div class="col-md-1" style="padding-top:50px;">
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group col-md-5 ${error.dataDestination?'has-error':''}">
             <span class="help-block">${error.dataDestination}</span>
-            <au-collection items.bind="dataDestination" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
+            <au-collection title="Selected Product" checkall.delegate="onClickAllDataDestination($event)"  items.bind="dataDestination" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
                 read-only.bind="true"></au-collection>
         </div>
         <div class="clearfix"></div>
