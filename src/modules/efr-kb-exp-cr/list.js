@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import moment from 'moment';
 
 
 @inject(Router, Service)
@@ -33,7 +34,12 @@ export class List {
         { field: "code", title: "Nomor Dokumen" },
         { field: "expedition", title: "Ekspedisi" },
         { field: "weight", title: "Berat (Kg)" },
-        { field: "date", title: "Tanggal" },
+        {
+            field: "date", title: "Tanggal",
+            formatter: function (value, data, index) {
+                return moment(value).format("DD MMMM YYYY");
+            }
+        },
         { field: "_createdBy", title: "Dibuat Oleh" }
     ];
 
