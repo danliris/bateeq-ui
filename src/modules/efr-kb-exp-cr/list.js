@@ -1,7 +1,6 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-import moment from 'moment';
 
 
 @inject(Router, Service)
@@ -37,7 +36,18 @@ export class List {
         {
             field: "date", title: "Tanggal",
             formatter: function (value, data, index) {
+                var moment = require('moment');
                 return moment(value).format("DD MMMM YYYY");
+            }
+        },
+        {
+            field: "spkDocuments", title: "Tujuan",
+            formatter: function (value, data, index) {
+                var destination = "";
+                if (value.length > 0) {
+                    destination = value[0].destination.name;
+                }
+                return destination;
             }
         },
         { field: "_createdBy", title: "Dibuat Oleh" }
