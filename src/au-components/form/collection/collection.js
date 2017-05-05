@@ -24,6 +24,7 @@ export class Collection {
 
   @bindable add;
   @bindable remove;
+  @bindable checkAll;
 
   itemsChanged() {
     this.buildContext();
@@ -120,6 +121,11 @@ export class Collection {
   onadd(event) {
     if (this.add && typeof this.add === "function")
       this.add(event);
+  }
+
+  checkAllCallBack($event) {
+    dispatchCustomEvent("checkall", this.element, $event);
+    console.log($event);
   }
 
   onremove(item) {
