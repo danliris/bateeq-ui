@@ -24,6 +24,19 @@ module.exports = [
             permission: { "GDG1": 1 },
             iconClass: 'fa fa-bank'
         }
+    },
+    {
+        route: 'efr-kb-exp',
+        name: 'efr-kb-exp',
+        moduleId: './modules/efr-kb-exp-cr/index',
+        nav: true,
+        title: 'Distribusi Barang ke Ekspedisi',
+        auth: true,
+        settings: {
+            group: "gudang pusat",
+            permission: { "GDG1": 7, "GDG2": 7, "GDG4": 7, "GDG3": 7 , "GDG5": 7},
+            iconClass: 'fa fa-bank'
+        }
     }
     // ,
     // {

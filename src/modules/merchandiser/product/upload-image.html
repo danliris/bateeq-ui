@@ -1,5 +1,6 @@
 <template>
     <h3>Upload Image Barang</h3>
+    <br/>
     <form class="form-horizontal">
         <div class="col-md-2"><input type="radio" id="ro" value="ro" change.delegate="updateType($event)" name="type" checked/><label for="ro">RO</label></div>
         <div class="col-md-4">
@@ -10,13 +11,13 @@
         <div class="col-md-2"><input type="radio" id="name" value="name" change.delegate="updateType($event)" name="type" /><label for="name">Nama Product</label></div>
         <div class="col-md-4">
             <au-autocomplete read-only.bind="isNotName" change.delegate="finishedGoodsChange($event)" loader.bind="finishedGoodsLoader"
-                key="code" value.bind="product" query.bind="itemFilter"></au-autocomplete>
+                key="code" text="name" value.bind="product" query.bind="itemFilter"></au-autocomplete>
         </div>
         <div class="clearfix"></div>
 
         <div class="form-group col-md-5 ${error.dataSource?'has-error':''}">
             <span class="help-block">${error.dataSource}</span>
-            <au-collection items.bind="dataSource" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
+            <au-collection title="Pilih Produk" checkall.delegate="onClickAllDataSource($event)" items.bind="dataSource" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
                 read-only.bind="true"></au-collection>
         </div>
         <div class="col-md-1" style="padding-top:50px;">
@@ -26,7 +27,7 @@
         </div>
         <div class="form-group col-md-5 ${error.dataDestination?'has-error':''}">
             <span class="help-block">${error.dataDestination}</span>
-            <au-collection items.bind="dataDestination" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
+            <au-collection title="Produk Terpilih" checkall.delegate="onClickAllDataDestination($event)"  items.bind="dataDestination" columns.bind="columns" item-template="modules/merchandiser/product/template/finishing-goods-item"
                 read-only.bind="true"></au-collection>
         </div>
         <div class="clearfix"></div>

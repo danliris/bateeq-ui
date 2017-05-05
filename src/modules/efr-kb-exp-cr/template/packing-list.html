@@ -10,7 +10,7 @@
             </au-numeric>
         </td>
         <td class="col-sm-3">
-            <au-textbox value.bind="data.quantity" read-only.bind="true">
+            <au-textbox value.bind="data.quantity" class="text-center" read-only.bind="true">
             </au-textbox>
         </td>
         <td class="col-sm-3">
@@ -21,7 +21,6 @@
     </tr>
     <tr>
         <td>
-            <button click.delegate="refresh()">refresh</button> ${test}
         </td>
         <td colspan="4">
             <table class="table table-bordered">
@@ -29,9 +28,10 @@
                     <tr>
                         <th>No.</th>
                         <th>Produk</th>
-                        <th>Kuantitas Packing List</th>
-                        <th>Kuantitas Stok</th>
-                        <th>Kuantitas Pengiriman</th>
+                        <th if.bind="!isDetail">Kuantitas Packing List</th>
+                        <th if.bind="!isDetail">Kuantitas Stok</th>
+                        <th if.bind="!isDetail">Kuantitas Pengiriman</th>
+                        <th if.bind="isDetail">Kuantitas</th>
                         <th>Catatan</th>
                     </tr>
                 </thead>
@@ -48,22 +48,28 @@
                                 <span class="help-block">${error.items[$index].articleVariantId}</span>
                             </div>
                         </td>
-                        <td>
+                        <td if.bind="!isDetail">
                             <div class="form-group ${error.items[$index].quantity?'has-error':''}">
                                 <p class="form-control-static">${item.quantity}</p>
                                 <span class="help-block">${error.items[$index].quantity}</span>
                             </div>
                         </td>
-                        <td>
+                        <td if.bind="!isDetail">
                             <div class="form-group ${error.items[$index].quantityStock?'has-error':''}">
                                 <au-numeric label="" value.bind="item.quantityStock" read-only.bind="options.readOnly"></au-class>
                                 <span class="help-block">${error.items[$index].quantityStock}</span>
                             </div>
                         </td>
-                        <td>
+                        <td if.bind="!isDetail">
                             <div class="form-group ${error.items[$index].quantitySend?'has-error':''}">
                                 <au-numeric label="" value.bind="item.quantitySend" read-only.bind="options.readOnly"></au-numeric>
                                 <span class="help-block">${error.items[$index].quantitySend}</span>
+                            </div>
+                        </td>
+                        <td if.bind="isDetail">
+                            <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                                <p class="form-control-static text-center">${item.quantity}</p>
+                                <span class="help-block">${error.items[$index].quantity}</span>
                             </div>
                         </td>
                         <td>

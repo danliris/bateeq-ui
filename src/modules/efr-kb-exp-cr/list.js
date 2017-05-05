@@ -33,7 +33,23 @@ export class List {
         { field: "code", title: "Nomor Dokumen" },
         { field: "expedition", title: "Ekspedisi" },
         { field: "weight", title: "Berat (Kg)" },
-        { field: "date", title: "Tanggal" },
+        {
+            field: "date", title: "Tanggal",
+            formatter: function (value, data, index) {
+                var moment = require('moment');
+                return moment(value).format("DD MMMM YYYY");
+            }
+        },
+        {
+            field: "spkDocuments", title: "Tujuan",
+            formatter: function (value, data, index) {
+                var destination = "";
+                if (value.length > 0) {
+                    destination = value[0].destination.name;
+                }
+                return destination;
+            }
+        },
         { field: "_createdBy", title: "Dibuat Oleh" }
     ];
 
@@ -69,7 +85,6 @@ export class List {
     }
 
     contextCallback(event) {
-        debugger
         var arg = event.detail;
         var data = arg.data;
         switch (arg.name) {
