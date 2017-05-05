@@ -52,70 +52,7 @@ export class DataForm {
         })
 
     }
-
-    // constructor(router, service, bindingEngine) {
-    //     this.router = router;
-    //     this.service = service;
-    //     this.bindingEngine = bindingEngine;
-    //     this.service.getModuleConfig()
-    //         .then(config => {
-    //             var getStorages = [];
-    //             var indexSource = 0;
-
-    //             if (config.source.type == "selection") {
-    //                 for (var sourceId of config.source.value) {
-    //                     getStorages.push(this.service.getStorageById(sourceId.toString()));
-    //                     indexSource++;
-    //                 }
-    //             }
-    //             else {
-    //                 getStorages.push(this.service.getStorageById(config.source.value.toString()));
-    //                 indexSource++
-    //             }
-
-    //             var getStoragesDestination = [];
-    //             if (config.destination.type == "selection") {
-    //                 for (var destinationId of config.destination.value) {
-    //                     getStorages.push(this.service.getStorageById(destinationId.toString()));
-    //                 }
-    //             }
-    //             else {
-    //                 getStorages.push(this.service.getStorageById(config.destination.value.toString()));
-    //             }
-
-    //             Promise.all(getStorages)
-    //                 .then(storages => {
-    //                     this.sources = storages.splice(0, storages.length - indexSource);
-    //                     this.destinations = storages.splice(0);
-    //                     this.data.sourceId = this.sources[0]._id;
-    //                     this.data.source = this.sources[0];
-    //                     this.data.destinationId = this.destinations[0]._id;
-    //                     this.data.destination = this.destinations[0];
-
-    //                     this.inventoryApiUri = require('../../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
-    //                 })
-    //         })
-    //         .catch(e => {
-    //             console.log(e)
-    //             this.loadFailed = true;
-    //         })
-    // }
-
-    // attached() {
-    //     this.bindingEngine.collectionObserver(this.data.items)
-    //         .subscribe(splices => {
-    //             var item = this.data.items[splices[0].index];
-    //             this.observeItem(item);
-    //         });
-    // }
-
-    // observeItem(item) {
-    //     this.bindingEngine.propertyObserver(item, "selection").subscribe((newValue, oldValue) => {
-    //         item.articleVariantId = newValue._id;
-    //         item.articleVariant = newValue.articleVariant;
-    //         item.availableQuantity = newValue.availableQuantity;
-    //     });
-    // }
+ 
     async attached() {
         this.sumTotalQty = 0;
         this.sumPrice = 0;
@@ -154,6 +91,7 @@ export class DataForm {
                             this.qtyFg = 0;
                             this.price = 0;
                             newItem.itemId = fg._id;
+                            newItem.item = fg;
                             newItem.availableQuantity = 0;
                             var result = await this.service.getDataInventory(this.data.source._id, newItem.itemId);
                             if (result != undefined) {
@@ -193,6 +131,7 @@ export class DataForm {
                     this.qtyFg = 0;
                     this.price = 0;
                     newItem.itemId = itemData._id;
+                    newItem.item = itemData;
                     newItem.availableQuantity = 0;
                     var result = await this.service.getDataInventory(this.data.source._id, newItem.itemId);
                     if (result != undefined) {

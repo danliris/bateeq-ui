@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -21,6 +21,16 @@ export class Edit {
 
     save() {
         this.service.update(this.data)
+            .then(result => {
+                this.view();
+            })
+            .catch(e => {
+                this.error = e;
+            })
+    }
+
+    saveDraft() {
+        this.service.updateDraft(this.data)
             .then(result => {
                 this.view();
             })
