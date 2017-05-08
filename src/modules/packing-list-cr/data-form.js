@@ -20,8 +20,8 @@ export class DataForm {
         this.service = service;
     }
     sumTotalQty;
-    sumPrice;
-
+    sumPrice; 
+    
     getStorage(config) {
         return new Promise((resolve, reject) => {
             var getStorages = [];
@@ -52,10 +52,15 @@ export class DataForm {
         })
 
     }
- 
+
     async attached() {
-        this.sumTotalQty = 0;
-        this.sumPrice = 0;
+        if (this.data.items != undefined) {
+            this.makeTotal(this.data.items);
+        } else {
+            this.sumTotalQty = 0;
+            this.sumPrice = 0;
+        }
+
         var storages = await this.service.getModuleConfig();
         var result = await this.getStorage(storages[0].config);
 
@@ -162,7 +167,7 @@ export class DataForm {
             var fg = fgTemp[0];
             this.price = fg.domesticSale;
             var newItem = {};
-            var _data = this.data.items.find((item) => item.code === barcode);
+            var _data = this.data.items.find((item) => item.item.code === barcode);
             if (_data) {
                 this.price = parseInt(_data.quantity) * this.price
                 _data.price = parseFloat(this.price);
@@ -181,6 +186,8 @@ export class DataForm {
                 this.sumPrice += items[i].price;
             }
         }
+
+        console.log(this.sumTotalQty + "" + this.sumPrice);
 
     }
 
