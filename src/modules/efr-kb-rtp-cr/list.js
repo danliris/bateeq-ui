@@ -18,6 +18,10 @@ export class List {
         var result = await this.service.search(this.info);
         this.data = result.data;
         this.info = result.info;
+        for (var item of this.data) {
+            var spk = await this.service.getSPKByReference(item.code);
+            item.spk = spk;
+        }
     }
 
     loadPage() {
@@ -27,6 +31,15 @@ export class List {
                 this.data = result.data;
                 this.info = result.info;
                 this.info.keyword = keyword;
+
+                for (var item of this.data) {
+                    debugger;
+                    this.service.getSPKByReference(item.code).then(
+                        spk => {
+                            item.spk = spk;
+                        }
+                    )
+                }
             })
     }
 

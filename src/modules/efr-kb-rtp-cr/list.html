@@ -17,7 +17,9 @@
                 <th>Nomor Referensi</th>
                 <th>Sumber Penyimpanan</th>
                 <th>Tujuan Penyimpanan</th>
-                <th>Tanggal</th> 
+                <th>Password</th>
+                <th>Status</th>  
+                <th>Tanggal</th>
                 <th>Dibuat Oleh</th>  
             </tr> 
         </thead>
@@ -27,6 +29,8 @@
                 <td>${item.reference}</td> 
                 <td>${item.source.code} - ${item.source.name}</td>
                 <td>${item.destination.code} - ${item.destination.name}</td>
+                <td>${item.spk.password || ""}</td>
+                <td>${item.spk.isReceived ?  "Sudah Diterima" : "Belum Diterima"}</td>
                 <td>${(item._createdDate).substring(0, 10)}</td>
                 <td>${item._createdBy}</td> 
             </tr>

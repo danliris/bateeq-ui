@@ -39,6 +39,12 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  getSPKByReference(reference) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("merchandiser").client.baseUrl + 'docs/efr-pk/rtp?reference=' + reference;
+    return super.get(endpoint);
+  }
+
   getModuleConfig() {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("master").client.baseUrl + 'modules?keyword=EFR-KB/RTP';
@@ -60,5 +66,13 @@ export class Service extends RestService {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("master").client.baseUrl + 'items/finished-goods/code/' + code;
     return super.get(endpoint);
+  }
+
+  getExpeditionServices() {
+    return new Promise((resolve, reject) => {
+      var config = Container.instance.get(Config);
+      var endpoint = config.getEndpoint("master").client.baseUrl + 'expedition-service-routers/all';
+      super.get(endpoint).then(result => resolve(result));
+    });
   }
 }
