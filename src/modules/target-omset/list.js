@@ -7,11 +7,11 @@ import { Service } from './service';
 export class List {
     data = [];
     listReport = [
-        "751db2f6-782e-43d5-a087-f014de8ceb69",//Target vs Omset – 2 Bulan Terakhir
-        "321248e4-5348-41f6-9f96-91a731dd3d43",//Target vs Omset – Per Quarter
-        "f10a69f1-f6a5-4bc0-8bb4-9a2cbbb0b096",//Target vs Omset – Per Tahun
-        "f671d795-fac5-4c81-bf23-8fd4cb80dbb7",//Top 10 Toko Pencapaian Target Tertinggi – 2 Bulan Terakhir
-        "4e8445d3-11f6-42e0-991d-b8a4bd2aa0ec",//Top 10 Toko Pencapaian Target Terendah – 2 Bulan Terakhir
+        "TARGET VS OMSET - 2 BULAN TERAKHIR",
+        "TARGET VS OMSET - PER QUARTER",
+        "TARGET VS OMSET - PER TAHUN",
+        "TOP 10 TOKO PENCAPAIAN TARGET TERTINGGI - 2 BULAN TERAKHIR",
+        "TOP 10 TOKO PENCAPAIAN TARGET TERENDAH - 2 BULAN TERAKHIR",
     ];
     constructor(router, service) {
         this.router = router;
@@ -23,7 +23,7 @@ export class List {
             .then(data => {
                 console.log(data);
                 for (var report of this.listReport) {
-                    var _data = data.find((_data) => _data.id === report);
+                    var _data = data.find((_data) => _data.name === report);
                     if (_data) {
                         this.data.push(_data);
                     }

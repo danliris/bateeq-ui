@@ -6,9 +6,9 @@ import { Service } from './service';
 @inject(Router, Service)
 export class List {
     data = [];
-    listReport = [  
-        "71948851-4283-4a16-8e37-95472f6be84e",//	Top 10 Jenis Jasa Jahit Per Kota – 2 Quarter Terakhir
-        "aa2b1849-611a-413d-b288-40896f30c1b4",//	Top 10 Jenis Jasa Jahit Per Toko – 2 Quarter Terakhir
+    listReport = [
+        "TOP 10 JENIS JASA JAHIT PER KOTA - 2 QUARTER TERAKHIR",
+        "TOP 10 JENIS JASA JAHIT PER TOKO - 2 QUARTER TERAKHIR",
     ];
     constructor(router, service) {
         this.router = router;
@@ -19,7 +19,7 @@ export class List {
         this.service.search('')
             .then(data => {
                 for (var report of this.listReport) {
-                    var _data = data.find((_data) => _data.id === report);
+                    var _data = data.find((_data) => _data.name === report);
                     if (_data) {
                         this.data.push(_data);
                     }

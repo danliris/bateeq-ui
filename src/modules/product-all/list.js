@@ -7,8 +7,8 @@ import { Service } from './service';
 export class List {
     data = [];
     listReport = [
-        "4dac18e3-4874-434d-a4a1-3702d049c80b",//	Pertumbuhan Penjualan Berdasarkan Kuantitas Per Kategori Produk – 2 Quarter Terakhir
-        "2f2680ec-519e-4ff9-82b0-b28a4ae0eb9d",//	Pertumbuhan Penjualan Berdasarkan Kuantitas Per Kategori Konter – 2 Quarter Terakhir
+        "PERTUMBUHAN PENJUALAN BERDASARKAN KUANTITAS PER KATEGORI PRODUK - 2 QUARTER TERAKHIR",
+        "PERTUMBUHAN PENJUALAN BERDASARKAN KUANTITAS PER KATEGORI KONTER - 2 QUARTER TERAKHIR",
     ];
 
     constructor(router, service) {
@@ -20,7 +20,7 @@ export class List {
         this.service.search('')
             .then(data => {
                 for (var report of this.listReport) {
-                    var _data = data.find((_data) => _data.id === report);
+                    var _data = data.find((_data) => _data.name === report);
                     if (_data) {
                         this.data.push(_data);
                     }
