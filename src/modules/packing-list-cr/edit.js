@@ -13,6 +13,13 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        for (var i = 0; i < this.data.items.length; i++) {
+            var result = await this.service.getDataInventory(this.data.source._id, this.data.items[i].itemId);
+            if (result != undefined) {
+                this.data.items[i].availableQuantity = result.quantity;
+                this.data.items[i].price = result.item.domesticSale;
+            }
+        }
     }
 
     view() {

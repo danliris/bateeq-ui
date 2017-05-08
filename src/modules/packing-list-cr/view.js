@@ -18,7 +18,7 @@ export class View {
         this.service.getById(id)
             .then(data => {
                 this.data = data;
-                this.generatePrintStrukTable();
+                // this.generatePrintStrukTable();
             })
     }
 
