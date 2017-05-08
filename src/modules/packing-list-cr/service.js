@@ -29,7 +29,7 @@ export class Service extends RestService {
   }
 
   createDraft(data) {
-    var endpoint = `${serviceUri}/draft`;
+    var endpoint = `${serviceUri}/drafted`;
     return super.post(endpoint, data);
   }
 
