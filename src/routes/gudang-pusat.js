@@ -25,7 +25,7 @@ module.exports = [
     //         iconClass: 'fa fa-bank'
     //     }
     // },
-      {
+    {
         route: 'efr-tb-bbp',
         name: 'efr-tb-bbp',
         moduleId: './modules/efr-tb-bbp-cr/index',
@@ -34,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "gudang pusat",
-            permission: { "GDG1": 7, "GDG2": 7, "GDG4": 7, "GDG3": 7 , "GDG5": 7 },
+            permission: { "GDG.01": 1, "GDG.02": 1, "GDG.03": 1, "GDG.04": 1, "GDG.05": 1 },
             iconClass: 'fa fa-bank'
         }
     }, {
@@ -46,7 +46,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "gudang pusat",
-            permission: { "GDG1": 7, "GDG2": 7, "GDG4": 7, "GDG3": 7 , "GDG5": 7 },
+            permission: { "GDG.01": 1, "GDG.02": 1, "GDG.03": 1, "GDG.04": 1, "GDG.05": 1 },
             iconClass: 'fa fa-bank'
         }
     },
@@ -59,9 +59,9 @@ module.exports = [
         auth: true,
         settings: {
             group: "gudang pusat",
-            permission: { "GDG1": 7, "GDG2": 7, "GDG4": 7, "GDG3": 7 , "GDG5": 7},
+            permission: { "GDG.01": 1, "GDG.02": 1, "GDG.03": 1, "GDG.04": 1, "GDG.05": 1 },
             iconClass: 'fa fa-bank'
         }
     }
-    
-    ]
+
+]
