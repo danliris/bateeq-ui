@@ -17,7 +17,7 @@ export class Edit {
             var result = await this.service.getDataInventory(this.data.source._id, this.data.items[i].itemId);
             if (result != undefined) {
                 this.data.items[i].availableQuantity = result.quantity;
-                this.data.items[i].price = result.item.domesticSale;
+                this.data.items[i].price = parseInt(result.item.domesticSale) * parseInt(this.data.items[i].quantity);
             }
         }
     }
