@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "MRD1": 1 },
+            permission: { "MRD.01": 1 },
             iconClass: 'fa fa-adjust'
         }
     }]

@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "finishing",
-            permission: { "GDG1": 1 },
+            permission: { "GDG.01": 1 },
             iconClass: 'fa fa-bank'
         }
     },

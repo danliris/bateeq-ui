@@ -8,6 +8,7 @@ export class List {
     statuses = ["Semua", "Belum Diterima", "Sudah Diterima"];
     storageTemp;
     data;
+    rttFilter;
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -37,6 +38,7 @@ export class List {
     }
 
     reloadItem() {
+        this.rttFilter = [];
         this.data.results = [];
         this.error = { filter: {}, results: [] };
         var datefrom = new Date(this.data.filter.dateFrom);
@@ -56,14 +58,14 @@ export class List {
                     var totalQty;
                     var totalPrice;
                     this.data.results = [];
+                    var getSPK = [];
                     for (var rttDay of rttPerDays) {
                         if (rttDay.count != 0) {
                             var tanggalRowSpan = 0;
                             var result = {};
                             result.items = [];
                             for (var data of rttDay.data) {
-                                // this.service.getSPKByReference(data.code)
-                                //     .then(spkDoc => {
+                                getSPK.push(this.service.getSPKByReference(data.code));
                                 var itemRowSpan = 0;
                                 var itemData = {};
                                 itemData.details = [];
@@ -77,7 +79,7 @@ export class List {
                                     detail.quantity = item.quantity;
                                     detail.price = item.item.domesticSale;
                                     totalQty += parseInt(detail.quantity);
-                                    totalPrice += parseInt(detail.price);
+                                    totalPrice += parseInt(detail.price * detail.quantity);
                                     itemData.details.push(detail);
                                     tanggalRowSpan += 1;
                                     itemRowSpan += 1;
@@ -95,12 +97,33 @@ export class List {
                             this.data.results.push(result);
                         }
                     }
-                    this.AddPackingListAndStatus();
-                    if (result == undefined) {
-                        this.generateReportHTML();
-                        this.isFilter = true;
-                    }
 
+                    Promise.all(getSPK)
+                        .then(spkDocuments => {
+                            var index = 0;
+                            for (var rtt of this.data.results) {
+                                for (var item of rtt.items) {
+                                    var spk = spkDocuments[index][0];
+                                    if (spk.isReceived == false && this.data.filter.status == "Belum Diterima") {
+                                        Object.assign(item, { "packingList": spk.packingList });
+                                        Object.assign(item, { "status": spk.isReceived ? "Sudah Diterima" : "Belum Diterima" });
+                                        this.rttFilter.push(rtt);
+                                    }
+                                    else if (spk.isReceived == true && this.data.filter.status == "Sudah Diterima") {
+                                        Object.assign(item, { "packingList": spk.packingList });
+                                        Object.assign(item, { "status": spk.isReceived ? "Sudah Diterima" : "Belum Diterima" });
+                                        this.rttFilter.push(rtt);
+                                    } else if (this.data.filter.status == "Semua") {
+                                        Object.assign(item, { "packingList": spk.packingList });
+                                        Object.assign(item, { "status": spk.isReceived ? "Sudah Diterima" : "Belum Diterima" });
+                                        this.rttFilter.push(rtt);
+                                    }
+                                    index++;
+                                }
+                            }
+
+                            this.generateReportHTML();
+                        });
                 })
 
         }
@@ -131,12 +154,13 @@ export class List {
         this.reportHTML += "            </tr>";
         this.reportHTML += "        </thead>";
         this.reportHTML += "        <tbody>";
-        for (var data of this.data.results) {
+        for (var data of this.rttFilter) {
             var isTanggalRowSpan = false;
             for (var item of data.items) {
                 var isItemRowSpan = false;
 
                 for (var itemDetail of item.details) {
+                    var filter = true;
                     this.reportHTML += "        <tr>";
                     if (!isTanggalRowSpan) {
                         this.reportHTML += "        <td width='300px' rowspan='" + data.tanggalRowSpan + "'>" + data.tanggal.getDate() + " " + months[data.tanggal.getMonth()] + " " + data.tanggal.getFullYear() + "</td>";
@@ -170,6 +194,7 @@ export class List {
 
 
     AddPackingListAndStatus() {
+        debugger
         for (var rtt of this.data.results) {
             for (var item of rtt.items) {
                 this.service.getSPKByReference(item.nomorTransferStok)
@@ -186,11 +211,7 @@ export class List {
                             Object.assign(item, { "status": spkDoc[0].isReceived ? "Sudah Diterima" : "Belum Diterima" });
                         }
                     })
-            } 
-        }
-///
+            }
+        } 
     }
 }
-
-
-
