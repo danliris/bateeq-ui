@@ -1,12 +1,19 @@
-<template>     
-    <form class="form-horizontal">
-        <textbox                label="Kode"                        value.bind="data.code"                      error.bind="error.code"                     read-only.bind="(readOnly || isEdit)">  </textbox>
-        <textbox                label="Nama"                        value.bind="data.name"                      error.bind="error.name"                     read-only.bind="readOnly">              </textbox>
-        <textbox                label="UOM"                         value.bind="data.uom"                       error.bind="error.uom"                      read-only.bind="readOnly">              </textbox>
-        <textbox                label="Size"                        value.bind="data.size"                      error.bind="error.size"                     read-only.bind="readOnly">              </textbox>
-        <numeric                label="HPP"                         value.bind="data.domesticCOGS"              error.bind="error.domesticCOGS"             read-only.bind="readOnly">              </numeric>
-        <numeric                label="Harga Jual (Domestic)"       value.bind="data.domesticSale"              error.bind="error.domesticSale"             read-only.bind="readOnly">              </numeric>
-        <numeric                label="Harga Jual (Internasional)"  value.bind="data.internationalSale"         error.bind="error.internationalSale"        read-only.bind="readOnly">              </numeric>
-        <textbox                label="RO"                          value.bind="data.article.realizationOrder"  error.bind="error.ro"                       read-only.bind="readOnly">              </textbox>
-    </form>
+<template>
+    <div class="col-md-9">
+        <form class="form-horizontal">
+            <textbox                label="Kode"                        value.bind="data.code"                      error.bind="error.code"                     read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Nama"                        value.bind="data.name"                      error.bind="error.name"                     read-only.bind="readOnly">              </textbox>
+            <textbox                label="UOM"                         value.bind="data.uom"                       error.bind="error.uom"                      read-only.bind="readOnly">              </textbox>
+            <textbox                label="Size"                        value.bind="data.size"                      error.bind="error.size"                     read-only.bind="readOnly">              </textbox>
+            <numeric                label="HPP"                         value.bind="data.domesticCOGS"              error.bind="error.domesticCOGS"             read-only.bind="readOnly">              </numeric>
+            <numeric                label="Harga Jual (Domestic)"       value.bind="data.domesticSale"              error.bind="error.domesticSale"             read-only.bind="readOnly">              </numeric>
+            <numeric                label="Harga Jual (Internasional)"  value.bind="data.internationalSale"         error.bind="error.internationalSale"        read-only.bind="readOnly">              </numeric>
+            <textbox                label="RO"                          value.bind="data.article.realizationOrder"  error.bind="error.ro"                       read-only.bind="readOnly">              </textbox>
+        </form>
+    </div>
+    <div class="col-md-3">
+        <div>Product Image</div>
+        <img class="img-responsive" src="${data.imagePath ? imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY9Y3rGTwbyc9GoAOyxRClRz7b5GnCnjVsHx_qK_CUXN79yis4'}">
+    </div>
+    <div class="clearfix"></div>
 </template>

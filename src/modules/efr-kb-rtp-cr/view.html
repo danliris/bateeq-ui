@@ -63,24 +63,30 @@
     </div>
     <!-- /.display-wrapper -->
 
-    <div class="print-wrapper a4">
+    <div class="print-wrapper">
         <div class="row">
-            <center><label class="header">BON RETUR TOKO (BARANG BARU)</label></center><br/></div>
-        <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12">
                 <address>
                     <b>PT EFRATA RETAILINDO</b><br /> Kel. Banaran, Kec. Grogol, Kab. Sukoharjo 57193<br /> Jawa Tengah,
                     Indonesia
                     <br />
                 </address>
             </div>
-            <div class="col-xs-6">
+            <div class="col-xs-12">
                 <div class="row ">
                     <div class="col-xs-3 ">
-                        No Bon
+                        No Packing List
                     </div>
                     <div class="col-xs-9 ">
                         ${data.code}
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-xs-3 ">
+                        Password
+                    </div>
+                    <div class="col-xs-9 ">
+                        ${data.spk.password || ""}
                     </div>
                 </div>
                 <div class="row ">
@@ -89,6 +95,14 @@
                     </div>
                     <div class="col-xs-9 ">
                         ${data._createdDate}
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-xs-3 ">
+                        Kasir
+                    </div>
+                    <div class="col-xs-9 ">
+                        ${data._createdBy}
                     </div>
                 </div>
             </div>
@@ -112,18 +126,55 @@
                         ${data.destination.name}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-3">
-                        Nomor Referensi
-                    </div>
-                    <div class="col-xs-9">
-                        ${data.reference}
-                    </div>
-                </div>
-                <br/>
             </div>
         </div>
-        <div class="table-responsive">
+        <div class="row">
+            <div class="col-xs-12">
+                ====================================================
+            </div>
+        </div>
+        <div class="row" repeat.for="item of data.items">
+            <div class="col-xs-3 ">
+                ${item.item.code}
+            </div>
+            <div class="col-xs-9 ">
+                ${item.item.name}
+            </div>
+            <div class="col-xs-3 ">
+                ${item.quantity} x
+            </div>
+            <div class="col-xs-4 ">
+                    ${item.item.domesticSale}
+            </div>
+            <div class="col-xs-4 ">
+                    ${item.quantity*item.item.domesticSale}
+            </div>
+            <div class="col-xs-12 ">
+                ${item.remark}
+            </div>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                ====================================================
+            </div>
+        </div>
+         <div class="row">
+            <div class="col-xs-3 ">
+                Total Item :
+            </div>
+            <div class="col-xs-9 ">
+                ${totalQuantity}
+            </div>
+            <div class="col-xs-3 ">
+                Grand Total :
+            </div>
+            <div class="col-xs-9 ">
+                ${totalPrice}
+            </div>
+        </div>
+
+        <!--<div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -154,7 +205,7 @@
                     </tr>
                 </tfoot>
             </table>
-        </div>
+        </div>-->
         <div style="page-break-after:always;"></div>
 </div>
 <!-- /.print-wrapper -->
