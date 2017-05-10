@@ -133,7 +133,7 @@
                 ============================================================
             </div>
         </div>
-        <div class="row" repeat.for="item of data.items">
+        <div class="row" style="margin-bottom:10px;" repeat.for="item of data.items">
             <div class="col-xs-4 ">
                 ${item.item.code}
             </div>
@@ -152,7 +152,6 @@
             <div class="col-xs-12 ">
                 ${item.remark}
             </div>
-            <br>
         </div>
         <div class="row">
             <div class="col-xs-12">
@@ -161,13 +160,13 @@
         </div>
          <div class="row">
             <div class="col-xs-4 ">
-                Total Item :
+                Total Item
             </div>
             <div class="col-xs-8 ">
                 ${totalQuantity.toLocaleString()}
             </div>
             <div class="col-xs-4 ">
-                Grand Total :
+                Grand Total
             </div>
             <div class="col-xs-8 ">
                 ${totalPrice.toLocaleString()}
