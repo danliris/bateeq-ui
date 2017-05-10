@@ -184,6 +184,23 @@ div.au-stagger {
   border: 2px #FFF solid;
 }
 
+.struk {
+    /*width: 76mm;*/
+    width: 100% !important; 
+    /*height: 100mm;*/
+    overflow: hidden;
+    font-size:9pt;
+    font-family: "Times New Roman", Times, serif;
+    padding: 25pt;
+    margin: 0;
+    display: block;
+  }
+  
+  
+  .struk table tr td{
+    vertical-align: top;
+  }
+
 /* animation definitions */
 @-webkit-keyframes fadeInRight {
   0% {
