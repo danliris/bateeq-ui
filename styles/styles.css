@@ -184,22 +184,7 @@ div.au-stagger {
   border: 2px #FFF solid;
 }
 
-.struk {
-    /*width: 76mm;*/
-    width: 100% !important; 
-    /*height: 100mm;*/
-    overflow: hidden;
-    font-size:9pt;
-    font-family: "Times New Roman", Times, serif;
-    padding: 25pt;
-    margin: 0;
-    display: block;
-  }
-  
-  
-  .struk table tr td{
-    vertical-align: top;
-  }
+
 
 /* animation definitions */
 @-webkit-keyframes fadeInRight {
@@ -270,14 +255,12 @@ div.au-stagger {
   }
   
   .print-wrapper {
-    /*page-break-after: always;*/
+    page-break-after: always;
     display: block;
     margin-top:.5cm;
-    /*margin-bottom:.5cm;*/
-    position: absolute;
-    left:0;
+    position:absolute;
     top:0;
-    padding:12pt; 
+    left:0;
   }
   
   .print-wrapper:first-of-type {
@@ -363,6 +346,23 @@ div.au-stagger {
 
   .side-nav-bar{
     display: none;
+  }
+
+  .struk {
+    /*width: 76mm;*/
+    width: 100% !important; 
+    /*height: 100mm;*/
+    overflow: hidden;
+    font-size:9pt;
+    font-family: "Times New Roman", Times, serif;
+    padding: 25pt;
+    margin: 0;
+    display: block;
+  }
+  
+  
+  .struk table tr td{
+    vertical-align: top;
   }
 }
 
