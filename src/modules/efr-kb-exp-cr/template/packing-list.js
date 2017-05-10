@@ -29,8 +29,8 @@ export class PackingList {
     }
 
     packingListChangeCallback(e) {
-        if (this.data.code) {
-            var temp = this.data.code;
+        if (this.data.packingList) {
+            var temp = this.data.packingList;
             this.data._id = temp._id;
             this.data.date = temp.date;
             this.data.reference = temp.reference;

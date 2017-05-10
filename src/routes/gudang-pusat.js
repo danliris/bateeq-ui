@@ -30,7 +30,7 @@ module.exports = [
         name: 'efr-tb-bbp',
         moduleId: './modules/efr-tb-bbp-cr/index',
         nav: true,
-        title: 'Pemasukan Barang Jadi',
+        title: 'Pemasukan Barang',
         auth: true,
         settings: {
             group: "gudang pusat",

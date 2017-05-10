@@ -13,7 +13,7 @@ module.exports = [
         name: 'efr-tb-bbt',
         moduleId: './modules/efr-tb-bbt-cr/index',
         nav: true,
-        title: 'Pemasukan Barang Jadi',
+        title: 'Pemasukan Barang',
         auth: true,
         settings: {
             group: "toko",
