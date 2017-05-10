@@ -11,9 +11,9 @@
             <textbox                label="RO"                          value.bind="data.article.realizationOrder"  error.bind="error.ro"                       read-only.bind="readOnly">              </textbox>
         </form>
     </div>
-    <div class="col-md-3">
-        <div>Product Image</div>
-        <img class="img-responsive" src="${data.imagePath ? imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY9Y3rGTwbyc9GoAOyxRClRz7b5GnCnjVsHx_qK_CUXN79yis4'}">
+    <div class="col-md-3 text-center" if.bind="data.imagePath">
+        <div><strong>Gambar Produk<strong></div>
+        <img class="img-responsive" style="margin:auto;" src="${data.imagePath ? imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY9Y3rGTwbyc9GoAOyxRClRz7b5GnCnjVsHx_qK_CUXN79yis4'}">
     </div>
     <div class="clearfix"></div>
 </template>
