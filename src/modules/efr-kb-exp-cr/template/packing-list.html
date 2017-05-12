@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td class="col-md-3">
-            <au-autocomplete value.bind="data.code" error.bind="error.code" loader.bind="packingListLoader" text="code" change.delegate="packingListChangeCallback($event)"
+            <au-autocomplete value.bind="data.packingList" error.bind="error.code" loader.bind="packingListLoader" text="packingList" change.delegate="packingListChangeCallback($event)"
                 read-only.bind="packingListReadOnly || options.readOnly">
             </au-autocomplete>
         </td>

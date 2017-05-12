@@ -12,7 +12,7 @@ module.exports = function (keyword, filter) {
         .then(results => {
             return results.data.map(spk => {
                 spk.toString = function () {
-                    return this.code
+                    return this.packingList
                 }
                 if (spk.items.length > 1) {
                     spk.quantity = spk.items.reduce((prev, curr) => prev.quantity + curr.quantity);
