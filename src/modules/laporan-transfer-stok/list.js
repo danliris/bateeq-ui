@@ -104,28 +104,14 @@ export class List {
                             for (var rtt of this.data.results) {
                                 for (var item of rtt.items) {
                                     var spk = spkDocuments[index][0];
-                                    if (spk.isReceived == false && this.data.filter.status == "Belum Diterima") {
-                                        Object.assign(item, { "packingList": spk.packingList });
-                                        Object.assign(item, { "status": spk.isReceived ? "Sudah Diterima" : "Belum Diterima" });
-                                        this.rttFilter.push(rtt);
-                                    }
-                                    else if (spk.isReceived == true && this.data.filter.status == "Sudah Diterima") {
-                                        Object.assign(item, { "packingList": spk.packingList });
-                                        Object.assign(item, { "status": spk.isReceived ? "Sudah Diterima" : "Belum Diterima" });
-                                        this.rttFilter.push(rtt);
-                                    } else if (this.data.filter.status == "Semua") {
-                                        Object.assign(item, { "packingList": spk.packingList });
-                                        Object.assign(item, { "status": spk.isReceived ? "Sudah Diterima" : "Belum Diterima" });
-                                        this.rttFilter.push(rtt);
-                                    }
+                                    Object.assign(item, { "packingList": spk.packingList });
+                                    Object.assign(item, { "status": spk.isReceived ? "Sudah Diterima" : "Belum Diterima" });
                                     index++;
                                 }
                             }
-
                             this.generateReportHTML();
                         });
                 })
-
         }
     }
 
@@ -154,64 +140,46 @@ export class List {
         this.reportHTML += "            </tr>";
         this.reportHTML += "        </thead>";
         this.reportHTML += "        <tbody>";
-        for (var data of this.rttFilter) {
+        for (var data of this.data.results) {
             var isTanggalRowSpan = false;
+            var tanggalrowspan = 0;
             for (var item of data.items) {
                 var isItemRowSpan = false;
-
                 for (var itemDetail of item.details) {
                     var filter = true;
-                    this.reportHTML += "        <tr>";
-                    if (!isTanggalRowSpan) {
-                        this.reportHTML += "        <td width='300px' rowspan='" + data.tanggalRowSpan + "'>" + data.tanggal.getDate() + " " + months[data.tanggal.getMonth()] + " " + data.tanggal.getFullYear() + "</td>";
-                    }
-                    if (!isItemRowSpan) {
-                        this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.nomorTransferStok + "</td>";
-                        this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.packingList + "</td>";
-                        this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.status + "</td>";
-                        this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.source.code + "-" + item.source.name + "</td>";
-                        this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.fg.code + " -" + item.fg.name + "</td>";
-                        this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.destination.code + "-" + item.destination.name + "</td>";
-                    }
+                    if (this.data.filter.status == "Semua" || item.status == this.data.filter.status) {
+                        tanggalrowspan++;
+                        this.reportHTML += "        <tr>";
+                        if (!isTanggalRowSpan) {
+                            this.reportHTML += "        <td width='300px' rowspan='" + moment(data.tanggal).format() + "'>" + data.tanggal.getDate() + " " + months[data.tanggal.getMonth()] + " " + data.tanggal.getFullYear() + "</td>";
+                        }
+                        if (!isItemRowSpan) {
+                            this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.nomorTransferStok + "</td>";
+                            this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.packingList + "</td>";
+                            this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.status + "</td>";
+                            this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.source.code + "-" + item.source.name + "</td>";
+                            this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.fg.code + " -" + item.fg.name + "</td>";
+                            this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.destination.code + "-" + item.destination.name + "</td>";
+                        }
 
-                    this.reportHTML += "            <td>" + itemDetail.barcode + "</td>";
-                    this.reportHTML += "            <td>" + itemDetail.namaProduk + "</td>";
-                    this.reportHTML += "            <td>" + (itemDetail.quantity).toLocaleString() + "</td>";
-                    this.reportHTML += "            <td>" + (itemDetail.price).toLocaleString() + "</td>";
-                    if (!isItemRowSpan) {
-                        this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + (item.totalQty).toLocaleString() + "</td>";
-                        this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + (item.totalPrice).toLocaleString() + "</td>";
+                        this.reportHTML += "            <td>" + itemDetail.barcode + "</td>";
+                        this.reportHTML += "            <td>" + itemDetail.namaProduk + "</td>";
+                        this.reportHTML += "            <td>" + (itemDetail.quantity).toLocaleString() + "</td>";
+                        this.reportHTML += "            <td>" + (itemDetail.price).toLocaleString() + "</td>";
+                        if (!isItemRowSpan) {
+                            this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + (item.totalQty).toLocaleString() + "</td>";
+                            this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + (item.totalPrice).toLocaleString() + "</td>";
+                        }
+                        this.reportHTML += "        </tr>";
+                        isTanggalRowSpan = true;
+                        isItemRowSpan = true;
                     }
-                    this.reportHTML += "        </tr>";
-                    isTanggalRowSpan = true;
-                    isItemRowSpan = true;
                 }
             }
+            this.reportHTML = this.reportHTML.replace(moment(data.tanggal).format(), tanggalrowspan);
         }
         this.reportHTML += "        </tbody>";
         this.reportHTML += "    </table>";
     }
 
-
-    AddPackingListAndStatus() {
-        debugger
-        for (var rtt of this.data.results) {
-            for (var item of rtt.items) {
-                this.service.getSPKByReference(item.nomorTransferStok)
-                    .then(spkDoc => {
-                        if (spkDoc[0].isReceived == false && this.data.filter.status == "Belum Diterima") {
-                            Object.assign(item, { "packingList": spkDoc[0].packingList });
-                            Object.assign(item, { "status": spkDoc[0].isReceived ? "Sudah Diterima" : "Belum Diterima" });
-                        }
-                        else if (spkDoc[0].isReceived == true && this.data.filter.status == "Sudah Diterima") {
-                            Object.assign(item, { "packingList": spkDoc[0].packingList });
-                            Object.assign(item, { "status": spkDoc[0].isReceived ? "Sudah Diterima" : "Belum Diterima" });
-                        } else if (this.data.filter.status == "Semua") {
-                            Object.assign(item, { "packingList": spkDoc[0].packingList });
-                            Object.assign(item, { "status": spkDoc[0].isReceived ? "Sudah Diterima" : "Belum Diterima" });
-                        }
-                    })
-            }
-        } 
-    }
 }
