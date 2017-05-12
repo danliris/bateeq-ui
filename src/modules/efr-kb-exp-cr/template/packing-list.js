@@ -50,7 +50,7 @@ export class PackingList {
 
             var stock = [];
             for (var item of this.data.items) {
-                item.quantitySend = 0;
+                item.sendQuantity = 0;
                 stock.push(this.service.getStock(this.data.sourceId, item.itemId));
             }
             if (stock.length > 0) {
