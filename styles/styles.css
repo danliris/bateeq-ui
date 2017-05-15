@@ -414,9 +414,9 @@ h3 {
     color: #2a2a2a;
     text-transform: uppercase;
 }
-/*
 
-.report-table {
+
+.report-table.minimized {
   -webkit-transition: opacity 0.3s ease; 
   -moz-transition: opacity 0.3s ease; 
   -ms-transition: opacity 0.3s ease; 
@@ -430,7 +430,7 @@ h3 {
 .report-table.maximized{
   height:auto;
   opacity:1;
-}*/
+}
 
 .report-table thead tr{
   background-color: #000000;
@@ -438,7 +438,7 @@ h3 {
 }
 
 .report-table tbody tr:hover td{
-  cursor: pointer;
+  /*cursor: pointer;*/
   background-color:#d4e9f1;
 }
 

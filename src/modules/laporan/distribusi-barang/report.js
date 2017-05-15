@@ -67,6 +67,19 @@ export class Report {
         return StorageLoader;
     }
 
+    excel() {
+        this.dateFrom = moment(this.dateFrom).startOf('day');
+        this.dateTo = moment(this.dateTo).endOf('day');
+        var filter = {
+            dateFrom: this.dateFrom.format(),
+            dateTo: this.dateTo.format(),
+            transaction: this.transactionType.id || 0,
+            packingListStatus: this.packingListStatus.id || 0,
+            storageId: this.storage._id || ''
+        }
+        this.service.generateExcel(filter);
+    }
+
     showReport() {
         console.log(`From : ${this.dateFrom}`);
         console.log(`To : ${this.dateTo}`);
@@ -104,7 +117,7 @@ export class Report {
                         destination: packinglist.destination,
                         packingList: packinglist.packingList,
                         transaction: (packinglist.packingList.indexOf("EFR-KB/PLB") != -1 ? 0 : 1),
-                        transactionName : (packinglist.packingList.indexOf("EFR-KB/PLB") != -1 ? "Pengiriman Barang Baru" : "Pengiriman Barang Retur"),
+                        transactionName: (packinglist.packingList.indexOf("EFR-KB/PLB") != -1 ? "Pengiriman Barang Baru" : "Pengiriman Barang Retur"),
                         status: (packinglist.isReceived ? 1 : 0),
                         statusName: (packinglist.isReceived ? "Sudah Diterima" : "Belum Diterima"),
                         sendQuantity: sendQuantity,
