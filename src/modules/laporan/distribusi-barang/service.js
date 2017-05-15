@@ -17,4 +17,10 @@ export class Service extends RestService {
         console.log(uri);
         return super.get(uri);
     }
+
+    generateExcel(info) {
+        var uri = `${reportUri}/export/${info.storageId}/${info.dateFrom}/${info.dateTo}/${info.transaction}/${info.packingListStatus}`;
+        console.log(uri);
+        return super.getXls(uri);
+    }
 }
