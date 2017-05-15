@@ -1,0 +1,47 @@
+<template>
+    <h3>Kirim Barang Ke Unit</h3>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="input-group">
+                <input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+       <thead>
+            <tr>
+                <th>Nomor Dokumen</th>
+                <th>Nomor Referensi</th>
+                <th>Sumber Penyimpanan</th>
+                <th>Tujuan Penyimpanan</th>
+                <th>Password</th>
+                <th>Status</th>  
+                <th>Tanggal</th>
+                <th>Dibuat Oleh</th>  
+            </tr> 
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.code}</td>
+                <td>${item.reference}</td> 
+                <td>${item.source.code} - ${item.source.name}</td>
+                <td>${item.destination.code} - ${item.destination.name}</td>
+                <td>${item.spk.password || ""}</td>
+                <td>${item.spk.isReceived ?  "Sudah Diterima" : "Belum Diterima"}</td>
+                <td>${(item._createdDate).substring(0, 10)}</td>
+                <td>${item._createdBy}</td> 
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+        Tidak ada data.
+    </div>
+    <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
+    <hr/>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary" click.delegate="create()">Buat</button>
+    </div>
+</template>
