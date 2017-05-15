@@ -53,8 +53,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="item of store.items" click.delegate="__productCallback($this.item)">
-            <!--<tr repeat.for="item of store.items">-->
+            <!--<tr repeat.for="item of store.items" click.delegate="__productCallback($this.item)">-->
+            <tr repeat.for="item of store.items">
                 <td>${item.item.name}</td>
                 <td>${item.item.colorDoc.name || "No Color"}</td>
                 <td>${item.item.size}</td>
