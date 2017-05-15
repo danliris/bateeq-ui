@@ -62,6 +62,18 @@ module.exports = [
             permission: { "GDG.01": 1, "GDG.02": 1, "GDG.03": 1, "GDG.04": 1, "GDG.05": 1 },
             iconClass: 'fa fa-bank'
         }
+    },
+    {
+        route: 'efr-kb-rtu',
+        name: 'efr-kb-rtu',
+        moduleId: './modules/efr-kb-rtu-cr/index',
+        nav: true,
+        title: 'Return Ke Unit',
+        auth: true,
+        settings: {
+            group: "gudang pusat",
+            permission: { "GDG.01": 1, "GDG.02": 1, "GDG.03": 1, "GDG.04": 1, "GDG.05": 1 },
+            iconClass: 'fa fa-bank'
+        }
     }
-
 ]
