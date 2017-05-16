@@ -164,8 +164,8 @@ export class List {
 
                         this.reportHTML += "            <td>" + itemDetail.barcode + "</td>";
                         this.reportHTML += "            <td>" + itemDetail.namaProduk + "</td>";
-                        this.reportHTML += "            <td>" + (itemDetail.quantity).toLocaleString() + "</td>";
-                        this.reportHTML += "            <td>" + (itemDetail.price).toLocaleString() + "</td>";
+                        this.reportHTML += "            <td>" + (parseInt(itemDetail.quantity)).toLocaleString() + "</td>";
+                        this.reportHTML += "            <td>" + (parseInt(itemDetail.price)).toLocaleString() + "</td>";
                         if (!isItemRowSpan) {
                             this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + (item.totalQty).toLocaleString() + "</td>";
                             this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + (item.totalPrice).toLocaleString() + "</td>";

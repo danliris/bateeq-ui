@@ -35,7 +35,8 @@ export class View {
     }
 
     print() {
-        window.print();
+        console.log(this.data._id);
+        this.service.getPdfById(this.data._id);
     }
 
     exportToExcel() {
