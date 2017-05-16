@@ -68,7 +68,7 @@ module.exports = [
         name: 'efr-kb-rtu',
         moduleId: './modules/efr-kb-rtu-cr/index',
         nav: true,
-        title: 'Return Ke Unit',
+        title: 'Retur Barang Ke Unit',
         auth: true,
         settings: {
             group: "gudang pusat",
