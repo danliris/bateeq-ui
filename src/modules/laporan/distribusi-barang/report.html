@@ -5,7 +5,7 @@
         <div class="form-group">
             <label class="col-sm-3 text-right control-label">Transaksi</label>
             <div class="col-sm-9 radio">
-                <label repeat.for="option of transactionTypeOptions">
+                <label style="margin-right:10px;" repeat.for="option of transactionTypeOptions">
                     <input type="radio" name="transactionType" model.bind="option" checked.bind="transactionType"/> ${option.text}
                 </label>
             </div>
@@ -15,7 +15,7 @@
         <div class="form-group">
             <label class="col-sm-3 text-right control-label">Status Packing List</label>
             <div class="col-sm-9 radio">
-                <label repeat.for="option of packingListStatusOptions">
+                <label style="margin-right:10px;" repeat.for="option of packingListStatusOptions">
                     <input type="radio" name="packingListStatus" model.bind="option" checked.bind="packingListStatus"/> ${option.text}
                 </label>
             </div>
