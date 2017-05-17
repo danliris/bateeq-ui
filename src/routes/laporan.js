@@ -38,5 +38,20 @@ module.exports = [
             },
             iconClass: 'fa fa-table'
         }
+    },
+    {
+        route: 'laporanPackingList',
+        name: 'laporanPackingList',
+        moduleId: './modules/laporan/packing-list/index',
+        nav: true,
+        title: 'Laporan Packing List',
+        auth: true,
+        settings: {
+            group: "laporan",
+            permission: {
+                "GDG.01": 1, "GDG.02": 1, "GDG.03": 1, "GDG.04": 1, "GDG.05": 1, "FA.01": 1, "FA.02": 1
+            },
+            iconClass: 'fa fa-table'
+        }
     }
 ]
