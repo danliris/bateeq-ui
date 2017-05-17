@@ -41,7 +41,7 @@ module.exports = [
         name: 'daily-product-sales-store',
         moduleId: './modules/daily-product-sales-store/index',
         nav: true,
-        title: 'Laporan Produk Harian (Per Toko)',
+        title: 'Produk Harian (Per Toko)',
         auth: true,
         settings: {
             group: "dashboard",
@@ -53,7 +53,7 @@ module.exports = [
         name: 'daily-product-sales-product',
         moduleId: './modules/daily-product-sales-product/index',
         nav: true,
-        title: 'Laporan Produk Harian (Per Product)',
+        title: 'Produk Harian (Per Produk)',
         auth: true,
         settings: {
             group: "dashboard",
