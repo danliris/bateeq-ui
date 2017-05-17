@@ -29,8 +29,8 @@ export class PackingList {
     }
 
     packingListChangeCallback(e) {
-        if (this.data.code) {
-            var temp = this.data.code;
+        if (this.data.packingList) {
+            var temp = this.data.packingList;
             this.data._id = temp._id;
             this.data.date = temp.date;
             this.data.reference = temp.reference;
@@ -50,7 +50,7 @@ export class PackingList {
 
             var stock = [];
             for (var item of this.data.items) {
-                item.quantitySend = 0;
+                item.sendQuantity = 0;
                 stock.push(this.service.getStock(this.data.sourceId, item.itemId));
             }
             if (stock.length > 0) {

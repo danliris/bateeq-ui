@@ -4,22 +4,19 @@ import { RestService } from '../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'docs/efr-kb-rtt'; 
+const serviceUri = 'docs/efr-pk-pbj';
+const servicePrintUri = 'docs/print/efr-pk-pbj';
 
 export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "inventory");
+    super(http, aggregator, config, "merchandiser");
   }
 
-  search(keyword) {
-    return super.get(serviceUri);
+  search(info) {
+    var endpoint = `${serviceUri}/NotReceived`;
+    return super.list(endpoint, info);
   }
-
-  // search(info) {
-  //   var endpoint = `${serviceUri}`;
-  //   return super.list(endpoint, info);
-  // }
 
   getById(id) {
     var endpoint = `${serviceUri}/${id}`;
@@ -31,9 +28,14 @@ export class Service extends RestService {
     return super.post(endpoint, data);
   }
 
+  createDraft(data) {
+    var endpoint = `${serviceUri}/drafted`;
+    return super.post(endpoint, data);
+  }
+
   getModuleConfig() {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("master").client.baseUrl + 'modules?keyword=EFR-KB/RTT';
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'modules?keyword=EFR-PK/PLB';
     return super.get(endpoint);
   }
 
@@ -43,10 +45,14 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getSPKByReference(codeRTT) {
-    var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("merchandiser").client.baseUrl + 'docs/efr-pk/pending?reference=' + codeRTT;
-    return super.get(endpoint);
+  update(data) {
+    var endpoint = `${serviceUri}/${data._id}`;
+    return super.put(endpoint, data);
+  }
+
+  updateDraft(data) {
+    var endpoint = `${serviceUri}/draft/${data._id}`;
+    return super.put(endpoint, data);
   }
 
   getByCode(code) {
@@ -55,9 +61,20 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  delete(data) {
+    var endpoint = `${serviceUri}/draft/${data._id}`;
+    return super.delete(endpoint, data);
+  }
+
   getDataInventory(storageId, itemId) {
-    var endpoint = 'storages/' + storageId + '/inventories/' + itemId;
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId + '/inventories/' + itemId;
     return super.get(endpoint);
+  }
+
+  getPdfById(id) {
+    var endpoint = `${servicePrintUri}/${id}`;
+    return super.getPdf(endpoint);
   }
 
 }

@@ -1,8 +1,10 @@
 <template>
     <form class="form-horizontal">
-        <textbox label="Nomor Referensi" value.bind="data.reference" error.bind="error.reference" read-only.bind="readOnly" aria-placeholder="Packing List SPK"></textbox>
-        <dropdown label="Sumber Penyimpanan" value.bind="data.source" items.bind="sources"></dropdown>
-        <dropdown label="Tujuan Penyimpanan" value.bind="data.destination" items.bind="destinations"></dropdown>
+        <au-textbox label="Nomor Referensi" value.bind="data.reference" error.bind="error.reference" read-only.bind="readOnly" aria-placeholder="Packing List SPK"></au-textbox>
+        <au-dropdown label="Sumber Penyimpanan" value.bind="data.source" items.bind="sources"></au-dropdown>
+        <au-dropdown label="Tujuan Penyimpanan" value.bind="data.destination" items.bind="destinations"></au-dropdown>
+        <au-dropdown value.bind="data.expedition" label="Expedisi" error.bind="error.expedition" items.bind="expeditionServices"
+            key="code" text="name" read-only.bind="readOnly"></au-dropdown>
         <p class="col-md-1">Barcode</p>
         <input type="text" focus.bind="hasFocus" value.bind="barcode" class="col-md-3" aria-placeholder="Barcode" input.delegate="barcodeChoose($event)"></input>
         <finishedgoods-auto-suggest label="Nama Barang" value.bind="item" class="col-md-5" read-only.bind="readOnly" change.delegate="nameChoose($event)"></finishedgoods-auto-suggest>

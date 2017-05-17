@@ -1,5 +1,5 @@
 <template>
-    <h3>Transfer Stok</h3>
+    <h3>Packing List</h3>
     <div class="row">
         <div class="col-sm-8">
             <div class="input-group">
@@ -22,17 +22,21 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data" click.delegate="view(item)">
-                <td>${item.code}</td>
+                <td>${item.packingList}</td>
                 <td>${item.source.code} - ${item.source.name}</td>
                 <td>${item.destination.code} - ${item.destination.name}</td>
                 <th>${item.date}</th>
-                <td>${item.isDraft}</td>
+                <td>
+                    <div if.bind="item.isDraft==true">Draft</div>
+                    <div if.bind="item.isDraft==false">Tersimpan</div>
+                </td>
             </tr>
         </tbody>
     </table>
     <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
         Tidak ada data.
     </div>
+    <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
     <hr/>
     <div class="btn-group pull-right">
         <button class="btn btn-primary" click.delegate="create()">Buat</button>

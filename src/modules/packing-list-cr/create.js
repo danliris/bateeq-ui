@@ -31,4 +31,15 @@ export class Create {
                 this.error = e;
             })
     }
+    saveDraft() {
+        this.data.destinationId = this.data.destination._id;
+        this.data.sourceId = this.data.source._id;
+        this.service.createDraft(this.data)
+            .then(result => {
+                this.list();
+            })
+            .catch(e => {
+                this.error = e;
+            })
+    }
 }

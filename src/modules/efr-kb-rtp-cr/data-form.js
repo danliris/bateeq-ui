@@ -162,7 +162,6 @@ export class DataForm {
     }
 
     makeTotal(items) {
-        debugger
         this.sumTotalQty = 0;
         this.sumPrice = 0;
         if (Object.getOwnPropertyNames(items).length > 0) {
@@ -210,6 +209,9 @@ export class DataForm {
             }
             return destination;
         })
+        this.service.getExpeditionServices().then(result => {
+                this.expeditionServices = result;
+            })
     }
 
     search() {

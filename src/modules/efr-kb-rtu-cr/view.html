@@ -1,0 +1,177 @@
+<template>
+    <div class="display-wrapper">
+        <h3>View</h3>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="code" class="col-sm-2 control-label">Nomor Dokumen</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">${data.code}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="reference" class="col-sm-2 control-label">Nomor Referensi</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">${data.reference}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sourceName" class="col-sm-2 control-label">Sumber Penyimpanan</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">${data.source.code} - ${data.source.name}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="destinationName" class="col-sm-2 control-label">Tujuan Penyimpanan</label>
+                <div class="col-sm-10">
+                    <p class="form-control-static">${data.destination.code} - ${data.destination.name}</p>
+                </div>
+            </div>
+        </form>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Barcode</th>
+                    <th>Nama</th>
+                    <th>Kuantitas Pengiriman</th>
+                    <th>Harga</th>
+                    <th>Catatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr repeat.for="item of data.items">
+                    <td>${$index+1}</td>
+                    <td>${item.item.code } </td>
+                    <td>${item.item.name } </td>
+                    <td>${item.quantity}</td>
+                    <td>
+                        <numeric label="" read-only.bind="true" value.bind="item.item.domesticSale*item.quantity" class="col-md-1"></numeric>
+                    </td>
+                    <td>${item.remark}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-info text-center" role="alert" if.bind="data.subCounters.length == 0">
+            Tidak ada data.
+        </div>
+        <hr/>
+        <div class="btn-group pull-right">
+            <a click.delegate="exportToExcel()" class='btn btn-primary btn-sm'>Export</a>
+            <a click.delegate="print()" class='btn btn-success btn-sm'>Print</a>
+            <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
+        </div>
+    </div>
+
+    <!--<div class="print-wrapper struk">
+        <div class="row">
+            <div class="col-xs-12">
+                <address>
+                    <b>PT EFRATA RETAILINDO</b><br /> Kel. Banaran, Kec. Grogol, Kab. Sukoharjo 57193<br /> Jawa Tengah,
+                    Indonesia
+                    <br /> RETUR BARANG
+                    <br />
+                </address>
+            </div>
+            <div class="col-xs-12">
+                <div class="row ">
+                    <div class="col-xs-4 ">
+                        Packing List
+                    </div>
+                    <div class="col-xs-8 ">
+                        ${data.spk.packingList || ""}
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-xs-4 ">
+                        Password
+                    </div>
+                    <div class="col-xs-8 ">
+                        ${data.spk.password || ""}
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-xs-4">
+                        Tanggal
+                    </div>
+                    <div class="col-xs-8 ">
+                        ${data._createdDate}
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-xs-4 ">
+                        Kasir
+                    </div>
+                    <div class="col-xs-8 ">
+                        ${data._createdBy}
+                    </div>
+                </div>
+            </div>
+            <br/>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-4">
+                        Dari
+                    </div>
+                    <div class="col-xs-8">
+                        ${data.source.name}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        Tujuan
+                    </div>
+                    <div class="col-xs-8">
+                        ${data.destination.name}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                ============================================================
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:10px;" repeat.for="item of data.items">
+<div class="col-xs-4 ">
+    ${item.item.code}
+</div>
+<div class="col-xs-8 ">
+    ${item.item.name}
+</div>
+<div class="col-xs-4 ">
+    ${item.quantity} x
+</div>
+<div class="col-xs-4 ">
+    ${(1 * item.item.domesticSale.toLocaleString()).toLocaleString()}
+</div>
+<div class="col-xs-4 ">
+    ${(item.quantity*item.item.domesticSale).toLocaleString()}
+</div>
+<div class="col-xs-12 ">
+    ${item.remark}
+</div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        ============================================================
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4 ">
+        Total Item
+    </div>
+    <div class="col-xs-8 ">
+        ${totalQuantity.toLocaleString()}
+    </div>
+    <div class="col-xs-4 ">
+        Total
+    </div>
+    <div class="col-xs-8 ">
+        ${totalPrice.toLocaleString()}
+    </div>
+</div>
+<div style="page-break-after:always;"></div>
+</div>-->
+</template>

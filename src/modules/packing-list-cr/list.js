@@ -16,20 +16,7 @@ export class List {
     async activate() {
         this.info.keyword = '';
         var result = await this.service.search(this.info);
-        var spk;
-        var dataTemp = [];
-        for (var i = 0; i < result.length; i++) {
-            spk = [];
-            var newItem = {};
-
-            newItem = result[i];
-            newItem.password = '';
-            spk = await this.service.getSPKByReference(result[i].code);
-            if (spk != undefined && spk.length > 0) {
-                newItem.password = spk[0].password;
-            }
-            this.data.push(newItem);
-        }
+        this.data = result.data;
         this.info = result.info;
     }
 
