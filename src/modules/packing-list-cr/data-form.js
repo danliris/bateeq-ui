@@ -70,7 +70,7 @@ export class DataForm {
                 return this.name;
             }
             return source;
-        })
+        }) 
         this.destinations = this.destinations.map(destination => {
             destination.toString = function () {
                 return this.name;
@@ -183,10 +183,7 @@ export class DataForm {
                 this.sumTotalQty = this.sumTotalQty + parseInt(items[i].quantity);
                 this.sumPrice += items[i].price;
             }
-        }
-
-        console.log(this.sumTotalQty + "" + this.sumPrice);
-
+        } 
     }
 
     addItem() {
@@ -214,13 +211,31 @@ export class DataForm {
 
     sourceChange(e) {
         var sourceName = e.srcElement.value;
-        this.service.getSource(sourceName)
+        var nama = sourceName.split("(");
+        this.service.getSource(nama[0])
             .then(storage => {
                 this.data.source._id = storage[0]._id;
                 this.data.source = storage[0];
                 this.data.items = [];
                 this.sumTotalQty = 0;
                 this.sumPrice = 0;
+                var sourcesTemp = this.sources;
+                this.sources = [];
+                var index = 0;
+                for (var source of sourcesTemp) {
+                    if (source.name === storage[0].name) {
+                        this.sources.splice(0, 0, source);
+                    } else {
+                        index = index + 1;
+                        this.sources.splice(index, 0, source);
+                    }
+                }
+                this.sources = this.sources.map(source => {
+                    source.toString = function () {
+                        return this.name;
+                    }
+                    return source;
+                })
             })
     }
 }
