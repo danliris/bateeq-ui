@@ -20,8 +20,8 @@ export class DataForm {
         this.service = service;
     }
     sumTotalQty;
-    sumPrice; 
-    
+    sumPrice;
+
     getStorage(config) {
         return new Promise((resolve, reject) => {
             var getStorages = [];
@@ -60,7 +60,6 @@ export class DataForm {
             this.sumTotalQty = 0;
             this.sumPrice = 0;
         }
-
         var storages = await this.service.getModuleConfig();
         var result = await this.getStorage(storages[0].config);
 
@@ -177,7 +176,6 @@ export class DataForm {
     }
 
     makeTotal(items) {
-        debugger
         this.sumTotalQty = 0;
         this.sumPrice = 0;
         if (Object.getOwnPropertyNames(items).length > 0) {
@@ -213,10 +211,18 @@ export class DataForm {
         });
     }
 
-    // selectionSource() {
-    //     this.inventoryApiUri = require('../../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
-    //     this.data.items = [];
-    // }
+
+    sourceChange(e) {
+        var sourceName = e.srcElement.value;
+        this.service.getSource(sourceName)
+            .then(storage => {
+                this.data.source._id = storage[0]._id;
+                this.data.source = storage[0];
+                this.data.items = [];
+                this.sumTotalQty = 0;
+                this.sumPrice = 0;
+            })
+    }
 }
 
 
