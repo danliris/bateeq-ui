@@ -16,7 +16,7 @@ module.exports = [
         name: 'bank',
         moduleId: './modules/bank/index',
         nav: true,
-        title: 'Master Bank',
+        title: 'Bank',
         auth: true,
         settings: {
             group: "merchandiser",
