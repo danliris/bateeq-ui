@@ -75,4 +75,10 @@ export class Service extends RestService {
       super.get(endpoint).then(result => resolve(result));
     });
   }
+
+  getSource(name) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'storages?keyword=' + name;
+    return super.get(endpoint);
+  }
 }

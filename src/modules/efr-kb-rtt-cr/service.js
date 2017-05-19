@@ -11,7 +11,7 @@ export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
     super(http, aggregator, config, "inventory");
-  } 
+  }
 
   search(info) {
     var endpoint = `${serviceUri}`;
@@ -54,6 +54,12 @@ export class Service extends RestService {
 
   getDataInventory(storageId, itemId) {
     var endpoint = 'storages/' + storageId + '/inventories/' + itemId;
+    return super.get(endpoint);
+  }
+
+  getSource(name) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'storages?keyword=' + name;
     return super.get(endpoint);
   }
 
