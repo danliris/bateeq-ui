@@ -56,7 +56,7 @@
                         </td>
                         <td if.bind="!isDetail">
                             <div class="form-group ${error.items[$index].quantityStock?'has-error':''}">
-                                <au-numeric label="" format="0" value.bind="item.quantityStock" read-only.bind="options.readOnly"></au-class>
+                                <au-numeric label="" format="0" value.bind="item.quantityStock" read-only.bind="true"></au-class>
                                 <span class="help-block">${error.items[$index].quantityStock}</span>
                             </div>
                         </td>
