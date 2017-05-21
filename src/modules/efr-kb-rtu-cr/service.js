@@ -6,6 +6,7 @@ import { Config } from "aurelia-api"
 
 const serviceUri = 'docs/efr-kb-rtu';
 const serviceSearch = 'docs/efr-pk-pbj/submitted';
+const servicePrintUri = 'docs/print/efr-kb-rtu';
 
 export class Service extends RestService {
 
@@ -74,5 +75,10 @@ export class Service extends RestService {
       var endpoint = config.getEndpoint("master").client.baseUrl + 'expedition-service-routers/all';
       super.get(endpoint).then(result => resolve(result));
     });
+  }
+
+  getPdfById(id) {
+    var endpoint = `${servicePrintUri}/${id}`;
+    return super.getPdf(endpoint);
   }
 }
