@@ -81,4 +81,10 @@ export class Service extends RestService {
     var endpoint = `${servicePrintUri}/${id}`;
     return super.getPdf(endpoint);
   }
+
+  getSource(name) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'storages?keyword=' + name;
+    return super.get(endpoint);
+  }
 }
