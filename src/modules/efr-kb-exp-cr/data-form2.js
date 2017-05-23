@@ -1,6 +1,6 @@
-import {inject, bindable, BindingEngine} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, bindable, BindingEngine } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 @inject(Router, Service, BindingEngine)
 export class DataForm {
@@ -45,10 +45,7 @@ export class DataForm {
                 var spk = this.data.spkDocuments[splices[0].index];
                 this.bindingEngine.propertyObserver(spk, "spkDocumentId").subscribe((newValue, oldValue) => {
                     spk.quantity = 0;
-                    for (var item of spk.spkDocument.items) {
-                        spk.quantity = spk.quantity + parseInt(item.quantity);
-                        item.quantitySend = 0;
-                    }
+                    spk.quantity = spk.items.reduce((sum, curr) => sum + parseInt(curr.quantity), 0);
                 });
             });
     }
