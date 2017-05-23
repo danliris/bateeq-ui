@@ -104,13 +104,10 @@ export class Report {
                 var details = item.spkDocuments.map(packinglist => {
                     var sendQuantity = 0;
                     var price = 0;
-                    if (packinglist.items.length > 1) {
-                        sendQuantity = packinglist.items.reduce((prev, curr) => parseInt(prev.sendQuantity || 0) + parseInt(curr.sendQuantity || 0));
-                        price = packinglist.items.reduce((prev, curr) => parseInt(prev.item.domesticCOGS) + parseInt(curr.item.domesticCOGS));
-                    } else {
-                        sendQuantity = parseInt(packinglist.items[0].sendQuantity || 0);
-                        price = parseInt(packinglist.items[0].item.domesticCOGS);
-                    }
+
+                    sendQuantity = packinglist.items.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.sendQuantity || 0), 0);
+                    price = packinglist.items.reduce((sum, curr) => parseInt(sum) + parseInt(curr.item.domesticCOGS), 0);
+
                     return {
                         date: moment(item.date).format("DD-MM-YYYY"),
                         source: packinglist.source,
