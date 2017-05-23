@@ -126,7 +126,6 @@ export class DataForm {
                 this.item = null;
             }
         }
-
     }
 
     async qtyChange(code, qty) {
@@ -191,5 +190,35 @@ export class DataForm {
     }
 
     search() {
+    }
+
+    sourceChange(e) {
+        var sourceName = e.srcElement.value;
+        var nama = sourceName.split("(");
+        this.service.getSource(nama[0])
+            .then(storage => {
+                this.data.source._id = storage[0]._id;
+                this.data.source = storage[0];
+                this.data.items = [];
+                this.sumTotalQty = 0;
+                this.sumPrice = 0;
+                var sourcesTemp = this.sources;
+                this.sources = [];
+                var index = 0;
+                for (var source of sourcesTemp) {
+                    if (source.name === storage[0].name) {
+                        this.sources.splice(0, 0, source);
+                    } else {
+                        index = index + 1;
+                        this.sources.splice(index, 0, source);
+                    }
+                }
+                this.sources = this.sources.map(source => {
+                    source.toString = function () {
+                        return this.name;
+                    }
+                    return source;
+                })
+            })
     }
 }
