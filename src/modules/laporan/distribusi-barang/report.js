@@ -106,7 +106,7 @@ export class Report {
                     var price = 0;
 
                     sendQuantity = packinglist.items.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.sendQuantity || 0), 0);
-                    price = packinglist.items.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.item.domesticCOGS), 0);
+                    price = packinglist.items.reduce((sum, curr) => parseInt(sum) + parseInt(curr.item.domesticCOGS), 0);
 
                     return {
                         date: moment(item.date).format("DD-MM-YYYY"),

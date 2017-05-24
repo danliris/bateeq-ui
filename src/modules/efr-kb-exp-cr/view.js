@@ -37,7 +37,11 @@ export class View {
             spk.toString = function () {
                 return this.code
             }
-            spk.quantity = spk.items.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.quantity || 0), 0);
+            if (spk.items.length > 1) {
+                spk.quantity = spk.items.reduce((prev, curr) => parseInt(prev.quantity) + parseInt(curr.quantity));
+            } else {
+                spk.quantity = parseInt(spk.items[0].quantity);
+            }
             return spk;
         })
 
