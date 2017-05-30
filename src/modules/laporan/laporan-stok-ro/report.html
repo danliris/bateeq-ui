@@ -1,0 +1,35 @@
+<template>
+    <style>
+        .nameBackground {
+            border: none !important;
+            background-color: #eee;
+            text-align: right;
+        }
+
+        table {
+            border: none !important;
+        }
+    </style>
+
+    <au-input-form>
+        <div class="row">
+            <div class="col-md-4">
+                <au-textbox label="RO" placeholder="KODE REALISASI ORDER" value.bind="code" error.bind="error" read-only.bind="readOnlyCode"></au-textbox>
+            </div>
+        </div>
+        <div class="col-sm-12 form-group">
+            <button click.delegate="exportToExcel()" class="btn btn-success btn-sm pull-right">Cetak Excel</button> &nbsp;
+            <button style="margin-right:10px;" click.delegate="showReport()" class="btn btn-success btn-sm pull-right">Tampilkan</button>
+        </div>
+    </au-input-form>
+    <!--<div class="col-sm-12">
+        <div class="pre-scrollable" innerHTML.bind="reportHTML | sanitizeHTML"></div>
+    </div>-->
+
+    <au-table 
+        view-model.ref="models"
+        options.bind="options"
+        data.bind="data"
+        if.bind="visibleTable">
+
+</template>
