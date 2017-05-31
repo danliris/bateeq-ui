@@ -17,4 +17,9 @@ export class Service extends RestService {
         var endpoint = config.getEndpoint("inventory").client.baseUrl + uriServices + "/" + codeRO;
         return super.get(endpoint);
     }
+
+    generateXls(codeRO) {
+        var endpoint = config.getEndpoint("inventory").client.baseUrl + uriServices + "/" + codeRO + "/xls";
+        return super.getXls(endpoint);
+    }
 }

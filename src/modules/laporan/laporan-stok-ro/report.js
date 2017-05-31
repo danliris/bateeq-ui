@@ -24,6 +24,10 @@ export class Report {
     data = [];
     visibleTable = false;
 
+    exportToExcel() {
+        this.service.generateXls(this.code);
+    }
+
     showReport() {
         this.visibleTable = true;
         console.log(this.code);
@@ -44,28 +48,38 @@ export class Report {
         this.data = [];
         for (var items of data) {
             var item = {
-                name : items._id
+                name: items._id
             };
             //Generate header
-            for (var roItems of items.items) {
+            for (var i = 0; i < items.items.length; i++) {
+                var roItems = items.items[i];
+
                 if (tableHeader.indexOf(roItems.item) === -1) {
                     tableHeader.push(roItems.item);
                 }
+
                 item[roItems.item] = roItems.quantity;
+
+                for (var j = 0; j < items.items.length; j++) {
+                    if (roItems.itemcode !== items.items[j].itemcode && roItems.item === items.items[j].item) {
+                        item[roItems.item] += items.items[j].quantity ;
+                    }
+                }
             }
             this.data.push(item);
         }
+
         tableHeader.sort();
         //kosongin data sebelumnya
         this.options.columns = [];
-        this.options.columns.push({ field: 'name', title: '', class: 'nameBackground', width:'30%'});
+        this.options.columns.push({ field: 'name', title: '', class: 'nameBackground', width: '30%' });
         for (var header of tableHeader) {
             this.options.columns.push({ field: header, title: header, sortable: true });
         }
         new Promise((resolve, reject) => {
             this.models.__table("refreshOptions", this.options);
             resolve();
-        }).then(()=> {
+        }).then(() => {
             this.models.refresh();
         });
     }
