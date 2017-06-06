@@ -21,16 +21,16 @@ export class PackingList {
 
         this.packingListReadOnly = this.data.code && this.data.code != '';
         // if(this.options.readOnly)
-            this.isDetail = this.options.readOnly;
+        this.isDetail = this.options.readOnly;
     }
 
     get packingListLoader() {
         return PackingListLoader;
     }
 
-    packingListChangeCallback(e) {
-        if (this.data.code) {
-            var temp = this.data.code;
+    async packingListChangeCallback(e) {
+        if (this.data.packingList) {
+            var temp = this.data.packingList;
             this.data._id = temp._id;
             this.data.date = temp.date;
             this.data.reference = temp.reference;
@@ -50,20 +50,11 @@ export class PackingList {
 
             var stock = [];
             for (var item of this.data.items) {
-                item.quantitySend = 0;
-                stock.push(this.service.getStock(this.data.sourceId, item.itemId));
-            }
-            if (stock.length > 0) {
-                Promise.all(stock).then(
-                    result => {
-                        for (var item of this.data.items) {
-                            var find = result.find(x => x.itemId === item.itemId);
-                            if (find) {
-                                item.quantityStock = find.quantity;
-                            }
-                        }
-                    }
-                )
+                item.sendQuantity = 0;
+                var a = await this.service.getStock(this.data.sourceId, item.itemId);
+                if (a) {
+                    item.quantityStock = a.quantity;
+                }
             }
             this.packingListReadOnly = true;
         }

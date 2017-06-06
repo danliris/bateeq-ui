@@ -184,6 +184,8 @@ div.au-stagger {
   border: 2px #FFF solid;
 }
 
+
+
 /* animation definitions */
 @-webkit-keyframes fadeInRight {
   0% {
@@ -253,14 +255,12 @@ div.au-stagger {
   }
   
   .print-wrapper {
-    /*page-break-after: always;*/
+    page-break-after: always;
     display: block;
     margin-top:.5cm;
-    /*margin-bottom:.5cm;*/
-    position: absolute;
-    left:0;
+    position:absolute;
     top:0;
-    padding:12pt; 
+    left:0;
   }
   
   .print-wrapper:first-of-type {
@@ -347,6 +347,23 @@ div.au-stagger {
   .side-nav-bar{
     display: none;
   }
+
+  .struk {
+    /*width: 76mm;*/
+    width: 100% !important; 
+    /*height: 100mm;*/
+    overflow: hidden;
+    font-size:9pt;
+    font-family: "Times New Roman", Times, serif;
+    padding: 25pt;
+    margin: 0;
+    display: block;
+  }
+  
+  
+  .struk table tr td{
+    vertical-align: top;
+  }
 }
 
 /*label {
@@ -397,9 +414,9 @@ h3 {
     color: #2a2a2a;
     text-transform: uppercase;
 }
-/*
 
-.report-table {
+
+.report-table.minimized {
   -webkit-transition: opacity 0.3s ease; 
   -moz-transition: opacity 0.3s ease; 
   -ms-transition: opacity 0.3s ease; 
@@ -413,7 +430,7 @@ h3 {
 .report-table.maximized{
   height:auto;
   opacity:1;
-}*/
+}
 
 .report-table thead tr{
   background-color: #000000;
@@ -421,7 +438,7 @@ h3 {
 }
 
 .report-table tbody tr:hover td{
-  cursor: pointer;
+  /*cursor: pointer;*/
   background-color:#d4e9f1;
 }
 
@@ -443,7 +460,7 @@ h3 {
 
 .product-report-dialog{
     margin:auto;
-    width:70%;
+    width:700px;
 }
 @media (max-width: 767px) {
   .product-report-dialog{

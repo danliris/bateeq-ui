@@ -1,0 +1,55 @@
+<template>
+    <div class="form-horizontal">
+        <au-datepicker value.bind="dateFrom" label="From"></au-datepicker>
+        <au-datepicker value.bind="dateTo" label="To"></au-datepicker>
+        <div class="form-group">
+            <label class="col-sm-3 text-right control-label">Transaksi</label>
+            <div class="col-sm-9 radio">
+                <label style="margin-right:10px;" repeat.for="option of transactionTypeOptions">
+                    <input type="radio" name="transactionType" model.bind="option" checked.bind="transactionType"/> ${option.text}
+                </label>
+            </div>
+        </div>
+        <au-autocomplete label="Penyimpanan" value.bind="storage" loader.bind="storageLoader" text="name">
+        </au-autocomplete>
+        <div class="form-group">
+            <label class="col-sm-3 text-right control-label">Status Packing List</label>
+            <div class="col-sm-9 radio">
+                <label style="margin-right:10px;" repeat.for="option of packingListStatusOptions">
+                    <input type="radio" name="packingListStatus" model.bind="option" checked.bind="packingListStatus"/> ${option.text}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 form-group">
+        <button click.delegate="excel()" class="btn btn-success btn-sm pull-right">Cetak Excel</button>
+        &nbsp;
+        <button style="margin-right:10px;" click.delegate="showReport()" class="btn btn-success btn-sm pull-right">Tampilkan</button>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr style='background-color:#282828; color:#ffffff;'>
+                <th style="width:10%">Tanggal</th>
+                <th>Sumber Penyimpanan</th>
+                <th>Tujuan Penyimpanan</th>
+                <th>Transaksi</th>
+                <th>Packing List</th>
+                <th>Status</th>
+                <th>Total Kuantitas Barang</th>
+                <th>Total harga Jual</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data" if.bind="item.status == packingListStatus.id && item.transaction == transactionType.id">
+                <td>${item.date}</td>
+                <td>${item.source.name}</td>
+                <td>${item.destination.name}</td>
+                <td>${item.transactionName}</td>
+                <td>${item.packingList}</td>
+                <td>${item.statusName}</td>
+                <td>${item.sendQuantity}</td>
+                <td>${item.totalPrice.toLocaleString()}</td>
+            </tr>
+        </tbody>
+    </table>
+</template>

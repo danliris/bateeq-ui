@@ -53,72 +53,13 @@ export class DataForm {
 
     }
 
-    // constructor(router, service, bindingEngine) {
-    //     this.router = router;
-    //     this.service = service;
-    //     this.bindingEngine = bindingEngine;
-    //     this.service.getModuleConfig()
-    //         .then(config => {
-    //             var getStorages = [];
-    //             var indexSource = 0;
-
-    //             if (config.source.type == "selection") {
-    //                 for (var sourceId of config.source.value) {
-    //                     getStorages.push(this.service.getStorageById(sourceId.toString()));
-    //                     indexSource++;
-    //                 }
-    //             }
-    //             else {
-    //                 getStorages.push(this.service.getStorageById(config.source.value.toString()));
-    //                 indexSource++
-    //             }
-
-    //             var getStoragesDestination = [];
-    //             if (config.destination.type == "selection") {
-    //                 for (var destinationId of config.destination.value) {
-    //                     getStorages.push(this.service.getStorageById(destinationId.toString()));
-    //                 }
-    //             }
-    //             else {
-    //                 getStorages.push(this.service.getStorageById(config.destination.value.toString()));
-    //             }
-
-    //             Promise.all(getStorages)
-    //                 .then(storages => {
-    //                     this.sources = storages.splice(0, storages.length - indexSource);
-    //                     this.destinations = storages.splice(0);
-    //                     this.data.sourceId = this.sources[0]._id;
-    //                     this.data.source = this.sources[0];
-    //                     this.data.destinationId = this.destinations[0]._id;
-    //                     this.data.destination = this.destinations[0];
-
-    //                     this.inventoryApiUri = require('../../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
-    //                 })
-    //         })
-    //         .catch(e => {
-    //             console.log(e)
-    //             this.loadFailed = true;
-    //         })
-    // }
-
-    // attached() {
-    //     this.bindingEngine.collectionObserver(this.data.items)
-    //         .subscribe(splices => {
-    //             var item = this.data.items[splices[0].index];
-    //             this.observeItem(item);
-    //         });
-    // }
-
-    // observeItem(item) {
-    //     this.bindingEngine.propertyObserver(item, "selection").subscribe((newValue, oldValue) => {
-    //         item.articleVariantId = newValue._id;
-    //         item.articleVariant = newValue.articleVariant;
-    //         item.availableQuantity = newValue.availableQuantity;
-    //     });
-    // }
     async attached() {
-        this.sumTotalQty = 0;
-        this.sumPrice = 0;
+        if (this.data.items != undefined) {
+            this.makeTotal(this.data.items);
+        } else {
+            this.sumTotalQty = 0;
+            this.sumPrice = 0;
+        }
         var storages = await this.service.getModuleConfig();
         var result = await this.getStorage(storages[0].config);
 
@@ -129,7 +70,7 @@ export class DataForm {
                 return this.name;
             }
             return source;
-        })
+        }) 
         this.destinations = this.destinations.map(destination => {
             destination.toString = function () {
                 return this.name;
@@ -154,6 +95,7 @@ export class DataForm {
                             this.qtyFg = 0;
                             this.price = 0;
                             newItem.itemId = fg._id;
+                            newItem.item = fg;
                             newItem.availableQuantity = 0;
                             var result = await this.service.getDataInventory(this.data.source._id, newItem.itemId);
                             if (result != undefined) {
@@ -193,6 +135,7 @@ export class DataForm {
                     this.qtyFg = 0;
                     this.price = 0;
                     newItem.itemId = itemData._id;
+                    newItem.item = itemData;
                     newItem.availableQuantity = 0;
                     var result = await this.service.getDataInventory(this.data.source._id, newItem.itemId);
                     if (result != undefined) {
@@ -223,7 +166,7 @@ export class DataForm {
             var fg = fgTemp[0];
             this.price = fg.domesticSale;
             var newItem = {};
-            var _data = this.data.items.find((item) => item.code === barcode);
+            var _data = this.data.items.find((item) => item.item.code === barcode);
             if (_data) {
                 this.price = parseInt(_data.quantity) * this.price
                 _data.price = parseFloat(this.price);
@@ -233,7 +176,6 @@ export class DataForm {
     }
 
     makeTotal(items) {
-        debugger
         this.sumTotalQty = 0;
         this.sumPrice = 0;
         if (Object.getOwnPropertyNames(items).length > 0) {
@@ -241,8 +183,7 @@ export class DataForm {
                 this.sumTotalQty = this.sumTotalQty + parseInt(items[i].quantity);
                 this.sumPrice += items[i].price;
             }
-        }
-
+        } 
     }
 
     addItem() {
@@ -267,10 +208,36 @@ export class DataForm {
         });
     }
 
-    // selectionSource() {
-    //     this.inventoryApiUri = require('../../host').inventory + '/storages/' + this.data.sourceId + '/inventories';
-    //     this.data.items = [];
-    // }
+
+    sourceChange(e) {
+        var sourceName = e.srcElement.value;
+        var nama = sourceName.split("(");
+        this.service.getSource(nama[0])
+            .then(storage => {
+                this.data.source._id = storage[0]._id;
+                this.data.source = storage[0];
+                this.data.items = [];
+                this.sumTotalQty = 0;
+                this.sumPrice = 0;
+                var sourcesTemp = this.sources;
+                this.sources = [];
+                var index = 0;
+                for (var source of sourcesTemp) {
+                    if (source.name === storage[0].name) {
+                        this.sources.splice(0, 0, source);
+                    } else {
+                        index = index + 1;
+                        this.sources.splice(index, 0, source);
+                    }
+                }
+                this.sources = this.sources.map(source => {
+                    source.toString = function () {
+                        return this.name;
+                    }
+                    return source;
+                })
+            })
+    }
 }
 
 

@@ -53,19 +53,35 @@ export class DataForm {
 
     }
 
-    // itemChanged(e, item) {
-    //     var itemData = e.detail;
-    //     if (itemData) {
-    //         item.itemId = itemData._id;
-    //         item.availableQuantity = 0;
-    //         this.service.getDataInventory(this.data.source._id, item.itemId)
-    //             .then(inventoryData => {
-    //                 if (inventoryData) {
-    //                     item.availableQuantity = inventoryData.quantity;
-    //                 }
-    //             })
-    //     }
-    // } 
+    sourceChange(e) {
+        var sourceName = e.srcElement.value;
+        var nama = sourceName.split("(");
+        this.service.getSource(nama[0])
+            .then(storage => {
+                this.data.source._id = storage[0]._id;
+                this.data.source = storage[0];
+                this.data.items = [];
+                this.sumTotalQty = 0;
+                this.sumPrice = 0;
+                var sourcesTemp = this.sources;
+                this.sources = [];
+                var index = 0;
+                for (var source of sourcesTemp) {
+                    if (source.name === storage[0].name) {
+                        this.sources.splice(0, 0, source);
+                    } else {
+                        index = index + 1;
+                        this.sources.splice(index, 0, source);
+                    }
+                }
+                this.sources = this.sources.map(source => {
+                    source.toString = function () {
+                        return this.name;
+                    }
+                    return source;
+                })
+            })
+    }
 
     async barcodeChoose(e) {
         var itemData = e.target.value;
@@ -162,7 +178,6 @@ export class DataForm {
     }
 
     makeTotal(items) {
-        debugger
         this.sumTotalQty = 0;
         this.sumPrice = 0;
         if (Object.getOwnPropertyNames(items).length > 0) {
@@ -171,18 +186,7 @@ export class DataForm {
                 this.sumPrice += items[i].price;
             }
         }
-
     }
-
-    // addItem() {
-    //     var newItem = {};
-    //     newItem.itemId = "";
-    //     newItem.item = {};
-    //     newItem.availableQuantity = 0;
-    //     newItem.quantity = 0;
-    //     newItem.remark = "";
-    //     this.data.items.push(newItem);
-    // }
 
     removeItem(item) {
         var itemIndex = this.data.items.indexOf(item);
@@ -209,6 +213,9 @@ export class DataForm {
                 return this.name;
             }
             return destination;
+        })
+        this.service.getExpeditionServices().then(result => {
+            this.expeditionServices = result;
         })
     }
 

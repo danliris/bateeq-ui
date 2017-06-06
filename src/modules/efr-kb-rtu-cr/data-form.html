@@ -1,0 +1,74 @@
+<template>
+    <form class="form-horizontal">
+        <au-textbox label="Nomor Referensi" value.bind="data.reference" error.bind="error.reference" read-only.bind="readOnly" aria-placeholder="Packing List SPK"></au-textbox>
+        <au-dropdown label="Sumber Penyimpanan" value.bind="data.source" items.bind="sources" change.delegate="sourceChange($event)"></au-dropdown>
+        <au-dropdown label="Tujuan Penyimpanan" value.bind="data.destination" items.bind="destinations"></au-dropdown>
+        <au-dropdown label="Expedisi" value.bind="data.expedition" error.bind="error.expedition" items.bind="expeditionServices"
+            key="code" text="name" read-only.bind="readOnly"></au-dropdown>
+        <p class="col-md-1">Barcode</p>
+        <input type="text" focus.bind="hasFocus" value.bind="barcode" class="col-md-3" aria-placeholder="Barcode" input.delegate="barcodeChoose($event)"></input>
+        <finishedgoods-auto-suggest label="Nama Barang" value.bind="item" class="col-md-5" read-only.bind="readOnly" change.delegate="nameChoose($event)"></finishedgoods-auto-suggest>
+        <numeric label="Total Kuantitas:" value.bind="sumTotalQty" class="col-md-5" read-only.bind="true"></numeric>
+        <numeric label="Total Harga:" value.bind="sumPrice" class="col-md-3" read-only.bind="true"></numeric>
+    </form>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>
+                    <div class="row">
+                        <div class="col-md-2"> Barcode </div>
+                        <div class="col-md-2"> Nama </div>
+                        <div class="col-md-2"> Kuantitas Stok </div>
+                        <div class="col-md-1"> Kuantitas Pengiriman </div>
+                        <div class="col-md-1"> Harga </div>
+                        <div class="col-md-3"> Catatan </div>
+                    </div>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data.items">
+                <td>${$index+1}</td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="form-control-static">${item.code}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="form-control-static">${item.name}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group ${error.items[$index].availableQuantity?'has-error':''}">
+                                <center>
+                                    <p class="form-control-static">${item.availableQuantity}</p>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                                <input class="form-control" type="number" name="quantity" value.bind="item.quantity" max.bind="item.availableQuantity" min="0"
+                                    change.delegate="qtyChange(item.code, item.quantity)" />
+                                <span class="help-block">${error.items[$index].quantity}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <numeric label="" read-only.bind="true" value.bind="item.price" class="col-md-1"></numeric>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                                <input class="form-control" type="text" name="remark" value.bind="item.remark" />
+                                <span class="help-block">${error.items[$index].remark}</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Hapus</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.items.length == 0">
+        Tidak ada data.
+    </div>
+</template>
