@@ -27,6 +27,9 @@ export class List {
                 this.data = result.data;
                 this.info = result.info;
                 this.info.keyword = keyword;
+                for(var a of this.data){
+                    a.item.code=this.data.code;
+                }
             })
     }
 

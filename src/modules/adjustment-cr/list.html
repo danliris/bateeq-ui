@@ -13,6 +13,7 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
+                <th>Nomor Dokumen</th>
                 <th>Tanggal Penyesuaian</th>
                 <th>Sumber Penyimpanan</th>
                 <th>Dibuat Oleh</th>
@@ -20,6 +21,7 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.code}</td>
                 <td>${(item._createdDate).substring(0, 10)}</td>
                 <td>${item.storage.code} - ${item.storage.name}</td>
                 <td>${item._createdBy}</td>
