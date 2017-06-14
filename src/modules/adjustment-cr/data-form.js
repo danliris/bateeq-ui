@@ -106,4 +106,13 @@ export class DataForm {
         var itemIndex = this.data.items.indexOf(item);
         this.data.items.splice(itemIndex, 1);
     }
+
+    inQtyChanged(item){
+        var itemIndex = this.data.items.indexOf(item);
+        this.data.items[itemIndex].Qty=this.data.items[itemIndex].availableQuantity+this.data.items[itemIndex].inQty;
+    }
+    outQtyChanged(item){
+        var itemIndex = this.data.items.indexOf(item);
+        this.data.items[itemIndex].Qty=this.data.items[itemIndex].availableQuantity-this.data.items[itemIndex].outQty;
+    }
 }

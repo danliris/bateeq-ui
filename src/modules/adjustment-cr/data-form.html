@@ -38,7 +38,10 @@
                 <td>
                     <div class="row">
                         <div class="col-md-2">
-                            <p class="form-control-static">${item.code}</p>
+                            <div class="form-group ${error.items[$index].code?'has-error':''}">
+                                <p class="form-control-static">${item.code}</p>
+                            <span class="help-block">${error.items[$index].code}</span>
+                            </div>
                         </div>
                         <div class="col-md-2">
                             <p class="form-control-static">${item.name}</p>
@@ -51,17 +54,23 @@
                             </div>
                         </div>
                         <div class="col-md-1">
-                            <numeric value.bind="item.inQty"></numeric>
+                            <div class="form-group ${error.items[$index].inQty?'has-error':''}">
+                                <numeric value.bind="item.inQty" change.delegate="inQtyChanged(item)"></numeric>
+                            <span class="help-block">${error.items[$index].inQty}</span>
+                            </div>
                         </div>
                         <div class="col-md-1">
-                            <numeric value.bind="item.outQty"></numeric>
+                            <div class="form-group ${error.items[$index].outQty?'has-error':''}">
+                                <numeric value.bind="item.outQty" change.delegate="outQtyChanged(item)"></numeric>
+                                <span class="help-block">${error.items[$index].outQty}</span>
+                            </div>
                         </div>
                         <div class="col-md-2">
-                            <numeric value.bind="item.Qty"></numeric>
+                            <numeric value.bind="item.Qty" read-only="true"></numeric>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group ${error.items[$index].remarks?'has-error':''}">
-                                <input class="form-control" type="text" name="remark" value.bind="item.remarks" />
+                                <textbox  value.bind="item.remarks" ></textbox>
                                 <span class="help-block">${error.items[$index].remarks}</span>
                             </div>
                         </div>
