@@ -1,0 +1,25 @@
+<template>
+  <tr>
+    <td style="text-align:center;" class="col-sm-2">
+      <au-textbox value.bind="item.item.code" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="item.item.name" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="item.qtyBeforeSO" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="item.qtySO" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
+      <au-textbox value.one-way="qtyDifferent" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
+      <au-checkbox value.bind="item.isAdjusted" error.bind="error.isAdjusted" read-only.bind="(readOnly || isAdjust)" options.bind="controlOptions"></au-checkbox>
+    </td>
+    <td>
+      <au-textbox value.bind="item.remark" error.bind="error.remark" read-only.bind="(readOnly || !item.isAdjusted)" options.bind="controlOptions"></au-textbox>
+    </td>
+  </tr>
+</template>
