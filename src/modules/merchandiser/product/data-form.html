@@ -5,9 +5,9 @@
             <textbox                label="Nama"                        value.bind="data.name"                      error.bind="error.name"                     read-only.bind="readOnly">              </textbox>
             <textbox                label="UOM"                         value.bind="data.uom"                       error.bind="error.uom"                      read-only.bind="readOnly">              </textbox>
             <textbox                label="Size"                        value.bind="data.size"                      error.bind="error.size"                     read-only.bind="readOnly">              </textbox>
-            <numeric                label="HPP"                         value.bind="data.domesticCOGS"              error.bind="error.domesticCOGS"             read-only.bind="readOnly">              </numeric>
-            <numeric                label="Harga Jual (Domestic)"       value.bind="data.domesticSale"              error.bind="error.domesticSale"             read-only.bind="readOnly">              </numeric>
-            <numeric                label="Harga Jual (Internasional)"  value.bind="data.internationalSale"         error.bind="error.internationalSale"        read-only.bind="readOnly">              </numeric>
+            <numeric                label="HPP"                         value.bind="data.domesticCOGS"              error.bind="error.domesticCOGS"             read-only.bind="(readOnly || isEdit)">              </numeric>
+            <numeric                label="Harga Jual (Domestic)"       value.bind="data.domesticSale"              error.bind="error.domesticSale"             read-only.bind="(readOnly || isEdit)">              </numeric>
+            <numeric                label="Harga Jual (Internasional)"  value.bind="data.internationalSale"         error.bind="error.internationalSale"        read-only.bind="(readOnly || isEdit)">              </numeric>
             <textbox                label="RO"                          value.bind="data.article.realizationOrder"  error.bind="error.ro"                       read-only.bind="readOnly">              </textbox>
         </form>
     </div>
