@@ -16,13 +16,6 @@ export class List {
         this.service = service;
     }
 
-    async activate() {
-        this.info.keyword = '';
-        var result = await this.service.search(this.info);
-        this.data = result.data;
-        this.info = result.info;
-    }
-
     create() {
         this.router.navigateToRoute('create');
     }
