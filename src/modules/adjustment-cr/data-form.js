@@ -110,9 +110,15 @@ export class DataForm {
     inQtyChanged(item){
         var itemIndex = this.data.items.indexOf(item);
         this.data.items[itemIndex].Qty=this.data.items[itemIndex].availableQuantity+this.data.items[itemIndex].inQty;
+        if(this.data.items[itemIndex].outQty && this.data.items[itemIndex].outQty>0){
+            this.data.items[itemIndex].Qty=this.data.items[itemIndex].Qty-this.data.items[itemIndex].outQty;
+        }
     }
     outQtyChanged(item){
         var itemIndex = this.data.items.indexOf(item);
         this.data.items[itemIndex].Qty=this.data.items[itemIndex].availableQuantity-this.data.items[itemIndex].outQty;
+        if(this.data.items[itemIndex].inQty && this.data.items[itemIndex].inQty>0){
+            this.data.items[itemIndex].Qty=this.data.items[itemIndex].Qty+this.data.items[itemIndex].inQty;
+        }
     }
 }
