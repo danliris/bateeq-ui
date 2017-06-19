@@ -15,8 +15,11 @@
     <td>
       <au-textbox value.one-way="qtyDifferent" read-only="true" options.bind="controlOptions"></au-textbox>
     </td>
-    <td>
-      <au-checkbox value.bind="item.isAdjusted" error.bind="error.isAdjusted" read-only.bind="(readOnly || isAdjust)" options.bind="controlOptions"></au-checkbox>
+    <td if.bind="item.isView">
+      <au-textbox value.one-way="Adjustment" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td if.bind="item.isEdit">
+      <au-checkbox value.bind="item.isAdjusted" error.bind="error.isAdjusted" options.bind="controlOptions"></au-checkbox>
     </td>
     <td>
       <au-textbox value.bind="item.remark" error.bind="error.remark" read-only.bind="(readOnly || !item.isAdjusted)" options.bind="controlOptions"></au-textbox>

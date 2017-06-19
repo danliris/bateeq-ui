@@ -17,7 +17,7 @@ export class DataForm {
     itemsColumns = [
         { header: "Barcode", value: "code" },
         { header: "Nama Barang", value: "item.name" },
-        { header: "Kuantitas Stock Terakhir", value: "qtyBeforeSO" },
+        { header: "Kuantitas Stock Sebelum SO", value: "qtyBeforeSO" },
         { header: "Kuantitas SO", value: "qtySO" },
         { header: "Selisih", value: "qtySO - qtyBeforeSO" },
         { header: "Sesuaikan Dengan SO", value: "isAdjusted" },

@@ -62,35 +62,35 @@ export class List {
             });
     }
 
-    asc() {
-        return function (so1, so2) {
-            if (so1.isComplete && !so2.isComplete)
-                return -1;
-            if (!so1.isComplete && so2.isPending())
-                return -1;
-            if (!so1.isComplete && so2.isComplete)
-                return 1;
-            if (so1.isPending() && !so2.isComplete)
-                return 1;
+    // asc() {
+    //     return function (so1, so2) {
+    //         if (so1.isComplete && !so2.isComplete)
+    //             return -1;
+    //         if (!so1.isComplete && so2.isPending())
+    //             return -1;
+    //         if (!so1.isComplete && so2.isComplete)
+    //             return 1;
+    //         if (so1.isPending() && !so2.isComplete)
+    //             return 1;
 
-            return 0;
-        }
-    }
+    //         return 0;
+    //     }
+    // }
 
-    desc() {
-        return function (so1, so2) {
-            if (so1.isComplete && !so2.isComplete)
-                return 1;
-            if (!so1.isComplete && so2.isPending())
-                return 1;
-            if (!so1.isComplete && so2.isComplete)
-                return -1;
-            if (so1.isPending() && !so2.isComplete)
-                return -1;
+    // desc() {
+    //     return function (so1, so2) {
+    //         if (so1.isComplete && !so2.isComplete)
+    //             return 1;
+    //         if (!so1.isComplete && so2.isPending())
+    //             return 1;
+    //         if (!so1.isComplete && so2.isComplete)
+    //             return -1;
+    //         if (so1.isPending() && !so2.isComplete)
+    //             return -1;
 
-            return 0;
-        }
-    }
+    //         return 0;
+    //     }
+    // }
 
     contextClickCallback(event) {
         var arg = event.detail;
