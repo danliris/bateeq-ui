@@ -63,6 +63,9 @@ export class Create {
                     else if (result.status == 404) {
                         alert("Urutan format kolom CSV tidak sesuai.\n Format: Barcode, Nama Barang, Kuantitas Stock");
                     }
+                    else if(result.status == 412){
+                        alert("Dokumen harus csv format");
+                    }
                     else {
                         alert("Data Berhasil Diupload");
                         this.list();
