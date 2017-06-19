@@ -27,6 +27,10 @@ export class Edit {
                         a.qtyBeforeSO = b.quantity;
                 }
             }
+            if((a.qtyBeforeSO - a.qtySO) === 0)
+              a["isView"] = true;
+            else
+              a["isEdit"] = true;
         }
     }
     this.error = {

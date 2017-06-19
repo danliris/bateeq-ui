@@ -17,6 +17,10 @@ export class Item {
       return (this.item.qtyBeforeSO - this.item.qtySO) === 0 ? true : false;
   }
 
+  get Adjustment(){
+      return (this.item.qtyBeforeSO - this.item.qtySO) === 0 ? "" : this.item.isAdjusted ? "Ya" : "Tidak";
+  }
+
   controlOptions = {
     control: {
       length: 12

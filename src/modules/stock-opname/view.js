@@ -28,6 +28,9 @@ export class View {
             }
         }
     }
+    for(var a of this.data.items){
+        a["isView"] = true;
+    }
   }
 
   cancel(event) {
