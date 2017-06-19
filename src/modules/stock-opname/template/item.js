@@ -10,11 +10,11 @@ export class Item {
 
   // @computedFrom("item.qtySO", "item.qtyBeforeSO")
   get qtyDifferent(){
-      return (this.item.qtySO - this.item.qtyBeforeSO);
+      return (this.item.qtyBeforeSO - this.item.qtySO);
   }
   
   get isAdjust(){
-      return (this.item.qtySO - this.item.qtyBeforeSO) === 0 ? true : false;
+      return (this.item.qtyBeforeSO - this.item.qtySO) === 0 ? true : false;
   }
 
   controlOptions = {
