@@ -22,9 +22,15 @@ export class Edit {
         var inventories = await this.service.getItemInInventory(id);
         for(var a of this.data.items){
             for(var b of inventories){
-                if(a.item.code === b.item.code)
-                    a.qtyBeforeSO = b.quantity;
+                if(b && b.item){
+                    if(a.item.code === b.item.code)
+                        a.qtyBeforeSO = b.quantity;
+                }
             }
+            if((a.qtyBeforeSO - a.qtySO) === 0)
+              a["isView"] = true;
+            else
+              a["isEdit"] = true;
         }
     }
     this.error = {
