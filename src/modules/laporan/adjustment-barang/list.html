@@ -1,0 +1,43 @@
+<template>
+    <h1 class="page-header">Laporan Adjustment Barang</h1>
+    <form class="form-horizontal">     
+        <storage-auto-suggest   label="Penyimpanan"     value.bind="storage"      error.bind="error.storage"     read-only.bind="readOnly"   ></storage-auto-suggest>
+        <!--<textbox                label="filter"          value.bind="filter"  read-only.bind="readOnly"></textbox> -->
+        <div class="form-group">
+            <label for="contact" class="col-sm-6 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="reloadItem()" class="btn btn-success btn-sm pull-right">Cari</button> 
+            </div>
+        </div>
+    </form> 
+    <table class="table table-bordered table-hover">
+        <thead> 
+            Total : ${total}
+            <tr>
+                 <th>Toko</th>
+                <th>Tanggal</th>
+                <th>Barcode</th>
+                <th>Nama</th>
+                <th>Kuantitas</th>
+                <th>Type</th>
+                <th>Keterangan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="adjsutment of data">
+                 <td>${adjsutment.storageName}</td>
+                <td>${adjsutment._createdDate.substring(0, 10)}</td>
+                <td>${adjsutment.item.code}</td>
+                <td>${adjsutment.item.name}</td>
+                <td>${adjsutment.qtyAdjustment}</td>
+                <td>${adjsutment.type}</td>
+                <td>${adjsutment.remark}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+       Tidak ada data.
+    </div>
+    <hr/> 
+</template>

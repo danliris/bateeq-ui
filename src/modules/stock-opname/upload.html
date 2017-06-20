@@ -1,0 +1,29 @@
+<template>
+    <au-input-form 
+        title="Stock Opname" >
+
+        <au-autocomplete 
+            value.bind="data.storage" 
+            error.bind="error.storage"
+            label="Sumber Penyimpanan" 
+            change.delegate="storageChanged($event)" 
+            loader.bind="storageLoader"
+            placeholder="Cari Sumber Penyimpanan" 
+            key="code"
+            text="name">
+        </au-autocomplete>
+
+        <div class="form-group ${error.file?'has-error':''}">
+            <label for="dataFile" class="col-sm-4 control-label">File Path</label>
+            <div class="col-sm-5">
+                <input type="file" id="fileCsv" name="fileUpload">
+                <span class="help-block">${error.file}</span>
+            </div>
+        </div>
+        <hr/>
+        <div class="btn-group pull-right">
+            <button class="btn btn-primary" click.delegate="upload()">Upload</button> 
+            <button class="btn btn-default" click.delegate="list()">Kembali</button>
+        </div>
+    </au-input-form>
+</template>
