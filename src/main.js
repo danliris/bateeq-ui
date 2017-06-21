@@ -33,6 +33,7 @@ export async function configure(aurelia) {
       var core = "https://bateeq-core-api-dev.mybluemix.net/v1/core/";
       var master = "https://bateeq-core-api-dev.mybluemix.net/v1/master/";
       var inventory = "https://bateeq-inventory-api-dev.mybluemix.net/v1/inventory/";
+     // var inventory = "http://127.0.0.1:9070/v1/inventory/";
       var merchandiser = "https://bateeq-inventory-api-dev.mybluemix.net/v1/merchandiser/";
       var sales = "https://bateeq-pos-api-dev.mybluemix.net/v1/sales/";
 

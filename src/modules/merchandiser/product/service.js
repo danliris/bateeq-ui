@@ -39,12 +39,12 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getMotif(code) {
-    var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("core");
-    var uri = `articles/motifs/code/${code}`;
-    return endpoint.find(uri, {});
-  }
+  // getMotif(code) {
+  //   var config = Container.instance.get(Config);
+  //   var endpoint = config.getEndpoint("core");
+  //   var uri = `articles/motifs/code/${code}`;
+  //   return endpoint.find(uri, {});
+  // }
 
   create(data) {
     var endpoint = `${serviceUri}`;
