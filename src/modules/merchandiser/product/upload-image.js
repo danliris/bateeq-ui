@@ -2,25 +2,35 @@ import { inject, Lazy, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 var FinishedGoodsLoader = require('../../../loader/finished-goods-loader');
-
+var CountersLoader = require('../../../loader/counter-loader');
+var MaterialCompositionsLoader = require('../../../loader/material-composition-loader');
+var MaterialsLoader = require('../../../loader/material-loader');
+var MotifsLoader = require('../../../loader/motif-loader');
+var ProcessLoader = require('../../../loader/process-loader');
+var SeasonsLoader = require('../../../loader/season-loader');
+var SubCountersLoader = require('../../../loader/sub-counter-loader');
+var CollectionsLoader = require('../../../loader/collection-loader');
 
 @inject(Router, Service)
 export class Upload {
+    motif={};
+    process={};
+    material={};
+    collection={};
+    season={};
+    counter={};
+    subCounter={};
     @bindable data;
     @bindable error;
     contacts = [];
-
     productFilter = {};
     product = {};
-
     dataSource = [];
     dataDestination = [];
-    article_motif = {};
+    // article_motif = {};
     article_colors = [];
     article_color = {};
-
     color = "#FF0000";
-
     ro = "";
 
     columns = [
@@ -53,6 +63,31 @@ export class Upload {
         }
     }
 
+    get MotifsLoader() {
+        return MotifsLoader;
+    }
+    get MaterialsLoader() {
+        return MaterialsLoader;
+    }
+    get MaterialCompositionsLoader() {
+        return MaterialCompositionsLoader;
+    }
+    get CollectionsLoader() {
+        return CollectionsLoader;
+    }
+    get SubCountersLoader() {
+        return SubCountersLoader;
+    }
+    get CountersLoader() {
+        return CountersLoader;
+    }
+    get ProcessLoader() {
+        return ProcessLoader;
+    }
+    get SeasonsLoader() {
+        return SeasonsLoader;
+    }
+
     controlOptions = {
         label: {
             length: 2,
@@ -75,12 +110,12 @@ export class Upload {
                     this.dataSource = result;
                     if (result) {
                         var firstResult = result[0];
-                        this.service.getMotif(firstResult.code.substring(9, 11))
-                            .then((motif) => {
-                                if (motif) {
-                                    this.article_motif = motif.data;
-                                }
-                            })
+                        // this.service.getMotif(firstResult.code.substring(9, 11))
+                        //     .then((motif) => {
+                        //         if (motif) {
+                        //             this.article_motif = motif.data;
+                        //         }
+                        //     })
                     }
                 })
             return false;
@@ -108,12 +143,12 @@ export class Upload {
     finishedGoodsChange(e) {
         this.clearTable();
         this.dataSource.push(this.product);
-        this.service.getMotif(this.product.code.substring(9, 11))
-            .then((motif) => {
-                if (motif) {
-                    this.article_motif = motif.data;
-                }
-            })
+        // this.service.getMotif(this.product.code.substring(9, 11))
+        //     .then((motif) => {
+        //         if (motif) {
+        //             this.article_motif = motif.data;
+        //         }
+        //     })
     }
 
     changeColor(e) {
@@ -210,6 +245,42 @@ export class Upload {
                 e["dataSource"] = "Tidak ada produk ditemukan"
             }
         }
+        if (this.data.realizationOrderName=="" || this.data.realizationOrderName==undefined)
+        {
+             e["realizationOrderName"] = "Nama RO harus diisi"
+        }
+        if (this.data.process=="" || this.data.process==undefined)
+        {
+             e["process"] = "Process harus diisi"
+        }
+        if (this.data.materials=="" || this.data.materials==undefined)
+        {
+             e["materials"] = "Bahan harus diisi"
+        }
+        if (this.data.materialCompositions=="" || this.data.materialCompositions==undefined)
+        {
+             e["materialCompositions"] = "Komposisi Bahan harus diisi"
+        }
+        if (this.data.collections=="" || this.data.collections==undefined)
+        {
+             e["collections"] = "Koleksi harus diisi"
+        }
+        if (this.data.counters=="" || this.data.counters==undefined)
+        {
+             e["counters"] = "Season harus diisi" 
+        }
+        if (this.data.subCounters=="" || this.data.subCounters==undefined)
+        {
+             e["subCounters"] = "Style harus diisi"
+        } 
+        if (this.data.seasons=="" || this.data.seasons==undefined)
+        {
+             e["seasons"] = "Season harus diisi"
+        } 
+        if (this.data.motif=="" || this.data.motif==undefined)
+        {
+             e["motif"] = "Nama harus diisi"
+        } 
 
         debugger
         if (Object.keys(e).length > 0) {
@@ -245,6 +316,15 @@ export class Upload {
                         data.articleColor = this.article_color;
                         data.imagePath = result.data[0];
                         data.motifPath = result.data[1];
+                        data.realizationOrderName= this.data.realizationOrderName;
+                        data.processDoc=this.data.process;
+                        data.motifDoc=this.data.motif;
+                        data.seasonDoc=this.data.seasons;
+                        data.materialDoc=this.data.materials;
+                        data.materialCompositionDoc=this.data.materialCompositions;
+                        data.collectionDoc=this.data.collections;
+                        data.counterDoc=this.data.counters;
+                        data.styleDoc=this.data.subCounters;
                         this.service.updateProductImage(data)
                             .then(result2 => {
                                 this.list();
