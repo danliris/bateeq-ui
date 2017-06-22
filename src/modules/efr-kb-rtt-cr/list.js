@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 var moment = require("moment");
-
+var locale = 'id-ID';
 
 @inject(Router, Service)
 export class List {
@@ -44,7 +44,7 @@ export class List {
             },
             {
                 field: "_createdDate", title: "Tanggal", formatter: (value, data) => {
-                    return moment(value).format("DD-MMM-YYYY");
+                    return moment(value).locale(locale).format("DD MMMM YYYY");
                 }
             },
             { field: "_createdBy", title: "Dibuat Oleh" }
