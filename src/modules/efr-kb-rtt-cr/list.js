@@ -1,60 +1,111 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+var moment = require("moment");
 
 
 @inject(Router, Service)
 export class List {
-    data = [];
+    
+
     constructor(router, service) {
-        this.router = router;
         this.service = service;
+        this.router = router;
     }
-    info = { page: 1, keyword: '' };
-    keyword = '';
 
-    async activate() {
-        this.info.keyword = '';
-        var result = await this.service.search(this.info);
-        var spk;
-        var dataTemp = [];
-        for (var i = 0; i < result.data.length; i++) {
-            spk = [];
-            var newItem = {};
+    bind() {
+        this.setContext();
+        this.setColumns();
+    }
 
-            newItem = result.data[i];
-            newItem.password = '';
-            spk = await this.service.getSPKByReference(result.data[i].code);
-            if (spk != undefined && spk.length > 0) {
-                newItem.password = spk[0].password;
-            }
-            this.data.push(newItem);
+    setContext() {
+        this.context = ["Rincian"];
+    }
+
+    setColumns() {
+        this.columns = [
+            { field: "code", title: "Nomor Dokumen" },
+            { field: "reference", title: "Nomor Referensi" },
+            { field: "source.code", title: "Sumber Penyimpanan",
+            formatter: function (value, data) {
+                    return value + " - " + data.source.name;
+                } 
+             },
+            { field: "destination.code", title: "Tujuan Penyimpanan",
+            formatter: function (value, data) {
+                    return value + " - " + data.destination.name;
+                } 
+              },
+            { 
+                field: "spk.password", title: "Password",
+                formatter: function (value, row, index) {
+                    return value ? value : "";
+                } 
+            },
+            {
+                field: "_createdDate", title: "Tanggal", formatter: (value, data) => {
+                    return moment(value).format("DD-MMM-YYYY");
+                }
+            },
+            { field: "_createdBy", title: "Dibuat Oleh" }
+        ];
+    }
+    
+    loadData = (info) => {
+        var order = {};
+        if (info.sort)
+            order[info.sort] = info.order;
+
+        var arg = {
+            page: parseInt(info.offset / info.limit, 10) + 1,
+            size: info.limit,
+            keyword: info.search,
+            order: order
         }
-        this.info = result.info;
-    }
 
-    loadPage() {
-        var keyword = this.info.keyword;
-        this.service.search(this.info)
+        return this.service.search(arg)
             .then(result => {
-                this.data = result.data;
-                this.info = result.info;
-                this.info.keyword = keyword;
-            })
-    }
-
-    changePage(e) {
-        var page = e.detail;
-        this.info.page = page;
-        this.loadPage();
-    }
-
-    view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+                var dataResult = result.data;
+                var dataSPKB = [];
+                for(var a of dataResult){
+                   dataSPKB.push(this.service.getSPKByReference(a.code));
+                }
+                return Promise.all(dataSPKB)
+                            .then(data => {
+                                for(var a of dataResult){
+                                    for(var b = 0; b < data.length; b++){
+                                        if(data[b] != undefined && data[b].length > 0){
+                                            a.spk = data[b][0];
+                                        }
+                                    }
+                                }
+                                console.log(data);
+                                console.log(dataResult);
+                                return {
+                                    total: result.info.total,
+                                    data: dataResult
+                                }
+                            });
+            });
     }
 
     create() {
         this.router.navigateToRoute('create');
+    }
+
+    contextShowCallback(index, name, data) {
+        return true;
+    }
+
+
+    contextClickCallback(event) {
+        var arg = event.detail;
+        var data = arg.data;
+        switch (arg.name) {
+            case "Rincian":
+                this.router.navigateToRoute('view', { id: data._id });
+                break;
+        }
     }
 }
 
