@@ -21,10 +21,15 @@ export class View {
         this.hasDelete = true;
         for(var a of this.data.items){
             for(var b of inventories){
-                if(a.item.code === b.item.code)
-                    a.qtyBeforeSO = b.quantity;
+                if(b && b.item){
+                    if(a.item.code === b.item.code)
+                        a.qtyBeforeSO = b.quantity;
+                }
             }
         }
+    }
+    for(var a of this.data.items){
+        a["isView"] = true;
     }
   }
 

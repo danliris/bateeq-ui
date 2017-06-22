@@ -1,6 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+var SourceLoader = require('../../loader/storage-loader');
 
 @inject(Router, Service)
 export class DataForm {
@@ -17,14 +18,14 @@ export class DataForm {
     async attached() {
         this.sumTotalQty = 0;
         this.sumPrice = 0;
-        var storages = await this.service.getStorage();
-        this.sources = storages;
-        this.sources = this.sources.map(source => {
-            source.toString = function () {
-                return this.name;
-            }
-            return source;
-        })
+        // var storages = await this.service.getStorage();
+        // this.sources = storages;
+        // this.sources = this.sources.map(source => {
+        //     source.toString = function () {
+        //         return this.name;
+        //     }
+        //     return source;
+        // })
     }
 
     async barcodeChoose(e) {
@@ -71,12 +72,22 @@ export class DataForm {
 
     sourceChange(e) {
         this.data.items = [];
+        if (this.data.source && this.data.source._id)
+            this.data.sourceId = this.data.source._id;
+        else
+            this.data.sourceId = null;
+
+        console.log(this.data.sourceId);
+    }
+
+    get hasSource(){
+        return this.data && this.data.sourceId && this.data.sourceId !== '';
     }
 
     async nameChoose(e) {
         this.hasFocus = false;
         var itemData = e.detail;
-        if (itemData != undefined) {
+        if (itemData && itemData.code && itemData.code !== "") {
             if (Object.getOwnPropertyNames(itemData).length > 0) {
                 var newItem = {};
                 var _data = this.data.items.find((item) => item.code === itemData.code);
@@ -120,5 +131,9 @@ export class DataForm {
         if(this.data.items[itemIndex].inQty && this.data.items[itemIndex].inQty>0){
             this.data.items[itemIndex].Qty=this.data.items[itemIndex].Qty+this.data.items[itemIndex].inQty;
         }
+    }
+
+    get sourceLoader(){
+        return SourceLoader;
     }
 }
