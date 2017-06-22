@@ -1,0 +1,35 @@
+<template>
+    <h1 class="page-header">Cari Barang</h1>
+    <form class="form-horizontal">     
+        <finishedgoods-auto-suggest label="Nama Barang" value.bind="item" class="col-md-7" read-only.bind="readOnly" ></finishedgoods-auto-suggest>
+        <!--<textbox                label="Barcode"          value.bind="filter"  read-only.bind="readOnly"></textbox> -->
+        <div class="form-group">
+            <label for="contact" class="col-sm-1 control-label"></label>
+            <div class="col-sm-3">
+                <button click.delegate="reloadItem()" class="btn btn-success btn-sm pull-right">Cari</button> 
+            </div>
+        </div>
+    </form> 
+    <table class="table table-bordered table-hover">
+        <thead> 
+            Total : ${total} pcs
+            <tr>
+                <th>Toko</th>
+                <th>Nama</th>
+                <th>Kuantitas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of data">
+                <td>${item.storage.name}</td>
+                <td>${item.item.name}</td>
+                <td>${item.quantity}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+       Tidak ada data.
+    </div>
+    <hr/> 
+</template>

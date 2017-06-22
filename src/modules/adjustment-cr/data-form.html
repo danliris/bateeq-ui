@@ -2,16 +2,28 @@
     <form class="form-horizontal">
         <div class="form-group">
             <label class="col-sm-1 text-right control-label"></label>
-            <au-dropdown label="Penyimpanan" class="col-md-8" value.bind="data.source" items.bind="sources" change.delegate="sourceChange($event)"></au-dropdown>
+        </div>
+            <!--<au-dropdown label="Penyimpanan" class="col-md-8" value.bind="data.source" items.bind="sources" change.delegate="sourceChange($event)"></au-dropdown>-->
+
+        <au-autocomplete 
+            value.bind="data.source" 
+            error.bind="error.source"
+            label="Sumber Penyimpanan" 
+            change.delegate="sourceChange($event)" 
+            loader.bind="sourceLoader"
+            placeholder="Cari Sumber Penyimpanan" 
+            key="code"
+            text="name">
+        </au-autocomplete>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 text-right control-label">Barcode</label>
+            <label if.bind="hasSource" class="col-sm-3 text-right control-label">Barcode</label>
             <div class="col-sm-9">
-                <input type="text" focus.bind="hasFocus" class="col-md-5" value.bind="barcode" aria-placeholder="Barcode" input.delegate="barcodeChoose($event)"></input>
+                <input if.bind="hasSource" type="text" focus.bind="hasFocus" class="col-md-5" value.bind="barcode" aria-placeholder="Barcode" input.delegate="barcodeChoose($event)" ></input>
             </div>
         </div>
         <div class="form-group">
-            <finishedgoods-auto-suggest label="Nama Barang" class="col-md-9" value.bind="item" read-only.bind="readOnly" change.delegate="nameChoose($event)"></finishedgoods-auto-suggest>
+            <finishedgoods-auto-suggest if.bind="hasSource" label="Nama Barang" class="col-md-9" value.bind="item" read-only.bind="readOnly" change.delegate="nameChoose($event)"></finishedgoods-auto-suggest>
         </div>
     </form>
     <table class="table table-bordered table-hover">
@@ -25,7 +37,7 @@
                         <div class="col-md-1"> Kuantitas Stok Akhir</div>
                         <div class="col-md-1"> In </div>
                         <div class="col-md-1"> Out </div>
-                        <div class="col-md-2"> Perikiraan Setelah Disesuaikan </div>
+                        <div class="col-md-2"> Perkiraan Setelah Disesuaikan </div>
                         <div class="col-md-3"> Catatan </div>
                     </div>
                 </th>
@@ -38,7 +50,10 @@
                 <td>
                     <div class="row">
                         <div class="col-md-2">
-                            <p class="form-control-static">${item.code}</p>
+                            <div class="form-group ${error.items[$index].code?'has-error':''}">
+                                <p class="form-control-static">${item.code}</p>
+                            <span class="help-block">${error.items[$index].code}</span>
+                            </div>
                         </div>
                         <div class="col-md-2">
                             <p class="form-control-static">${item.name}</p>
@@ -51,17 +66,23 @@
                             </div>
                         </div>
                         <div class="col-md-1">
-                            <numeric value.bind="item.inQty"></numeric>
+                            <div class="form-group ${error.items[$index].inQty?'has-error':''}">
+                                <numeric value.bind="item.inQty" change.delegate="inQtyChanged(item)"></numeric>
+                            <span class="help-block">${error.items[$index].inQty}</span>
+                            </div>
                         </div>
                         <div class="col-md-1">
-                            <numeric value.bind="item.outQty"></numeric>
+                            <div class="form-group ${error.items[$index].outQty?'has-error':''}">
+                                <numeric value.bind="item.outQty" change.delegate="outQtyChanged(item)"></numeric>
+                                <span class="help-block">${error.items[$index].outQty}</span>
+                            </div>
                         </div>
                         <div class="col-md-2">
-                            <numeric value.bind="item.Qty"></numeric>
+                            <numeric value.bind="item.Qty" read-only="true"></numeric>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group ${error.items[$index].remarks?'has-error':''}">
-                                <input class="form-control" type="text" name="remark" value.bind="item.remarks" />
+                                <textbox  value.bind="item.remarks" ></textbox>
                                 <span class="help-block">${error.items[$index].remarks}</span>
                             </div>
                         </div>

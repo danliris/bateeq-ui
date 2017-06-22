@@ -1,12 +1,12 @@
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const resource = 'storages';
+const resource = 'articles/materials';
 
 module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("master");
+    var endpoint = config.getEndpoint("core");
     
     return endpoint.find(resource, { keyword: keyword })
         .then(results => {
