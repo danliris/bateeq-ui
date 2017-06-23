@@ -84,7 +84,7 @@ export class List {
                                 return {
                                     total: result.info.total,
                                     data: dataResult
-                                }
+                                };
                             });
             });
     }
