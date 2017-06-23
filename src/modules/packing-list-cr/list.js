@@ -54,7 +54,7 @@ export class List {
                 return {
                     total: result.info.total,
                     data: result.data
-                }
+                };
             });
         
     };
@@ -64,8 +64,8 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id })
-        }
+                this.router.navigateToRoute('view', { id: data._id });
+        };
     }
 
     view(data) {
