@@ -20,7 +20,6 @@ export async function configure(aurelia) {
     .feature('components')
     .feature('converters')
     .plugin("aurelia-api", config => {
-    //DEV
 
 
 
@@ -32,13 +31,13 @@ export async function configure(aurelia) {
       var merchandiser = "https://bateeq-inventory-api-dev.mybluemix.net/v1/merchandiser/";
       var sales = "https://bateeq-pos-api-dev.mybluemix.net/v1/sales/";
 
+
      // var auth = "https://bateeq-auth-api-uat.mybluemix.net/v1/";
      // var core = "https://bateeq-core-api-uat.mybluemix.net/v1/core/";
      // var master = "https://bateeq-core-api-uat.mybluemix.net/v1/master/";
      // var inventory = "https://bateeq-inventory-api-uat.mybluemix.net/v1/inventory/";
      // var merchandiser = "https://bateeq-inventory-api-uat.mybluemix.net/v1/merchandiser/";
      // var sales = "https://bateeq-pos-api-uat.mybluemix.net/v1/sales/";
-
 
 
       
