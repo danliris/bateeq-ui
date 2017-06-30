@@ -1,30 +1,16 @@
 <template>
-    <h3>Pemasukan Barang</h3>
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Nomor Dokumen</th>
-                <th>Nomor Referensi</th> 
-                <th>Sumber Penyimpanan</th>
-                <th>Tujuan Penyimpanan</th>
-                <th>Tanggal</th> 
-            </tr> 
-        </thead>
-        <tbody>
-            <tr repeat.for="item of data" click.delegate="view(item)">
-                <td>${item.code}</td>
-                <td>${item.reference}</td> 
-                <td>${item.source.name}</td>
-                <td>${item.destination.name}</td>
-                <td>${(item._createdDate).substring(0, 10)}</td> 
-            </tr>
-        </tbody>
-    </table>
-    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-        Tidak ada data.
-    </div>
-    <hr/> 
-    <div class="btn-group pull-right">
-        <button class="btn btn-primary" click.delegate="viewPending()">Pending</button>
-    </div>
+    <h3>PEMASUKAN BARANG</h3>
+
+    <au-table 
+        data.bind="loader" 
+        columns.bind="columns" 
+        sortable.bind="true" 
+        page-size="25" 
+        context.bind="context" 
+        context-click.delegate="contextCallback($event)">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="viewPending()">Pending</button>
+        </div>
+    </au-table>
 </template>
+    

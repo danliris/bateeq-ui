@@ -12,8 +12,9 @@ export class Service extends RestService {
         super(http, aggregator, config, "inventory");
     }
 
-    search(keyword) {
-        return super.get(serviceUri);
+    search(info) {
+        var endpoint = `${serviceUri}`
+        return super.list(endpoint, info);
     }
 
     getById(id) {

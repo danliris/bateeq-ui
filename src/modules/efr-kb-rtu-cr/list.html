@@ -1,4 +1,4 @@
-<template>
+<!--<template>
     <h3>Kirim Barang Ke Unit</h3>
     <div class="row">
         <div class="col-sm-8">
@@ -44,4 +44,20 @@
     <div class="btn-group pull-right">
         <button class="btn btn-primary" click.delegate="create()">Buat</button>
     </div>
+</template>-->
+<template>
+    <h1 class="page-header">Kirim Barang Ke Unit</h1> 
+    <au-table 
+        view-model.ref="table" 
+        data.bind="loadData" 
+        columns.bind="columns" 
+        sortable.bind="true" 
+        page-size="25" 
+        context.bind="context" 
+        context-click.delegate="contextClickCallback($event)"
+        context-show.call="contextShowCallback(index, context, data)">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="create()">Buat</button>
+        </div>
+    </au-table>
 </template>
