@@ -1,14 +1,23 @@
 <template>
     <div class="col-md-9">
         <form class="form-horizontal">
-            <textbox                label="Kode"                        value.bind="data.code"                      error.bind="error.code"                     read-only.bind="(readOnly || isEdit)">  </textbox>
-            <textbox                label="Nama"                        value.bind="data.name"                      error.bind="error.name"                     read-only.bind="readOnly">              </textbox>
-            <textbox                label="UOM"                         value.bind="data.uom"                       error.bind="error.uom"                      read-only.bind="readOnly">              </textbox>
-            <textbox                label="Size"                        value.bind="data.size"                      error.bind="error.size"                     read-only.bind="readOnly">              </textbox>
-            <numeric                label="HPP"                         value.bind="data.domesticCOGS"              error.bind="error.domesticCOGS"             read-only.bind="(readOnly || isEdit)">              </numeric>
-            <numeric                label="Harga Jual (Domestic)"       value.bind="data.domesticSale"              error.bind="error.domesticSale"             read-only.bind="(readOnly || isEdit)">              </numeric>
-            <numeric                label="Harga Jual (Internasional)"  value.bind="data.internationalSale"         error.bind="error.internationalSale"        read-only.bind="(readOnly || isEdit)">              </numeric>
-            <textbox                label="RO"                          value.bind="data.article.realizationOrder"  error.bind="error.ro"                       read-only.bind="readOnly">              </textbox>
+            <textbox                label="Kode"                        value.bind="data.code"                                              error.bind="error.code"                     read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Nama"                        value.bind="data.name"                                              error.bind="error.name"                     read-only.bind="readOnly">              </textbox>
+            <textbox                label="UOM"                         value.bind="data.uom"                                               error.bind="error.uom"                      read-only.bind="readOnly">              </textbox>
+            <textbox                label="Size"                        value.bind="data.size"                                              error.bind="error.size"                     read-only.bind="readOnly">              </textbox>
+            <numeric                label="HPP"                         value.bind="data.domesticCOGS"                                      error.bind="error.domesticCOGS"             read-only.bind="(readOnly || isEdit)">              </numeric>
+            <numeric                label="Harga Jual (Domestic)"       value.bind="data.domesticSale"                                      error.bind="error.domesticSale"             read-only.bind="(readOnly || isEdit)">              </numeric>
+            <numeric                label="Harga Jual (Internasional)"  value.bind="data.internationalSale"                                 error.bind="error.internationalSale"        read-only.bind="(readOnly || isEdit)">              </numeric>
+            <textbox                label="RO"                          value.bind="data.article.realizationOrder"                          error.bind="error.ro"                       read-only.bind="readOnly">              </textbox>
+            <textbox                label="Nama RO"                     value.bind="data.article.realizationOrderName"                      error.bind="error.realizationOrderName"     read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Nama Motif"                  value.bind="data.motifDoc.name"                                     error.bind="error.motifName"                read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Proses"                      value.bind="data.processDoc.name"                                   error.bind="error.prosesName"               read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Bahan"                       value.bind="data.materialDoc.name"                                  error.bind="error.materialName"             read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Komposisi Bahan"             value.bind="data.materialCompositionDoc.name"                       error.bind="error.materialCompositionName"  read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Koleksi"                     value.bind="data.collectionDoc.name"                                error.bind="error.collectionName"           read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Season"                      value.bind="data.seasonDoc.name"                                    error.bind="error.seasonName"               read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Konter"                      value.bind="data.counterDoc.name"                                   error.bind="error.counterName"              read-only.bind="(readOnly || isEdit)">  </textbox>
+            <textbox                label="Style"                       value.bind="data.styleDoc.name"                                     error.bind="error.styleName"                read-only.bind="(readOnly || isEdit)">  </textbox>
         </form>
     </div>
     <div class="col-md-3 text-center" if.bind="data.imagePath">
