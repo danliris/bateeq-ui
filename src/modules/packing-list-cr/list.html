@@ -26,10 +26,7 @@
                 <td>${item.source.code} - ${item.source.name}</td>
                 <td>${item.destination.code} - ${item.destination.name}</td>
                 <th>${item.date}</th>
-                <td>
-                    <div if.bind="item.isDraft==true">Draft</div>
-                    <div if.bind="item.isDraft==false">Tersimpan</div>
-                </td>
+                <td> ${item.isDraft ? "Draft" : "Tersimpan"} </td>
             </tr>
         </tbody>
     </table>
