@@ -1,14 +1,16 @@
 <template>
     <h3>Packing List</h3>
-    <div class="row">
-        <div class="col-sm-8">
-            <div class="input-group">
-                <input type="text" class="form-control" name="keyword" value.bind="info.keyword" placeholder="cari" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default" click.delegate="loadPage()"><i class="fa fa-search"></i></button>
-                </span>
-            </div>
-        </div>
+
+    <au-table 
+        data.bind="loader" 
+        columns.bind="columns" 
+        sortable.bind="true" 
+        page-size="25" 
+        context.bind="context" 
+        context-click.delegate="contextCallback($event)">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-success" click.delegate="create()">Buat</button>
+        </div> 
     </div>
     <table class="table table-bordered table-hover">
         <thead>
@@ -37,5 +39,6 @@
     <hr/>
     <div class="btn-group pull-right">
         <button class="btn btn-primary" click.delegate="create()">Buat</button>
-    </div>
+    </div> 
+    </au-table> 
 </template>
