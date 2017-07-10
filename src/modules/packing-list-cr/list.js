@@ -50,6 +50,13 @@ export class List {
             .then(result =>{
                 var data = {};
                 data.total = result.info.total;
+                for (var data of result.data) {
+                    if (data.isDraft) {
+                        data.isDraft = "Draft";
+                    } else {
+                        data.isDraft = "Tersimpan";
+                    }
+                }
                 data.data = result.data;
                 return {
                     total: result.info.total,
