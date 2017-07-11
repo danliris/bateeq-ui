@@ -1,0 +1,19 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+        <au-textbox label="Kode" placeholder="Kode Range Diskon" value.bind="data.code" error.bind="error.code" read-only.bind="readOnlyCode"></au-textbox>
+        <au-textbox label="Nama" placeholder="Nama Range Diskon" value.bind="data.name" error.bind="error.name" read-only.bind="readOnlyName"></au-textbox>
+        <au-textbox label="Deskripsi" placeholder="Deskripsi Range Diskon" value.bind="data.description" read-only.bind="readOnlyDescription"></au-textbox>
+        <!--<div class="form-group">
+            <label class="col-sm-3 text-right control-label">Type</label>
+            <div class="col-sm-9 radio">
+                <label style="margin-right:10px;" repeat.for="option of RDPTypeOptions">
+                    <input type="radio" name="RDPType" model.bind="option" value.bind="data.type" checked.bind="RDPType" change.delegate="selected($event)" read-only.bind="test"/> 
+                    ${option}
+                </label>
+            </div>  
+        </div>-->
+        <radiobutton label="Tipe" value.bind="data.type" error.bind="error.type" selections.bind="RDPTypeOptions" class="col-sm-9" style="margin-right:10px;"></radiobutton>
+        <au-textbox label="Diskon Dari" placeholder="Diskon Dari" value.bind="data.discFrom" read-only.bind="readOnlyDiscFrom" error.bind="error.discFrom"></au-textbox>
+        <au-textbox label="Diskon Sampai" placeholder="Diskon Sampai" value.bind="data.discTo" read-only.bind="readOnlyDiscTo" error.bind="error.discTo"></au-textbox>
+    </au-input-form>
+</template>
