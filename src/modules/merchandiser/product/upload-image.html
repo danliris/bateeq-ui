@@ -39,20 +39,20 @@
             </div>
         </div>
         <div class="form-group col-md-4">
-            <label><strong>Motif : </strong></label><!--<label>${article_motif.name}</label>-->
-            <div class="form-group ${error.motifname?'has-error':''}">
+            <!--<label><strong>Motif : </strong></label><!--<label>${article_motif.name}</label>-->
+            <!--<div class="form-group ${error.motifname?'has-error':''}">
                 <label class="col-sm-2"><strong>Nama</strong></label>
                 <div class="col-sm-8">
                     <au-autocomplete value.bind="data.motif" loader.bind="MotifsLoader" error.bind="error.motif" text="name"></au-autocomplete>                      
                 </div>
-            </div>
-            <div class="form-group ${error.motifUpload?'has-error':''}">
+            </div>-->
+           <!-- <div class="form-group ${error.motifUpload?'has-error':''}">
                 <label class="col-sm-2"><strong>File Path</strong></label>
                <div class="col-sm-10">
                 <input type="file" id="motifUpload" name="motifUpload" accept="image/*">
                 <span class="help-block">${error.motifUpload}</span>
             </div>
-            </div>            
+            </div> -->           
         </div>
         <div class="col-md-4">
             <div><label><strong>Warna :</strong></label></div>
@@ -69,7 +69,8 @@
         </div>
         <div class="clearfix"></div>
           <div class="form-group col-md-8 ${error.doc?'has-error':''}">  
-            <au-textbox             label="Nama RO"                             value.bind="data.realizationOrderName"                                                   error.bind="error.realizationOrderName"                     read-only.bind="readOnly">         </au-textbox>
+            <!--<au-textbox             label="Nama RO"                         value.bind="data.realizationOrderName"                                                   error.bind="error.realizationOrderName"                     read-only.bind="readOnly">         </au-textbox>-->
+            <au-textbox             label="Nomor RO"                            value.bind="data.ro"                                                                     error.bind="error.ro"                     read-only.bind="readOnly">         </au-textbox>
             <au-autocomplete        label="Proses"                              value.bind="data.process"                    loader.bind="ProcessLoader"                 error.bind="error.process"                             text="name">                            </au-autocomplete>
             <au-autocomplete        label="Bahan"                               value.bind="data.materials"                  loader.bind="MaterialsLoader"               error.bind="error.materials"                           text="name">                            </au-autocomplete>
             <au-autocomplete        label="Komposisi Bahan"                     value.bind="data.materialCompositions"       loader.bind="MaterialCompositionsLoader"    error.bind="error.materialCompositions"                text="name">                            </au-autocomplete>
@@ -77,6 +78,7 @@
             <au-autocomplete        label="Season"                              value.bind="data.seasons"                    loader.bind="SeasonsLoader"                 error.bind="error.seasons"                             text="name">                            </au-autocomplete>
             <au-autocomplete        label="Konter"                              value.bind="data.counters"                   loader.bind="CountersLoader"                error.bind="error.counters"                            text="name">                            </au-autocomplete>
             <au-autocomplete        label="Style"                               value.bind="data.subCounters"                loader.bind="SubCountersLoader"             error.bind="error.subCounters"                         text="name">                            </au-autocomplete>
+            <au-autocomplete        label="Kategori"                            value.bind="data.categories"                 loader.bind="CategoriesLoader"              error.bind="error.categories"                          text="name">                            </au-autocomplete>
           </div>
           </div>
         <div class="clearfix"></div>

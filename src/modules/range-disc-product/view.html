@@ -1,0 +1,51 @@
+<template>
+    <h1 class="page-header">Detail Informasi Range Diskon Produk</h1>
+    <require from="./data-form"></require>
+    <block>
+        <hr />
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="type" class="col-sm-3 control-label">Kode</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">${data.code}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type" class="col-sm-3 control-label">Nama</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">${data.name}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type" class="col-sm-3 control-label">Deskripsi</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">${data.description}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type" class="col-sm-3 control-label">Tipe</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">${data.type}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type" class="col-sm-3 control-label">Diskon Dari</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">${data.discFrom}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="type" class="col-sm-3 control-label">Diskon Sampai</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static">${data.discTo}</p>
+                </div>
+            </div>
+        </form>
+        <hr/>
+        <div class="btn-group pull-right">
+            <button class="btn btn-default" click.delegate="list()">Kembali</button>
+            <button class="btn btn-default" click.delegate="delete()">Hapus</button>
+            <button class="btn btn-default" click.delegate="update()">Ubah</button>
+        </div>
+    </block>
+</template>
