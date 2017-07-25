@@ -1,0 +1,17 @@
+<template>
+    <ai-dialog style="width:1000px; overflow:hidden;">
+        <ai-dialog-header>Stok Penyimpanan Terdekat</ai-dialog-header>
+
+        <ai-dialog-body>
+            <au-table    
+                data.bind="dialogTableData"
+                options.bind="dialogTableOptions"
+                page-size="25">
+            </au-table>
+        </ai-dialog-body>
+
+        <ai-dialog-footer>
+            <button class="btn btn-default" click.delegate="dialogController.cancel()">Kembali</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>
