@@ -1,0 +1,33 @@
+<template>
+    <h1 class="page-header">Laporan Ketersediaan Stok</h1>
+    <form class="form-horizontal">
+            <au-autocomplete 
+                label="Penyimpanan"
+                value.bind="data" 
+                error.bind="error" 
+                loader.bind="storageLoader"
+                placeholder="Cari Penyimpanan"
+                key="code"
+                text="name"
+                class="col-md-9">
+            </au-autocomplete>
+            <div class="form-group">
+                <div class="col-md-3">
+                    <button click.delegate="showItem()" class="btn btn-success btn-sm pull-left">Cari</button> 
+                </div>
+            </div>
+    </form>
+    <au-table 
+        view-model.ref="models"     
+        data.bind="tableData"
+        options.bind="tableOptions"
+        page-size="25"
+        if.bind="visible"
+        context.bind="detail" 
+        context-click.delegate="contextCallback($event)">
+    </au-table>
+    <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+       Tidak ada data.
+    </div>
+    <hr/> 
+</template>

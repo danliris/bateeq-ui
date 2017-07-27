@@ -14,12 +14,12 @@ export class List {
         this.service = service;
     }
 
-    async activate() {
-        this.info.keyword = '';
-        var result = await this.service.search(this.info);
-        this.data = result.data;
-        this.info = result.info;
-    }
+    // async activate() {
+    //     this.info.keyword = '';
+    //     var result = await this.service.search(this.info);
+    //     this.data = result.data;
+    //     this.info = result.info;
+    // }
 
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
