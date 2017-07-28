@@ -72,15 +72,21 @@ export class List {
                 }
                 return Promise.all(dataSPKB)
                             .then(data => {
-                                for(var a of dataResult){
+                                for (var i = 0; i < dataResult.length; i++) {
                                     for(var b = 0; b < data.length; b++){
                                         if(data[b] != undefined && data[b].length > 0){
-                                            a.spk = data[b][0];
+                                            dataResult[i].spk = data[i][0];
                                         }
                                     }
                                 }
-                                console.log(data);
-                                console.log(dataResult);
+
+                                // for(var a of dataResult){
+                                //     for(var b = 0; b < data.length; b++){
+                                //         if(data[b] != undefined && data[b].length > 0){
+                                //             a.spk = data[b][0];
+                                //         }
+                                //     }
+                                // }
                                 return {
                                     total: result.info.total,
                                     data: dataResult
