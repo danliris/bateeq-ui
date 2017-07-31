@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "general inventory",
-            permission: { "FA.01": 1, "FA.02": 1},
+            permission: { "ACC.01": 1, "FNC.01": 1},
             iconClass: 'fa fa-gg-circle'
         }
     },
@@ -22,7 +22,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "general inventory",
-            permission: { "FA.01": 1, "FA.02": 1 },
+            permission: { "ACC.01": 1, "FNC.01": 1},
             iconClass: 'fa fa-gg-circle'
         }
     }
