@@ -39,15 +39,14 @@ export class List {
 
     showItem() {
         let input = this.data;
-        debugger
-        if (typeof input === "undefined" || input === null || input.storage === null) {
+        if (typeof input === "undefined" || input === null) {
             this.error = "Masukkan kode inventory yang ingin anda cari";
         } else {
-            this.storageId = input ? input._id : "";
             this.error = "";
+            this.storageId = input ? input._id : "";
+            this.visible = true;
             this.service.getStorageInInventory(this.storageId)
                 .then((result) => {
-                    this.visible = true;
                     this.showTable(result);
                 })
                 .catch(e => {
