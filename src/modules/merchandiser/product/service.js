@@ -27,6 +27,11 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  searchAll(imageFile) {
+    var endpoint = `${serviceUri}/readAll/${imageFile}`;
+    return super.get(endpoint);
+  }
+
   getColors() {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("core");
