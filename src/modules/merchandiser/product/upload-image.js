@@ -234,19 +234,30 @@ export class Upload {
         this.router.navigateToRoute('list');
     }
 
-    upload() {
+
+
+    async upload() {
+
         var e = [];
         var imageUpload = document.getElementById("imageUpload");
         var fileList1 = imageUpload.files;
-
+        var imagePath;
         // var motifUpload = document.getElementById("motifUpload");
         // var fileList2 = motifUpload.files;
 
-        if (fileList1[0] == undefined)
+        if (fileList1[0] == undefined) {
             e["imageUpload"] = "Gambar harus dipilih"
+        }
+        else {
+            imagePath = await this.service.searchAll(fileList1[0].name);
+            if (imagePath.length > 0) {
+                e["imageUpload"] = "Nama file gambar tidak boleh sama"
+            }
+        }
 
         // if (fileList2[0] == undefined)
         //     e["motifUpload"] = "Gambar motif harus dipilih"
+
 
         if (this.dataDestination.length == 0) {
             e["dataDestination"] = "Produk harus dipilih"
