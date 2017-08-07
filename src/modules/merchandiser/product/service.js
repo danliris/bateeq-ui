@@ -23,7 +23,8 @@ export class Service extends RestService {
   }
 
   searchByRo(ro) {
-    var endpoint = `${serviceUri}/ro/${ro}`;
+    var roTemp =encodeURIComponent(ro);
+    var endpoint = `${serviceUri}/ro/${roTemp}`;
     return super.get(endpoint);
   }
 

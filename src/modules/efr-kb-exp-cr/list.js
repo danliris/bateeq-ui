@@ -31,7 +31,7 @@ export class List {
 
     columns = [
         { field: "code", title: "Nomor Dokumen" },
-        { field: "expedition", title: "Ekspedisi" },
+        { field: "expedition.name", title: "Ekspedisi" },
         { field: "weight", title: "Berat (Kg)" },
         {
             field: "date", title: "Tanggal",
@@ -42,13 +42,13 @@ export class List {
         },
         {
             field: "spkDocuments", title: "Tujuan",
-            formatter: function (value, data, index) {
-                var destination = "";
-                if (value.length > 0) {
-                    destination = value[0].destination.name;
-                }
-                return destination;
-            }
+            // formatter: function (value, data, index) {
+            //     var destination = "";
+            //     // if (value.length > 0) {
+            //         destination = value.destination.name;
+            //     // }
+            //     return destination;
+            // }
         },
         { field: "_createdBy", title: "Dibuat Oleh" }
     ];
