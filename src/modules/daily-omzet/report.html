@@ -1,0 +1,172 @@
+<template>
+    <h3>Omset Harian</h3>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Bateeq FO</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${fo_grandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${fo_count.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <au-table
+        data.bind="fo"
+        options.bind="options"
+        page-size="25">
+    </au-table>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Bateeq Stand Alone</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${standalone_grandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${standalone_count.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <au-table
+        data.bind="standalone"
+        options.bind="options"
+        page-size="25">
+    </au-table>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>BateeqShop</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${bateeqshop_grandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${bateeqshop_count.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <au-table
+        data.bind="bateeqshop"
+        options.bind="options"
+        page-size="25">
+    </au-table>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Penjualan VVIP</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${vvip_grandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${vvip_count.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <au-table
+        data.bind="vvip"
+        options.bind="options"
+        page-size="25">
+    </au-table>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Penjualan Konsinyasi(Online)</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${on_konsinyasi_grandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${on_konsinyasi_count.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <au-table
+        data.bind="on_konsinyasi"
+        options.bind="options"
+        page-size="25">
+    </au-table>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Penjualan Konsinyasi(Offline)</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${off_konsinyasi_grandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${off_konsinyasi_count.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <au-table
+        data.bind="off_konsinyasi"
+        options.bind="options"
+        page-size="25">
+    </au-table>
+
+</template>
