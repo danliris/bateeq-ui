@@ -1,6 +1,6 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
 
 
 @inject(Router, Service)
@@ -14,15 +14,15 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
     }
-
-    view() {
+ 
+    cancelCallback(event) {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
-    save() {
+    saveCallback(event) {
         this.service.update(this.data)
             .then(result => {
-                this.view();
+                this.router.navigateToRoute('view', { id: this.data._id });
             })
             .catch(e => {
                 this.error = e;
