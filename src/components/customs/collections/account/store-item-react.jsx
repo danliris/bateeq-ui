@@ -1,0 +1,64 @@
+import React from 'react';
+import StoreAutoSuggestReact from '../../auto-suggests/react/store-auto-suggest-react.jsx';
+
+'use strict';
+
+export default class StoreItemReact extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleRemove = this.handleRemove.bind(this);
+        this.handleValueChange = this.handleValueChange.bind(this);
+
+        this.componentWillMount = this.componentWillMount.bind(this);
+        this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+    }
+
+    handleValueChange(event, value) {
+        var store = this.state.value; 
+        Object.assign(store, value);
+        store.toString = value.toString;
+        this.setState({ value: store });
+        if (this.props.onChange)
+            this.props.onChange(store);
+    }
+
+    handleRemove() {
+        if (this.props.onRemove)
+            this.props.onRemove(this.state.value);
+    }
+
+    componentWillMount() {
+        this.setState({ value: this.props.value || {}, error: this.props.error, options: this.props.options || {} });
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({ value: props.value || {}, error: props.error, options: props.options || {} });
+    }
+
+    render() {
+        var readOnlyOptions = { readOnly: this.state.options.readOnly };
+        var removeButton = null
+
+        if (!this.state.options.readOnly)
+            removeButton = <button className="btn btn-danger" onClick={this.handleRemove}>-</button>;
+
+        var style = {
+            margin: 0 + 'px'
+        } 
+        
+        return (
+            <tr>
+                <td>
+                    <div className={`form-group ${this.state.error ? 'has-error' : ''}`} style={style}>
+                        <StoreAutoSuggestReact value={this.state.value} options={readOnlyOptions} onChange={this.handleValueChange}></StoreAutoSuggestReact>
+                        <span className="help-block">{this.state.error}</span>
+                    </div>
+                </td>
+                <td>
+                    {removeButton}
+                </td>
+            </tr>
+        )
+    }
+} 
