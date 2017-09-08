@@ -1,9 +1,17 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 
 export class DataForm {
-    @bindable readOnly = false;
+    @bindable title;
+    @bindable readOnly;
     @bindable data = {};
     @bindable error = {};
+
+    formOptions = {
+        cancelText: "Kembali",
+        saveText: "Simpan",
+        deleteText: "Hapus",
+        editText: "Ubah",
+    }
 
     constructor() {
     }
@@ -13,10 +21,15 @@ export class DataForm {
         return (this.data._id || '').toString() != '';
     }
 
-    activate() {
-    }
+    bind(context) {
+        this.context = context;
+        this.data = this.context.data;
+        this.error = this.context.error;
 
-    attached() {
+        this.cancelCallback = this.context.cancelCallback;
+        this.deleteCallback = this.context.deleteCallback;
+        this.editCallback = this.context.editCallback;
+        this.saveCallback = this.context.saveCallback;
     }
 
 } 
