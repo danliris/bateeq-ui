@@ -1,7 +1,33 @@
 <template>
-    <h3>Omset Harian</h3>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <h3>Omset Harian</h3>
+        </div>
+    </div>
     <br>
 
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Keseluruhan</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${totalOmset.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${totalQuantity.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <table class="table table-bordered">
@@ -23,11 +49,20 @@
             </table>
         </div>
     </div>
-    <au-table
-        data.bind="fo"
-        options.bind="options"
-        page-size="25">
-    </au-table>
+    <div class="row">
+        <div class="col-md-1 col-sm-1">
+            <button type="button" class="btn" id="fo_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+        </div>
+    </div>
+    <div class="row" id="fo_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="fo"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
 
     <br>
     <div class="row">
@@ -51,11 +86,20 @@
             </table>
         </div>
     </div>
-    <au-table
-        data.bind="standalone"
-        options.bind="options"
-        page-size="25">
-    </au-table>
+    <div class="row">
+            <div class="col-md-1 col-sm-1">
+                <button type="button" class="btn" id="standalone_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+            </div>
+        </div>
+    <div class="row" id="standalone_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="standalone"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
 
     <br>
     <div class="row">
@@ -79,11 +123,25 @@
             </table>
         </div>
     </div>
-    <au-table
+    <div class="row">
+            <div class="col-md-1 col-sm-1">
+                <button type="button" class="btn" id="bateeqshop_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+            </div>
+        </div>
+    <div class="row" id="bateeqshop_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="bateeqshop"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
+    <!-- <au-table
         data.bind="bateeqshop"
         options.bind="options"
         page-size="25">
-    </au-table>
+    </au-table> -->
 
     <br>
     <div class="row">
@@ -107,18 +165,27 @@
             </table>
         </div>
     </div>
-    <au-table
-        data.bind="vvip"
-        options.bind="options"
-        page-size="25">
-    </au-table>
+    <div class="row">
+            <div class="col-md-1 col-sm-1">
+                <button type="button" class="btn" id="vvip_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+            </div>
+        </div>
+    <div class="row" id="vvip_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="vvip"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
 
     <br>
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <table class="table table-bordered">
                 <tr>
-                    <td colspan="2"><b>Penjualan Konsinyasi(Online)</b></th>
+                    <td colspan="2"><b>Penjualan Konsinyasi (Online)</b></th>
                 </tr>
                 <tr>
                     <td>Total Omset</td>
@@ -135,18 +202,27 @@
             </table>
         </div>
     </div>
-    <au-table
-        data.bind="on_konsinyasi"
-        options.bind="options"
-        page-size="25">
-    </au-table>
+    <div class="row">
+            <div class="col-md-1 col-sm-1">
+                <button type="button" class="btn" id="on_konsinyasi_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+            </div>
+        </div>
+    <div class="row" id="on_konsinyasi_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="on_konsinyasi"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
 
     <br>
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <table class="table table-bordered">
                 <tr>
-                    <td colspan="2"><b>Penjualan Konsinyasi(Offline)</b></th>
+                    <td colspan="2"><b>Penjualan Konsinyasi (Offline)</b></th>
                 </tr>
                 <tr>
                     <td>Total Omset</td>
@@ -163,10 +239,19 @@
             </table>
         </div>
     </div>
-    <au-table
-        data.bind="off_konsinyasi"
-        options.bind="options"
-        page-size="25">
-    </au-table>
+    <div class="row">
+            <div class="col-md-1 col-sm-1">
+                <button type="button" class="btn" id="off_konsinyasi_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+            </div>
+        </div>
+    <div class="row" id="off_konsinyasi_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="off_konsinyasi"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
 
 </template>
