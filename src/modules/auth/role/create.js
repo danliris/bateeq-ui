@@ -8,21 +8,19 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = { permissions: [] }; 
+        this.data = { permissions: [] };
+        this.error = {};
     }
 
     activate(params) {
+
     }
 
     list() {
         this.router.navigateToRoute('list');
     }
 
-    cancelCallback(event) {
-      this.list();
-    }
-
-    saveCallback() {
+    save() {
         this.service.create(this.data)
             .then(result => {
                 this.list();
