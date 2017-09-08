@@ -2,7 +2,7 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 import moment from 'moment';
-
+import $ from 'jquery';
 
 @inject(Router, Service)
 export class Report {
@@ -18,129 +18,136 @@ export class Report {
         showToggle: false
     };
 
-    standalone = [];
-    fo = [];
-    bateeqshop = [];
-    vvip = [];
-    on_konsinyasi = [];
-    off_konsinyasi = [];
-
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.dateFrom = moment(new Date()).startOf('day');
-        this.dateTo = moment(new Date()).endOf('day');
-        
-        this.standalone_grandTotal = "";
-        this.fo_grandTotal = "";
-        this.bateeqshop_grandTotal = "";
-        this.vvip_grandTotal = "";
-        this.on_konsinyasi_grandTotal = "";
-        this.off_konsinyasi_grandTotal = "";
-        
-        this.standalone_count = "";
-        this.fo_count = "";
-        this.bateeqshop_count = "";
-        this.vvip_count = "";
-        this.on_konsinyasi_count = "";
-        this.off_konsinyasi_count = "";
     }
 
-    standalone = () => {
-        return this.service.getSalesSummary(this.dateFrom.format(), this.dateTo.format())
+    async activate() {
+        let dateFrom = moment(new Date()).startOf('day');
+        let dateTo = moment(new Date()).endOf('day');
+        let apiResult = await this.service.getSalesSummary(dateFrom.format(), dateTo.format())
             .then(result => {
-                console.log(result);
-                return {
-                    data: result.standalone
-                }
-            })
-    };
+                return result;
+            });
 
-    fo = () => {
-        return this.service.getSalesSummary(this.dateFrom.format(), this.dateTo.format())
-            .then(result => {
-                return {
-                    data: result.fo
-                }
-            })
-    };
+        this.standalone_grandTotal = this.getGrandTotal(apiResult.category.standalone);
+        this.fo_grandTotal = this.getGrandTotal(apiResult.category.fo);
+        this.bateeqshop_grandTotal = this.getGrandTotal(apiResult.category.bateeqshop);
+        this.vvip_grandTotal = this.getGrandTotal(apiResult.category.vvip);
+        this.on_konsinyasi_grandTotal = this.getGrandTotal(apiResult.category.on_konsinyasi);
+        this.off_konsinyasi_grandTotal = this.getGrandTotal(apiResult.category.off_konsinyasi);
+        this.totalOmset = this.standalone_grandTotal + this.fo_grandTotal + this.bateeqshop_grandTotal + this.vvip_grandTotal
+            + this.on_konsinyasi_grandTotal + this.off_konsinyasi_grandTotal;
 
-    bateeqshop = () => {
-        return this.service.getSalesSummary(this.dateFrom.format(), this.dateTo.format())
-            .then(result => {
-                return {
-                    data: result.bateeqshop
-                }
-            })
-    };
+        this.standalone_count = this.getCount(apiResult.category.standalone);
+        this.fo_count = this.getCount(apiResult.category.fo);
+        this.bateeqshop_count = this.getCount(apiResult.category.bateeqshop);
+        this.vvip_count = this.getCount(apiResult.category.vvip);
+        this.on_konsinyasi_count = this.getCount(apiResult.category.on_konsinyasi);
+        this.off_konsinyasi_count = this.getCount(apiResult.category.off_konsinyasi);
+        this.totalQuantity = this.standalone_count + this.fo_count + this.bateeqshop_count + this.vvip_count
+            + this.on_konsinyasi_count + this.off_konsinyasi_count;
 
-    vvip = () => {
-        return this.service.getSalesSummary(this.dateFrom.format(), this.dateTo.format())
-            .then(result => {
-                return {
-                    data: result.vvip
-                }
-            })
-    };
-
-    on_konsinyasi = () => {
-        return this.service.getSalesSummary(this.dateFrom.format(), this.dateTo.format())
-            .then(result => {
-                return {
-                    data: result.on_konsinyasi
-                }
-            })
-    };
-
-    off_konsinyasi = () => {
-        return this.service.getSalesSummary(this.dateFrom.format(), this.dateTo.format())
-            .then(result => {
-                return {
-                    data: result.off_konsinyasi
-                }
-            })
-    };
-
-    activate() {
-        this.service.getSalesSummary(this.dateFrom.format(), this.dateTo.format())
-            .then(result => {
-                this.standalone_grandTotal = (typeof result.standaloneC !== "undefined")? result.standaloneC.grandTotal : 0;
-                this.fo_grandTotal = (typeof result.foC !== "undefined")? result.foC.grandTotal : 0;
-                this.bateeqshop_grandTotal = (typeof result.bateeqshopC !== "undefined")? result.bateeqshopC.grandTotal : 0;
-                this.vvip_grandTotal = (typeof result.vvipC !== "undefined")? result.vvipC.grandTotal : 0;
-                this.on_konsinyasi_grandTotal = (typeof result.on_konsinyasiC !== "undefined")? result.on_konsinyasiC.grandTotal : 0;
-                this.off_konsinyasi_grandTotal = (typeof result.off_konsinyasiC !== "undefined")? result.off_konsinyasiC.grandTotal : 0;
-                
-                this.standalone_count = (typeof result.standaloneC !== "undefined")? result.standaloneC.count : 0;
-                this.fo_count = (typeof result.foC !== "undefined")? result.foC.count : 0;
-                this.bateeqshop_count = (typeof result.bateeqshopC !== "undefined")? result.bateeqshopC.count : 0;
-                this.vvip_count = (typeof result.vvipC !== "undefined")? result.vvipC.count  : 0;
-                this.on_konsinyasi_count = (typeof result.on_konsinyasiC !== "undefined")? result.on_konsinyasiC.count : 0;
-                this.off_konsinyasi_count = (typeof result.off_konsinyasiC !== "undefined")? result.off_konsinyasiC.count : 0;
-            })
+        this.standalone = this.getArray(apiResult.data.standalone);
+        this.fo = this.getArray(apiResult.data.fo);
+        this.bateeqshop = this.getArray(apiResult.data.bateeqshop);
+        this.vvip = this.getArray(apiResult.data.vvip);
+        this.on_konsinyasi = this.getArray(apiResult.data.on_konsinyasi);
+        this.off_konsinyasi = this.getArray(apiResult.data.off_konsinyasi);
     }
 
-    generateHtmlReport() {
-        this.reportHTML = "";
-        this.reportHTML += "    <table class='table table-bordered'>";
-        this.reportHTML += "        <thead>";
-        this.reportHTML += "            <tr style='background-color:#282828; color:#ffffff;'>";
-        this.reportHTML += "                <th>Toko</th>";
-        this.reportHTML += "                <th>Omset</th>";
-        this.reportHTML += "                <th>Kuantitas</th>";
-        this.reportHTML += "            </tr>";
-        this.reportHTML += "        </thead>";
-        this.reportHTML += "        <tbody>";
-
-        for (var data of this.summary) {
-            this.reportHTML += "<tr>";
-            this.reportHTML += "            <td>" + data.store.name + "</td>";
-            this.reportHTML += "            <td class=\"text-right\">" + data.grandTotal.toLocaleString() + "</td>";
-            this.reportHTML += "            <td class=\"text-right\">" + data.count.toLocaleString() + "</td>";
-            this.reportHTML += "</tr>";
+    getGrandTotal(object) {
+        if (typeof object !== "undefined") {
+            return object.grandTotal;
         }
+        else {
+            return 0;
+        }
+    }
 
-        this.reportHTML += "        </tbody>";
-        this.reportHTML += "    </table>";
+    getCount(object) {
+        if (typeof object !== "undefined") {
+            return object.count;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    getArray(object) {
+        if (typeof object !== "undefined") {
+            return object;
+        }
+        else {
+            return [];
+        }
+    }
+
+    attached() {
+        let hide = '<span class="glyphicon glyphicon-menu-up"></span> Hide';
+        let show = '<span class="glyphicon glyphicon-menu-down"></span> Show';
+        $(document).ready(function () {
+            $("#fo_table").hide();
+            $("#fo_button").click(function () {
+                if ($("#fo_button").text().trim().toLowerCase() === "show") {
+                    $("#fo_button").html(hide);
+                }
+                else {
+                    $("#fo_button").html(show);
+                }
+                $("#fo_table").slideToggle();
+            });
+            $("#standalone_table").hide();
+            $("#standalone_button").click(function () {
+                if ($("#standalone_button").text().trim().toLowerCase() === "show") {
+                    $("#standalone_button").html(hide);
+                }
+                else {
+                    $("#standalone_button").html(show);
+                }
+                $("#standalone_table").slideToggle();
+            });
+            $("#bateeqshop_table").hide();
+            $("#bateeqshop_button").click(function () {
+                if ($("#bateeqshop_button").text().trim().toLowerCase() === "show") {
+                    $("#bateeqshop_button").html(hide);
+                }
+                else {
+                    $("#bateeqshop_button").html(show);
+                }
+                $("#bateeqshop_table").slideToggle();
+            });
+            $("#vvip_table").hide();
+            $("#vvip_button").click(function () {
+                if ($("#vvip_button").text().trim().toLowerCase() === "show") {
+                    $("#vvip_button").html(hide);
+                }
+                else {
+                    $("#vvip_button").html(show);
+                }
+                $("#vvip_table").slideToggle();
+            });
+            $("#on_konsinyasi_table").hide();
+            $("#on_konsinyasi_button").click(function () {
+                if ($("#on_konsinyasi_button").text().trim().toLowerCase() === "show") {
+                    $("#on_konsinyasi_button").html(hide);
+                }
+                else {
+                    $("#on_konsinyasi_button").html(show);
+                }
+                $("#on_konsinyasi_table").slideToggle();
+            });
+            $("#off_konsinyasi_table").hide();
+            $("#off_konsinyasi_button").click(function () {
+                if ($("#off_konsinyasi_button").text().trim().toLowerCase() === "show") {
+                    $("#off_konsinyasi_button").html(hide);
+                }
+                else {
+                    $("#off_konsinyasi_button").html(show);
+                }
+                $("#off_konsinyasi_table").slideToggle();
+            });
+        });
     }
 }

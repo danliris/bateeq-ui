@@ -15,6 +15,9 @@ export function configure(config) {
         './form/basic/auto-suggest',
 
         './customs/auto-suggests/storage-auto-suggest',
-         './customs/auto-suggests/finishedgoods-auto-suggest'
+        './customs/auto-suggests/finishedgoods-auto-suggest',
+        './customs/collections/role/role-permission-item-collection',
+        './customs/collections/account/role-item-collection',
+        './customs/collections/account/store-item-collection',
     );
 }
