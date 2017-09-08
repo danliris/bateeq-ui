@@ -6,160 +6,149 @@ import { Config } from "aurelia-api";
 @inject(HttpClient, EventAggregator, Config, "")
 export class RestService {
 
-  constructor(HttpClient, EventAggregator, config, api) {
-    this.endpoint = config.getEndpoint(api); 
-    // this._config =config; 
-    
-    // console.log(this.endpoint.defaults);
-    // console.log(this.endpoint.client.defaults);
-    // const timezoneOffsetHeader = "x-timezone-offset";
-    // var timezone = this.endpoint.defaults.headers["x-timezone-offset"];
-    // this.endpoint.client.defaults =  this.endpoint.defaults;
-    this.eventAggregator = EventAggregator;
-  }
+    constructor(HttpClient, EventAggregator, config, api) {
+        this.endpoint = config.getEndpoint(api);
 
-  publish(promise) {
-    this.eventAggregator.publish('httpRequest', promise);
-  }
-
-  parseResult(result) {
-    if (result.error) {
-      return Promise.reject(result.error);
+        this.eventAggregator = EventAggregator;
     }
-    else {
-      return Promise.resolve(result.data)
+
+    publish(promise) {
+        this.eventAggregator.publish('httpRequest', promise);
     }
-  }
 
-  list(endpoint, info, header) {
-    var _info = Object.assign({}, info);
+    parseResult(result) {
+        if (result.error) {
+            return Promise.reject(result.error);
+        }
+        else {
+            return Promise.resolve(result.data)
+        }
+    }
 
-    if (_info.order && typeof _info.order === "object")
-      _info.order = JSON.stringify(_info.order);
-    else
-      delete _info.order;
-
-    var promise = this.endpoint.find(endpoint, _info);
-    this.publish(promise);
-    return promise
-      .then((result) => {
+    list(endpoint, info, header) {
+        var _info = Object.assign({}, info);
+        delete _info.order;
+        var promise = this.endpoint.find(endpoint, _info);
         this.publish(promise);
-        return Promise.resolve(result);
-      });
-  }
+        return promise
+            .then((result) => {
+                this.publish(promise);
+                return Promise.resolve(result);
+            });
+    }
 
-  get(endpoint, header, info) {
-    var promise = this.endpoint.find(endpoint, info)
-    this.publish(promise);
-    return promise
-      .then((result) => {
+    get(endpoint, header) {
+        var promise = this.endpoint.find(endpoint)
         this.publish(promise);
-        return this.parseResult(result);
-      });
-  }
+        return promise
+            .then((result) => {
+                this.publish(promise);
+                return this.parseResult(result);
+            });
+    }
 
-  post(endpoint, data, header) {
-    var promise = this.endpoint.post(endpoint, data);
-    this.publish(promise);
-    return promise
-      .catch(e => {
-        return e.json().then(result => {
-          if (result.error)
-            return Promise.resolve(result);
-        });
-      })
-      .then(result => {
+    post(endpoint, data, header) {
+        var promise = this.endpoint.post(endpoint, data);
         this.publish(promise);
-        if (result)
-          return this.parseResult(result);
-        else
-          return Promise.resolve({});
-      })
-  }
-
-  put(endpoint, data, header) {
-    var promise = this.endpoint.update(endpoint, null, data);
-    this.publish(promise);
-    return promise
-      .catch(e => {
-        return e.json().then(result => {
-          if (result.error)
-            return Promise.resolve(result);
-        });
-      })
-      .then(result => {
-        this.publish(promise);
-        if (result)
-          return this.parseResult(result);
-        else
-          return Promise.resolve({});
-      })
-  }
-
-  delete(endpoint, data, header) {
-    var promise = this.endpoint.destroy(endpoint);
-    this.publish(promise);
-    return promise
-      .catch(e => {
-        return e.json().then(result => {
-          if (result.error)
-            return Promise.resolve(result);
-        });
-      })
-      .then(result => {
-        this.publish(promise);
-        if (result)
-          return this.parseResult(result);
-        else
-          return Promise.resolve({});
-      })
-  }
-
-
-
-  getXls(endpoint, header) {
-    var request = {
-      method: 'GET',
-      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/xls", "x-timezone-offset": this.endpoint.defaults.headers["x-timezone-offset"] }))
-    };
-    var getRequest = this.endpoint.client.fetch(endpoint, request)
-    this.publish(getRequest);
-
-    return this._downloadFile(getRequest);
-  }
-
-  getPdf(endpoint, header) {
-    var request = {
-      method: 'GET',
-      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf", "x-timezone-offset": this.endpoint.defaults.headers["x-timezone-offset"] }))
-    };
-    var getRequest = this.endpoint.client.fetch(endpoint, request)
-    this.publish(getRequest);
-    return this._downloadFile(getRequest);
-
-  }
-
-  _downloadFile(request) {
-    return request
-      .then(response => {
-        if (response.status == 200)
-          return Promise.resolve(response);
-        else
-          return Promise.reject(new Error('Error downloading file'));
-      })
-      .then(response => {
-        return new Promise((resolve, reject) => {
-          response.blob()
-            .then(blob => {
-              var filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(response.headers.get("Content-Disposition"))[1];
-              filename = filename.replace(/"/g, '');
-              var fileSaver = require('file-saver');
-              fileSaver.saveAs(blob, filename);
-              this.publish(request);
-              resolve(true);
+        return promise
+            .catch(e => {
+                return e.json().then(result => {
+                    if (result.error)
+                        return Promise.resolve(result);
+                });
             })
-            .catch(e => reject(e));
-        })
-      });
-  }
+            .then(result => {
+                this.publish(promise);
+                if (result)
+                    return this.parseResult(result);
+                else
+                    return Promise.resolve({});
+            })
+    }
+
+    put(endpoint, data, header) {
+        var promise = this.endpoint.update(endpoint, null, data);
+        this.publish(promise);
+        return promise
+            .catch(e => {
+                return e.json().then(result => {
+                    if (result.error)
+                        return Promise.resolve(result);
+                });
+            })
+            .then(result => {
+                this.publish(promise);
+                if (result)
+                    return this.parseResult(result);
+                else
+                    return Promise.resolve({});
+            })
+    }
+
+    delete(endpoint, data, header) {
+        var promise = this.endpoint.destroy(endpoint);
+        this.publish(promise);
+        return promise
+            .catch(e => {
+                return e.json().then(result => {
+                    if (result.error)
+                        return Promise.resolve(result);
+                });
+            })
+            .then(result => {
+                this.publish(promise);
+                if (result)
+                    return this.parseResult(result);
+                else
+                    return Promise.resolve({});
+            })
+    }
+
+
+
+    getXls(endpoint, header) {
+        var request = {
+            method: 'GET',
+            headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/xls" }))
+        };
+        var getRequest = this.endpoint.client.fetch(endpoint, request)
+        this.publish(getRequest);
+
+        return this._downloadFile(getRequest);
+    }
+
+    getPdf(endpoint, header) {
+        var request = {
+            method: 'GET',
+            headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf" }))
+        };
+        var getRequest = this.endpoint.client.fetch(endpoint, request)
+        this.publish(getRequest);
+        return this._downloadFile(getRequest);
+
+    }
+
+    _downloadFile(request) {
+        return request
+            .then(response => {
+                if (response.status == 200)
+                    return Promise.resolve(response);
+                else
+                    return Promise.reject(new Error('Error downloading file'));
+            })
+            .then(response => {
+                return new Promise((resolve, reject) => {
+                    response.blob()
+                        .then(blob => {
+                            var filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(response.headers.get("Content-Disposition"))[1];
+                            filename = filename.replace(/"/g, '');
+                            var fileSaver = require('file-saver');
+                            fileSaver.saveAs(blob, filename);
+                            this.publish(request);
+                            resolve(true);
+                        })
+                        .catch(e => reject(e));
+                })
+            });
+    }
 }
