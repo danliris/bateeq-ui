@@ -137,11 +137,6 @@
             </au-table>
         </div>
     </div>
-    <!-- <au-table
-        data.bind="bateeqshop"
-        options.bind="options"
-        page-size="25">
-    </au-table> -->
 
     <br>
     <div class="row">
@@ -248,6 +243,43 @@
         <div class="col-md-12 col-sm-12">
             <au-table
                 data.bind="off_konsinyasi"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Penjualan Umum</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${public_grandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${public_count.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-1 col-sm-1">
+                <button type="button" class="btn" id="public_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+            </div>
+        </div>
+    <div class="row" id="public_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="public"
                 options.bind="options"
                 page-size="25">
             </au-table>

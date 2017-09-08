@@ -37,8 +37,9 @@ export class Report {
         this.vvip_grandTotal = this.getGrandTotal(apiResult.category.vvip);
         this.on_konsinyasi_grandTotal = this.getGrandTotal(apiResult.category.on_konsinyasi);
         this.off_konsinyasi_grandTotal = this.getGrandTotal(apiResult.category.off_konsinyasi);
+        this.public_grandTotal = this.getGrandTotal(apiResult.category.public);
         this.totalOmset = this.standalone_grandTotal + this.fo_grandTotal + this.bateeqshop_grandTotal + this.vvip_grandTotal
-            + this.on_konsinyasi_grandTotal + this.off_konsinyasi_grandTotal;
+            + this.on_konsinyasi_grandTotal + this.off_konsinyasi_grandTotal + this.public_grandTotal;
 
         this.standalone_count = this.getCount(apiResult.category.standalone);
         this.fo_count = this.getCount(apiResult.category.fo);
@@ -46,8 +47,9 @@ export class Report {
         this.vvip_count = this.getCount(apiResult.category.vvip);
         this.on_konsinyasi_count = this.getCount(apiResult.category.on_konsinyasi);
         this.off_konsinyasi_count = this.getCount(apiResult.category.off_konsinyasi);
+        this.public_count = this.getCount(apiResult.category.public);
         this.totalQuantity = this.standalone_count + this.fo_count + this.bateeqshop_count + this.vvip_count
-            + this.on_konsinyasi_count + this.off_konsinyasi_count;
+            + this.on_konsinyasi_count + this.off_konsinyasi_count + this.public_count;
 
         this.standalone = this.getArray(apiResult.data.standalone);
         this.fo = this.getArray(apiResult.data.fo);
@@ -55,6 +57,7 @@ export class Report {
         this.vvip = this.getArray(apiResult.data.vvip);
         this.on_konsinyasi = this.getArray(apiResult.data.on_konsinyasi);
         this.off_konsinyasi = this.getArray(apiResult.data.off_konsinyasi);
+        this.public = this.getArray(apiResult.data.public);
     }
 
     getGrandTotal(object) {
@@ -147,6 +150,16 @@ export class Report {
                     $("#off_konsinyasi_button").html(show);
                 }
                 $("#off_konsinyasi_table").slideToggle();
+            });
+            $("#public_table").hide();
+            $("#public_button").click(function () {
+                if ($("#public_button").text().trim().toLowerCase() === "show") {
+                    $("#public_button").html(hide);
+                }
+                else {
+                    $("#public_button").html(show);
+                }
+                $("#public_table").slideToggle();
             });
         });
     }
