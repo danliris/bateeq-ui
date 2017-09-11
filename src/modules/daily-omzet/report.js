@@ -31,33 +31,27 @@ export class Report {
                 return result;
             });
 
-        this.standalone_grandTotal = this.getGrandTotal(apiResult.category.standalone);
-        this.fo_grandTotal = this.getGrandTotal(apiResult.category.fo);
-        this.bateeqshop_grandTotal = this.getGrandTotal(apiResult.category.bateeqshop);
-        this.vvip_grandTotal = this.getGrandTotal(apiResult.category.vvip);
-        this.on_konsinyasi_grandTotal = this.getGrandTotal(apiResult.category.on_konsinyasi);
-        this.off_konsinyasi_grandTotal = this.getGrandTotal(apiResult.category.off_konsinyasi);
-        this.public_grandTotal = this.getGrandTotal(apiResult.category.public);
-        this.totalOmset = this.standalone_grandTotal + this.fo_grandTotal + this.bateeqshop_grandTotal + this.vvip_grandTotal
-            + this.on_konsinyasi_grandTotal + this.off_konsinyasi_grandTotal + this.public_grandTotal;
+        this.standaloneGrandTotal = this.getGrandTotal(apiResult.category.standalone);
+        this.consignmentGrandTotal = this.getGrandTotal(apiResult.category.consignment);
+        this.onlineGrandTotal = this.getGrandTotal(apiResult.category.online);
+        this.generalSalesGrandTotal = this.getGrandTotal(apiResult.category.generalSales);
+        this.vvipGrandTotal = this.getGrandTotal(apiResult.category.vvip);
+        this.totalOmset = this.standaloneGrandTotal + this.consignmentGrandTotal + this.onlineGrandTotal + this.generalSalesGrandTotal
+            + this.vvipGrandTotal;
 
-        this.standalone_count = this.getCount(apiResult.category.standalone);
-        this.fo_count = this.getCount(apiResult.category.fo);
-        this.bateeqshop_count = this.getCount(apiResult.category.bateeqshop);
-        this.vvip_count = this.getCount(apiResult.category.vvip);
-        this.on_konsinyasi_count = this.getCount(apiResult.category.on_konsinyasi);
-        this.off_konsinyasi_count = this.getCount(apiResult.category.off_konsinyasi);
-        this.public_count = this.getCount(apiResult.category.public);
-        this.totalQuantity = this.standalone_count + this.fo_count + this.bateeqshop_count + this.vvip_count
-            + this.on_konsinyasi_count + this.off_konsinyasi_count + this.public_count;
+        this.standaloneCount = this.getCount(apiResult.category.standalone);
+        this.consignmentCount = this.getCount(apiResult.category.consignment);
+        this.onlineCount = this.getCount(apiResult.category.online);
+        this.generalSalesCount = this.getCount(apiResult.category.generalSales);
+        this.vvipCount = this.getCount(apiResult.category.vvip);
+        this.totalQuantity = this.standaloneCount + this.consignmentCount + this.onlineCount + this.generalSalesCount
+            + this.vvipCount;
 
         this.standalone = this.getArray(apiResult.data.standalone);
-        this.fo = this.getArray(apiResult.data.fo);
-        this.bateeqshop = this.getArray(apiResult.data.bateeqshop);
+        this.consignment = this.getArray(apiResult.data.consignment);
+        this.online = this.getArray(apiResult.data.online);
+        this.generalSales = this.getArray(apiResult.data.generalSales);
         this.vvip = this.getArray(apiResult.data.vvip);
-        this.on_konsinyasi = this.getArray(apiResult.data.on_konsinyasi);
-        this.off_konsinyasi = this.getArray(apiResult.data.off_konsinyasi);
-        this.public = this.getArray(apiResult.data.public);
     }
 
     getGrandTotal(object) {
@@ -91,16 +85,6 @@ export class Report {
         let hide = '<span class="glyphicon glyphicon-menu-up"></span> Hide';
         let show = '<span class="glyphicon glyphicon-menu-down"></span> Show';
         $(document).ready(function () {
-            $("#fo_table").hide();
-            $("#fo_button").click(function () {
-                if ($("#fo_button").text().trim().toLowerCase() === "show") {
-                    $("#fo_button").html(hide);
-                }
-                else {
-                    $("#fo_button").html(show);
-                }
-                $("#fo_table").slideToggle();
-            });
             $("#standalone_table").hide();
             $("#standalone_button").click(function () {
                 if ($("#standalone_button").text().trim().toLowerCase() === "show") {
@@ -111,15 +95,35 @@ export class Report {
                 }
                 $("#standalone_table").slideToggle();
             });
-            $("#bateeqshop_table").hide();
-            $("#bateeqshop_button").click(function () {
-                if ($("#bateeqshop_button").text().trim().toLowerCase() === "show") {
-                    $("#bateeqshop_button").html(hide);
+            $("#consignment_table").hide();
+            $("#consignment_button").click(function () {
+                if ($("#consignment_button").text().trim().toLowerCase() === "show") {
+                    $("#consignment_button").html(hide);
                 }
                 else {
-                    $("#bateeqshop_button").html(show);
+                    $("#consignment_button").html(show);
                 }
-                $("#bateeqshop_table").slideToggle();
+                $("#consignment_table").slideToggle();
+            });
+            $("#online_table").hide();
+            $("#online_button").click(function () {
+                if ($("#online_button").text().trim().toLowerCase() === "show") {
+                    $("#online_button").html(hide);
+                }
+                else {
+                    $("#online_button").html(show);
+                }
+                $("#online_table").slideToggle();
+            });
+            $("#generalSales_table").hide();
+            $("#generalSales_button").click(function () {
+                if ($("#generalSales_button").text().trim().toLowerCase() === "show") {
+                    $("#generalSales_button").html(hide);
+                }
+                else {
+                    $("#generalSales_button").html(show);
+                }
+                $("#generalSales_table").slideToggle();
             });
             $("#vvip_table").hide();
             $("#vvip_button").click(function () {
@@ -130,36 +134,6 @@ export class Report {
                     $("#vvip_button").html(show);
                 }
                 $("#vvip_table").slideToggle();
-            });
-            $("#on_konsinyasi_table").hide();
-            $("#on_konsinyasi_button").click(function () {
-                if ($("#on_konsinyasi_button").text().trim().toLowerCase() === "show") {
-                    $("#on_konsinyasi_button").html(hide);
-                }
-                else {
-                    $("#on_konsinyasi_button").html(show);
-                }
-                $("#on_konsinyasi_table").slideToggle();
-            });
-            $("#off_konsinyasi_table").hide();
-            $("#off_konsinyasi_button").click(function () {
-                if ($("#off_konsinyasi_button").text().trim().toLowerCase() === "show") {
-                    $("#off_konsinyasi_button").html(hide);
-                }
-                else {
-                    $("#off_konsinyasi_button").html(show);
-                }
-                $("#off_konsinyasi_table").slideToggle();
-            });
-            $("#public_table").hide();
-            $("#public_button").click(function () {
-                if ($("#public_button").text().trim().toLowerCase() === "show") {
-                    $("#public_button").html(hide);
-                }
-                else {
-                    $("#public_button").html(show);
-                }
-                $("#public_table").slideToggle();
             });
         });
     }
