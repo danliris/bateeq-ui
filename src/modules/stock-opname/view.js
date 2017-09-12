@@ -16,7 +16,6 @@ export class View {
   async activate(params) {
     var id = params.id;
     await this.service.getById(id).then((dataById) => {
-      console.log(dataById);
       if (!dataById.isProcessed) {
         this.service.getItemInInventory(id).then((itemInInventoryById) => {
           this.hasDelete = true;
