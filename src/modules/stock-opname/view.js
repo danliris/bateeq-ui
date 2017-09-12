@@ -15,22 +15,27 @@ export class View {
 
   async activate(params) {
     var id = params.id;
-    this.data = await this.service.getById(id);
-    if(!this.data.isProcessed){
-        var inventories = await this.service.getItemInInventory(id);
-        this.hasDelete = true;
-        for(var a of this.data.items){
-            for(var b of inventories){
-                if(b && b.item){
-                    if(a.item.code === b.item.code)
-                        a.qtyBeforeSO = b.quantity;
-                }
+    await this.service.getById(id).then((dataById) => {
+      if (!dataById.isProcessed) {
+        this.service.getItemInInventory(id).then((itemInInventoryById) => {
+          this.hasDelete = true;
+          for (var a of dataById.items) {
+            for (var b of itemInInventoryById) {
+              if (b && b.item) {
+                if (a.item.code === b.item.code)
+                  a.qtyBeforeSO = b.quantity;
+              }
             }
-        }
-    }
-    for(var a of this.data.items){
+          }
+        });
+      }
+
+      for (var a of dataById.items) {
         a["isView"] = true;
-    }
+      }
+
+      this.data = dataById;
+    });
   }
 
   cancel(event) {
