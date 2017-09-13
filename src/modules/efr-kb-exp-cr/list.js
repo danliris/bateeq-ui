@@ -42,13 +42,13 @@ export class List {
         },
         {
             field: "spkDocuments", title: "Tujuan",
-            // formatter: function (value, data, index) {
-            //     var destination = "";
-            //     // if (value.length > 0) {
-            //         destination = value.destination.name;
-            //     // }
-            //     return destination;
-            // }
+            formatter: function (value, data, index) {
+                var destination = "";
+                // if (value.length > 0) {
+                    destination = value.destination.name;
+                // }
+                return destination;
+            }
         },
         { field: "_createdBy", title: "Dibuat Oleh" }
     ];
