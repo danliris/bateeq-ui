@@ -9,27 +9,62 @@
         table {
             border: none !important;
         }
+        th {
+            min-width:25%;
+        }
     </style>
-
+    <h1 class="page-header">Laporan Stok Per RO</h1>
     <au-input-form>
         <div class="row">
-            <div class="col-md-4">
-                <au-textbox label="RO" placeholder="KODE REALISASI ORDER" value.bind="code" error.bind="error" read-only.bind="readOnlyCode"></au-textbox>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-9">
+                        <au-autocomplete value.bind="productItem" error.bind="error.productItem" label="Nama Barang" loader.one-time="itemLoader"
+                            placeholder="Nama Barang" options.bind="controlOptions" read-only.bind="readOnlyProduct">
+                        </au-autocomplete>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <au-textbox label="RO" placeholder="RO" value.bind="code" error.bind="error.code" read-only.bind="readOnly"></au-textbox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <au-textbox label="Warna" placeholder="Warna" value.bind="color" error.bind="error.color" read-only.bind="readOnly"></au-textbox>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="width:150px; height:150px">
+                <img class="img-responsive" style="margin:auto;" src.bind="imagePath">
             </div>
         </div>
-        <div class="col-sm-12 form-group">
-            <button click.delegate="exportToExcel()" class="btn btn-success btn-sm pull-right">Cetak Excel</button> &nbsp;
-            <button style="margin-right:10px;" click.delegate="showReport()" class="btn btn-success btn-sm pull-right">Tampilkan</button>
+        <div class="row">
+            <div class="col-md-3">
+                <button click.delegate="exportToExcel()" class="btn btn-success btn-sm">Cetak Excel</button> &nbsp;
+                <button style="margin-right:10px;" click.delegate="showReport()" class="btn btn-success btn-sm">Tampilkan</button>
+            </div>
         </div>
     </au-input-form>
-    <!--<div class="col-sm-12">
-        <div class="pre-scrollable" innerHTML.bind="reportHTML | sanitizeHTML"></div>
-    </div>-->
-
-    <au-table 
-        view-model.ref="models"
-        options.bind="options"
-        data.bind="data"
-        if.bind="visibleTable">
-
+    <!--<au-table view-model.ref="models" options.bind="options" data.bind="data" if.bind="visibleTable">-->
+    <table class="table table-bordered" style="margin-top: 15px" if.bind="visibleTable">
+        <thead>
+            <tr>
+                <th rowspan="2">Kode</th>
+                <th rowspan="2">Toko</th>
+                <th colspan="2">Size A</th> <!--repeatable-->
+                <th rowspan="2">Total Stok</th>
+                <th rowspan="2">Total Stok Terjual</th>
+            </tr>
+            <tr> <!--repeatable-->
+                <th>Stok</th>
+                <th>Stok Terjual</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </template>

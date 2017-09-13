@@ -12,7 +12,7 @@ export class Service extends RestService {
         super(http, aggregator, config, "master");
     }
     
-    getAllByRO(codeRO) {
+    getStokByRO(codeRO) {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("inventory").client.baseUrl + uriServices + "/" + codeRO;
         return super.get(endpoint);
