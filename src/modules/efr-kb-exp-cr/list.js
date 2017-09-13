@@ -44,9 +44,9 @@ export class List {
             field: "spkDocuments", title: "Tujuan",
             formatter: function (value, data, index) {
                 var destination = "";
-                // if (value.length > 0) {
+                if (value.length > 0) {
                     destination = value.destination.name;
-                // }
+                }
                 return destination;
             }
         },
