@@ -14,13 +14,6 @@ export class List {
         this.service = service;
     }
 
-    // async activate() {
-    //     this.info.keyword = '';
-    //     var result = await this.service.search(this.info);
-    //     this.data = result.data;
-    //     this.info = result.info;
-    // }
-
     view(data) {
         this.router.navigateToRoute('view', { id: data._id });
     }
@@ -41,10 +34,7 @@ export class List {
             }
         },
         {
-            field: "spkDocuments", title: "Tujuan",
-            formatter: function (value, data, index) {
-                return value;
-            }
+            field: "spkDocuments", title: "Tujuan"
         },
         { field: "_createdBy", title: "Dibuat Oleh" }
     ];
