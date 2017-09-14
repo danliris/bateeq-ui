@@ -43,7 +43,8 @@ export class List {
         {
             field: "spkDocuments", title: "Tujuan",
             formatter: function (value, data, index) {
-                return value;
+                console.log(data);
+                return data.spkDocuments;
             }
         },
         { field: "_createdBy", title: "Dibuat Oleh" }
