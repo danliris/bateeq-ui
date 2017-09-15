@@ -27,7 +27,12 @@ export class RestService {
 
     list(endpoint, info, header) {
         var _info = Object.assign({}, info);
-        delete _info.order;
+
+        if (_info.order && typeof _info.order === "object")
+            _info.order = JSON.stringify(_info.order);
+        else
+            delete _info.order;
+
         var promise = this.endpoint.find(endpoint, _info);
         this.publish(promise);
         return promise
@@ -37,8 +42,8 @@ export class RestService {
             });
     }
 
-    get(endpoint, header) {
-        var promise = this.endpoint.find(endpoint)
+    get(endpoint, header, info) {
+        var promise = this.endpoint.find(endpoint, info)
         this.publish(promise);
         return promise
             .then((result) => {
