@@ -1,17 +1,17 @@
 module.exports = [
-    {
-        route: 'power-bi',
-        name: 'power-bi',
-        moduleId: './modules/power-bi/index',
-        nav: true,
-        title: 'Power BI Reports',
-        auth: true,
-        settings: {
-            group: "dashboard",
-            permission: { "PJL1": 7 },
-            iconClass: 'fa fa-bar-chart'
-        }
-    },
+    // {
+    //     route: 'power-bi',
+    //     name: 'power-bi',
+    //     moduleId: './modules/power-bi/index',
+    //     nav: true,
+    //     title: 'Power BI Reports',
+    //     auth: true,
+    //     settings: {
+    //         group: "dashboard",
+    //         permission: { "PJL1": 7 },
+    //         iconClass: 'fa fa-bar-chart'
+    //     }
+    // },
     {
         route: 'daily-omzet',
         name: 'daily-omzet',
