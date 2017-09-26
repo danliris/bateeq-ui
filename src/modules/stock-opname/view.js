@@ -40,12 +40,12 @@ export class View {
 
   cancel(event) {
     this.router.navigateToRoute('list');
-  } 
-   
+  }
+
   delete(event) {
     this.service.delete(this.data)
-        .then(result => {
-          this.cancel();
-        });
-  }  
+      .then(result => {
+        this.cancel();
+      });
+  }
 }
