@@ -8,13 +8,7 @@ export class RestService {
 
   constructor(HttpClient, EventAggregator, config, api) {
     this.endpoint = config.getEndpoint(api); 
-    // this._config =config; 
     
-    // console.log(this.endpoint.defaults);
-    // console.log(this.endpoint.client.defaults);
-    // const timezoneOffsetHeader = "x-timezone-offset";
-    // var timezone = this.endpoint.defaults.headers["x-timezone-offset"];
-    // this.endpoint.client.defaults =  this.endpoint.defaults;
     this.eventAggregator = EventAggregator;
   }
 
@@ -32,20 +26,20 @@ export class RestService {
   }
 
   list(endpoint, info, header) {
-    var _info = Object.assign({}, info);
+      var _info = Object.assign({}, info);
 
-    if (_info.order && typeof _info.order === "object")
-      _info.order = JSON.stringify(_info.order);
-    else
-      delete _info.order;
+      if (_info.order && typeof _info.order === "object")
+          _info.order = JSON.stringify(_info.order);
+      else
+          delete _info.order;
 
-    var promise = this.endpoint.find(endpoint, _info);
-    this.publish(promise);
-    return promise
-      .then((result) => {
-        this.publish(promise);
-        return Promise.resolve(result);
-      });
+      var promise = this.endpoint.find(endpoint, _info);
+      this.publish(promise);
+      return promise
+          .then((result) => {
+              this.publish(promise);
+              return Promise.resolve(result);
+          });
   }
 
   get(endpoint, header, info) {
