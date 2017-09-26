@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Auth",
-        permission: {"*":1},
+        permission: {"C.01":1},
             iconClass: 'fa fa-user-o'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Auth",
-            permission: {"*":1},
+            permission: {"C.01":1},
             iconClass: 'fa fa-user-o'
         }
     }]
