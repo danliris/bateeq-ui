@@ -41,7 +41,7 @@ module.exports = [
         name: 'daily-omzet-sales-category',
         moduleId: './modules/daily-omzet-sales-category/index',
         nav: true,
-        title: 'Omset Harian (per Penjualan)',
+        title: 'Omset Harian (Per Jenis Toko)',
         auth: true,
         settings: {
             group: "dashboard",
@@ -53,7 +53,7 @@ module.exports = [
         name: 'daily-product-sales-store',
         moduleId: './modules/daily-product-sales-store/index',
         nav: true,
-        title: 'Produk Harian (Per Toko)',
+        title: 'Penjualan Harian (Per Toko Per RO)',
         auth: true,
         settings: {
             group: "dashboard",
@@ -65,7 +65,7 @@ module.exports = [
         name: 'daily-product-sales-product',
         moduleId: './modules/daily-product-sales-product/index',
         nav: true,
-        title: 'Produk Harian (Per Produk)',
+        title: 'Penjualan Harian (Per Produk)',
         auth: true,
         settings: {
             group: "dashboard",
