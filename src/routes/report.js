@@ -25,11 +25,11 @@ module.exports = [
 //         }
 //     },
     {
-        route: 'daily-omzet-store',
-        name: 'daily-omzet-store',
-        moduleId: './modules/daily-omzet-store/index',
+        route: 'daily-omzet',
+        name: 'daily-omzet',
+        moduleId: './modules/daily-omzet/index',
         nav: true,
-        title: 'Omset Harian (per Toko)',
+        title: 'Omset Harian (Per Toko)',
         auth: true,
         settings: {
             group: "dashboard",
