@@ -47,11 +47,11 @@ export class Report {
         this.totalQuantity = this.standaloneCount + this.consignmentCount + this.onlineCount + this.generalSalesCount
             + this.vvipCount;
 
-        this.standalone = this.getArray(apiResult.data.standalone);
-        this.consignment = this.getArray(apiResult.data.consignment);
-        this.online = this.getArray(apiResult.data.online);
-        this.generalSales = this.getArray(apiResult.data.generalSales);
-        this.vvip = this.getArray(apiResult.data.vvip);
+        this.standalone = this.convertToLocaleString(this.getArray(apiResult.data.standalone));
+        this.consignment = this.convertToLocaleString(this.getArray(apiResult.data.consignment));
+        this.online = this.convertToLocaleString(this.getArray(apiResult.data.online));
+        this.generalSales = this.convertToLocaleString(this.getArray(apiResult.data.generalSales));
+        this.vvip = this.convertToLocaleString(this.getArray(apiResult.data.vvip));
     }
 
     getGrandTotal(object) {
@@ -79,6 +79,14 @@ export class Report {
         else {
             return [];
         }
+    }
+
+    convertToLocaleString(array){
+        for (var a of array){
+            a.grandTotal = a.grandTotal.toLocaleString();
+            a.count = a.count.toLocaleString();
+        }
+        return array;
     }
 
     attached() {
