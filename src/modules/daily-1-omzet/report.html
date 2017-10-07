@@ -1,0 +1,216 @@
+<template>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <h3>Omset Kemarin (Per Toko)</h3>
+      
+        </div>
+    </div>
+    
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Keseluruhan</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${totalOmset.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${totalQuantity.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Stand Alone</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${standaloneGrandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${standaloneCount.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-sm-1">
+            <button type="button" class="btn" id="standalone_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+        </div>
+    </div>
+    <div class="row" id="standalone_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="standalone"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Konsinyasi(H+1)</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${consignmentGrandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${consignmentCount.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-sm-1">
+            <button type="button" class="btn" id="consignment_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+        </div>
+    </div>
+    <div class="row" id="consignment_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="consignment"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Online</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${onlineGrandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${onlineCount.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-sm-1">
+            <button type="button" class="btn" id="online_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+        </div>
+    </div>
+    <div class="row" id="online_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="online"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Penjualan Umum</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${generalSalesGrandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${generalSalesCount.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 col-sm-1">
+            <button type="button" class="btn" id="generalSales_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+        </div>
+    </div>
+    <div class="row" id="generalSales_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="generalSales"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2"><b>Penjualan VVIP</b></th>
+                </tr>
+                <tr>
+                    <td>Total Omset</td>
+                    <td class="text-right">
+                        <b> ${vvipGrandTotal.toLocaleString()} </b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Total Kuantitas</td>
+                    <td class="text-right">
+                        <b>${vvipCount.toLocaleString()}</b>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-md-1 col-sm-1">
+                <button type="button" class="btn" id="vvip_button"><span class="glyphicon glyphicon-menu-down"></span> Show</button>
+            </div>
+        </div>
+    <div class="row" id="vvip_table">
+        <div class="col-md-12 col-sm-12">
+            <au-table
+                data.bind="vvip"
+                options.bind="options"
+                page-size="25">
+            </au-table>
+        </div>
+    </div>
+
+</template>
