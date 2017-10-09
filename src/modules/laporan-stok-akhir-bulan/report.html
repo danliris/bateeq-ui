@@ -1,0 +1,30 @@
+<template>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <h3>Laporan Stok Akhir Bulan</h3>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-3 col-sm-12">
+            <au-dropdown label="Bulan" options.bind="dropdownOptions" value.bind="data.month" items.bind="months" key="id" text="name"
+                read-only.bind="readOnly"></au-dropdown>
+            <au-dropdown label="Tahun" options.bind="dropdownOptions" value.bind="yearMonthsData" items.bind="yearMonths" key="year" text="year"
+                read-only.bind="readOnly"></au-dropdown>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-8 col-sm-12">
+            <button class="btn btn-success pull-right" click.delegate="showMonthlyOverallStock()">Tampilkan</button>
+        </div>
+    </div>
+
+    <br>
+    <au-table view-model.ref="models" data.bind="tableData" columns.bind="columns" context.bind="detail" context-click.delegate="contextCallback($event)"
+        page-size="25">
+    </au-table>
+
+</template>
