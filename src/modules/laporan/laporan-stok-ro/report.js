@@ -35,6 +35,10 @@ export class Report {
         this.readOnlyCode = true;
         this.readOnlyColor = true;
         var config = Container.instance.get(Config);
+        
+        if (this.error.code) {
+            this.error = {};
+        }
 
         if (this.productItem) {
             var image = `${config.getEndpoint("master").client.baseUrl}items/finished-goods/image/${this.productItem._id}`;
