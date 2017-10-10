@@ -35,7 +35,7 @@ export class Report {
         this.readOnlyCode = true;
         this.readOnlyColor = true;
         var config = Container.instance.get(Config);
-        
+
         if (this.error.code) {
             this.error = {};
         }
@@ -53,7 +53,11 @@ export class Report {
     }
 
     exportToExcel() {
-        this.service.generateXls(this.code);
+        if (this.code === '') {
+            this.error.code = "Masukkan kode Realisasi Order";
+        } else {
+            this.service.generateXls(this.code);
+        }
     }
 
     showReport() {
@@ -79,7 +83,7 @@ export class Report {
         var colHeaderTwo = [];
 
         //initiate columns
-        colHeaderOne.push({ title: "Toko", field: "store", rowspan: 2, valign: "middle", width:"200px" });
+        colHeaderOne.push({ title: "Toko", field: "store", rowspan: 2, valign: "middle", width: "200px" });
 
         for (var i = 0; i < size.length; i++) {
             var onInventory = size[i] + ".onInventory";
