@@ -28,12 +28,22 @@ export class StockInStorageDialog {
         { field: 'totalSale', title: 'Total Harga Jual'},
     ]
 
+    convertToLocaleString(array){
+        for (var a of array){
+            for (var prop of Object.getOwnPropertyNames(a)){
+                a[prop] = a[prop].toLocaleString();  
+            }
+        }
+        return array;
+    }
+
     showTable(result) {
         let number = 0;
         result.items.forEach(item => {
             item.number = ++number;
             this.dialogTableData.push(item)
         })
+        this.dialogTableData = this.convertToLocaleString(this.dialogTableData);
     }
 
 }   
