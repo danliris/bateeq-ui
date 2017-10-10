@@ -29,7 +29,7 @@ export class Report {
     };
 
     data = [];
-    visibleTable = false;
+    show = false;
 
     productItemChanged(newValue, oldValue) {
         this.readOnlyCode = true;
@@ -53,55 +53,101 @@ export class Report {
     }
 
     showReport() {
-        this.visibleTable = true;
         var dataItem = [];
         if (this.code === '') {
-            this.error = "Masukkan kode Realisasi Order";
+            this.error.code = "Masukkan kode Realisasi Order";
         } else {
             this.service.getStokByRO(this.code)
                 .then(items => {
-                    console.log(items);
                     this.generateReportHTML(items);
+                    if (items) {
+                        this.show = true;
+                    } else {
+                        this.show = false;
+                    }
                 });
         }
     }
 
-    compareNumbers(a, b) {
-        return a - b;
+    generateTableInfo(size) {
+        var tableHeader = [];
+        var colHeaderOne = [];
+        var colHeaderTwo = [];
+
+        //initiate columns
+        colHeaderOne.push({ title: "Toko", field: "store", rowspan: 2, valign: "middle", width:"200px" });
+
+        for (var i = 0; i < size.length; i++) {
+            var onInventory = size[i] + ".onInventory";
+            var onSales = size[i] + ".onSales";
+
+            //initiate columns
+            var col = { title: size[i], colspan: 2 };
+
+            var stok = { title: "Stok", field: onInventory, align: "center" };
+            var stokOnSale = { title: "Stok Terjual", field: onSales, align: "center" };
+
+            colHeaderOne.push(col);
+            colHeaderTwo.push(stok);
+            colHeaderTwo.push(stokOnSale);
+        }
+
+        colHeaderOne.push({ title: "Umur", field: "age", rowspan: 2, align: "center" });
+        colHeaderOne.push({ title: "Total Stok", field: "totalOnInventory", rowspan: 2, align: "center" });
+        colHeaderOne.push({ title: "Total Stok Terjual", field: "totalOnSales", rowspan: 2, align: "center" });
+
+        tableHeader.push(colHeaderOne);
+        tableHeader.push(colHeaderTwo);
+
+        return tableHeader;
     }
 
-    generateReportHTML(data) {
-        var tableHeader = [];
+    generateReportHTML(dataResult) {
+        var columns = []
+        var size = [];
+        var tempArr = [];
         this.data = [];
-        for (var items of data) {
-            var item = {
-                name: items._id
-            };
-            //Generate header
-            for (var i = 0; i < items.items.length; i++) {
-                var roItems = items.items[i];
 
-                if (tableHeader.indexOf(roItems.item) === -1) {
-                    tableHeader.push(roItems.item);//item = item size
-                }
-
-                item[roItems.item] = roItems.quantity;
-
-                for (var j = 0; j < items.items.length; j++) {
-                    if (roItems.itemcode !== items.items[j].itemcode && roItems.item === items.items[j].item) {
-                        item[roItems.item] += items.items[j].quantity;
-                    }
-                }
+        for (var dataItem of dataResult) {
+            if (!this.data[dataItem.storageName]) {
+                this.data[dataItem.storageName] = {};
+                this.data[dataItem.storageName]["store"] = dataItem.storageName;
+                this.data[dataItem.storageName]['age'] = dataItem.age;
             }
-            this.data.push(item);
+
+            if (this.data[dataItem.storageName]) {
+                if (!this.data[dataItem.storageName]["totalOnInventory"] && !this.data[dataItem.storageName]["totalOnSales"]) {
+                    this.data[dataItem.storageName]["totalOnInventory"] = 0;
+                    this.data[dataItem.storageName]["totalOnSales"] = 0;
+                }
+                this.data[dataItem.storageName]["totalOnInventory"] += dataItem.itemDetail.quantityOnInventory;
+                this.data[dataItem.storageName]["totalOnSales"] += dataItem.itemDetail.quantityOnSales;
+            }
+
+            if (!this.data[dataItem.storageName][dataItem.itemDetail.size]) {
+                this.data[dataItem.storageName][dataItem.itemDetail.size] = {};
+                this.data[dataItem.storageName][dataItem.itemDetail.size]["onInventory"] = dataItem.itemDetail.quantityOnInventory;
+                this.data[dataItem.storageName][dataItem.itemDetail.size]["onSales"] = dataItem.itemDetail.quantityOnSales;
+
+            } else {
+                this.data[dataItem.storageName][dataItem.itemDetail.size]["onInventory"] = + dataItem.itemDetail.quantityOnInventory;
+                this.data[dataItem.storageName][dataItem.itemDetail.size]["onSales"] = + dataItem.itemDetail.quantityOnSales;
+            }
+
+            if (size.indexOf(dataItem.itemDetail.size) === -1) {
+                size.push(dataItem.itemDetail.size);
+            }
         }
-        tableHeader.sort(this.compareNumbers);
-        //kosongin data sebelumnya
-        this.options.columns = [];
-        this.options.columns.push({ field: 'name', title: '', class: 'nameBackground', width: '30%' });
-        for (var header of tableHeader) {
-            this.options.columns.push({ field: header, title: header, sortable: true });
+        var props = Object.getOwnPropertyNames(this.data);
+
+        for (var i = 1; i < props.length; i++) {
+            tempArr.push(this.data[props[i]]);
         }
+
+        columns = this.generateTableInfo(size)
+        this.data = tempArr;
+        this.options.columns = columns;
+
         new Promise((resolve, reject) => {
             this.models.__table("refreshOptions", this.options);
             resolve();

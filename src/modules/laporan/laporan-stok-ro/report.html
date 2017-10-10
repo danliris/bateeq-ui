@@ -1,18 +1,4 @@
 <template>
-    <style>
-        .nameBackground {
-            border: none !important;
-            background-color: #eee;
-            text-align: right;
-        }
-
-        table {
-            border: none !important;
-        }
-        th {
-            min-width:25%;
-        }
-    </style>
     <h1 class="page-header">Laporan Stok Per RO</h1>
     <au-input-form>
         <div class="row">
@@ -46,25 +32,9 @@
             </div>
         </div>
     </au-input-form>
-    <!--<au-table view-model.ref="models" options.bind="options" data.bind="data" if.bind="visibleTable">-->
-    <table class="table table-bordered" style="margin-top: 15px" if.bind="visibleTable">
-        <thead>
-            <tr>
-                <th rowspan="2">Kode</th>
-                <th rowspan="2">Toko</th>
-                <th colspan="2">Size A</th> <!--repeatable-->
-                <th rowspan="2">Total Stok</th>
-                <th rowspan="2">Total Stok Terjual</th>
-            </tr>
-            <tr> <!--repeatable-->
-                <th>Stok</th>
-                <th>Stok Terjual</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+    <au-table 
+        view-model.ref="models"
+        options.bind="options"
+        data.bind="data"
+        show.bind="show">
 </template>
