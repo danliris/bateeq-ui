@@ -46,6 +46,15 @@ export class Report {
             })
         }
     }
+    
+    convertToLocaleString(array){
+        for (var a of array){
+            for (var prop of Object.getOwnPropertyNames(a)){
+                a[prop] = a[prop].toLocaleString();  
+            }
+        }
+        return array;
+    }
 
     yearMonthsDataChanged(newValue, oldValue){
         this.months = this.yearMonthsData.months;
@@ -59,6 +68,7 @@ export class Report {
                 results.forEach(item => {
                     this.tableData.push(item);
                 })
+                this.tableData = this.convertToLocaleString(this.tableData);
                 this.usedMonth = month;
                 this.usedYear = year;
                 this.models.refresh();
