@@ -1,0 +1,20 @@
+<template>
+    <ai-dialog style="width:1000px; overflow:hidden;">
+        <ai-dialog-header>Laporan Stok Akhir Bulan Per Toko</ai-dialog-header>
+
+        <ai-dialog-body>
+            <p>Kode: ${data.code.toLocaleString()}</p>
+            <p>Nama: ${data.name.toLocaleString()}</p>
+            <au-table    
+                data.bind="dialogTableData"
+                columns.bind="dialogTableColumns"
+                sortable.bind="true"
+                page-size="25">
+            </au-table>
+        </ai-dialog-body>
+
+        <ai-dialog-footer>
+            <button class="btn btn-default" click.delegate="dialogController.cancel()">Kembali</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>
