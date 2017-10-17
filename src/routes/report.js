@@ -111,19 +111,19 @@ module.exports = [
             iconClass: 'fa fa-bar-chart'
         }
     },
-    {
-        route: 'all-product',
-        name: 'all-product',
-        moduleId: './modules/product-all/index',
-        nav: true,
-        title: 'Produk Keseluruhan',
-        auth: true,
-        settings: {
-            group: "dashboard",
-            permission: { "PJL1": 1 },
-            iconClass: 'fa fa-bar-chart'
-        }
-    },
+//     {
+//         route: 'all-product',
+//         name: 'all-product',
+//         moduleId: './modules/product-all/index',
+//         nav: true,
+//         title: 'Produk Keseluruhan',
+//         auth: true,
+//         settings: {
+//             group: "dashboard",
+//             permission: { "PJL1": 1 },
+//             iconClass: 'fa fa-bar-chart'
+//         }
+//     },
     {
         route: 'produk-pakaian',
         name: 'produk-pakaian',
@@ -137,19 +137,19 @@ module.exports = [
             iconClass: 'fa fa-bar-chart'
         }
     },
-    {
-        route: 'produk-kain',
-        name: 'produk-kain',
-        moduleId: './modules/produk-kain/index',
-        nav: true,
-        title: 'Produk Kain',
-        auth: true,
-        settings: {
-            group: "dashboard",
-            permission: { "PJL1": 1 },
-            iconClass: 'fa fa-bar-chart'
-        }
-    },
+//     {
+//         route: 'produk-kain',
+//         name: 'produk-kain',
+//         moduleId: './modules/produk-kain/index',
+//         nav: true,
+//         title: 'Produk Kain',
+//         auth: true,
+//         settings: {
+//             group: "dashboard",
+//             permission: { "PJL1": 1 },
+//             iconClass: 'fa fa-bar-chart'
+//         }
+//     },
     {
         route: 'produk-aksesoris',
         name: 'produk-aksesoris',
