@@ -61,6 +61,7 @@ export class DataForm {
         this.service.getSource(nama[0])
             .then(storage => {
                 this.dataSource = storage[0];
+                this.data.source = this.dataSource;
                 this.data.items = [];
                 this.sumTotalQty = 0;
                 this.sumPrice = 0;
