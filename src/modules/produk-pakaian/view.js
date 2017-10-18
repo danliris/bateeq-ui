@@ -1,14 +1,16 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { IosFullScreen } from './../../utils/ios-fullscreen';
 require('powerbi-client');
 
 
-@inject(Router, Service)
+@inject(Router, Service, IosFullScreen)
 export class View {
-    constructor(router, service) {
+    constructor(router, service, iosFullScreen) {
         this.router = router;
         this.service = service;
+        this.iosFullScreen = iosFullScreen;
     }
 
     activate(params) {
@@ -21,10 +23,15 @@ export class View {
             })
     }
 
-    fullscreen() {
-        if (this.report)
-            this.report.fullscreen();
+    attached() {
+        this.document = document;
     }
+
+    fullscreen() {
+        var standalone = window.navigator.standalone;
+        this.iosFullScreen.fullScreen(standalone, this.report);
+    }
+    
     list() {
         this.router.navigateToRoute('list');
     }

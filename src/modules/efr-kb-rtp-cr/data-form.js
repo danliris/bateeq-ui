@@ -6,6 +6,8 @@ import { Service } from './service';
 export class DataForm {
     @bindable data = {};
     @bindable error = {};
+    @bindable source;
+    dataSource = {};
     sources = [];
     destinations = [];
     item;
@@ -53,13 +55,12 @@ export class DataForm {
 
     }
 
-    sourceChange(e) {
-        var sourceName = e.srcElement.value;
-        var nama = sourceName.split("(");
+    sourceChanged(newValue, oldValue) {
+        let sourceCode = newValue.code;
+        let nama = sourceCode.split("(");
         this.service.getSource(nama[0])
             .then(storage => {
-                this.data.source._id = storage[0]._id;
-                this.data.source = storage[0];
+                this.dataSource = storage[0];
                 this.data.items = [];
                 this.sumTotalQty = 0;
                 this.sumPrice = 0;
@@ -100,7 +101,7 @@ export class DataForm {
                             this.price = 0;
                             newItem.itemId = fg._id;
                             newItem.availableQuantity = 0;
-                            var result = await this.service.getDataInventory(this.data.source._id, newItem.itemId);
+                            var result = await this.service.getDataInventory(this.dataSource._id, newItem.itemId);
                             if (result != undefined) {
                                 newItem.availableQuantity = result.quantity;
                             }
@@ -139,7 +140,7 @@ export class DataForm {
                     this.price = 0;
                     newItem.itemId = itemData._id;
                     newItem.availableQuantity = 0;
-                    var result = await this.service.getDataInventory(this.data.source._id, newItem.itemId);
+                    var result = await this.service.getDataInventory(this.dataSource._id, newItem.itemId);
                     if (result != undefined) {
                         newItem.availableQuantity = result.quantity;
                     }
