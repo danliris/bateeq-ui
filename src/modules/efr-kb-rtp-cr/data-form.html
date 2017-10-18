@@ -1,7 +1,7 @@
 <template>
     <form class="form-horizontal">
         <au-textbox label="Nomor Referensi" value.bind="data.reference" error.bind="error.reference" read-only.bind="readOnly" aria-placeholder="Packing List SPK"></au-textbox>
-        <au-dropdown label="Sumber Penyimpanan" value.bind="source" items.bind="sources" key="code" text="name"></au-dropdown>
+        <au-dropdown label="Sumber Penyimpanan" value.bind="data.source" items.bind="sources" change.delegate="sourceChange($event)"></au-dropdown>
         <au-dropdown label="Tujuan Penyimpanan" value.bind="data.destination" items.bind="destinations"></au-dropdown>
         <au-dropdown value.bind="data.expedition" label="Expedisi" error.bind="error.expedition" items.bind="expeditionServices"
             key="code" text="name" read-only.bind="readOnly"></au-dropdown>
