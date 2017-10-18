@@ -150,29 +150,30 @@ module.exports = [
 //             iconClass: 'fa fa-bar-chart'
 //         }
 //     },
-    {
-        route: 'produk-aksesoris',
-        name: 'produk-aksesoris',
-        moduleId: './modules/produk-aksesoris/index',
-        nav: true,
-        title: 'Produk Aksesoris',
-        auth: true,
-        settings: {
-            group: "dashboard",
-            permission: { "PJL1": 1 },
-            iconClass: 'fa fa-bar-chart'
-        }
-    },
-    {
-        route: 'produk-jait',
-        name: 'produk-jait',
-        moduleId: './modules/produk-jait/index',
-        nav: true,
-        title: 'Produk Jasa Jahit',
-        auth: true,
-        settings: {
-            group: "dashboard",
-            permission: { "PJL1": 1 },
-            iconClass: 'fa fa-bar-chart'
-        }
-    }]
+//     {
+//         route: 'produk-aksesoris',
+//         name: 'produk-aksesoris',
+//         moduleId: './modules/produk-aksesoris/index',
+//         nav: true,
+//         title: 'Produk Aksesoris',
+//         auth: true,
+//         settings: {
+//             group: "dashboard",
+//             permission: { "PJL1": 1 },
+//             iconClass: 'fa fa-bar-chart'
+//         }
+//     },
+//     {
+//         route: 'produk-jait',
+//         name: 'produk-jait',
+//         moduleId: './modules/produk-jait/index',
+//         nav: true,
+//         title: 'Produk Jasa Jahit',
+//         auth: true,
+//         settings: {
+//             group: "dashboard",
+//             permission: { "PJL1": 1 },
+//             iconClass: 'fa fa-bar-chart'
+//         }
+//     }
+]
