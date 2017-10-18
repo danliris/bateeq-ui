@@ -56,7 +56,7 @@ export class DataForm {
 
     async attached() {
         this.sumTotalQty = 0;
-        this.sumPrice = 0;
+        this.sumPrice = 0;  
         var storages = await this.service.getModuleConfig();
         var result = await this.getStorage(storages[0].config);
 
@@ -171,7 +171,6 @@ export class DataForm {
     }
 
     makeTotal(items) {
-        debugger
         this.sumTotalQty = 0;
         this.sumPrice = 0;
         if (Object.getOwnPropertyNames(items).length > 0) {
@@ -211,6 +210,7 @@ export class DataForm {
         this.service.getSource(nama[0])
             .then(storage => {
                 this.dataSource = storage[0];
+                this.data.source = this.dataSource;
                 this.data.items = [];
                 this.sumTotalQty = 0;
                 this.sumPrice = 0;
