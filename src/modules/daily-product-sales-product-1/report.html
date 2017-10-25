@@ -1,0 +1,64 @@
+<template>
+    <p>
+        <h3>Penjualan Harian (Per Produk)</h3>
+    </p>
+    
+    <div class="row">
+            <div class="col-md-12 text-right">
+                
+                <!--<label>page ${query.page} / ${query.totalPage}</label> &nbsp;&nbsp;-->
+                <div style="width:70px;float:right">
+                    <select value.bind="query.size" class="form-control" matcher.bind="_matcher" if.bind="!readOnly" change.delegate="changeSize($event)">
+                        <option repeat.for="item of sizeOptions" model.bind="item">${item}</option>
+                    </select>
+                
+                </div>
+                <pagination if.bind="query" style="float:right" info.bind="query" class="pagination2" change.delegate="changePage($event)"></pagination>
+                
+            </div>
+    </div>
+    
+<div class="alert alert-info text-center" role="alert" if.bind="summary.length == 0">
+    Tidak ada data.
+</div>
+<div repeat.for="item of summary">
+    <div class="row">
+        <div class="col-md-3 col-sm-2 col-xs-6">
+            <img class="img-responsive" src="${item.masterItem.imageUrl ? item.masterItem.imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY9Y3rGTwbyc9GoAOyxRClRz7b5GnCnjVsHx_qK_CUXN79yis4'}"
+                onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY9Y3rGTwbyc9GoAOyxRClRz7b5GnCnjVsHx_qK_CUXN79yis4';"
+            >
+        </div>
+        <div class="col-md-9 col-sm-10 col-xs-6">
+            <p>
+                <strong>${(item.masterItem) ? item.masterItem.name || "" : ""}</strong>
+            </p>
+            <p>${(item.masterItem.colorDoc) ? item.masterItem.colorDoc.name || "No Color" : "No Color"}</p>
+            <p>Total Kuantitas : ${item.totalItem}</p>
+        </div>
+    </div>
+    <br>
+    <div class="col-md-12" style="margin-top:10px; margin-bottom:10px;">
+                <button type="button" class="btn btn-sm" data-toggle="sidebar-toggle" click.delegate="toggleTable($this)">
+                        <i class="fa ${item.maximized ? 'fa-angle-up' : 'fa-angle-down'}"> &nbsp;&nbsp; ${item.maximized ? "hide stores" : "show stores"}</i>
+                    </button>
+    </div>
+    <div class="row">
+        <div class="col-md-12 report-table ${item.maximized ? 'maximized' : 'minimized'}">
+            <table class="table table-bordered table-striped" style="margin-bottom:30px">
+                <thead>
+                    <tr style="background-color:#ffffff; color:#000000;">
+                        <td style="width:80%">Toko</td>
+                        <td>Kuantitas</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr repeat.for="store of item.stores">
+                        <td>${store.store.name}</td>
+                        <td>${store.quantity}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</template>
