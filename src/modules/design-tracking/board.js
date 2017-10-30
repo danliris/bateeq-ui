@@ -1,11 +1,11 @@
-import {inject, computedFrom} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from "./service";
-import {moveBefore} from 'aurelia-dragula';
-import {Dialog} from '../../components/dialog/dialog';
-import {BoardFormView} from './dialog-view/board-form-view';
-import {DesignFormView} from './dialog-view/design-form-view';
-import {StageFormView} from './dialog-view/stage-form-view';
+import { inject, computedFrom } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from "./service";
+import { moveBefore } from 'aurelia-dragula';
+import { Dialog } from '../../components/dialog/dialog';
+import { BoardFormView } from './dialog-view/board-form-view';
+import { DesignFormView } from './dialog-view/design-form-view';
+import { StageFormView } from './dialog-view/stage-form-view';
 
 var moment = require("moment");
 
@@ -14,13 +14,13 @@ export class View {
 	formOptions = {
 		editText: "Ubah",
 		deleteText: "Hapus",
-        cancelText: "Kembali"
+		cancelText: "Kembali"
 	};
-	
+
 	stageDesign = {};
 
-    constructor(router, dialog, service) {
-        this.router = router;
+	constructor(router, dialog, service) {
+		this.router = router;
 		this.dialog = dialog;
 		this.service = service;
 
@@ -29,21 +29,21 @@ export class View {
 		this.map = [];
 
 		this.index = 0;
-    }
+	}
 
 	async activate(params) {
 		this.boardId = params.id;
-        await this.getBoardData();
+		await this.getBoardData();
 		await this.getStageData();
-		this.stageDesign = {
-			width: 100/this.board.numberOfStage + "%"
-		}
-    }
+	}
 
 	async getBoardData() {
 		await this.service.getBoardById(this.boardId)
 			.then((result) => {
 				this.board = result;
+				this.stageDesign = {
+					width: 100 / this.board.numberOfStage + "%"
+				}
 			});
 	}
 
@@ -53,10 +53,10 @@ export class View {
 
 		var arg = {
 			_id: this.boardId
-        };
+		};
 
-        await this.service.searchStage(arg)
-            .then((result) => {
+		await this.service.searchStage(arg)
+			.then((result) => {
 				for (var data of result.data) {
 					var total = data.designs.length;
 
@@ -78,7 +78,7 @@ export class View {
 			});
 	}
 
-    itemDropped(item, target, source, sibling, itemVM, siblingVM) {
+	itemDropped(item, target, source, sibling, itemVM, siblingVM) {
 		let sourceArr;
 		let targetArr;
 		let sourceStage = this.getStage(source.dataset.code);
@@ -169,7 +169,7 @@ export class View {
 		}
 	}
 
-    getStage(code) {
+	getStage(code) {
 		let l = {};
 
 		for (var i = 0; i < this.stages.length; i++) {
@@ -188,33 +188,38 @@ export class View {
 			type: "Add"
 		};
 
-        this.dialog.show(DesignFormView, params)
-            .then(response => {
-                if (!response.wasCancelled) {
+		this.dialog.show(DesignFormView, params)
+			.then(response => {
+				if (!response.wasCancelled) {
 					this.getStageData();
 				}
-            });
-    }
+			});
+	}
 
 	createStage() {
-		this.dialog.show(StageFormView, { id: this.boardId, type: "Add" })
-            .then(response => {
-                if (!response.wasCancelled) {
-					this.getStageData();
-				}
-            });
+		if (this.board.numberOfStage <= this.stages.length) {
+			this.dialog.error(`Stage tidak boleh melebihi ${this.board.numberOfStage}`, "Error");
+		}
+		else {
+			this.dialog.show(StageFormView, { id: this.boardId, type: "Add" })
+				.then(response => {
+					if (!response.wasCancelled) {
+						this.getStageData();
+					}
+				});
+		}
 	}
 
 	deleteStage(id) {
 		this.dialog.prompt("Apakah anda yakin mau menghapus stage ini?", "Hapus Stage")
-            .then(response => {
-                if (response == "ok") {
-					this.service.deleteStage({ _id: id})
+			.then(response => {
+				if (response == "ok") {
+					this.service.deleteStage({ _id: id })
 						.then(result => {
 							this.getStageData();
 						});
-                }
-            });
+				}
+			});
 	}
 
 	@computedFrom("stages.length")
@@ -228,16 +233,16 @@ export class View {
 
 	editStage(stage) {
 		this.dialog.show(StageFormView, { id: stage._id, type: "Edit" })
-            .then(response => {
-                if (!response.wasCancelled) {
+			.then(response => {
+				if (!response.wasCancelled) {
 					stage.name = response.output.name;
 				}
-            });
+			});
 	}
 
 	editCallback() {
-		this.dialog.show(BoardFormView, { id: this.boardId, type: "Edit" })
-            .then(response => {
+		this.dialog.show(BoardFormView, { id: this.boardId, type: "Edit", stagesLength: this.stages.length })
+			.then(response => {
 				if (!response.wasCancelled) {
 					this.getBoardData();
 				}
@@ -246,15 +251,15 @@ export class View {
 
 	deleteCallback(event) {
 		this.dialog.prompt("Apakah anda yakin mau menghapus board ini?", "Hapus Board")
-            .then(response => {
-                if (response == "ok") {
+			.then(response => {
+				if (response == "ok") {
 					this.service.deleteBoard({ _id: this.boardId })
 						.then(result => {
 							this.cancelCallback();
 						});
-                }
-            });
-    }
+				}
+			});
+	}
 
 	cancelCallback() {
 		this.router.navigateToRoute('list');

@@ -1,7 +1,6 @@
 import { inject, useView } from 'aurelia-framework';
 import { DialogController } from 'aurelia-dialog';
 import { Service } from "../service";
-import { CoreService } from "../core-service";
 const DesignerLoader = require('../../../loader/account-loader');
 const CategoryLoader = require('../../../loader/category-loader');
 const SeasonLoader = require('../../../loader/season-loader');
@@ -9,13 +8,12 @@ const MaterialCompositionLoader = require('../../../loader/material-composition-
 const SubCounterLoader = require('../../../loader/sub-counter-loader');
 const MaterialLoader = require('../../../loader/material-loader');
 
-@inject(DialogController, Service, CoreService)
+@inject(DialogController, Service)
 @useView("./design-form-view.html")
 export class DesignFormView {
     constructor(controller, service, coreService) {
         this.controller = controller;
         this.service = service;
-        this.coreService = coreService;
         this.data = {};
         this.error = {};
 
@@ -72,7 +70,6 @@ export class DesignFormView {
         this.error = {};
 
         this.data.amount = this.data.amount || 0;
-        debugger
 
         if (this.type == "Add") {
             this.data.stageId = this.data.stage._id;
