@@ -25,6 +25,7 @@ export async function configure(aurelia) {
      var auth = "https://bateeq-auth-api-dev.mybluemix.net/v1/";
      var core = "https://bateeq-core-api-dev.mybluemix.net/v1/core/";
      var master = "https://bateeq-core-api-dev.mybluemix.net/v1/master/";
+     var manufacture = "https://bateeq-core-api-dev.mybluemix.net/v1/manufacture/";
      var inventory = "https://bateeq-inventory-api-dev.mybluemix.net/v1/inventory/";
      var merchandiser = "https://bateeq-inventory-api-dev.mybluemix.net/v1/merchandiser/";
      var sales = "https://bateeq-pos-api-dev.mybluemix.net/v1/sales/";
@@ -32,6 +33,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
       config.registerEndpoint('master', master);
+      config.registerEndpoint('manufacture', manufacture);
       config.registerEndpoint('inventory', inventory);
       config.registerEndpoint('merchandiser', merchandiser);
       config.registerEndpoint('sales', sales);
@@ -46,6 +48,7 @@ export async function configure(aurelia) {
       config.settings.centerHorizontalOnly = false;
       config.settings.startingZIndex = 5;
     })
+    .plugin('aurelia-dragula')
     .developmentLogging();
 
   // Uncomment the line below to enable animation.
