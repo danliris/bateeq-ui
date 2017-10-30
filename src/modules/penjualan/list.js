@@ -14,7 +14,14 @@ export class List {
         "PERBANDINGAN OMSET HEAD TO HEAD (BULAN)",
         "PERBANDINGAN OMSET HEAD TO HEAD (QUARTER)",
         "JUMLAH TRANSAKSI BERDASARKAN WAKTU DI TOKO - 2 BULAN TERAKHIR",
+        "OMSET COUNTER PER QUARTER",
+        "TOTAL OMSET TOKO PER BULAN",
+        "TOTAL OMSET TOKO PER HARIAN",
+        "TOTAL OMSET TOKO PER QUARTER",
+        "BEST SELLER BY BAHAN",
+        "BEST SELLER SUB COUNTER PER PROCESS - BULANAN"
     ];
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
