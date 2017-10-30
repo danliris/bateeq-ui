@@ -1,6 +1,6 @@
-import {inject, useView} from 'aurelia-framework';
-import {DialogController} from 'aurelia-dialog';
-import {Service} from "../service";
+import { inject, useView } from 'aurelia-framework';
+import { DialogController } from 'aurelia-dialog';
+import { Service } from "../service";
 
 @inject(DialogController, Service)
 @useView("./board-form-view.html")
@@ -14,20 +14,20 @@ export class BoardFormView {
 
     async activate(params) {
         this.type = params.type;
-        
-        if(this.type == "Edit") {
+
+        if (this.type == "Edit") {
             await this.service.getBoardById(params.id)
                 .then((result) => {
-                    this.data = result;   
+                    this.data = result;
+                    this.data.stagesLength = params.stagesLength ? params.stagesLength : 0;
                 });
         }
     }
-    
-    save()
-    {
+
+    save() {
         this.error = {};
 
-        if(this.type == "Add") {
+        if (this.type == "Add") {
             this.service.createBoard(this.data)
                 .then((result) => {
                     this.controller.ok();
