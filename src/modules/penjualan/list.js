@@ -19,7 +19,8 @@ export class List {
         "TOTAL OMSET TOKO PER HARIAN",
         "TOTAL OMSET TOKO PER QUARTER",
         "BEST SELLER BY BAHAN",
-        "BEST SELLER SUB COUNTER PER PROCESS - BULANAN"
+        "BEST SELLER SUB COUNTER PER PROCESS - BULANAN",
+        "PENJUALAN OMZET BERDASARKAN KOLEKSI (QUARTER)"
     ];
 
     constructor(router, service) {
