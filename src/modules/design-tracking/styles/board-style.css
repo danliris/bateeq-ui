@@ -27,6 +27,7 @@
 }
 
 #dragula h3 {
+	font-size: 16px;
 	margin-top: 0px;
 	text-overflow: ellipsis;
     overflow: hidden;
@@ -112,7 +113,7 @@
 
 .kanbanText {
   	color: grey;
-  	font-size: 1em;
+  	font-size: 12px;
   	font-weight: 400;
   	line-height: 18px;
   	overflow: hidden;
@@ -161,6 +162,7 @@
 }
 
 #dragula h4 {
+	font-size: 14px;
 	margin-bottom: 5px;
 }
 
