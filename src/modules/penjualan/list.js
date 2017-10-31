@@ -20,7 +20,7 @@ export class List {
         "TOTAL OMSET TOKO PER QUARTER",
         "BEST SELLER BY BAHAN",
         "BEST SELLER SUB COUNTER PER PROCESS - BULANAN",
-        "PENJUALAN OMZET BERDASARKAN KOLEKSI (QUARTER)"
+        "TOTAL OMSET BERDASARKAN KOLEKSI"
     ];
 
     constructor(router, service) {
