@@ -20,7 +20,6 @@ export class Create {
     }
 
     save() {
-        debugger
         this.service.create(this.data).then(result => {this.list()}).catch(e => {this.error = e});
     }
 }
