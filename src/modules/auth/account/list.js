@@ -26,7 +26,7 @@ export class List {
             .then(result => {
                 for (var r of result.data){
                     var firstName = r.profile.firstname;
-                    var lastName = r.profile.lastname;
+                    var lastName = r.profile.lastname ? r.profile.lastname : "";
                     r.fullname = firstName + ' ' + lastName;
                 }
                 return {
@@ -56,6 +56,4 @@ export class List {
     create() {
         this.router.navigateToRoute('create');
     }
-
-
 }

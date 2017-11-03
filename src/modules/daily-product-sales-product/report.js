@@ -70,7 +70,6 @@ export class Report {
 
 
     changePage(e) {
-        debugger
         var page = e.detail;
         this.query.page = page;
         this.getData();
