@@ -126,8 +126,6 @@ export class Report {
             })
 
             this.data = [].concat.apply([], this.data);
-
-            console.log(this.data);
         })
     }
 }

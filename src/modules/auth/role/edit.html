@@ -1,4 +1,5 @@
- <template>
+<template>
   <require from="./data-form"></require>
-  <data-form title="Ubah Informasi Role" read-only.bind="false"></data-form>
+  <data-form title="Ubah Informasi Role" data.bind="data" error.bind="error">
+  </data-form>
 </template>
