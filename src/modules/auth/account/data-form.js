@@ -8,14 +8,7 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
-    options = {
-        label: {
-            align: 'right',
-            length: 2
-        }
-    }
-
-    isNotView = {};
+    isCreate = {};
 
     @computedFrom("data._id")
     get isEdit() {
@@ -26,10 +19,10 @@ export class DataForm {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
-        if (this.router.currentInstruction.config.name === "view")
-            this.isNotView = false;
+        if (this.router.currentInstruction.config.name === "create")
+            this.isCreate = true;
         else
-            this.isNotView = true;
+            this.isCreate = false;
     }
 
     bind(context) {

@@ -9,12 +9,6 @@ export class Profile {
     @bindable error = {};
 
     genders = ["Male","Female"];
-    options = {
-        label: {
-            align: 'right',
-            length: 2
-        }
-    }
 
     constructor(router, service) {
         this.router = router;
