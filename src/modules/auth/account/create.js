@@ -2,7 +2,6 @@ import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
-
 @inject(Router, Service)
 export class Create {
     constructor(router, service) {
@@ -10,10 +9,6 @@ export class Create {
         this.service = service;
         this.data = { profile: {}, roles: [] };
         this.error = { profile: {},roles: [] };
-    }
-
-    activate(params) {
-
     }
 
     list() {

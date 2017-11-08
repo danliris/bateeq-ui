@@ -16,7 +16,6 @@ export class View {
         if (!this.data.stores || this.data.stores == undefined || this.data.stores == []) {
             this.data.stores = "";
         }
-        console.log(this.data);
         this.data.password = "";
     }
 

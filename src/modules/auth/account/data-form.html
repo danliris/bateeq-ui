@@ -1,12 +1,21 @@
 <template>
     <require from="./profile"></require>
-    <form class="form-horizontal">
-        <textbox    label="Username"    value.bind="data.username"      error.bind="error.username"     read-only.bind="(readOnly || isEdit)"></textbox>
-        <password    label="Password"    value.bind="data.password"      error.bind="error.password"     read-only.bind="readOnly"></password>
-        <hr/>
+    <au-input-form title.bind="title" with.bind="context">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <au-textbox label="Username" value.bind="data.username" error.bind="error.username" read-only.bind="(readOnly || isEdit)"></au-textbox>
+                <au-password label="Password" value.bind="data.password" error.bind="error.password" read-only.bind="readOnly"  if.bind="isCreate"></au-password>
+                <au-password label="Confirm Password" value.bind="data.confirmPassword" error.bind="error.confirmPassword" read-only.bind="readOnly" if.bind="isCreate"></au-password>
+            </div>
+        </div>  
         <profile data.bind="data.profile" error.bind="error.profile" read-only.bind="readOnly"></profile>
-        <role-item-collection value.bind="data.roles" error.bind="error.roles" read-only.bind="readOnly"></role-item-collection>
-         <hr/>
-        <store-item-collection value.bind="data.stores" read-only.bind="readOnly" ></store-item-collection>
-    </form>
+        <hr/>
+        <div class="row">
+            <div class="col-md-12">
+                <role-item-collection value.bind="data.roles" read-only.bind="readOnly"></role-item-collection>
+                <hr/>
+                <store-item-collection value.bind="data.stores" read-only.bind="readOnly"></store-item-collection>
+            </div>
+        </div>
+    </au-input-form>
 </template>
