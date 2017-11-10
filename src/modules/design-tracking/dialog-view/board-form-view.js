@@ -19,7 +19,6 @@ export class BoardFormView {
             await this.service.getBoardById(params.id)
                 .then((result) => {
                     this.data = result;
-                    this.data.stagesLength = params.stagesLength ? params.stagesLength : 0;
                 });
         }
     }

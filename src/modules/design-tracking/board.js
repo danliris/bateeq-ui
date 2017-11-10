@@ -17,14 +17,12 @@ export class View {
 		cancelText: "Kembali"
 	};
 
-	stageDesign = {};
-
 	constructor(router, dialog, service) {
 		this.router = router;
 		this.dialog = dialog;
 		this.service = service;
 
-		this.type = ["type-1", "type-2", "type-3", "type-4", "type-5", "type-6", "type-7"];
+		this.type = ["type-1", "type-2", "type-3", "type-4", "type-5", "type-6", "type-7", "type-8"];
 		this.stages = [];
 		this.map = [];
 
@@ -41,9 +39,6 @@ export class View {
 		await this.service.getBoardById(this.boardId)
 			.then((result) => {
 				this.board = result;
-				this.stageDesign = {
-					width: 100 / this.board.numberOfStage + "%"
-				}
 			});
 	}
 
@@ -197,17 +192,12 @@ export class View {
 	}
 
 	createStage() {
-		if (this.board.numberOfStage <= this.stages.length) {
-			this.dialog.error(`Stage tidak boleh melebihi ${this.board.numberOfStage}`, "Error");
-		}
-		else {
-			this.dialog.show(StageFormView, { id: this.boardId, type: "Add" })
-				.then(response => {
-					if (!response.wasCancelled) {
-						this.getStageData();
-					}
-				});
-		}
+		this.dialog.show(StageFormView, { id: this.boardId, type: "Add" })
+			.then(response => {
+				if (!response.wasCancelled) {
+					this.getStageData();
+				}
+			});
 	}
 
 	deleteStage(id) {
@@ -241,7 +231,7 @@ export class View {
 	}
 
 	editCallback() {
-		this.dialog.show(BoardFormView, { id: this.boardId, type: "Edit", stagesLength: this.stages.length })
+		this.dialog.show(BoardFormView, { id: this.boardId, type: "Edit"})
 			.then(response => {
 				if (!response.wasCancelled) {
 					this.getBoardData();
