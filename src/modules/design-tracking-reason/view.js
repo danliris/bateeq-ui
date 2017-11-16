@@ -1,7 +1,6 @@
-import { inject, Lazy } from 'aurelia-framework';
-import { Router } from 'aurelia-router';
-import { Service } from './service';
-
+import {inject, Lazy} from 'aurelia-framework';
+import {Router} from 'aurelia-router';
+import {Service} from './service';
 
 @inject(Router, Service)
 export class View {
@@ -13,21 +12,22 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        if (!this.data.stores || this.data.stores == undefined || this.data.stores == []) {
-            this.data.stores = "";
-        }
-        this.data.password = "";
     }
 
     list() {
         this.router.navigateToRoute('list');
     }
 
-    edit() {
+    cancelCallback(event)
+    {
+        this.list();
+    }
+
+    editCallback(event) {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
-    delete() {
+    deleteCallback(event) {
         this.service.delete(this.data)
             .then(result => {
                 this.list();

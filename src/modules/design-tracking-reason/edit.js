@@ -2,7 +2,6 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 
-
 @inject(Router, Service)
 export class Edit {
     constructor(router, service) {
@@ -13,18 +12,16 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.data.password = null;
-        this.data.confirmPassword = null;
     }
 
-    view() {
+    cancelCallback(event) {
         this.router.navigateToRoute('view', { id: this.data._id });
     }
 
-    save() {
+    saveCallback(event) {
         this.service.update(this.data)
             .then(result => {
-                this.view();
+                this.router.navigateToRoute('view', { id: this.data._id });
             })
             .catch(e => {
                 this.error = e;
