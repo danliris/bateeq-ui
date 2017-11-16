@@ -21,7 +21,6 @@ export class List {
         "BEST SELLER BY BAHAN",
         "BEST SELLER SUB COUNTER PER PROCESS - BULANAN",
         "TOTAL OMSET BERDASARKAN KOLEKSI"
-
     ];
     constructor(router, service) {
         this.router = router;
