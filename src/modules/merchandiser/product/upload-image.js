@@ -298,8 +298,7 @@ export class Upload {
         if (this.data.ro == "" || this.data.ro == undefined) {
             e["ro"] = "Nomor RO harus diisi"
         }
-
-        debugger
+        
         if (Object.keys(e).length > 0) {
             this.error = e;
         } else {
@@ -327,7 +326,6 @@ export class Upload {
                 if (response) {
                     return response.json().then(result => {
                         var data = {}
-                        debugger
                         data.products = this.dataDestination;
                         data.colorCode = this.color;
                         data.articleColor = this.article_color;

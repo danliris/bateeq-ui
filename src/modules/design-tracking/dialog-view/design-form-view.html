@@ -1,0 +1,56 @@
+<template>
+    <ai-dialog style="width:1000px;">
+        <ai-dialog-header>Design</ai-dialog-header>
+
+        <ai-dialog-body>
+            <form class="form-horizontal">
+                <au-textbox value.bind="data.name" label="Nama Produk" placeholder="Nama Produk" error.bind="error.name"></au-textbox>
+
+                <au-autocomplete value.bind="data.designer" error.bind="error.designer" label="Nama Designer" loader.one-time="designerLoader"
+                    placeholder="Cari Nama Designer" text.bind="designerView">
+                </au-autocomplete>
+
+                <au-dropdown label="Stage" value.bind="data.stage" error.bind="error.stage" items.bind="stageData" read-only.bind="isEdit"
+                    text="name">
+                </au-dropdown>
+
+                <au-autocomplete value.bind="data.articleCategory" error.bind="error.articleCategory" label="Kategori Produk" loader.one-time="categoryLoader"
+                    placeholder="Cari Kategori Produk" text="name">
+                </au-autocomplete>
+
+                <au-autocomplete value.bind="data.articleCounter" error.bind="error.articleCounter" label="Konter" loader.one-time="counterLoader"
+                    placeholder="Cari Konter" text="name">
+                </au-autocomplete>
+
+                <au-autocomplete value.bind="data.articleSeason" error.bind="error.articleSeason" label="Season" loader.one-time="seasonLoader"
+                    placeholder="Cari Season" text="name">
+                </au-autocomplete>
+
+                <au-autocomplete value.bind="data.articleMaterialComposition" error.bind="error.articleMaterialComposition" label="Tipe Produk"
+                    loader.one-time="materialCompositionLoader" placeholder="Cari Tipe Produk" text="name">
+                </au-autocomplete>
+
+                <au-autocomplete value.bind="data.articleSubCounter" error.bind="error.articleSubCounter" label="Style Produk" loader.one-time="subCounterLoader"
+                    placeholder="Cari Style Produk" text="name">
+                </au-autocomplete>
+
+                <au-autocomplete value.bind="data.articleMaterial" error.bind="error.articleMaterial" label="Material Bahan" loader.one-time="materialLoader"
+                    placeholder="Cari Material Bahan" text="name">
+                </au-autocomplete>
+
+                <au-datepicker value.bind="data.closeDate" label="Tanggal Tutup" placeholder="Tanggal tutup" error.bind="error.closeDate"></au-datepicker>
+
+                <au-multiline value.bind="data.description" label="Deskripsi" placeholder="Deskripsi" error.bind="error.description"></au-multiline>
+
+                <au-dropdown label="Alasan" value.bind="data.reason" error.bind="error.reason" items.bind="reasons">
+                </au-dropdown>
+
+            </form>
+        </ai-dialog-body>
+
+        <ai-dialog-footer>
+            <button click.delegate="controller.cancel()">Kembali</button>
+            <button click.delegate="save()">Simpan</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>

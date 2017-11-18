@@ -13,7 +13,8 @@ export class Edit {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.data.password = "";
+        this.data.password = null;
+        this.data.confirmPassword = null;
     }
 
     view() {

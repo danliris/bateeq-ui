@@ -1,0 +1,16 @@
+<template>
+    <ai-dialog style="width:500px;">
+        <ai-dialog-header>Board</ai-dialog-header>
+
+        <ai-dialog-body>
+            <form class="form-horizontal">
+                <au-textbox value.bind="data.name" label="Judul Board" placeholder="Judul Board" error.bind="error.name"></au-textbox>
+            </form>
+        </ai-dialog-body>
+
+        <ai-dialog-footer>
+            <button click.delegate="controller.cancel()">Kembali</button>
+            <button click.delegate="save()">Simpan</button>
+        </ai-dialog-footer>
+    </ai-dialog>
+</template>
