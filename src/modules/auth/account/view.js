@@ -27,6 +27,10 @@ export class View {
         this.router.navigateToRoute('edit', { id: this.data._id });
     }
 
+    changePassword() {
+        this.router.navigateToRoute('changePassword', { id: this.data._id })
+    }
+
     delete() {
         this.service.delete(this.data)
             .then(result => {
