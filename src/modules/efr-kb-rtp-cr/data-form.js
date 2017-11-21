@@ -65,7 +65,6 @@ export class DataForm {
                 this.data.items = [];
                 this.sumTotalQty = 0;
                 this.sumPrice = 0;
-                var sourcesTemp = this.sources;
             })
     }
 
