@@ -65,24 +65,7 @@ export class DataForm {
                 this.data.items = [];
                 this.sumTotalQty = 0;
                 this.sumPrice = 0;
-                var sourcesTemp = this.sources;
-                this.sources = [];
-                var index = 0;
-                for (var source of sourcesTemp) {
-                    if (source.name === storage[0].name) {
-                        this.sources.splice(0, 0, source);
-                    } else {
-                        index = index + 1;
-                        this.sources.splice(index, 0, source);
-                    }
-                }
-                this.sources = this.sources.map(source => {
-                    source.toString = function () {
-                        return this.name;
-                    }
-                    return source;
-                })
-            })
+            });
     }
 
     async barcodeChoose(e) {
