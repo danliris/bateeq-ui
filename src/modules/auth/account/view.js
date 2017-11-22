@@ -1,13 +1,17 @@
-import { inject, Lazy } from 'aurelia-framework';
+import { inject, Lazy, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
 
 @inject(Router, Service)
 export class View {
+
+    @bindable isChange;
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.isChange = false;
     }
 
     async activate(params) {
@@ -17,6 +21,12 @@ export class View {
             this.data.stores = "";
         }
         this.data.password = "";
+
+        if ((this.data.profile.dob != undefined && this.data.profile.dob != "")
+            && (this.data.profile.gender != undefined && this.data.profile.gender != "")
+            && (this.data.profile.email != undefined && this.data.profile.email != "")) {
+            this.isChange = true;
+        }
     }
 
     list() {
@@ -25,6 +35,10 @@ export class View {
 
     edit() {
         this.router.navigateToRoute('edit', { id: this.data._id });
+    }
+
+    changePassword() {
+        this.router.navigateToRoute('changePassword', { id: this.data._id })
     }
 
     delete() {
