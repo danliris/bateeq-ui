@@ -89,7 +89,7 @@ export class Report {
             console.log(item);
             if(item.remark && item.remark.length > 0){
                 for(var a of item.remark){
-                    remark += `${a.Ket} :Rp.${a.Totalrp,10}, `;
+                    remark += `${a.Ket} :Rp.${a.Totalrp}, `;
                 }
                 item.remark = remark;
                 console.log(remark);
