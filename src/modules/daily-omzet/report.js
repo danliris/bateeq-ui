@@ -12,6 +12,20 @@ export class Report {
             { field: 'store.name', title: 'Toko' },
             { field: 'grandTotal', title: 'Omset' },
             { field: 'count', title: 'Kuantitas' }
+            
+        ],
+        search: false,
+        showColumns: false,
+        showToggle: false
+    };
+    
+    options2 = {
+        columns: [
+            { field: 'store.name', title: 'Toko' },
+            { field: 'grandTotal', title: 'Omset' },
+            { field: 'count', title: 'Kuantitas' },
+            { field: 'remark', title: 'Keterangan'}            
+            
         ],
         search: false,
         showColumns: false,
@@ -47,10 +61,44 @@ export class Report {
         this.totalQuantity = this.standaloneCount + this.consignmentCount + this.onlineCount + this.generalSalesCount
             + this.vvipCount;
 
-        this.standalone = this.convertToLocaleString(this.getArray(apiResult.data.standalone));
+        this.standalone = this.convertToLocaleString(this.getArray(apiResult.data.standalone));        
+       /* var dimStandalone = this.convertToLocaleString(this.getArray(apiResult.data.standalone));
+        var arrStandalone = [];
+        for(var item of dimStandalone){
+            var remark = "";
+            console.log(item);
+            if(item.remark && item.remark.length > 0){
+                for(var a of item.remark){
+                    remark += `${a.Ket} : ${a.Totalrp}, `;
+                }
+                item.remark = remark;
+                console.log(remark);
+            }
+            arrStandalone.push(item);           
+        }
+        this.standalone = arrStandalone;
+        console.log(this.standalone);
+        */
         this.consignment = this.convertToLocaleString(this.getArray(apiResult.data.consignment));
         this.online = this.convertToLocaleString(this.getArray(apiResult.data.online));
-        this.generalSales = this.convertToLocaleString(this.getArray(apiResult.data.generalSales));
+        //this.generalSales = this.convertToLocaleString(this.getArray(apiResult.data.generalSales))
+        var dimGeneralSales = this.convertToLocaleString(this.getArray(apiResult.data.generalSales));
+        var arrGeneralSales = [];
+        for(var item of dimGeneralSales){
+            var remark = "";
+            console.log(item);
+            if(item.remark && item.remark.length > 0){
+                for(var a of item.remark){
+                    remark += `${a.Ket} :Rp.${a.Totalrp,10}, `;
+                }
+                item.remark = remark;
+                console.log(remark);
+            }
+            arrGeneralSales.push(item);           
+        }
+        this.generalSales = arrGeneralSales;
+        console.log(this.generalSales);
+
         this.vvip = this.convertToLocaleString(this.getArray(apiResult.data.vvip));
     }
 
