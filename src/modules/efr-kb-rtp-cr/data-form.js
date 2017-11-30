@@ -65,7 +65,7 @@ export class DataForm {
                 this.data.items = [];
                 this.sumTotalQty = 0;
                 this.sumPrice = 0;
-            });
+            })
     }
 
     async barcodeChoose(e) {
