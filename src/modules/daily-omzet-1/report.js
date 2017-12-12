@@ -98,7 +98,6 @@ export class Report {
         console.log(this.vvip);
 
     }
-    }
 
     getGrandTotal(object) {
         if (typeof object !== "undefined") {
