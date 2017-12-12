@@ -17,7 +17,19 @@ export class Report {
         showColumns: false,
         showToggle: false
     };
-
+    options2 = {
+        columns: [
+            { field: 'store.name', title: 'Toko' },
+            { field: 'grandTotal', title: 'Omset' },
+            { field: 'count', title: 'Kuantitas' },
+            { field: 'remark', title: 'Keterangan'}            
+            
+        ],
+        search: false,
+        showColumns: false,
+        showToggle: false
+    };
+    
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -50,8 +62,42 @@ export class Report {
         this.standalone = this.convertToLocaleString(this.getArray(apiResult.data.standalone));
         this.consignment = this.convertToLocaleString(this.getArray(apiResult.data.consignment));
         this.online = this.convertToLocaleString(this.getArray(apiResult.data.online));
-        this.generalSales = this.convertToLocaleString(this.getArray(apiResult.data.generalSales));
-        this.vvip = this.convertToLocaleString(this.getArray(apiResult.data.vvip));
+       // this.generalSales = this.convertToLocaleString(this.getArray(apiResult.data.generalSales));
+       var dimGeneralSales = this.convertToLocaleString(this.getArray(apiResult.data.generalSales));
+       var arrGeneralSales = [];
+       for(var item of dimGeneralSales){
+           var remark = "";
+           console.log(item);
+           if(item.remark && item.remark.length > 0){
+               for(var a of item.remark){
+                 remark += `${a.Ket} :Rp.${parseInt( a.Totalrp ).toLocaleString()} ;`;  
+               }
+               item.remark = remark;
+               console.log(remark);
+           }
+           arrGeneralSales.push(item);           
+       }
+       this.generalSales = arrGeneralSales;
+       console.log(this.generalSales);
+        //this.vvip = this.convertToLocaleString(this.getArray(apiResult.data.vvip));
+        var dimVvip = this.convertToLocaleString(this.getArray(apiResult.data.vvip));
+        var arrVvip = [];
+        for(var item of dimVvip){
+            var remark = "";
+            console.log(item);
+            if(item.remark && item.remark.length > 0){
+                for(var a of item.remark){
+                  remark += `${a.Ket} :Rp.${parseInt( a.Totalrp ).toLocaleString()} ;`;  
+                }
+                item.remark = remark;
+                console.log(remark);
+            }
+            arrVvip.push(item);           
+        }
+        this.vvip = arrVvip;
+        console.log(this.vvip);
+
+    }
     }
 
     getGrandTotal(object) {
