@@ -24,31 +24,5 @@ module.exports = [
             permission: { "MRD.01": 1 },
             iconClass: 'fa fa-adjust'
         }
-    },
-    {
-        route: 'category',
-        name: 'category',
-        moduleId: './modules/merchandiser/category/index',
-        nav: true,
-        title: 'Kategori',
-        auth: true,
-        settings: {
-            group: "designer",
-            permission: { "MRD.01": 1 },
-            iconClass: 'fa fa-adjust'
-        }
-    },
-    {
-        route: 'material',
-        name: 'material',
-        moduleId: './modules/merchandiser/material/index',
-        nav: true,
-        title: 'Bahan',
-        auth: true,
-        settings: {
-            group: "designer",
-            permission: { "MRD.01": 1 },
-            iconClass: 'fa fa-adjust'
-        }
     }
 ]

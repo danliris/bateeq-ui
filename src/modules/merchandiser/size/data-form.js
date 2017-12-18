@@ -25,5 +25,4 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
     }
-
 } 
