@@ -11,7 +11,7 @@ module.exports = [
             permission: { "MRD.01": 1 },
             iconClass: 'fa fa-adjust'
         }
-    }, 
+    },
     {
         route: 'bank',
         name: 'bank',
@@ -36,5 +36,58 @@ module.exports = [
             group: "merchandiser",
             permission: { "MRD.01": 1 },
             iconClass: 'fa fa-university'
+        }
+    },
+    {
+        route: 'category',
+        name: 'category',
+        moduleId: './modules/merchandiser/category/index',
+        nav: true,
+        title: 'Kategori',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
+    },
+    {
+        route: 'material',
+        name: 'material',
+        moduleId: './modules/merchandiser/material/index',
+        nav: true,
+        title: 'Bahan',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
+    },
+    {
+        route: 'UOM',
+        name: 'UOM',
+        moduleId: './modules/merchandiser/UOM/index',
+        nav: true,
+        title: 'Satuan',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
+    },
+    {
+        route: 'size',
+        name: 'size',
+        moduleId: './modules/merchandiser/size/index',
+        nav: true,
+        title: 'Ukuran',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
     }
-}]
+]
