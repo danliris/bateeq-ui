@@ -28,7 +28,7 @@ export async function configure(aurelia) {
       var manufacture = "https://bateeq-core-api-dev.mybluemix.net/v1/manufacture/";
       var inventory = "https://bateeq-inventory-api-dev.mybluemix.net/v1/inventory/";
       var merchandiser = "https://bateeq-inventory-api-dev.mybluemix.net/v1/merchandiser/";
-      var md = "http://localhost:11965/v1/";
+      var md = "https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api-dev.mybluemix.net/v1/sales/";
     
       config.registerEndpoint('auth', auth);
