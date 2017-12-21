@@ -38,43 +38,50 @@ export class Report {
     async activate() {
         let yearMonthsList = await this.service.getYearMonthsList()
             .then(result => {
-                return result;
-            })
-        if (yearMonthsList) {
-            yearMonthsList.forEach(yearMonth => {
-                this.yearMonths.push(yearMonth)
-            })
-        }
+                result.forEach(yearMonth => {
+                    this.yearMonths.push(yearMonth)
+                });
+            });
+
+        this.showMonthlyOverallStock();
     }
-    
-    convertToLocaleString(array){
-        for (var a of array){
-            for (var prop of Object.getOwnPropertyNames(a)){
-                a[prop] = a[prop].toLocaleString();  
+
+    convertToLocaleString(array) {
+        for (var a of array) {
+            for (var prop of Object.getOwnPropertyNames(a)) {
+                a[prop] = a[prop].toLocaleString();
             }
         }
         return array;
     }
 
-    yearMonthsDataChanged(newValue, oldValue){
+    yearMonthsDataChanged(newValue, oldValue) {
         this.months = this.yearMonthsData.months;
     }
 
     showMonthlyOverallStock() {
-        let month = this.data.month.id;
-        let year = this.yearMonthsData.year;
+        this.tableData = [];
+        let month = null;
+        let year = null;
+
+        if (this.data && this.yearMonths) {
+            month = this.data.month.id;
+            year = this.yearMonthsData.year;
+        } else {
+            month = new Date().getMonth() - 1;
+            year = new Date().getFullYear();
+            this.data = {};
+            this.data.month = month;
+        }
+
         this.service.getMonthlyOverallStock(month, year)
             .then(results => {
                 results.forEach(item => {
                     this.tableData.push(item);
                 })
-                this.tableData = this.convertToLocaleString(this.tableData);
                 this.usedMonth = month;
                 this.usedYear = year;
                 this.models.refresh();
-            })
-            .then(() => {
-                this.tableData = [];
             })
             .catch(e => {
                 this.error = e;
