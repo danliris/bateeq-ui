@@ -60,7 +60,6 @@ export class Report {
     }
 
     showMonthlyOverallStock() {
-        debugger
         this.tableData = [];
         let month = null;
         let year = null;
