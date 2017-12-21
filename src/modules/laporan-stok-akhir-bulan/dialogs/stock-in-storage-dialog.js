@@ -43,7 +43,6 @@ export class StockInStorageDialog {
             item.number = ++number;
             this.dialogTableData.push(item)
         })
-        this.dialogTableData = this.convertToLocaleString(this.dialogTableData);
     }
 
 }   
