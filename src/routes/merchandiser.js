@@ -89,5 +89,18 @@ module.exports = [
             permission: { "MRD.01": 1 },
             iconClass: 'fa fa-adjust'
         }
+    },
+    {
+        route: 'OTL',
+        name: 'OTL',
+        moduleId: './modules/merchandiser/OTL/index',
+        nav: true,
+        title: 'Ongkos',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
     }
 ]
