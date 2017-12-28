@@ -1,7 +1,10 @@
 <template>
-  <au-input-form title.bind="title" with.bind="context">
-    <au-textbox label="Kode" value.bind="data.Code" error.bind="error.Code" read-only.bind="(readOnly || isEdit)"></au-textbox>
-    <au-textbox label="Nama" value.bind="data.Name" error.bind="error.Name" read-only.bind="readOnly"></au-textbox>
-    <au-textbox label="Deskripsi" value.bind="data.Description" error.bind="error.Description" read-only.bind="readOnly"></au-textbox>
-  </au-input-form>
+  <div class="col-md-9">
+    <au-input-form title.bind="title" with.bind="context">
+      <au-textbox label="Kategori" placeholder="Nama Kategori" value.bind="data.Name" error.bind="error.Name" options.bind="customOptions"
+        read-only.bind="readOnly"></au-textbox>
+      <au-textbox label="Sub Kategori" placeholder="Sub Kategori" value.bind="data.SubCategory" error.bind="error.SubCategory"
+        options.bind="customOptions" read-only.bind="readOnly"></au-textbox>
+    </au-input-form>
+  </div>
 </template>
