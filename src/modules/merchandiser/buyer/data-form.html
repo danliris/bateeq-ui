@@ -1,0 +1,14 @@
+<template>
+  <div class="col-md-9">
+    <au-input-form title.bind="title" with.bind="context">
+      <au-textbox label="Nama" placeholder="Nama Pembeli" value.bind="data.Name" error.bind="error.Name" options.bind="customOptions"
+        read-only.bind="readOnly"></au-textbox>
+      <au-textbox label="Email" placeholder="Email Pembeli" value.bind="data.Email" error.bind="error.Email" options.bind="customOptions"
+        read-only.bind="readOnly"></au-textbox>
+      <au-multiline label="Alamat 1" placeholder="Alamat 1 Pembeli" value.bind="data.Address1" error.bind="error.Address1" options.bind="customOptions"
+        read-only.bind="readOnly"></au-multiline>
+      <au-multiline label="Alamat 2" placeholder="Alamat 2 Pembeli" value.bind="data.Address2" error.bind="error.Address2" options.bind="customOptions"
+        read-only.bind="readOnly"></au-multiline>
+    </au-input-form>
+  </div>
+</template>
