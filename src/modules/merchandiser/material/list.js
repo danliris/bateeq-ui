@@ -6,8 +6,8 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["Detail"];
     columns = [
-        { field: "Code", title: "Code" },
-        { field: "Name", title: "Name" },
+        { field: "Category.FullName", title: "Kategori" },
+        { field: "Name", title: "Bahan" },
     ];
 
     loader = (info) => {
@@ -25,6 +25,9 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
+                for (let data of result.data){
+                    data.Category.FullName = data.Category.Name + " - " + data.Category.SubCategory;
+                }
                 return {
                     total: result.info.total,
                     data: result.data
@@ -46,8 +49,8 @@ export class List {
                 break;
         }
     }
+
     create() {
         this.router.navigateToRoute('create');
     }
-
 }
