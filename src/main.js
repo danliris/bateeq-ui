@@ -37,6 +37,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('manufacture', manufacture);
       config.registerEndpoint('inventory', inventory);
       config.registerEndpoint('merchandiser', merchandiser);
+      config.registerEndpoint('md', md);
       config.registerEndpoint('sales', sales);
     
     })
