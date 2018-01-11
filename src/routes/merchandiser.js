@@ -89,5 +89,44 @@ module.exports = [
             permission: { "MRD.01": 1 },
             iconClass: 'fa fa-adjust'
         }
+    },
+    {
+        route: 'OTL',
+        name: 'OTL',
+        moduleId: './modules/merchandiser/OTL/index',
+        nav: true,
+        title: 'Ongkos',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
+    },
+    {
+        route: 'buyer',
+        name: 'buyer',
+        moduleId: './modules/merchandiser/buyer/index',
+        nav: true,
+        title: 'Pembeli',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
+    },
+    {
+        route: 'efficiency',
+        name: 'efficiency',
+        moduleId: './modules/merchandiser/efficiency/index',
+        nav: true,
+        title: 'Efisiensi',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
     }
 ]

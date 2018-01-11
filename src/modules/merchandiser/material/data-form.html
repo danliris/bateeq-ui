@@ -1,14 +1,18 @@
 <template>
-  <au-input-form title.bind="title" with.bind="context">
-    <au-autocomplete value.bind="data.Category" error.bind="error.Category" label="Kategory" loader.one-time="categoryLoader"
-      placeholder="Cari Kategori" text="Name" read-only.bind="(readOnly || isEdit)">
-    </au-autocomplete>
-    <au-textbox label="Kode" value.bind="data.Code" error.bind="error.Code" read-only.bind="(readOnly || isEdit)"></au-textbox>
-    <au-textbox label="Nama" value.bind="data.Name" error.bind="error.Name" read-only.bind="readOnly"></au-textbox>
-    <au-textbox label="Deskripsi" value.bind="data.Description" error.bind="error.Description" read-only.bind="readOnly"></au-textbox>
-    <au-textbox label="Komposisi" value.bind="data.Composition" error.bind="error.Composition" read-only.bind="readOnly"></au-textbox>
-    <au-textbox label="Konstruksi" value.bind="data.Construction" error.bind="error.Construction" read-only.bind="readOnly"></au-textbox>
-    <au-textbox label="Lebar" value.bind="data.Width" error.bind="error.Width" read-only.bind="readOnly"></au-textbox>
-    <au-textbox label="Benang" value.bind="data.Yarn" error.bind="error.Yarn" read-only.bind="readOnly"></au-textbox>
-  </au-input-form>
+  <div class="col-md-9">
+    <au-input-form title.bind="title" with.bind="context">
+      <au-autocomplete label="Kategori" placeholder="Kategori - Sub Kategori" value.bind="category" error.bind="error.Category"
+        loader.one-time="categoryLoader" options.bind="customOptions" text.bind="categoryText" read-only.bind="(readOnly || isEdit)">
+      </au-autocomplete>
+      <au-textbox label="Bahan" placeholder="Nama Bahan" value.bind="data.Name" error.bind="error.Name" options.bind="customOptions" read-only.bind="(readOnly || isEdit)"></au-textbox>
+      <au-multiline label="Deskripsi" placeholder="Deskripsi Bahan" value.bind="data.Description" error.bind="error.Description"
+         options.bind="customOptions" read-only.bind="readOnly"></au-multiline>
+      <au-textbox label="Komposisi" placeholder="Komposisi Bahan" value.bind="data.Composition" error.bind="error.Composition"
+        if.bind="isFabric" options.bind="customOptions" read-only.bind="readOnly"></au-textbox>
+      <au-textbox label="Konstruksi" placeholder="Konstruksi Bahan" value.bind="data.Construction" error.bind="error.Construction"
+        if.bind="isFabric" options.bind="customOptions" read-only.bind="readOnly"></au-textbox>
+      <au-textbox label="Lebar" placeholder="Lebar Bahan" value.bind="data.Width" error.bind="error.Width" if.bind="isFabric" options.bind="customOptions" read-only.bind="readOnly"></au-textbox>
+      <au-textbox label="Benang" placeholder="Benang Bahan" value.bind="data.Yarn" error.bind="error.Yarn" if.bind="isFabric" options.bind="customOptions" read-only.bind="readOnly"></au-textbox>
+    </au-input-form>
+  </div>
 </template>

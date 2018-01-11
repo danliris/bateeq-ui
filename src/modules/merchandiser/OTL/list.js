@@ -6,8 +6,8 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["Detail"];
     columns = [
-        { field: "Name", title: "Kategori" },
-        { field: "SubCategory", title: "Sub Kategori" },
+        { field: "Name", title: "Ongkos" },
+        { field: "Rate", title: "Tarif" }
     ];
 
     loader = (info) => {
@@ -46,8 +46,8 @@ export class List {
                 break;
         }
     }
+    
     create() {
         this.router.navigateToRoute('create');
     }
-
 }
