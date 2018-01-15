@@ -30,6 +30,7 @@ export async function configure(aurelia) {
       var merchandiser = "https://bateeq-inventory-api-dev.mybluemix.net/v1/merchandiser/";
       var md = "https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api-dev.mybluemix.net/v1/sales/";
+      var purchasing = "https://bateeq-inventory-api-dev.mybluemix.net/v1/purchasing/"
     
       config.registerEndpoint('auth', auth);
       config.registerEndpoint('core', core);
@@ -39,6 +40,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('merchandiser', merchandiser);
       config.registerEndpoint('md', md);
       config.registerEndpoint('sales', sales);
+      config.registerEndpoint('purchasing', purchasing);
     
     })
     .plugin("aurelia-authentication", baseConfig => {
