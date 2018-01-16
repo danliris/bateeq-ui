@@ -2,7 +2,7 @@ module.exports = [
     {
         route: 'purchase-request',
         name: 'purchase-request',
-        moduleId: './modules/purchase/request/index',
+        moduleId: './modules/purchasing/purchase-request/index',
         nav: true,
         title: 'Purchase Request',
         auth: true,
@@ -11,5 +11,5 @@ module.exports = [
             permission: { "PBL.01": 1},
             iconClass: 'fa fa-credit-card'
         }
-    },
+    }
 ]
