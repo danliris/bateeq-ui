@@ -33,18 +33,31 @@ export class DataForm {
     ]
 
     unitChanged(e) {
-        if (this.data.unit)
+        if (this.data.unit) {
+            this.error.unit = "";
             this.data.unitId = this.data.unit._id ? this.data.unit._id : {};
+        } else {
+            this.error.unit = "Unit cannot be empty";
+        }
+            
     }
 
     budgetChanged(e) {
-        if (this.data.budget)
+        if (this.data.budget) {
+            this.error.budget = "";
             this.data.budgetId = this.data.budget._id ? this.data.budget._id : {};
+        } else {
+            this.error.budget = "Budget cannot be empty";
+        }
     }
 
     categoryChanged(e) {
-        if (this.data.category)
+        if (this.data.category) {
+            this.error.category = "";
             this.data.categoryId = this.data.category._id ? this.data.category._id : {};
+        } else {
+            this.error.category = "Category cannot be empty";
+        }
     }
 
     get unitLoader() {
