@@ -15,7 +15,6 @@ export class List {
   }
 
   context = ["Rincian", "Cetak PDF"]
-  context = ["Rincian"]
 
   columns = [
     {
