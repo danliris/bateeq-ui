@@ -1,20 +1,19 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
-import {Service} from './service';
+import {Service} from './../service';
 
 
 @inject(Router, Service)
-export class Edit {
+export class View {
     hasCancel = true;
-    hasSave = true;
+    hasEdit = false;
+    hasDelete = false;
+    hasUnpost = false;
+    prId = "";
 
     constructor(router, service) {
         this.router = router;
         this.service = service;
-    }
-
-    bind() {
-        this.error = {};
     }
 
     async activate(params) {
@@ -22,9 +21,17 @@ export class Edit {
         var moment = require('moment');
         moment.locale(locale);
         var id = params.id;
+        this.prId = id;
         this.data = await this.service.getById(id);
-        this.data.date = moment(this.data.date).format("YYYY-MM-DD");
-        this.data.expectedDeliveryDate = moment(this.data.expectedDeliveryDate).format("YYYY-MM-DD");
+        
+        if (!this.data.isPosted) {
+            this.hasEdit = true;
+            this.hasDelete = true;
+        } else {
+            if (!this.data.isUsed) {
+                this.hasUnpost = true;
+            }
+        }
 
         this.data.unit.toString = function () {
             return [this.division.name, this.name]
@@ -55,11 +62,21 @@ export class Edit {
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('list');
     }
 
-    save(event) {
-        this.service.update(this.data).then(result => {
+    edit(event) {
+        this.router.navigateToRoute('edit', { id: this.data._id });
+    }
+
+    delete(event) {
+        this.service.delete(this.data).then(result => {
+            this.cancel();
+        });
+    }
+
+    unpost(event) {
+        this.service.unpost(this.prId).then(result => {
             this.cancel();
         }).catch(e => {
             this.error = e;
