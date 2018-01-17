@@ -9,6 +9,25 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
 
+    customOptions = {
+        label: {
+            length: 5
+        }
+    }
+    
+    relatedSizesInfo = {
+        columns: [
+            { header: "Ukuran", value: "Size" }
+        ],
+        onAdd: function () {
+            this.data.RelatedSizes = this.data.RelatedSizes || [];
+            this.data.RelatedSizes.push({ Size: "" });
+        }.bind(this),
+        onRemove: function () {
+            console.log("step removed");
+        }.bind(this)
+    };
+
     @computedFrom("data.Id")
     get isEdit() {
         return (this.data.Id || '').toString() != '';
