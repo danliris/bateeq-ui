@@ -8,6 +8,11 @@ export class DataForm {
     @bindable readOnly;
     @bindable data = {};
     @bindable error = {};
+    customOptions = {
+        label: {
+            length: 5
+        }
+    }
 
     @computedFrom("data.Id")
     get isEdit() {
@@ -25,5 +30,4 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
     }
-
 } 

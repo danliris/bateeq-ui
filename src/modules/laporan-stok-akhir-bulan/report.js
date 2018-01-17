@@ -42,8 +42,6 @@ export class Report {
                     this.yearMonths.push(yearMonth)
                 });
             });
-
-        this.showMonthlyOverallStock();
     }
 
     convertToLocaleString(array) {

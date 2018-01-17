@@ -1,3 +1,4 @@
+var masterRoutes = require("./master");
 var tokoRoutes = require("./toko");
 var gudangPusatRoutes = require("./gudang-pusat");
 var laporanRoutes = require("./laporan");
@@ -9,4 +10,4 @@ var finishingRoutes = require("./finishing");
 var generalInventoryRoutes = require("./general-inventory");
 var designerRoutes = require("./designer");
 var purchaseRoutes = require("./purchasing");
-export default [].concat(publicRoutes, tokoRoutes, gudangPusatRoutes, laporanRoutes, reportRoutes, designerRoutes, merchandiserRoutes, finishingRoutes, generalInventoryRoutes, authRoutes, purchaseRoutes);
+export default [].concat(masterRoutes, publicRoutes, tokoRoutes, gudangPusatRoutes, laporanRoutes, reportRoutes, designerRoutes, merchandiserRoutes, finishingRoutes, generalInventoryRoutes, authRoutes, purchaseRoutes);
