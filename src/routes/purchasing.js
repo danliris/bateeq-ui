@@ -24,5 +24,18 @@ module.exports = [
             permission: { "PBL.01": 1},
             iconClass: 'fa fa-credit-card'
         }
+    },
+    {
+        route: 'purchase-order-external',
+        name: 'purchase-order-external',
+        moduleId: './modules/purchasing/purchase-order-external/index',
+        nav: true,
+        title: 'Purchase Order External',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "PBL.01": 1},
+            iconClass: 'fa fa-credit-card'
+        }
     }
 ]
