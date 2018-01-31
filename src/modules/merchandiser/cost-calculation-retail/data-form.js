@@ -3,12 +3,16 @@ import { Service } from './service';
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 import { OngkosService } from './ongkos-service';
 import { EfficiencyService } from './efficiency-service';
+import { NumberFormatValueConverter } from '../../../lib/number-format-value-converter';
+import numeral from 'numeral';
 const articleStyleLoader = require('../../../loader/sub-counter-loader');
 const articleSeasonLoader = require('../../../loader/season-loader');
 const buyerLoader = require('../../../loader/buyer-loader');
 const sizeRangeLoader = require('../../../loader/size-range-loader');
+const defaultNumberFormat = "0,0.00"; 
+const ongkosNumberFormat = "0,0.000";
 
-@inject(Router, Service, BindingEngine, OngkosService, EfficiencyService)
+@inject(Router, Service, BindingEngine, OngkosService, EfficiencyService, NumberFormatValueConverter)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -63,12 +67,13 @@ export class DataForm {
         }.bind(this)
     };
 
-    constructor(router, service, bindingEngine, ongkosService, efficiencyService) {
+    constructor(router, service, bindingEngine, ongkosService, efficiencyService, numberFormatValueConverter) {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.ongkosService = ongkosService;
         this.efficiencyService = efficiencyService;
+        this.numberFormatValueConverter = numberFormatValueConverter;
     }
 
     @computedFrom("data.Id")
@@ -131,22 +136,22 @@ export class DataForm {
     @computedFrom("OLCheck", "data.SH_Cutting", "data.SH_Sewing", "data.SH_Finishing")
     get OLValue() {
         if (this.OLCheck) {
-            if (!(this.data.OL ? (this.data.OL.Id ? true : false) : false) || this.uncheckedOnceOL){
+            if (!(this.data.OL ? (this.data.OL.Id ? true : false) : false) || this.uncheckedOnceOL) {
                 let mTarifOL = this.defaultOL.Rate;
                 let mTarifTHR = this.defaultTHR.Rate;
                 let mSWCutting = this.data.SH_Cutting * 0.06;
                 let mSWSewing = this.data.SH_Sewing * 0.06;
                 let mSWFinishing = this.data.SH_Finishing * 0.06;
                 let mTotalSW = mSWCutting + mSWSewing + mSWFinishing;
-                let mEff_Prod = 1;
-                let mEff = this.data.Efficiency.Value / 100 || 0;
-                let calculatedOL = mTarifOL * 60 * mSWCutting * mEff_Prod / 70 +
+                let mEff_Prod = 100;
+                let mEff = this.data.Efficiency.Value || 0;
+                let calculatedOL = mTarifOL * 60 * mSWCutting * mEff_Prod / 75 +
                     mTarifOL * 60 * mSWSewing * mEff_Prod / mEff +
                     mTarifOL * 60 * mSWFinishing * mEff_Prod / 90 +
                     mTarifTHR * 60 * mTotalSW;
                 let result = {
                     Id: this.defaultOL.Id,
-                    Rate: this.defaultOTL1.Rate,
+                    Rate: this.defaultOL.Rate,
                     CalculatedRate: parseFloat(calculatedOL.toFixed(2))
                 }
                 this.data.OL = result;
@@ -156,7 +161,11 @@ export class DataForm {
             this.uncheckedOnceOL = true;
             this.data.OL = this.defaultRate;
         }
-        return this.data.OL;
+        return {
+            Id: this.data.OL.Id,
+            Rate: numeral(this.data.OL.Rate).format(ongkosNumberFormat),
+            CalculatedRate: this.data.OL.CalculatedRate
+        };
     }
 
     @computedFrom("OTL1Check", "data.SH_Cutting", "data.SH_Sewing", "data.SH_Finishing")
@@ -178,7 +187,11 @@ export class DataForm {
             this.uncheckedOnceOTL1 = true;
             this.data.OTL1 = this.defaultRate;
         }
-        return this.data.OTL1;
+        return {
+            Id: this.data.OTL1.Id,
+            Rate: numeral(this.data.OTL1.Rate).format(ongkosNumberFormat),
+            CalculatedRate: this.data.OTL1.CalculatedRate
+        };
     }
 
     @computedFrom("OTL2Check", "data.SH_Cutting", "data.SH_Sewing", "data.SH_Finishing")
@@ -200,7 +213,11 @@ export class DataForm {
             this.uncheckedOnceOTL2 = true;
             this.data.OTL2 = this.defaultRate;
         }
-        return this.data.OTL2;
+        return {
+            Id: this.data.OTL2.Id,
+            Rate: numeral(this.data.OTL2.Rate).format(ongkosNumberFormat),
+            CalculatedRate: this.data.OTL2.CalculatedRate
+        };
     }
 
     @computedFrom("OTL3Check", "data.SH_Cutting", "data.SH_Sewing", "data.SH_Finishing")
@@ -222,7 +239,11 @@ export class DataForm {
             this.uncheckedOnceOTL3 = true;
             this.data.OTL3 = this.defaultRate;
         }
-        return this.data.OTL3;
+        return {
+            Id: this.data.OTL3.Id,
+            Rate: numeral(this.data.OTL3.Rate).format(ongkosNumberFormat),
+            CalculatedRate: this.data.OTL3.CalculatedRate
+        };
     }
 
     async QuantityChanged(newValue) {
@@ -257,152 +278,153 @@ export class DataForm {
         if (totalMaterial > 0) {
             totalCost = totalMaterial + this.data.OL.CalculatedRate + this.data.OTL1.CalculatedRate + this.data.OTL2.CalculatedRate + this.data.OTL3.CalculatedRate;
         }
+        
         this.data.HPP = parseFloat((totalCost + totalCost * this.data.Risk / 100).toFixed(2));
-        return this.data.HPP;
+        return this.numberFormatValueConverter.toView(this.data.HPP, defaultNumberFormat);
     }
 
     @computedFrom("data.HPP")
     get WholesalePrice() {
         this.data.WholesalePrice = this.data.HPP ? parseFloat((this.data.HPP * 2.2).toFixed(2)) : 0;
-        return this.data.WholesalePrice;
+        return this.numberFormatValueConverter.toView(this.data.WholesalePrice, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed20() {
         this.data.Proposed20 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.0).toFixed(2)) : 0;
-        return this.data.Proposed20;
+        return this.numberFormatValueConverter.toView(this.data.Proposed20, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed21() {
         this.data.Proposed21 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.1).toFixed(2)) : 0;
-        return this.data.Proposed21;
+        return this.numberFormatValueConverter.toView(this.data.Proposed21, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed22() {
         this.data.Proposed22 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.2).toFixed(2)) : 0;
-        return this.data.Proposed22;
+        return this.numberFormatValueConverter.toView(this.data.Proposed22, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed23() {
         this.data.Proposed23 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.3).toFixed(2)) : 0;
-        return this.data.Proposed23;
+        return this.numberFormatValueConverter.toView(this.data.Proposed23, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed24() {
         this.data.Proposed24 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.4).toFixed(2)) : 0;
-        return this.data.Proposed24;
+        return this.numberFormatValueConverter.toView(this.data.Proposed24, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed25() {
         this.data.Proposed25 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.5).toFixed(2)) : 0;
-        return this.data.Proposed25;
+        return this.numberFormatValueConverter.toView(this.data.Proposed25, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed26() {
         this.data.Proposed26 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.6).toFixed(2)) : 0;
-        return this.data.Proposed26;
+        return this.numberFormatValueConverter.toView(this.data.Proposed26, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed27() {
         this.data.Proposed27 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.7).toFixed(2)) : 0;
-        return this.data.Proposed27;
+        return this.numberFormatValueConverter.toView(this.data.Proposed27, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed28() {
         this.data.Proposed28 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.8).toFixed(2)) : 0;
-        return this.data.Proposed28;
+        return this.numberFormatValueConverter.toView(this.data.Proposed28, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed29() {
         this.data.Proposed29 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 2.9).toFixed(2)) : 0;
-        return this.data.Proposed29;
+        return this.numberFormatValueConverter.toView(this.data.Proposed29, defaultNumberFormat);
     }
 
     @computedFrom("data.WholesalePrice")
     get Proposed30() {
         this.data.Proposed30 = this.data.WholesalePrice ? parseFloat((this.data.WholesalePrice * 3.0).toFixed(2)) : 0;
-        return this.data.Proposed30;
+        return this.numberFormatValueConverter.toView(this.data.Proposed30, defaultNumberFormat);
     }
 
     roundTo9000(value) {
         let val = String(parseInt(value));
         let rounded = val.substring(0, val.length - 4) + '9000';
-        let result = parseFloat(parseFloat(rounded).toFixed(2));
+        let result = Number(rounded);
         return result;
     }
 
     @computedFrom("data.Proposed20")
     get Rounding20() {
         this.data.Rounding20 = this.data.Proposed20 ? this.roundTo9000(this.data.Proposed20) : 0;
-        return this.data.Rounding20;
+        return this.numberFormatValueConverter.toView(this.data.Rounding20, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed21")
     get Rounding21() {
         this.data.Rounding21 = this.data.Proposed21 ? this.roundTo9000(this.data.Proposed21) : 0;
-        return this.data.Rounding21;
+        return this.numberFormatValueConverter.toView(this.data.Rounding21, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed22")
     get Rounding22() {
         this.data.Rounding22 = this.data.Proposed22 ? this.roundTo9000(this.data.Proposed22) : 0;
-        return this.data.Rounding22;
+        return this.numberFormatValueConverter.toView(this.data.Rounding22, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed23")
     get Rounding23() {
         this.data.Rounding23 = this.data.Proposed23 ? this.roundTo9000(this.data.Proposed23) : 0;
-        return this.data.Rounding23;
+        return this.numberFormatValueConverter.toView(this.data.Rounding23, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed24")
     get Rounding24() {
         this.data.Rounding24 = this.data.Proposed24 ? this.roundTo9000(this.data.Proposed24) : 0;
-        return this.data.Rounding24;
+        return this.numberFormatValueConverter.toView(this.data.Rounding24, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed25")
     get Rounding25() {
         this.data.Rounding25 = this.data.Proposed25 ? this.roundTo9000(this.data.Proposed25) : 0;
-        return this.data.Rounding25;
+        return this.numberFormatValueConverter.toView(this.data.Rounding25, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed26")
     get Rounding26() {
         this.data.Rounding26 = this.data.Proposed26 ? this.roundTo9000(this.data.Proposed26) : 0;
-        return this.data.Rounding26;
+        return this.numberFormatValueConverter.toView(this.data.Rounding26, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed27")
     get Rounding27() {
         this.data.Rounding27 = this.data.Proposed27 ? this.roundTo9000(this.data.Proposed27) : 0;
-        return this.data.Rounding27;
+        return this.numberFormatValueConverter.toView(this.data.Rounding27, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed28")
     get Rounding28() {
         this.data.Rounding28 = this.data.Proposed28 ? this.roundTo9000(this.data.Proposed28) : 0;
-        return this.data.Rounding28;
+        return this.numberFormatValueConverter.toView(this.data.Rounding28, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed29")
     get Rounding29() {
         this.data.Rounding29 = this.data.Proposed29 ? this.roundTo9000(this.data.Proposed29) : 0;
-        return this.data.Rounding29;
+        return this.numberFormatValueConverter.toView(this.data.Rounding29, defaultNumberFormat);
     }
 
     @computedFrom("data.Proposed30")
     get Rounding30() {
         this.data.Rounding30 = this.data.Proposed30 ? this.roundTo9000(this.data.Proposed30) : 0;
-        return this.data.Rounding30;
+        return this.numberFormatValueConverter.toView(this.data.Rounding30, defaultNumberFormat);
     }
 }
