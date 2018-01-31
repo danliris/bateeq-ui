@@ -35,7 +35,7 @@
                             </au-autocomplete>
                         </div>
                         <div class="col-md-4">
-                            <au-textbox label="Risk (%)" value.bind="data.Risk" options.bind="length6" read-only.bind="disabled"></au-textbox>
+                            <au-numeric label="Risk (%)" value.bind="data.Risk" options.bind="length6" read-only="disabled"></au-numeric>
                         </div>
                     </div>
                     <au-multiline label="Keterangan" placeholder="Keterangan" value.bind="data.Description" error.bind="error.Description" options.bind="length0"></au-multiline>
@@ -51,19 +51,19 @@
                         <au-checkbox label="OTL 1" value.bind="OTL1Check" options.bind="length6"></au-checkbox>
                     </div>
                     <div class="col-md-4">
-                        <au-textbox value.bind="OTL1Value.Rate" read-only.bind="disabled"></au-textbox>
+                        <au-numeric value.bind="OTL1Value.Rate" read-only.bind="disabled"></au-numeric>
                     </div>
                     <div class="col-md-8">
                         <au-checkbox label="OTL 2" value.bind="OTL2Check" options.bind="length6"></au-checkbox>
                     </div>
                     <div class="col-md-4">
-                        <au-textbox value.bind="OTL2Value.Rate" read-only.bind="disabled"></au-textbox>
+                        <au-numeric value.bind="OTL2Value.Rate" read-only.bind="disabled"></au-numeric>
                     </div>
                     <div class="col-md-8">
                         <au-checkbox label="OTL 3" value.bind="OTL3Check" options.bind="length6"></au-checkbox>
                     </div>
                     <div class="col-md-4">
-                        <au-textbox value.bind="OTL3Value.Rate" read-only.bind="disabled"></au-textbox>
+                        <au-numeric value.bind="OTL3Value.Rate" read-only.bind="disabled"></au-numeric>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
         <span class="help-block" style="color:#dd4b39;" if.bind="hasError">${error.CostCalculationRetail_MaterialTable}</span>
         <au-collection  items.bind="data.CostCalculationRetail_Materials" errors.bind="error.CostCalculationRetail_Materials" columns.bind="costCalculationRetail_MaterialsInfo.columns"
             add.bind="costCalculationRetail_MaterialsInfo.onAdd" remove.bind="costCalculationRetail_MaterialsInfo.onRemove" options.bind="costCalculationRetail_MaterialsInfo.options"
-            item-template="modules/merchandiser/cost-calculation-retail/template/cost-calculation-retail-material" footer-template="modules/merchandiser/cost-calculation-retail/template/cost-calculation-retail-material-footer">
+            item-template="modules/merchandiser/cost-calculation-retail/template/data-form/cost-calculation-retail-material" footer-template="modules/merchandiser/cost-calculation-retail/template/data-form/cost-calculation-retail-material-footer">
         </au-collection>
         <div class="row">
             <div class="col-md-10">
@@ -85,74 +85,74 @@
                     <p>Pengajuan Harga</p>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.0" value.bind="Proposed20" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.0" value.bind="Proposed20" options.bind="length4" read-only.bind="disabled"></au-textbox>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.2" value.bind="Proposed22" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.2" value.bind="Proposed22" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.4" value.bind="Proposed24" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.4" value.bind="Proposed24" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.6" value.bind="Proposed26" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.6" value.bind="Proposed26" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.8" value.bind="Proposed28" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.8" value.bind="Proposed28" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="3.0" value.bind="Proposed30" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="3.0" value.bind="Proposed30" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
                     <au-numeric label="2.1" value.bind="Proposed21" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.3" value.bind="Proposed23" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.3" value.bind="Proposed23" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.5" value.bind="Proposed25" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.5" value.bind="Proposed25" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.7" value.bind="Proposed27" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.7" value.bind="Proposed27" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.9" value.bind="Proposed29" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.9" value.bind="Proposed29" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2"></div>
                 <div class="col-md-12">
                     <p>Pembulatan Harga</p>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.0" value.bind="Rounding20" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.0" value.bind="Rounding20" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.2" value.bind="Rounding22" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.2" value.bind="Rounding22" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.4" value.bind="Rounding24" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.4" value.bind="Rounding24" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.6" value.bind="Rounding26" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.6" value.bind="Rounding26" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.8" value.bind="Rounding28" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.8" value.bind="Rounding28" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="3.0" value.bind="Rounding30" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="3.0" value.bind="Rounding30" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.1" value.bind="Rounding21" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.1" value.bind="Rounding21" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.3" value.bind="Rounding23" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.3" value.bind="Rounding23" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.5" value.bind="Rounding25" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.5" value.bind="Rounding25" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.7" value.bind="Rounding27" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.7" value.bind="Rounding27" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
-                    <au-textbox label="2.9" value.bind="Rounding29" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                    <au-numeric label="2.9" value.bind="Rounding29" options.bind="length4" read-only.bind="disabled"></au-numeric>
                 </div>
                 <div class="col-md-2">
                     <au-numeric label="Lainnya" value.bind="data.RoundingOthers" options.bind="length4"></au-numeric>

@@ -1,7 +1,8 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-const categoryLoader = require('../../../../loader/category-md-loader');
-const materialLoader = require('../../../../loader/material-md-loader');
-const uomLoader = require('../../../../loader/uom-md-loader');
+import numeral from 'numeral';
+const categoryLoader = require('../../../../../loader/category-md-loader');
+const materialLoader = require('../../../../../loader/material-md-loader');
+const uomLoader = require('../../../../../loader/uom-md-loader');
 
 export class CostCalculationRetailMaterial {
 
@@ -64,12 +65,7 @@ export class CostCalculationRetailMaterial {
 
     @computedFrom('data.Quantity', 'data.Conversion')
     get total() {
-        let total;
-        if ((this.data.Quantity && this.data.Quantity !== 0) && (this.data.Conversion && this.data.Conversion !== 0))
-            total = this.data.Quantity * this.data.Conversion;
-        else
-            total = 0;
-        this.data.Total = total;
-        return total;
+        this.data.Total = (this.data.Quantity && this.data.Quantity !== 0) && (this.data.Conversion && this.data.Conversion !== 0) ? parseFloat((this.data.Quantity * this.data.Conversion).toFixed(2)) : 0;
+        return numeral(this.data.Total).format("0,0.00");
     }
 }
