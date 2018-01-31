@@ -13,7 +13,7 @@
             <au-textbox placeholder="Deskripsi" value.bind="data.Description" error.bind="error.Description" options.bind="controlOptions" show.bind="categoryIsFilled"></au-textbox>
         </td>
         <td class="col-md-1">
-            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" format="0" options.bind="controlOptions" show.bind="categoryIsFilled"></au-numeric>
+            <au-numeric value.bind="data.Quantity" error.bind="error.Quantity" options.bind="controlOptions" show.bind="categoryIsFilled"></au-numeric>
         </td>
         <td class="col-md-1">
             <au-autocomplete placeholder="Cari Satuan" value.bind="data.UOMQuantity" error.bind="error.UOMQuantity" loader.one-time="satuanQuantityLoader" options.bind="controlOptions"
