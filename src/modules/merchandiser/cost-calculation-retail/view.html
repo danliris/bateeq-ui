@@ -1,7 +1,45 @@
 <template>
     <au-input-form title.bind="title" with.bind="context">
-        <pre>
-            ${data}
-        </pre>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="col-md-6">
+                    <au-textbox label="RO" options.bind="length0" value.bind="data.RO" error.bind="error.RO" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Artikel" options.bind="length0" value.bind="data.Article" error.bind="error.Article" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Style" options.bind="length0" value.bind="data.Style.name" error.bind="error.Style.name" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Season" options.bind="length0" value.bind="data.Season.name" error.bind="error.Season.name" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Buyer" options.bind="length0" value.bind="data.Buyer.Name" error.bind="error.Buyer.Name" read-only.bind="readOnly"></au-textbox>
+                </div>
+                <div class="col-md-6">
+                    <au-textbox label="Size Range" options.bind="length0" value.bind="data.SizeRange.Name" error.bind="error.SizeRange.Name"
+                        read-only.bind="readOnly"></au-textbox>
+                    <au-datetimepicker label="Delivery Date" options.bind="length0" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate"
+                        read-only.bind="readOnly"></au-datetimepicker>
+                    <au-numeric label="Quantity" options.bind="length0" value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly"></au-numeric>
+                    <au-textbox label="Efficiency (%)" options.bind="length0" value.bind="data.Efficiency.Value" error.bind="error.Efficiency.Value"
+                        read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Risk (%)" options.bind="length0" value.bind="data.Risk" read-only.bind="readOnly"></au-textbox>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="col-md-6">
+                    <au-textbox label="Tarif OL" options.bind="length6" value.bind="data.OL.Rate" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Tarif OTL 1" options.bind="length6" value.bind="data.OTL1.Rate" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Tarif OTL 2" options.bind="length6" value.bind="data.OTL2.Rate" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Tarif OTL 3" options.bind="length6" value.bind="data.OTL3.Rate" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="STD Hour" options.bind="length6" value.bind="data.STD_Hour" read-only.bind="readOnly"></au-textbox>
+                </div>
+                <div class="col-md-6">
+                    <au-textbox read-only.bind="readOnly"></au-textbox>
+                    <au-textbox read-only.bind="readOnly"></au-textbox>
+                    <au-textbox read-only.bind="readOnly"></au-textbox>
+                    <au-textbox read-only.bind="readOnly"></au-textbox>
+                    <div class="text-center">${data.Article}</div>
+                </div>
+            </div>
+        </div>
+        <au-collection items.bind="data.CostCalculationRetail_Materials" columns.bind="costCalculationRetail_MaterialsInfo.columns"
+        item-template="modules/merchandiser/cost-calculation-retail/template/view/cost-calculation-retail-material"
+         footer-template="modules/merchandiser/cost-calculation-retail/template/view/cost-calculation-retail-material-footer">
+        </au-collection>
     </au-input-form>
 </template>
