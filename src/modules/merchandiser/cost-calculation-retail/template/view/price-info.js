@@ -1,8 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
-import numeral from 'numeral';
-const defaultNumberFormat = "0,0.00";
 
-export class CostCalculationRetailMaterial {
+export class PriceInfo {
 
     controlOptions = {
         control: {
@@ -15,7 +13,5 @@ export class CostCalculationRetailMaterial {
         this.data = this.context.data;
         this.options = this.context.options;
         this.readOnly = true;
-        this.data.Conversion = numeral(this.data.Conversion).format(defaultNumberFormat);
-        this.data.Total = numeral(this.data.Total).format(defaultNumberFormat);
     }
 }

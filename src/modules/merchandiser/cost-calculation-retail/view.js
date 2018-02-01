@@ -1,6 +1,9 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import numeral from 'numeral';
+const defaultNumberFormat = "0,0.00";
+const ongkosNumberFormat = "0,0.000";
 
 @inject(Router, Service)
 export class View {
@@ -41,6 +44,16 @@ export class View {
         ]
     };
 
+    priceInfo = {
+        columns: [
+            { header: "Ket (x)", value: "Multiplier" },
+            { header: "Harga", value: "Proposed" },
+            { header: "Pembulatan Harga", value: "Rounding" },
+            { header: "Keterangan", value: "Description" },
+            {}
+        ]
+    };
+
     constructor(router, service) {
         this.router = router;
         this.service = service;
@@ -49,10 +62,34 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.data.STD_Hour = this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
+        this.data.OL.Rate = numeral(this.data.OL.Rate).format(ongkosNumberFormat);
+        this.data.OTL1.Rate = numeral(this.data.OTL1.Rate).format(ongkosNumberFormat);
+        this.data.OTL2.Rate = numeral(this.data.OTL2.Rate).format(ongkosNumberFormat);
+        this.data.OTL3.Rate = numeral(this.data.OTL3.Rate).format(ongkosNumberFormat);
+        this.data.OL.CalculatedRate = numeral(this.data.OL.CalculatedRate).format(ongkosNumberFormat);
+        this.data.OTL1.CalculatedRate = numeral(this.data.OTL1.CalculatedRate).format(ongkosNumberFormat);
+        this.data.OTL2.CalculatedRate = numeral(this.data.OTL2.CalculatedRate).format(ongkosNumberFormat);
+        this.data.OTL3.CalculatedRate = numeral(this.data.OTL3.CalculatedRate).format(ongkosNumberFormat);
+        this.data.HPP = numeral(this.data.HPP).format(defaultNumberFormat);
+        this.data.WholesalePrice = numeral(this.data.WholesalePrice).format(defaultNumberFormat);
+        this.data.STD_Hour = numeral(this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing).format(defaultNumberFormat);
+        this.data.priceInfo = [
+            { Multiplier: "2.0", Proposed: numeral(this.data.Proposed20).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding20).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "2.1", Proposed: numeral(this.data.Proposed21).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding21).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "2.2", Proposed: numeral(this.data.Proposed22).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding22).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "2.3", Proposed: numeral(this.data.Proposed23).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding23).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "2.4", Proposed: numeral(this.data.Proposed24).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding24).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "2.5", Proposed: numeral(this.data.Proposed25).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding25).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "2.6", Proposed: numeral(this.data.Proposed26).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding26).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "2.7", Proposed: numeral(this.data.Proposed27).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding27).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "2.8", Proposed: numeral(this.data.Proposed28).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding28).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "2.9", Proposed: numeral(this.data.Proposed29).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding29).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "3.0", Proposed: numeral(this.data.Proposed30).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding30).format(defaultNumberFormat), Description: "" },
+            { Multiplier: "Others", Proposed: "", Rounding: this.data.RoundingOthers ? numeral(this.data.RoundingOthers).format(defaultNumberFormat) : "" , Description: "" },
+        ]
     }
 
-    async bind(context){
+    async bind(context) {
         this.context = context;
     }
 
