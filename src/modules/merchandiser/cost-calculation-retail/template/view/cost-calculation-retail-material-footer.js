@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Container } from 'aurelia-dependency-injection';
-import { Config } from "aurelia-api"
+import { Config } from "aurelia-api";
+import numeral from 'numeral';
 
 export class CostCalculationRetailMaterialFooter {
     activate(context) {
@@ -12,7 +13,7 @@ export class CostCalculationRetailMaterialFooter {
         let totalMaterial = 0;
         for (let item of this.context.items){
             if (item.data){
-                totalMaterial += Number(item.data.Total);
+                totalMaterial += numeral(item.data.Total).value();
             }
         }
         return totalMaterial;
