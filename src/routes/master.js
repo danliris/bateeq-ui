@@ -115,5 +115,18 @@ module.exports = [
             permission: { "PBL.01": 1 },
             iconClass: ''
         }
+    },
+    {
+        route: 'supplier-purchasing',
+        name: 'supplier-purchasing',
+        moduleId: './modules/master/supplier-purchasing/index',
+        nav: true,
+        title: 'Supplier | Puchasing',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "PBL.01": 1 },
+            iconClass: ''
+        }
     }
 ]
