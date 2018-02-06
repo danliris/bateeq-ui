@@ -9,7 +9,7 @@ export class List {
         { field: "RO", title: "No RO" },
         { field: "Article", title: "Artikel" },
         { field: "Style.name", title: "Style" },
-        { field: "_CreatedUtc", title: "Tanggal Dibuat" }
+        { field: "Counter.name", title: "Konter" }
     ];
 
     loader = (info) => {

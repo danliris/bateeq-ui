@@ -43,7 +43,7 @@ export class CostCalculationRetailMaterial {
         return categoryLoader;
     }
 
-    thisCategoryText = (thisCategory) => {
+    thisCategoryText = (thisCategory) => { 
         return thisCategory.SubCategory ? `${thisCategory.Name} - ${thisCategory.SubCategory}` : `${thisCategory.Name}`;
     }
 
@@ -63,9 +63,9 @@ export class CostCalculationRetailMaterial {
         return uomLoader;
     }
 
-    @computedFrom('data.Quantity', 'data.Conversion')
+    @computedFrom('data.Quantity', 'data.Price', 'data.Conversion')
     get total() {
-        this.data.Total = (this.data.Quantity && this.data.Quantity !== 0) && (this.data.Conversion && this.data.Conversion !== 0) ? parseFloat((this.data.Quantity * this.data.Conversion).toFixed(2)) : 0;
+        this.data.Total = (this.data.Quantity && this.data.Quantity !== 0) && (this.data.Conversion && this.data.Conversion !== 0) && (this.data.Price && this.data.Price !== 0) ? parseFloat((this.data.Price / this.data.Conversion * this.data.Quantity).toFixed(2)) : 0;
         return numeral(this.data.Total).format("0,0.00");
     }
 }

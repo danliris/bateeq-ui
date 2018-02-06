@@ -9,7 +9,8 @@ const articleStyleLoader = require('../../../loader/sub-counter-loader');
 const articleSeasonLoader = require('../../../loader/season-loader');
 const buyerLoader = require('../../../loader/buyer-loader');
 const sizeRangeLoader = require('../../../loader/size-range-loader');
-const defaultNumberFormat = "0,0.00"; 
+const articleCounterLoader = require('../../../loader/counter-loader');
+const defaultNumberFormat = "0,0.00";
 const ongkosNumberFormat = "0,0.000";
 
 @inject(Router, Service, BindingEngine, OngkosService, EfficiencyService, NumberFormatValueConverter)
@@ -24,25 +25,45 @@ export class DataForm {
     @bindable Quantity;
     @bindable data = {};
     @bindable error = {};
+    @bindable SelectedRounding;
+
+    radio = {
+        Rounding20: "Rounding20",
+        Rounding21: "Rounding21",
+        Rounding22: "Rounding22",
+        Rounding23: "Rounding23",
+        Rounding24: "Rounding24",
+        Rounding25: "Rounding25",
+        Rounding26: "Rounding26",
+        Rounding27: "Rounding27",
+        Rounding28: "Rounding28",
+        Rounding29: "Rounding29",
+        Rounding30: "Rounding30",
+        RoundingOthers: "RoundingOthers",
+    }
 
     defaultRate = { Id: 0, Rate: 0, CalculatedRate: 0 };
+
     length0 = {
         label: {
             align: "left"
         }
     }
+
     length4 = {
         label: {
             align: "left",
             length: 4
         }
     }
+
     length6 = {
         label: {
             align: "left",
             length: 6
         }
     }
+    
     length8 = {
         label: {
             align: "left",
@@ -86,12 +107,17 @@ export class DataForm {
         return (this.error.CostCalculationRetail_MaterialTable ? this.error.CostCalculationRetail_MaterialTable.length : 0) > 0;
     }
 
+    SelectedRoundingChanged(newValue) {
+        this.data.SelectedRounding = newValue;
+    }
+
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
         this.data.Risk = this.data.Risk ? this.data.Risk : 5;
         this.Quantity = this.data.Quantity ? this.data.Quantity : 1;
+        this.SelectedRounding = this.data.SelectedRounding ? this.data.SelectedRounding : this.radio.Rounding20;
         this.uncheckedOnceOL = false;
         this.uncheckedOnceOTL1 = false;
         this.uncheckedOnceOTL2 = false;
@@ -267,6 +293,10 @@ export class DataForm {
         return sizeRangeLoader;
     }
 
+    get articleCounterLoader() {
+        return articleCounterLoader;
+    }
+
     get HPP() {
         let totalMaterial = 0;
         if (this.data.CostCalculationRetail_Materials) {
@@ -278,7 +308,7 @@ export class DataForm {
         if (totalMaterial > 0) {
             totalCost = totalMaterial + this.data.OL.CalculatedRate + this.data.OTL1.CalculatedRate + this.data.OTL2.CalculatedRate + this.data.OTL3.CalculatedRate;
         }
-        
+
         this.data.HPP = parseFloat((totalCost + totalCost * this.data.Risk / 100).toFixed(2));
         return this.numberFormatValueConverter.toView(this.data.HPP, defaultNumberFormat);
     }
@@ -426,5 +456,10 @@ export class DataForm {
     get Rounding30() {
         this.data.Rounding30 = this.data.Proposed30 ? this.roundTo9000(this.data.Proposed30) : 0;
         return this.numberFormatValueConverter.toView(this.data.Rounding30, defaultNumberFormat);
+    }
+
+    @computedFrom("data.RoundingOthers")
+    get EmptyRoundingOthers() {
+        return this.data.RoundingOthers ? false : true;;
     }
 }

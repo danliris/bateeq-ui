@@ -11,8 +11,8 @@
                     <au-autocomplete label="Season" placeholder="Cari Season" value.bind="data.Season" error.bind="error.Season" loader.one-time="articleSeasonLoader"
                         options.bind="length0" key="code" text="name">
                     </au-autocomplete>
-                    <au-autocomplete label="Buyer" placeholder="Cari Buyer" value.bind="data.Buyer" error.bind="error.Buyer" loader.one-time="buyerLoader"
-                        options.bind="length0" key="Code" text="Name">
+                    <au-autocomplete label="Konter" placeholder="Cari Konter" value.bind="data.Counter" error.bind="error.Counter" loader.one-time="articleCounterLoader"
+                        options.bind="length0" key="code" text="name">
                     </au-autocomplete>
                 </div>
                 <div class="col-md-2">
@@ -24,7 +24,10 @@
                     <au-numeric label="SH Finishing" value.bind="data.SH_Finishing" error.bind="error.SH_Finishing" options.bind="length6"></au-numeric>
                 </div>
                 <div class="col-md-4">
-                    <au-datetimepicker label="Delivery Date" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate" options.bind="length0"></au-datetimepicker>
+                    <au-autocomplete label="Buyer" placeholder="Cari Buyer" value.bind="data.Buyer" error.bind="error.Buyer" loader.one-time="buyerLoader"
+                        options.bind="length0" key="Code" text="Name">
+                    </au-autocomplete>
+                    <au-datepicker label="Delivery Date" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate" options.bind="length0"></au-datepicker>
                     <div class="row">
                         <div class="col-md-4">
                             <au-numeric label="Qty" format="0" value.bind="Quantity" error.bind="error.Quantity" options.bind="length4"></au-numeric>
@@ -69,9 +72,10 @@
             </div>
         </div>
         <span class="help-block" style="color:#dd4b39;" if.bind="hasError">${error.CostCalculationRetail_MaterialTable}</span>
-        <au-collection  items.bind="data.CostCalculationRetail_Materials" errors.bind="error.CostCalculationRetail_Materials" columns.bind="costCalculationRetail_MaterialsInfo.columns"
+        <au-collection items.bind="data.CostCalculationRetail_Materials" errors.bind="error.CostCalculationRetail_Materials" columns.bind="costCalculationRetail_MaterialsInfo.columns"
             add.bind="costCalculationRetail_MaterialsInfo.onAdd" remove.bind="costCalculationRetail_MaterialsInfo.onRemove" options.bind="costCalculationRetail_MaterialsInfo.options"
-            item-template="modules/merchandiser/cost-calculation-retail/template/data-form/cost-calculation-retail-material" footer-template="modules/merchandiser/cost-calculation-retail/template/data-form/cost-calculation-retail-material-footer">
+            item-template="modules/merchandiser/cost-calculation-retail/template/data-form/cost-calculation-retail-material"
+            footer-template="modules/merchandiser/cost-calculation-retail/template/data-form/cost-calculation-retail-material-footer">
         </au-collection>
         <div class="row">
             <div class="col-md-10">
@@ -122,40 +126,100 @@
                     <p>Pembulatan Harga</p>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.0" value.bind="Rounding20" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding20" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.0" value.bind="Rounding20" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.2" value.bind="Rounding22" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding22" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.2" value.bind="Rounding22" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.4" value.bind="Rounding24" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding24" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.4" value.bind="Rounding24" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.6" value.bind="Rounding26" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding26" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.6" value.bind="Rounding26" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.8" value.bind="Rounding28" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding28" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.8" value.bind="Rounding28" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="3.0" value.bind="Rounding30" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding30" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="3.0" value.bind="Rounding30" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.1" value.bind="Rounding21" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding21" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.1" value.bind="Rounding21" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.3" value.bind="Rounding23" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding23" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.3" value.bind="Rounding23" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.5" value.bind="Rounding25" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding25" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.5" value.bind="Rounding25" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.7" value.bind="Rounding27" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding27" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.7" value.bind="Rounding27" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="2.9" value.bind="Rounding29" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding29" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.9" value.bind="Rounding29" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
                 </div>
                 <div class="col-md-2">
-                    <au-numeric label="Lainnya" value.bind="data.RoundingOthers" options.bind="length4"></au-numeric>
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.RoundingOthers" checked.bind="SelectedRounding" disabled.bind="EmptyRoundingOthers">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="Lainnya" value.bind="data.RoundingOthers" options.bind="length4"></au-numeric>
+                    </div>
                 </div>
             </div>
             <div class="col-md-2">
