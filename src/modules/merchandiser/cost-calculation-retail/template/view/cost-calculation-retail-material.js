@@ -15,6 +15,7 @@ export class CostCalculationRetailMaterial {
         this.data = this.context.data;
         this.options = this.context.options;
         this.readOnly = true;
+        this.data.Category.FullName = this.data.Category.SubCategory ? this.data.Category.Name + " - " + this.data.Category.SubCategory : this.data.Category.Name;
         this.data.Conversion = numeral(this.data.Conversion).format(defaultNumberFormat);
         this.data.Total = numeral(this.data.Total).format(defaultNumberFormat);
     }
