@@ -48,7 +48,9 @@ export class View {
         columns: [
             { header: "Ket (x)", value: "Multiplier" },
             { header: "Harga", value: "Proposed" },
-            { header: "Pembulatan Harga", value: "Rounding" }
+            { header: "Pembulatan Harga", value: "Rounding" },
+            { header: "Keterangan", value: "Description" },
+            { header: "", value: "SelectedRounding" },
         ]
     };
 
@@ -72,18 +74,18 @@ export class View {
         this.data.WholesalePrice = numeral(this.data.WholesalePrice).format(defaultNumberFormat);
         this.data.STD_Hour = numeral(this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing).format(defaultNumberFormat);
         this.data.priceInfo = [
-            { Multiplier: "2.0", Proposed: numeral(this.data.Proposed20).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding20).format(defaultNumberFormat) },
-            { Multiplier: "2.1", Proposed: numeral(this.data.Proposed21).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding21).format(defaultNumberFormat) },
-            { Multiplier: "2.2", Proposed: numeral(this.data.Proposed22).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding22).format(defaultNumberFormat) },
-            { Multiplier: "2.3", Proposed: numeral(this.data.Proposed23).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding23).format(defaultNumberFormat) },
-            { Multiplier: "2.4", Proposed: numeral(this.data.Proposed24).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding24).format(defaultNumberFormat) },
-            { Multiplier: "2.5", Proposed: numeral(this.data.Proposed25).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding25).format(defaultNumberFormat) },
-            { Multiplier: "2.6", Proposed: numeral(this.data.Proposed26).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding26).format(defaultNumberFormat) },
-            { Multiplier: "2.7", Proposed: numeral(this.data.Proposed27).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding27).format(defaultNumberFormat) },
-            { Multiplier: "2.8", Proposed: numeral(this.data.Proposed28).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding28).format(defaultNumberFormat) },
-            { Multiplier: "2.9", Proposed: numeral(this.data.Proposed29).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding29).format(defaultNumberFormat) },
-            { Multiplier: "3.0", Proposed: numeral(this.data.Proposed30).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding30).format(defaultNumberFormat) },
-            { Multiplier: "Others", Proposed: "", Rounding: this.data.RoundingOthers ? numeral(this.data.RoundingOthers).format(defaultNumberFormat) : "" },
+            { Multiplier: "2.0", Proposed: numeral(this.data.Proposed20).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding20).format(defaultNumberFormat), Description:"", SelectedRounding: this.data.SelectedRounding === "Rounding20" ? true : false },
+            { Multiplier: "2.1", Proposed: numeral(this.data.Proposed21).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding21).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding21" ? true : false },
+            { Multiplier: "2.2", Proposed: numeral(this.data.Proposed22).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding22).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding22" ? true : false },
+            { Multiplier: "2.3", Proposed: numeral(this.data.Proposed23).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding23).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding23" ? true : false },
+            { Multiplier: "2.4", Proposed: numeral(this.data.Proposed24).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding24).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding24" ? true : false },
+            { Multiplier: "2.5", Proposed: numeral(this.data.Proposed25).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding25).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding25" ? true : false },
+            { Multiplier: "2.6", Proposed: numeral(this.data.Proposed26).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding26).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding26" ? true : false },
+            { Multiplier: "2.7", Proposed: numeral(this.data.Proposed27).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding27).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding27" ? true : false },
+            { Multiplier: "2.8", Proposed: numeral(this.data.Proposed28).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding28).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding28" ? true : false },
+            { Multiplier: "2.9", Proposed: numeral(this.data.Proposed29).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding29).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding29" ? true : false },
+            { Multiplier: "3.0", Proposed: numeral(this.data.Proposed30).format(defaultNumberFormat), Rounding: numeral(this.data.Rounding30).format(defaultNumberFormat), Description: "", SelectedRounding: this.data.SelectedRounding === "Rounding30" ? true : false },
+            { Multiplier: "Others", Proposed: "", Rounding: this.data.RoundingOthers ? numeral(this.data.RoundingOthers).format(defaultNumberFormat) : "", Description: "", SelectedRounding: this.data.SelectedRounding === "RoundingOthers" ? true : false },
         ]
     }
 

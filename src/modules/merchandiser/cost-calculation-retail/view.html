@@ -5,18 +5,22 @@
             border-width: 1px;
             padding-top: 15px;
         }
-        .bordered-next{
+
+        .bordered-next {
             border-left-width: 0px;
             padding-top: 18.5px;
             padding-bottom: 18.5px;
         }
-        .bordered-not-last{
+
+        .bordered-not-last {
             border-bottom-width: 0px;
         }
+
         #calculatedHPP {
             margin-left: -15px;
         }
-        .bordered .price{
+
+        .bordered .price {
             font-size: 20px;
         }
     </style>
@@ -28,14 +32,14 @@
                     <au-textbox label="Artikel" options.bind="length0" value.bind="data.Article" error.bind="error.Article" read-only.bind="readOnly"></au-textbox>
                     <au-textbox label="Style" options.bind="length0" value.bind="data.Style.name" error.bind="error.Style.name" read-only.bind="readOnly"></au-textbox>
                     <au-textbox label="Season" options.bind="length0" value.bind="data.Season.name" error.bind="error.Season.name" read-only.bind="readOnly"></au-textbox>
-                    <au-textbox label="Buyer" options.bind="length0" value.bind="data.Buyer.Name" error.bind="error.Buyer.Name" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Konter" options.bind="length0" value.bind="data.Konter.Name" error.bind="error.Konter.Name" read-only.bind="readOnly"></au-textbox>
                 </div>
                 <div class="col-md-6">
+                    <au-textbox label="Buyer" options.bind="length0" value.bind="data.Buyer.Name" error.bind="error.Buyer.Name" read-only.bind="readOnly"></au-textbox>
+                    <au-datepicker label="Delivery Date" options.bind="length0" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate"
+                        read-only.bind="readOnly"></au-datepicker>
                     <au-textbox label="Size Range" options.bind="length0" value.bind="data.SizeRange.Name" error.bind="error.SizeRange.Name"
                         read-only.bind="readOnly"></au-textbox>
-                    <au-datetimepicker label="Delivery Date" options.bind="length0" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate"
-                        read-only.bind="readOnly"></au-datetimepicker>
-                    <au-numeric label="Quantity" options.bind="length0" value.bind="data.Quantity" error.bind="error.Quantity" read-only.bind="readOnly"></au-numeric>
                     <au-textbox label="Efficiency (%)" options.bind="length0" value.bind="data.Efficiency.Value" error.bind="error.Efficiency.Value"
                         read-only.bind="readOnly"></au-textbox>
                     <au-textbox label="Risk (%)" options.bind="length0" value.bind="data.Risk" read-only.bind="readOnly"></au-textbox>
@@ -82,8 +86,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <au-collection items.bind="data.priceInfo" columns.bind="priceInfo.columns"
-                    item-template="modules/merchandiser/cost-calculation-retail/template/view/price-info">
+                <au-collection items.bind="data.priceInfo" columns.bind="priceInfo.columns" item-template="modules/merchandiser/cost-calculation-retail/template/view/price-info">
                 </au-collection>
             </div>
         </div>
