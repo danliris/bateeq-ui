@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "PBL.01": 1},
+            permission: { "PBL.01": 1 },
             iconClass: 'fa fa-credit-card'
         }
     },
@@ -21,7 +21,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "PBL.01": 1},
+            permission: { "PBL.01": 1 },
             iconClass: 'fa fa-credit-card'
         }
     },
@@ -34,7 +34,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "PBL.01": 1},
+            permission: { "PBL.01": 1 },
             iconClass: 'fa fa-credit-card'
         },
     },
@@ -47,7 +47,20 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "PBL.01": 7},
+            permission: { "PBL.01": 7 },
+            iconClass: 'fa fa-credit-card'
+        },
+    },
+    {
+        route: 'delivery-order',
+        name: 'delivery-order',
+        moduleId: './modules/purchasing/delivery-order/index',
+        nav: true,
+        title: 'Delivery Order',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "PBL.01": 1 },
             iconClass: 'fa fa-credit-card'
         },
     }
