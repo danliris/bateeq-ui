@@ -42,7 +42,6 @@ export class Create {
         } else if(this.data.date < this.data.supplierDoDate) {
             this.error.date = "Date can not be less than delivery date";
         } else if(this.data.items.length < 1) {
-            debugger
             this.errorItems = true;
         } else {
             this.service.create(this.data)
