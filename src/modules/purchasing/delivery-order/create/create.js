@@ -11,6 +11,7 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.errorItems = false;
     }
     activate(params) {
 
@@ -31,14 +32,18 @@ export class Create {
     }
 
     save(event) {
+        this.errorItems = false;
         this.error = {};
         var dateNow = new Date();
         dateNow.setHours(0,0,0,0);
-        
+
         if (this.data.supplierDoDate < dateNow) {
             this.error.supplierDoDate = "Date can not be less than current date";
         } else if(this.data.date < this.data.supplierDoDate) {
             this.error.date = "Date can not be less than delivery date";
+        } else if(this.data.items.length < 1) {
+            debugger
+            this.errorItems = true;
         } else {
             this.service.create(this.data)
                 .then(result => {
