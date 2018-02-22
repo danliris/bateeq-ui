@@ -43,7 +43,20 @@ module.exports = [
         name: 'cost-calculation-retail',
         moduleId: './modules/merchandiser/cost-calculation-retail/index',
         nav: true,
-        title: 'Retail Cost Calculation',
+        title: 'Cost Calculation Retail',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-university'
+        }
+    },
+    {
+        route: 'cost-calculation-garment',
+        name: 'cost-calculation-garment',
+        moduleId: './modules/merchandiser/cost-calculation-garment/index',
+        nav: true,
+        title: 'Cost Calculation Garment',
         auth: true,
         settings: {
             group: "merchandiser",
