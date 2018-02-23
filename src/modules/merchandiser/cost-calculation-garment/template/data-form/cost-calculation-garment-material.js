@@ -26,7 +26,7 @@ export class CostCalculationGarmentMaterial {
         this.options = context.options;
         this.readOnly = this.options.readOnly || false;
         this.disabled = true;
-        this.data.showDialog = this.data.showDialog !== undefined ? (this.data.showDialog === true ? true : false) : false;
+        this.data.showDialog = this.data.showDialog === undefined ? (this.data.Category === undefined ? true : false) : (this.data.showDialog === true ? true : false);
         this.data.isFabricCMT = this.data.isFabricCMT ? this.data.isFabricCMT : false;
     }
 
