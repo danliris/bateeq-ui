@@ -1,6 +1,6 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service } from './services/service';
 
 
 @inject(Router, Service)

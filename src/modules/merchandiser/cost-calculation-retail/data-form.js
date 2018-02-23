@@ -1,8 +1,8 @@
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service } from './services/service';
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
-import { OngkosService } from './ongkos-service';
-import { EfficiencyService } from './efficiency-service';
+import { OngkosService } from './services/ongkos-service';
+import { EfficiencyService } from './services/efficiency-service';
 import { NumberFormatValueConverter } from '../../../lib/number-format-value-converter';
 import numeral from 'numeral';
 const articleStyleLoader = require('../../../loader/sub-counter-loader');
