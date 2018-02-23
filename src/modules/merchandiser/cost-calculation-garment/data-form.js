@@ -282,16 +282,10 @@ export class DataForm {
         return productionCost;
     }
 
+    @computedFrom('data.ConfirmPrice', 'data.RateDollar', 'data.CommissionRate')
     get NETFOB() {
-        let CMT_Total = 0;
-        if (this.data.CostCalculationGarment_Materials) {
-            this.data.CostCalculationGarment_Materials.forEach(item => {
-                CMT_Total += item.CMT_Price ? item.CMT_Price : 0;
-            })
-        }
-        let FOBPrice = this.data.ConfirmPrice + CMT_Total;
-        let NETFOB = FOBPrice * this.data.RateDollar.Rate;
-        NETFOB = numeral(NETFOB).format();
+        let NETFOB = this.data.ConfirmPrice * this.data.RateDollar.Rate - this.data.CommissionRate;
+        NETFOB = numeral(NETFOB).format();  
         this.data.NETFOB = numeral(NETFOB).value();
         return NETFOB;
     }
@@ -315,8 +309,8 @@ export class DataForm {
                 allMaterialCost += item.Total;
             })
         }
-        let subTotal = (allMaterialCost + this.data.OTL1.CalculatedRate + this.data.OTL2.CalculatedRate) * (100 + this.data.Risk) / 100 + this.data.FreightCost;
-        let NETFOBP = this.data.NETFOB && subTotal !== 0 ? (this.data.NETFOB - subTotal) / subTotal : 0;
+        let subTotal = allMaterialCost !== 0 ? (allMaterialCost + this.data.OTL1.CalculatedRate + this.data.OTL2.CalculatedRate) * (100 + this.data.Risk) / 100 + this.data.FreightCost : 0;
+        let NETFOBP = this.data.NETFOB && subTotal !== 0 ? (this.data.NETFOB - subTotal) / subTotal * 100 : 0;
         NETFOBP = numeral(NETFOBP).format();
         this.data.NETFOBP = numeral(NETFOBP).value();
         return NETFOBP;

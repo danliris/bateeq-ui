@@ -1,11 +1,11 @@
 <template>
     <tr>
         <td colspan.bind="11" class="text-right" style="padding-right:10%">
-            Sub Total
+            Total Material
         </td>
         <td colspan.bind="2" class="text-left">
             <require from="../../../../../lib/number-format-value-converter"></require>
-            ${subTotal | numberFormat:"0,000.00"}
+            ${totalMaterial | numberFormat:"0,000.00"}
         </td>
     </tr>
 </template>

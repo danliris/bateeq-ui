@@ -69,8 +69,7 @@ export class View {
         this.data.AfterOTL2 = this.data.AfterOTL1 + this.data.OTL2.CalculatedRate;
         this.data.AfterRisk = (100 + this.data.Risk) * this.data.AfterOTL2 / 100;
         this.data.AfterFreightCost = this.data.AfterRisk + this.data.FreightCost;
-        this.data.AfterNETFOBP = (100 + this.data.NETFOBP) * this.data.AfterFreightCost / 100;
-        this.data.AfterCommissionPortion = (100 + this.data.CommissionPortion) * this.data.AfterNETFOBP / 100;
+        this.data.ConfirmPriceWithRate = this.data.ConfirmPrice * this.data.RateDollar.Rate;
         let CMT_Price = 0;
         if (this.data.CostCalculationGarment_Materials) {
             this.data.CostCalculationGarment_Materials.forEach(item => {

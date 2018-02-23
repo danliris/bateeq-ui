@@ -128,16 +128,16 @@
                         <tr>
                             <td class="label-td">NET/FOB (%)</td>
                             <td>${data.NETFOBP | numberFormat:'0,0.00'}%</td>
-                            <td>${data.AfterNETFOBP | numberFormat:'0,0.00'}</td>
+                            <td>${data.NETFOB | numberFormat:'0,0.00'}</td>
                         </tr>
                         <tr>
                             <td class="label-td">Komisi (%)</td>
                             <td>${data.CommissionPortion | numberFormat:'0,0.00'}%</td>
-                            <td>${data.AfterCommissionPortion | numberFormat:'0,0.00'}</td>
+                            <td>${data.CommissionRate | numberFormat:'0,0.00'}</td>
                         </tr>
                         <tr>
-                            <td class="label-td">Total</td>
-                            <td colspan="2">${data.AfterCommissionPortion | numberFormat:'0,0.00'}</td>
+                            <td class="label-td">Confirm Price</td>
+                            <td colspan="2">${data.ConfirmPriceWithRate | numberFormat:'0,0.00'}</td>
                         </tr>
                     </tbody>
                 </table>

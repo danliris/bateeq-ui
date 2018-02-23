@@ -7,13 +7,13 @@ export class CostCalculationGarmentMaterialFooter {
         this.context = context;
     }
 
-    get subTotal() {
-        let subTotal = 0;
+    get totalMaterial() {
+        let totalMaterial = 0;
         for (let item of this.context.items) {
             if (item.data) {
-                subTotal += item.data.Total ? Number(item.data.Total) : 0;
+                totalMaterial += item.data.Total ? Number(item.data.Total) : 0;
             }
         }
-        return subTotal;
+        return totalMaterial;
     }
 }
