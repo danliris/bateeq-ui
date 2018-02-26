@@ -2,7 +2,7 @@
     <au-input-form title.bind="title" with.bind="context">
         <div class="row">
             <div class="col-md-3">
-                <au-textbox label="Artikel" placeholder="Nama Artikel" value.bind="data.Article" error.bind="error.Article" options.bind="length4"></au-textbox>
+                <au-textbox label="Artikel" placeholder="Nama Artikel" value.bind="data.Article" error.bind="error.Article" options.bind="length4" read-only.bind="isEdit"></au-textbox>
                 <au-autocomplete label="Konveksi" placeholder="Cari Konveksi" value.bind="data.Convection" error.bind="error.Convection"
                     loader.one-time="convectionLoader" options.bind="length4" key="code" text="name"></au-autocomplete>
                 <au-textbox label="Komoditi" placeholder="Nama Komoditi" value.bind="data.Commodity" error.bind="error.Commodity" options.bind="length4"></au-textbox>

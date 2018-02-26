@@ -1,5 +1,5 @@
 import { inject } from 'aurelia-framework';
-import { Service } from "./service";
+import { Service } from "./services/service";
 import { Router } from 'aurelia-router';
 
 @inject(Router, Service)
