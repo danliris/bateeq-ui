@@ -1,6 +1,6 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service } from './services/service';
 import numeral from 'numeral';
 const defaultNumberFormat = "0,0.00";
 const ongkosNumberFormat = "0,0.000";

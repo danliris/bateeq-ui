@@ -8,8 +8,9 @@ export class List {
     columns = [
         { field: "RO", title: "No RO" },
         { field: "Article", title: "Artikel" },
-        { field: "Style.name", title: "Style" },
-        { field: "Counter.name", title: "Konter" }
+        { field: "Convection.name", title: "Konveksi" },
+        { field: "Quantity", title: "Kuantitas" },
+        { field: "ConfirmPrice", title: "Harga Konfirmasi" }
     ];
 
     loader = (info) => {
