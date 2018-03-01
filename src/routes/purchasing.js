@@ -36,7 +36,7 @@ module.exports = [
             group: "purchasing",
             permission: { "PBL.01": 1 },
             iconClass: 'fa fa-credit-card'
-        },
+        }
     },
     {
         route: 'purchase-order-external-all',
@@ -49,7 +49,7 @@ module.exports = [
             group: "purchasing",
             permission: { "PBL.01": 7 },
             iconClass: 'fa fa-credit-card'
-        },
+        }
     },
     {
         route: 'delivery-order',
@@ -62,6 +62,19 @@ module.exports = [
             group: "purchasing",
             permission: { "PBL.01": 1 },
             iconClass: 'fa fa-credit-card'
-        },
+        }
+    },
+    {
+        route: 'unit-receipt',
+        name: 'unit-receipt',
+        moduleId: './modules/purchasing/unit-receipt-note/index',
+        nav: true,
+        title: 'Unit Receipt',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "PBL.01": 1 },
+            iconClass: 'fa fa-credit-card'
+        }
     }
 ]
