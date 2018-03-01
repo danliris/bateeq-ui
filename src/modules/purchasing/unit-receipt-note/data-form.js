@@ -85,6 +85,9 @@ export class DataForm {
         if (this.data.isInventory) {
             this.storage = await this.service.getStorageById(this.data.storageId, this.storageFields);
             this.data.storage = this.storage;
+            this.storage.toString = function () {
+                return this.code + " - " + this.name;
+            };
         }
 
         if (!this.readOnly) {
