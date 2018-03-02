@@ -46,12 +46,6 @@ export class DataForm {
     @computedFrom("data.deliveryOrder", "data.unit")
     get storageFilter() {
         var storageFilter = {};
-        if (this.data.unit) {
-            storageFilter = {
-                "unit.code": this.data.unit.code,
-                "unit.division.code": this.data.unit.division.code
-            };
-        }
         return storageFilter;
     }
 
