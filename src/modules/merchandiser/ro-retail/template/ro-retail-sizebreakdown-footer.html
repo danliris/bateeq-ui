@@ -1,0 +1,16 @@
+<template>
+    <tr>
+        <td colspan="2" class="text-right" style="padding-right:10%;">
+            Total
+        </td>
+        <template repeat.for="sizeProp of sizeProps">
+            <td>
+                <au-numeric format="0" value.bind="sizeQuantityTotal[sizeProp]" read-only.bind="disabled"></au-numeric>
+            </td>
+        </template>
+        <td style="width: 10%">
+            <require from="../../../../lib/number-format-value-converter"></require>
+            ${total | numberFormat:"0"}
+        </td>
+    </tr>
+</template>
