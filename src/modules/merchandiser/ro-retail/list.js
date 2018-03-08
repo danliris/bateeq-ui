@@ -10,6 +10,7 @@ export class List {
         { field: "CostCalculationRetail.Article", title: "Artikel" },
         { field: "CostCalculationRetail.Style.name", title: "Style" },
         { field: "CostCalculationRetail.Counter.name", title: "Konter" },
+        { field: "Color.name", title: "Warna" },
         { field: "Total", title: "Total" }
     ];
 

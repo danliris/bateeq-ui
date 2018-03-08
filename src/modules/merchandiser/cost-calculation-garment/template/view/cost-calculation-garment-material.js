@@ -16,7 +16,7 @@ export class CostCalculationGarmentMaterial {
         this.options = this.context.options;
         this.readOnly = true;
         this.data.Category.FullName = this.data.Category.SubCategory ? this.data.Category.Name + " - " + this.data.Category.SubCategory : this.data.Category.Name;
-        this.data.Conversion = numeral(this.data.Conversion).format(defaultNumberFormat);
+        this.data.PricePerUnit = numeral(this.data.Price).format(defaultNumberFormat) + " / " + this.data.UOMPrice.Name;
         this.data.Total = numeral(this.data.Total).format(defaultNumberFormat);
     }
 }
