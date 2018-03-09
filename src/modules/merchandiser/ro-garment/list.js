@@ -6,11 +6,9 @@ import { Router } from 'aurelia-router';
 export class List {
     context = ["Detail"];
     columns = [
-        { field: "CostCalculationRetail.RO", title: "No RO" },
-        { field: "CostCalculationRetail.Article", title: "Artikel" },
-        { field: "CostCalculationRetail.Style.name", title: "Style" },
-        { field: "CostCalculationRetail.Counter.name", title: "Konter" },
-        { field: "Color.name", title: "Warna" },
+        { field: "CostCalculationGarment.RO", title: "No RO" },
+        { field: "CostCalculationGarment.Article", title: "Artikel" },
+        { field: "CostCalculationGarment.Convection.name", title: "Konveksi" },
         { field: "Total", title: "Kuantitas RO" }
     ];
 

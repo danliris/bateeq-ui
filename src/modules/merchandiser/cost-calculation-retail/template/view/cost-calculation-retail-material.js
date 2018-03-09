@@ -16,6 +16,7 @@ export class CostCalculationRetailMaterial {
         this.options = this.context.options;
         this.readOnly = true;
         this.data.Category.FullName = this.data.Category.SubCategory ? this.data.Category.Name + " - " + this.data.Category.SubCategory : this.data.Category.Name;
+        this.data.QuantityInUnit = numeral(this.data.Quantity).format("0") + " " + this.data.UOMQuantity.Name;
         this.data.Conversion = numeral(this.data.Conversion).format(defaultNumberFormat);
         this.data.Total = numeral(this.data.Total).format(defaultNumberFormat);
     }
