@@ -76,5 +76,18 @@ module.exports = [
             permission: { "MRD.01": 1 },
             iconClass: 'fa fa-university'
         }
+    },
+    {
+        route: 'ro-garment',
+        name: 'ro-garment',
+        moduleId: './modules/merchandiser/ro-garment/index',
+        nav: true,
+        title: 'RO Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-university'
+        }
     }
 ]

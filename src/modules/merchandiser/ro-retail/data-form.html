@@ -7,8 +7,7 @@
                     key="Code" text="RO" read-only.bind="readOnly || isEdit"></au-autocomplete>
                 <au-textbox label="Konter" value.bind="data.CostCalculationRetail.Counter.name" read-only.bind="disabled" options.bind="length4"
                     show.bind="hasCostCalculationRetail" read-only.bind="readOnly"></au-textbox>
-                <au-numeric label="Kuantitas" format="0" value.bind="data.Total" read-only.bind="disabled" options.bind="length4"
-                    show.bind="readOnly"></au-numeric>
+                <au-numeric label="Kuantitas RO" format="0" value.bind="data.Total" read-only.bind="disabled" options.bind="length4" show.bind="readOnly"></au-numeric>
             </div>
             <div class="col-md-4">
                 <au-textbox label="Artikel" value.bind="data.CostCalculationRetail.Article" read-only.bind="disabled" options.bind="length4"
