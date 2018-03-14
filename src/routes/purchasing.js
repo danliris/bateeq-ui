@@ -76,5 +76,18 @@ module.exports = [
             permission: { "PBL.01": 1 },
             iconClass: 'fa fa-credit-card'
         }
+    },
+    {
+        route: 'unit-payment-order',
+        name: 'unit-payment-order',
+        moduleId: './modules/purchasing/unit-payment-order/index',
+        nav: true,
+        title: 'Unit Payment Order',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "PBL.01": 1 },
+            iconClass: 'fa fa-credit-card'
+        }
     }
 ]
