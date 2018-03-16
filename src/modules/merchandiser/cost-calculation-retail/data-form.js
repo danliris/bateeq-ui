@@ -97,6 +97,20 @@ export class DataForm {
         this.numberFormatValueConverter = numberFormatValueConverter;
     }
 
+    @bindable imageUpload;
+    @bindable imageSrc;
+    imageUploadChanged(newValue) {
+        let imageInput = document.getElementById('imageInput');
+        let reader = new FileReader();
+        reader.onload = event => {
+            let base64Image = event.target.result;
+            this.imageSrc = base64Image;
+            this.data.ImageFile = base64Image.substr(base64Image.indexOf(',') + 1);
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+        this.data.ImageType = imageInput.files[0].type;
+    }
+
     @computedFrom("data.Id")
     get isEdit() {
         return (this.data.Id || 0) != 0;
@@ -126,6 +140,7 @@ export class DataForm {
         this.OTL1Check = this.data.OTL1 ? (this.data.OTL1.Id ? true : false) : false;
         this.OTL2Check = this.data.OTL2 ? (this.data.OTL2.Id ? true : false) : false;
         this.OTL3Check = this.data.OTL3 ? (this.data.OTL3.Id ? true : false) : false;
+        this.imageSrc = this.isEdit ? (this.data.ImageFile ? this.data.ImageFile : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
 
         this.defaultOL = await this.ongkosService.search({ keyword: "OL" })
             .then(results => {
