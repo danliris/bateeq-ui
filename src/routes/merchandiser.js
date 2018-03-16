@@ -37,5 +37,57 @@ module.exports = [
             permission: { "MRD.01": 1 },
             iconClass: 'fa fa-university'
         }
+    },
+    {
+        route: 'cost-calculation-retail',
+        name: 'cost-calculation-retail',
+        moduleId: './modules/merchandiser/cost-calculation-retail/index',
+        nav: true,
+        title: 'Cost Calculation Retail',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-university'
+        }
+    },
+    {
+        route: 'cost-calculation-garment',
+        name: 'cost-calculation-garment',
+        moduleId: './modules/merchandiser/cost-calculation-garment/index',
+        nav: true,
+        title: 'Cost Calculation Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-university'
+        }
+    },
+    {
+        route: 'ro-retail',
+        name: 'ro-retail',
+        moduleId: './modules/merchandiser/ro-retail/index',
+        nav: true,
+        title: 'RO Retail',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-university'
+        }
+    },
+    {
+        route: 'ro-garment',
+        name: 'ro-garment',
+        moduleId: './modules/merchandiser/ro-garment/index',
+        nav: true,
+        title: 'RO Garment',
+        auth: true,
+        settings: {
+            group: "merchandiser",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-university'
+        }
     }
 ]

@@ -1,0 +1,229 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <au-textbox label="Artikel" placeholder="Nama Artikel" options.bind="length0" value.bind="data.Article" error.bind="error.Article"
+                        read-only.bind="isEdit"></au-textbox>
+                    <au-autocomplete label="Style" placeholder="Cari Style" value.bind="data.Style" error.bind="error.Style" loader.one-time="articleStyleLoader"
+                        options.bind="length0" key="code" text="name">
+                    </au-autocomplete>
+                    <au-autocomplete label="Season" placeholder="Cari Season" value.bind="data.Season" error.bind="error.Season" loader.one-time="articleSeasonLoader"
+                        options.bind="length0" key="code" text="name">
+                    </au-autocomplete>
+                    <au-autocomplete label="Konter" placeholder="Cari Konter" value.bind="data.Counter" error.bind="error.Counter" loader.one-time="articleCounterLoader"
+                        options.bind="length0" key="code" text="name">
+                    </au-autocomplete>
+                </div>
+                <div class="col-md-2">
+                    <au-autocomplete label="Size Range" placeholder="Cari Size Range" value.bind="data.SizeRange" error.bind="error.SizeRange"
+                        options.bind="length6" loader.one-time="sizeRangeLoader" key="Code" text="Name">
+                    </au-autocomplete>
+                    <au-numeric label="SH Cutting" value.bind="data.SH_Cutting" error.bind="error.SH_Cutting" options.bind="length6"></au-numeric>
+                    <au-numeric label="SH Sewing" value.bind="data.SH_Sewing" error.bind="error.SH_Sewing" options.bind="length6"></au-numeric>
+                    <au-numeric label="SH Finishing" value.bind="data.SH_Finishing" error.bind="error.SH_Finishing" options.bind="length6"></au-numeric>
+                </div>
+                <div class="col-md-4">
+                    <au-autocomplete label="Buyer" placeholder="Cari Buyer" value.bind="data.Buyer" error.bind="error.Buyer" loader.one-time="buyerLoader"
+                        options.bind="length0" key="Code" text="Name">
+                    </au-autocomplete>
+                    <au-datepicker label="Delivery Date" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate" options.bind="length0"></au-datepicker>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <au-numeric label="Qty" format="0" value.bind="Quantity" error.bind="error.Quantity" options.bind="length4"></au-numeric>
+                        </div>
+                        <div class="col-md-4">
+                            <au-autocomplete label="Eff (%)" value.bind="data.Efficiency" error.bind="error.Efficiency" options.bind="length6" loader.one-time="efficiencyLoader"
+                                read-only.bind="disabled" key="Code" text="Value">
+                            </au-autocomplete>
+                        </div>
+                        <div class="col-md-4">
+                            <au-numeric label="Risk (%)" value.bind="data.Risk" options.bind="length6" read-only="disabled"></au-numeric>
+                        </div>
+                    </div>
+                    <au-multiline label="Keterangan" placeholder="Keterangan" value.bind="data.Description" error.bind="error.Description" options.bind="length0"></au-multiline>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-8">
+                        <au-checkbox label="OL" value.bind="OLCheck" options.bind="length6"></au-checkbox>
+                    </div>
+                    <div class="col-md-4">
+                        <au-numeric value.bind="OLValue.Rate" read-only.bind="disabled"></au-numeric>
+                    </div>
+                    <div class="col-md-8">
+                        <au-checkbox label="OTL 1" value.bind="OTL1Check" options.bind="length6"></au-checkbox>
+                    </div>
+                    <div class="col-md-4">
+                        <au-numeric value.bind="OTL1Value.Rate" read-only.bind="disabled"></au-numeric>
+                    </div>
+                    <div class="col-md-8">
+                        <au-checkbox label="OTL 2" value.bind="OTL2Check" options.bind="length6"></au-checkbox>
+                    </div>
+                    <div class="col-md-4">
+                        <au-numeric value.bind="OTL2Value.Rate" read-only.bind="disabled"></au-numeric>
+                    </div>
+                    <div class="col-md-8">
+                        <au-checkbox label="OTL 3" value.bind="OTL3Check" options.bind="length6"></au-checkbox>
+                    </div>
+                    <div class="col-md-4">
+                        <au-numeric value.bind="OTL3Value.Rate" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span class="help-block" style="color:#dd4b39;" if.bind="hasError">${error.CostCalculationRetail_MaterialTable}</span>
+        <au-collection items.bind="data.CostCalculationRetail_Materials" errors.bind="error.CostCalculationRetail_Materials" columns.bind="costCalculationRetail_MaterialsInfo.columns"
+            add.bind="costCalculationRetail_MaterialsInfo.onAdd" remove.bind="costCalculationRetail_MaterialsInfo.onRemove" options.bind="costCalculationRetail_MaterialsInfo.options"
+            item-template="modules/merchandiser/cost-calculation-retail/template/data-form/cost-calculation-retail-material"
+            footer-template="modules/merchandiser/cost-calculation-retail/template/data-form/cost-calculation-retail-material-footer">
+        </au-collection>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="col-md-6">
+                    <au-textbox label="HPP = Total Cost + (Total Cost * Risk)" options.bind="length8" value.bind="HPP" read-only.bind="disabled"></au-textbox>
+                </div>
+                <div class="col-md-6">
+                    <au-textbox label="Whole Sale Price = HPP * 2.2" options.bind="length8" value.bind="WholesalePrice" read-only.bind="disabled"></au-textbox>
+                </div>
+                <div class="col-md-12">
+                    <p>Pengajuan Harga</p>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.0" value.bind="Proposed20" options.bind="length4" read-only.bind="disabled"></au-textbox>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.2" value.bind="Proposed22" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.4" value.bind="Proposed24" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.6" value.bind="Proposed26" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.8" value.bind="Proposed28" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="3.0" value.bind="Proposed30" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.1" value.bind="Proposed21" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.3" value.bind="Proposed23" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.5" value.bind="Proposed25" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.7" value.bind="Proposed27" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2">
+                    <au-numeric label="2.9" value.bind="Proposed29" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-12">
+                    <p>Pembulatan Harga</p>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding20" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.0" value.bind="Rounding20" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding22" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.2" value.bind="Rounding22" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding24" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.4" value.bind="Rounding24" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding26" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.6" value.bind="Rounding26" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding28" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.8" value.bind="Rounding28" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding30" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="3.0" value.bind="Rounding30" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding21" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.1" value.bind="Rounding21" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding23" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.3" value.bind="Rounding23" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding25" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.5" value.bind="Rounding25" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding27" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.7" value.bind="Rounding27" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.Rounding29" checked.bind="SelectedRounding">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="2.9" value.bind="Rounding29" options.bind="length4" read-only.bind="disabled"></au-numeric>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="col-md-1" style="margin-left:-15px;">
+                        <input style="margin-top:10px;" type="radio" name="roundingRadio" value.bind="radio.RoundingOthers" checked.bind="SelectedRounding" disabled.bind="EmptyRoundingOthers">
+                    </div>
+                    <div class="col-md-11">
+                        <au-numeric label="Lainnya" value.bind="data.RoundingOthers" options.bind="length4"></au-numeric>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    </au-input-form>
+</template>

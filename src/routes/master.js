@@ -102,5 +102,31 @@ module.exports = [
             permission: { "MRD.01": 1 },
             iconClass: 'fa fa-adjust'
         }
+    },
+    {
+        route: 'product-purchasing',
+        name: 'product-purchasing',
+        moduleId: './modules/master/product-purchasing/index',
+        nav: true,
+        title: 'Product | Puchasing',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "PBL.01": 1 },
+            iconClass: ''
+        }
+    },
+    {
+        route: 'supplier-purchasing',
+        name: 'supplier-purchasing',
+        moduleId: './modules/master/supplier-purchasing/index',
+        nav: true,
+        title: 'Supplier | Puchasing',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "PBL.01": 1 },
+            iconClass: ''
+        }
     }
 ]

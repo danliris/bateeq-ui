@@ -1,0 +1,60 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+        <div class="row">
+            <div class="col-md-4">
+                <au-autocomplete label="No RO" placeholder="Cari RO" value.bind="costCalculationRetail" error.bind="error.CostCalculationRetail"
+                    loader.one-time="costCalculationRetailLoader" query.bind="filterCostCalculationRetail" options.bind="length4"
+                    key="Code" text="RO" read-only.bind="readOnly || isEdit"></au-autocomplete>
+                <au-textbox label="Konter" value.bind="data.CostCalculationRetail.Counter.name" read-only.bind="disabled" options.bind="length4"
+                    show.bind="hasCostCalculationRetail" read-only.bind="readOnly"></au-textbox>
+                <au-numeric label="Kuantitas RO" format="0" value.bind="data.Total" read-only.bind="disabled" options.bind="length4" show.bind="readOnly"></au-numeric>
+            </div>
+            <div class="col-md-4">
+                <au-textbox label="Artikel" value.bind="data.CostCalculationRetail.Article" read-only.bind="disabled" options.bind="length4"
+                    show.bind="hasCostCalculationRetail" read-only.bind="readOnly"></au-textbox>
+                <au-dropdown label="Warna" value.bind="data.Color" items.bind="articleColors" options.bind="length4" show.bind="hasCostCalculationRetail"
+                    read-only.bind="readOnly"></au-dropdown>
+            </div>
+            <div class="col-md-4">
+                <au-textbox label="Style" value.bind="data.CostCalculationRetail.Style.name" read-only.bind="disabled" options.bind="length4"
+                    show.bind="hasCostCalculationRetail" read-only.bind="readOnly"></au-textbox>
+                <au-datepicker label="Delivery Date" value.bind="data.CostCalculationRetail.DeliveryDate" read-only.bind="disabled" options.bind="length4"
+                    show.bind="readOnly"></au-datepicker>
+            </div>
+        </div>
+        <div class="row" show.bind="hasCCR_M_Fabric">
+            <div class="col-md-8">
+                <au-collection title="Fabric" items.bind="CCR_M_Fabric" columns.bind="CCR_M_FabricInfo.columns" item-template="modules/merchandiser/ro-retail/template/ro-retail-material"
+                    read-only.bind="readOnly">
+                </au-collection>
+            </div>
+        </div>
+        <div class="row" show.bind="hasCCR_M_Accessories">
+            <div class="col-md-8">
+                <au-collection title="Accessories" items.bind="CCR_M_Accessories" columns.bind="CCR_M_AccessoriesInfo.columns" item-template="modules/merchandiser/ro-retail/template/ro-retail-material"
+                    read-only.bind="readOnly">
+                </au-collection>
+            </div>
+        </div>
+        <div class="row" show.bind="hasCCR_M_Rate">
+            <div class="col-md-8">
+                <au-collection title="Ongkos" items.bind="CCR_M_Rate" columns.bind="CCR_M_RateInfo.columns" item-template="modules/merchandiser/ro-retail/template/ro-retail-material"
+                    read-only.bind="readOnly">
+                </au-collection>
+            </div>
+        </div>
+        <div class="row" if.bind="hasSizeBreakdowns">
+            <div class="col-md-12">
+                <au-collection title="Size Breakdown" items.bind="data.RO_Retail_SizeBreakdowns" columns.bind="RO_Retail_SizeBreakdownsInfo.columns"
+                    options.bind="RO_Retail_SizeBreakdownsInfo.options" item-template="modules/merchandiser/ro-retail/template/ro-retail-sizebreakdown"
+                    footer-template="modules/merchandiser/ro-retail/template/ro-retail-sizebreakdown-footer" read-only.bind="readOnly">
+                </au-collection>
+            </div>
+        </div>
+        <div class="row" show.bind="hasCostCalculationRetail">
+            <div class="col-md-8">
+                <au-multiline label="Instruksi" placeholder="Isi Instruksi" value.bind="data.Instruction" options.bind="length2" read-only.bind="readOnly"></au-multiline>
+            </div>
+        </div>
+    </au-input-form>
+</template>

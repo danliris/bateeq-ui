@@ -1,0 +1,18 @@
+<template>
+    <tr>
+        <td style="width: 12%">
+            <au-textbox value.bind="data.Store.code" options.bind="controlOptions" read-only.bind="disabled"></au-textbox>
+        </td>
+        <td style="width: 20%">
+            <au-textbox value.bind="data.Store.name" options.bind="controlOptions" read-only.bind="disabled"></au-textbox>
+        </td>
+        <template repeat.for="sizeProp of sizeProps">
+            <td style.bind="sizeQuantityStyle">
+                <au-numeric format="0" value.bind="data.SizeQuantity[sizeProp]" options.bind="controlOptions" read-only.bind="readOnly"></au-numeric>
+            </td>
+        </template>
+        <td style="width: 10%">
+            <au-numeric value.bind="data.Total" options.bind="controlOptions" read-only.bind="disabled"></au-numeric>
+        </td>
+    </tr>
+</template>
