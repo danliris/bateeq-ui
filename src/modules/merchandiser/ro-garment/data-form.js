@@ -1,9 +1,10 @@
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { Base64 } from '../../../lib/base64';
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 const costCalculationGarmentLoader = require('../../../loader/cost-calculation-garment-loader');
 
-@inject(Router, Service, BindingEngine)
+@inject(Router, Service, BindingEngine, Base64)
 export class DataForm {
 
     length2 = {
@@ -56,7 +57,6 @@ export class DataForm {
         }.bind(this)
     };
 
-
     @bindable title;
     @bindable data = {};
     @bindable error = {};
@@ -82,10 +82,40 @@ export class DataForm {
         return { "RO_GarmentId": null }
     }
 
-    constructor(router, service, bindingEngine) {
+    constructor(router, service, bindingEngine, base64) {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
+        this.base64 = base64;
+    }
+
+    @bindable imageUpload;
+    imageUploadChanged(newValue) {
+        let imageInput = document.getElementById('imageInput');
+        let reader = new FileReader();
+        reader.onload = event => {
+            let base64Image = event.target.result;
+            this.imagesSrc.push(base64Image);
+            this.imagesSrcChanged(this.imagesSrc);
+        }
+        reader.readAsDataURL(imageInput.files[imageInput.files.length - 1]);
+    }
+
+    @bindable imagesSrc = [];
+    imagesSrcChanged(newValue) {
+        this.data.ImagesFile = [];
+        this.data.ImagesType = [];
+        newValue.forEach(imageSrc => {
+            let imageFile = this.base64.getBase64File(imageSrc);
+            let imageType = this.base64.getBase64Type(imageSrc);
+            this.data.ImagesFile.push(imageFile);
+            this.data.ImagesType.push(imageType);
+        })
+    }
+
+    removeImage(index) {
+        this.imagesSrc.splice(index, 1);
+        this.imagesSrcChanged(this.imagesSrc);
     }
 
     async bind(context) {
@@ -97,6 +127,9 @@ export class DataForm {
         if (this.data.CostCalculationGarment) {
             this.costCalculationGarment = this.data.CostCalculationGarment;
         }
+        this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
+        this.data.ImagesType = this.data.ImagesType ? this.data.ImagesType : [];
+        this.imagesSrc = this.data.ImagesFile.slice();
     }
 
     async costCalculationGarmentChanged(newValue) {
