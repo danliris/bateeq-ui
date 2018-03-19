@@ -13,7 +13,6 @@ const buyerLoader = require('../../../loader/buyer-loader');
 @inject(Router, Service, EfficiencyService, RateService)
 export class DataForm {
     @bindable title;
-
     @bindable readOnly = true;
     @bindable disabled = true;
     @bindable data = {};
@@ -69,6 +68,20 @@ export class DataForm {
         this.rateService = rateService;
     }
 
+    @bindable imageUpload;
+    @bindable imageSrc;
+    imageUploadChanged(newValue) {
+        let imageInput = document.getElementById('imageInput');
+        let reader = new FileReader();
+        reader.onload = event => {
+            let base64Image = event.target.result;
+            this.imageSrc = base64Image;
+            this.data.ImageFile = base64Image.substr(base64Image.indexOf(',') + 1);
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+        this.data.ImageType = imageInput.files[0].type;
+    }
+
     @computedFrom("data.Id")
     get isEdit() {
         return (this.data.Id || 0) != 0;
@@ -90,6 +103,7 @@ export class DataForm {
         this.fabricAllowance = this.data.FabricAllowance ? this.data.FabricAllowance : 0;
         this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
         this.data.Risk = this.data.Risk ? this.data.Risk : 5;
+        this.imageSrc = this.isEdit ? (this.data.ImageFile ? this.data.ImageFile : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
 
         let promises = [];
 
@@ -285,7 +299,7 @@ export class DataForm {
     @computedFrom('data.ConfirmPrice', 'data.RateDollar', 'data.CommissionRate')
     get NETFOB() {
         let NETFOB = this.data.ConfirmPrice * this.data.RateDollar.Rate - this.data.CommissionRate;
-        NETFOB = numeral(NETFOB).format();  
+        NETFOB = numeral(NETFOB).format();
         this.data.NETFOB = numeral(NETFOB).value();
         return NETFOB;
     }

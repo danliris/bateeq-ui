@@ -56,5 +56,18 @@
                 <au-multiline label="Instruksi" placeholder="Isi Instruksi" value.bind="data.Instruction" options.bind="length2" read-only.bind="readOnly"></au-multiline>
             </div>
         </div>
+        <div class="row" show.bind="hasCostCalculationRetail">
+            <div class="col-md-12">
+                <input type="file" id="imageInput" value.bind="imageUpload" accept="image/*" if.bind="!readOnly" multiple>
+                <br>
+                <template repeat.for="imageSrc of imagesSrc">
+                    <div style="display: inline-block; height: 200px; width: auto;">
+                        <img src.bind="imageSrc" class="center-block" height="200px" width="auto" style="margin-right:20px">
+                        <br>
+                        <button type="button" class="btn btn-danger center-block" if.bind="!readOnly" click.delegate="removeImage($index)">Remove</button>
+                    </div>
+                </template>
+            </div>
+        </div>
     </au-input-form>
 </template>
