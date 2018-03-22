@@ -16,10 +16,6 @@
             border-bottom-width: 0px;
         }
 
-        #calculatedHPP {
-            margin-left: -15px;
-        }
-
         .bordered .price {
             font-size: 20px;
         }
@@ -65,7 +61,7 @@
         </au-collection>
         <div class="row">
             <div class="col-md-6">
-                <div class="col-md-12" id="calculatedHPP">
+                <div class="col-md-12" style="margin-left: -15px;">
                     <p>Kalkulasi HPP: Total Cost + (Total Cost * Risk)</p>
                 </div>
                 <div class="col-md-5 bordered">
@@ -81,6 +77,10 @@
                 <div class="col-md-7 bordered bordered-next">
                     <p>Wholesale Price: HPP * 2.20</p>
                     <p class="price">Rp.${data.WholesalePrice}</p>
+                </div>
+                <br>
+                <div class="col-md-12" style="margin-left: -15px; margin-top: 20px;">
+                    <au-multiline label="Keterangan" value.bind="data.Description" options.bind="length0" read-only.bind="readOnly"></au-multiline>
                 </div>
             </div>
             <div class="col-md-6">

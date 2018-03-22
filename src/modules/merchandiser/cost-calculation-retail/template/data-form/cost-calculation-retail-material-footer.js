@@ -5,7 +5,6 @@ import { Config } from "aurelia-api"
 export class CostCalculationRetailMaterialFooter {
     activate(context) {
         this.context = context;
-        this.colspan = 9;
     }
 
     get totalMaterial() {

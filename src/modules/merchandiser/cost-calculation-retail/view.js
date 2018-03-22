@@ -1,13 +1,14 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './services/service';
+import { Dialog } from '../../../au-components/dialog/dialog';
 import numeral from 'numeral';
 const defaultNumberFormat = "0,0.00";
 const ongkosNumberFormat = "0,0.000";
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
-    title = "Detail Cost Calculation";
+    title = "Detail Cost Calculation Retail";
     readOnly = true;
     length0 = {
         label: {
@@ -54,9 +55,10 @@ export class View {
         ]
     };
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
     }
 
     async activate(params) {
@@ -109,6 +111,9 @@ export class View {
         this.service.delete(this.data)
             .then(result => {
                 this.list();
+            })
+            .catch(e => {
+                this.dialog.alert(e, "Hapus Cost Calculation Retail");
             });
     }
 }
