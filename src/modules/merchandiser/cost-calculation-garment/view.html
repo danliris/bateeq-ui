@@ -105,12 +105,12 @@
                         </tr>
                         <tr>
                             <td class="label-td">OTL 1</td>
-                            <td>${data.OTL1.CalculatedRate | numberFormat:'0,0.000'}</td>
+                            <td>${data.OTL1.CalculatedValue | numberFormat:'0,0.000'}</td>
                             <td>${data.AfterOTL1 | numberFormat:'0,0.00'}</td>
                         </tr>
                         <tr>
                             <td class="label-td">OTL 2</td>
-                            <td>${data.OTL2.CalculatedRate | numberFormat:'0,0.000'}</td>
+                            <td>${data.OTL2.CalculatedValue | numberFormat:'0,0.000'}</td>
                             <td>${data.AfterOTL2 | numberFormat:'0,0.00'}</td>
                         </tr>
                         <tr>
@@ -147,7 +147,7 @@
             <div class="col-md-4">
                 <au-collection items.bind="data.priceInfo" columns.bind="priceInfo.columns" item-template="modules/merchandiser/cost-calculation-garment/template/view/price-info">
                 </au-collection>
-                <p>Note: 1 US$ = Rp. ${data.RateDollar.Rate | numberFormat:'0,0.00'}</p>
+                <p if.bind="isDollar">Note: 1 US$ = Rp. ${data.Rate.Value | numberFormat:'0,0.00'}</p>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
