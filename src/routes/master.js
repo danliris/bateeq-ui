@@ -52,9 +52,9 @@ module.exports = [
         }
     },
     {
-        route: 'OTL',
-        name: 'OTL',
-        moduleId: './modules/master/OTL/index',
+        route: 'rate',
+        name: 'rate',
+        moduleId: './modules/master/rate/index',
         nav: true,
         title: 'Ongkos',
         auth: true,

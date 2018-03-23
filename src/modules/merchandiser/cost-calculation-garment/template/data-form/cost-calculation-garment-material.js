@@ -27,7 +27,7 @@ export class CostCalculationGarmentMaterial {
         this.readOnly = this.options.readOnly || false;
         this.disabled = true;
         this.data.showDialog = this.data.showDialog === undefined ? (this.data.Category === undefined ? true : false) : (this.data.showDialog === true ? true : false);
-        this.data.isFabricCMT = this.data.isFabricCMT ? this.data.isFabricCMT : false;
+        this.data.isFabricCM = this.data.isFabricCM ? this.data.isFabricCM : false;
     }
 
     bind() {
@@ -40,11 +40,11 @@ export class CostCalculationGarmentMaterial {
     categoryChanged(newValue, oldValue) {
         this.data.Category = newValue;
         if (oldValue ? this.data.Category.Id !== oldValue.Id : this.data.showDialog) {
-            if (this.data.Category.Name.toUpperCase() === "FABRIC") {
+            if (this.data.Category.Name.toUpperCase() === "FAB") {
                 this.dialog.prompt("Apakah fabric ini menggunakan harga CMT?", "Detail Fabric Material")
                     .then(response => {
                         if (response == "ok") {
-                            this.data.isFabricCMT = true;
+                            this.data.isFabricCM = true;
                         }
                         this.data.showDialog = false;
                     });
@@ -79,19 +79,19 @@ export class CostCalculationGarmentMaterial {
         return uomLoader;
     }
 
-    @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCMT', 'data.RateDollar')
+    @computedFrom('data.Quantity', 'data.Price', 'data.Conversion', 'data.isFabricCM', 'data.Rate')
     get total() {
         let total = this.data.Quantity && this.data.Conversion && this.data.Price ? this.data.Price / this.data.Conversion * this.data.Quantity : 0;
         total = numeral(total).format();
-        if (this.data.isFabricCMT) {
+        if (this.data.isFabricCM) {
             this.data.Total = 0;
             this.data.TotalTemp = numeral(total).value();
-            this.data.CMT_Price = numeral(total).value() / this.data.RateDollar.Rate;
+            this.data.CM_Price = numeral(total).value() / this.data.Rate.Value;
         }
         else {
             this.data.Total = numeral(total).value();
             this.data.TotalTemp = numeral(total).value();
-            this.data.CMT_Price = null;
+            this.data.CM_Price = null;
         }
         return total;
     }
@@ -107,9 +107,9 @@ export class CostCalculationGarmentMaterial {
     get budgetQuantity() {
         let allowance = 0;
         if (this.data.Category) {
-            if (this.data.Category.Name.toUpperCase() === "FABRIC") {
+            if (this.data.Category.Name.toUpperCase() === "FAB") {
                 allowance = this.data.FabricAllowance / 100;
-            } else if (this.data.Category.Name.toUpperCase() === "ACCESSORIES") {
+            } else if (this.data.Category.Name.toUpperCase() === "ACC") {
                 allowance = this.data.AccessoriesAllowance / 100;
             }
         }
