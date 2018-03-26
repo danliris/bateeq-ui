@@ -1,10 +1,23 @@
 module.exports = [
     {
+        route: 'buyer',
+        name: 'buyer',
+        moduleId: './modules/master/buyer/index',
+        nav: true,
+        title: 'Buyer',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
+    },
+    {
         route: 'category',
         name: 'category',
         moduleId: './modules/master/category/index',
         nav: true,
-        title: 'Kategori',
+        title: 'Category',
         auth: true,
         settings: {
             group: "master",
@@ -17,7 +30,7 @@ module.exports = [
         name: 'material',
         moduleId: './modules/master/material/index',
         nav: true,
-        title: 'Bahan',
+        title: 'Material',
         auth: true,
         settings: {
             group: "master",
@@ -30,20 +43,7 @@ module.exports = [
         name: 'UOM',
         moduleId: './modules/master/UOM/index',
         nav: true,
-        title: 'Satuan',
-        auth: true,
-        settings: {
-            group: "master",
-            permission: { "MRD.01": 1 },
-            iconClass: 'fa fa-adjust'
-        }
-    },
-    {
-        route: 'size',
-        name: 'size',
-        moduleId: './modules/master/size/index',
-        nav: true,
-        title: 'Size',
+        title: 'UOM',
         auth: true,
         settings: {
             group: "master",
@@ -65,24 +65,11 @@ module.exports = [
         }
     },
     {
-        route: 'buyer',
-        name: 'buyer',
-        moduleId: './modules/master/buyer/index',
+        route: 'size',
+        name: 'size',
+        moduleId: './modules/master/size/index',
         nav: true,
-        title: 'Pembeli',
-        auth: true,
-        settings: {
-            group: "master",
-            permission: { "MRD.01": 1 },
-            iconClass: 'fa fa-adjust'
-        }
-    },
-    {
-        route: 'efficiency',
-        name: 'efficiency',
-        moduleId: './modules/master/efficiency/index',
-        nav: true,
-        title: 'Efisiensi',
+        title: 'Size',
         auth: true,
         settings: {
             group: "master",
@@ -104,11 +91,37 @@ module.exports = [
         }
     },
     {
+        route: 'efficiency',
+        name: 'efficiency',
+        moduleId: './modules/master/efficiency/index',
+        nav: true,
+        title: 'Efficiency',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
+    },
+    {
+        route: 'line',
+        name: 'line',
+        moduleId: './modules/master/line/index',
+        nav: true,
+        title: 'Line',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "MRD.01": 1 },
+            iconClass: 'fa fa-adjust'
+        }
+    },
+    {
         route: 'product-purchasing',
         name: 'product-purchasing',
         moduleId: './modules/master/product-purchasing/index',
         nav: true,
-        title: 'Product | Puchasing',
+        title: 'Product | Purchasing',
         auth: true,
         settings: {
             group: "master",
@@ -121,7 +134,7 @@ module.exports = [
         name: 'supplier-purchasing',
         moduleId: './modules/master/supplier-purchasing/index',
         nav: true,
-        title: 'Supplier | Puchasing',
+        title: 'Supplier | Purchasing',
         auth: true,
         settings: {
             group: "master",
