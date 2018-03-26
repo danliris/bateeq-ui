@@ -4,8 +4,8 @@
             <div class="col-md-3">
                 <au-textbox label="Artikel" placeholder="Nama Artikel" value.bind="data.Article" error.bind="error.Article" options.bind="length4"
                     read-only.bind="isEdit"></au-textbox>
-                <au-autocomplete label="Konveksi" placeholder="Cari Konveksi" value.bind="data.Convection" error.bind="error.Convection"
-                    loader.one-time="convectionLoader" options.bind="length4" key="code" text="name"></au-autocomplete>
+                <au-autocomplete label="Line" placeholder="Cari Line" value.bind="data.Line" error.bind="error.Line"
+                    loader.one-time="lineLoader" options.bind="length4" key="Code" text="Name"></au-autocomplete>
                 <au-textbox label="Komoditi" placeholder="Nama Komoditi" value.bind="data.Commodity" error.bind="error.Commodity" options.bind="length4"></au-textbox>
                 <au-numeric label="Fabric (%)" value.bind="fabricAllowance" error.bind="error.FabricAllowance" options.bind="length4"></au-numeric>
                 <au-numeric label="Accessories (%)" value.bind="accessoriesAllowance" error.bind="error.AccessoriesAllowance" options.bind="length4"></au-numeric>

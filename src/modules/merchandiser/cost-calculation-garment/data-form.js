@@ -6,7 +6,7 @@ import { RateService } from './services/rate-service';
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
-const articleSeasonLoader = require('../../../loader/season-loader');
+const lineLoader = require('../../../loader/line-loader');
 const sizeRangeLoader = require('../../../loader/size-range-loader');
 const buyerLoader = require('../../../loader/buyer-loader');
 
@@ -95,7 +95,6 @@ export class DataForm {
         else {
             this.data.Rate = this.RateDollar;
         }
-        console.log(this.data.Rate)
     }
 
     @computedFrom("data.Id")
@@ -223,8 +222,8 @@ export class DataForm {
         }
     }
 
-    get convectionLoader() {
-        return articleSeasonLoader;
+    get lineLoader() {
+        return lineLoader;
     }
 
     get sizeRangeLoader() {
