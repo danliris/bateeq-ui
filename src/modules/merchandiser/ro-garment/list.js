@@ -8,7 +8,7 @@ export class List {
     columns = [
         { field: "CostCalculationGarment.RO", title: "No RO" },
         { field: "CostCalculationGarment.Article", title: "Artikel" },
-        { field: "CostCalculationGarment.Convection.name", title: "Konveksi" },
+        { field: "CostCalculationGarment.Line.Name", title: "Line" },
         { field: "Total", title: "Kuantitas RO" }
     ];
 
