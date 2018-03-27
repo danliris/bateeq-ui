@@ -34,7 +34,7 @@ export class DataForm {
         this.error = this.context.error;
         if (this.context.router.currentInstruction.config.name !== "create") {
             this.category = this.data.Category;
-            this.isFabric = this.data.Category.Name.toUpperCase() === "FABRIC" ? true : false;
+            this.isFabric = this.data.Category.Name.toUpperCase() === "FAB" ? true : false;
         }
     }
 
@@ -49,7 +49,7 @@ export class DataForm {
     categoryChanged(newValue, oldValue) {
         if (this.context.router.currentInstruction.config.name === "create") {
             if (newValue) {
-                this.isFabric = newValue.Name.toUpperCase() === "FABRIC" ? true : false;
+                this.isFabric = newValue.Name.toUpperCase() === "FAB" ? true : false;
             } else {
                 this.isFabric = false;
             }

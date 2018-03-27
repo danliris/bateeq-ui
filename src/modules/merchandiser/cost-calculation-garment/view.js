@@ -86,7 +86,7 @@ export class View {
         let FOB_Price = this.data.ConfirmPrice + CM_Price;
         this.data.ConfirmPrice = this.isDollar ? US + numeral(this.data.ConfirmPrice).format() : RP + numeral(this.data.ConfirmPrice).format();
         this.data.FOB_Price = this.isDollar ? US + numeral(FOB_Price).format() : RP + numeral(FOB_Price).format();
-        this.data.CMT_Price = this.data.ConfirmPrice;
+        this.data.CMT_Price = CM_Price > 0 ? this.data.ConfirmPrice : numeral(0).format();
         this.data.CNF_Price = this.isDollar ? US + numeral(0).format() : RP + numeral(0).format();
         this.data.CIF_Price = this.isDollar ? US + numeral(0).format() : RP + numeral(0).format();
         this.data.priceInfo = [

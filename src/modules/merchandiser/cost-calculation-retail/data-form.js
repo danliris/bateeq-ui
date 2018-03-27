@@ -3,6 +3,7 @@ import { Service } from './services/service';
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 import { OngkosService } from './services/ongkos-service';
 import { EfficiencyService } from './services/efficiency-service';
+import { Base64 } from '../../../lib/base64';
 import { NumberFormatValueConverter } from '../../../lib/number-format-value-converter';
 import numeral from 'numeral';
 const articleStyleLoader = require('../../../loader/sub-counter-loader');
@@ -13,7 +14,7 @@ const articleCounterLoader = require('../../../loader/counter-loader');
 const defaultNumberFormat = "0,0.00";
 const ongkosNumberFormat = "0,0.000";
 
-@inject(Router, Service, BindingEngine, OngkosService, EfficiencyService, NumberFormatValueConverter)
+@inject(Router, Service, BindingEngine, OngkosService, EfficiencyService, NumberFormatValueConverter, Base64)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -88,13 +89,14 @@ export class DataForm {
         }.bind(this)
     };
 
-    constructor(router, service, bindingEngine, ongkosService, efficiencyService, numberFormatValueConverter) {
+    constructor(router, service, bindingEngine, ongkosService, efficiencyService, numberFormatValueConverter, base64) {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.ongkosService = ongkosService;
         this.efficiencyService = efficiencyService;
         this.numberFormatValueConverter = numberFormatValueConverter;
+        this.base64 = base64
     }
 
     @bindable imageUpload;
@@ -141,6 +143,8 @@ export class DataForm {
         this.OTL2Check = this.data.OTL2 ? (this.data.OTL2.Id ? true : false) : false;
         this.OTL3Check = this.data.OTL3 ? (this.data.OTL3.Id ? true : false) : false;
         this.imageSrc = this.isEdit ? (this.data.ImageFile ? this.data.ImageFile : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.data.ImageFile = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64File(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.data.ImageType = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64Type(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
 
         this.defaultOL = await this.ongkosService.search({ keyword: "OL" })
             .then(results => {

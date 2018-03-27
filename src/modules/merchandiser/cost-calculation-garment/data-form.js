@@ -3,14 +3,15 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './services/service';
 import { EfficiencyService } from './services/efficiency-service';
 import { RateService } from './services/rate-service';
+import { Base64 } from '../../../lib/base64';
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
-const articleSeasonLoader = require('../../../loader/season-loader');
+const lineLoader = require('../../../loader/line-loader');
 const sizeRangeLoader = require('../../../loader/size-range-loader');
 const buyerLoader = require('../../../loader/buyer-loader');
 
-@inject(Router, Service, EfficiencyService, RateService)
+@inject(Router, Service, EfficiencyService, RateService, Base64)
 export class DataForm {
     @bindable title;
     @bindable readOnly = true;
@@ -66,11 +67,12 @@ export class DataForm {
         Rupiah: "Rupiah"
     }
 
-    constructor(router, service, efficiencyService, rateService) {
+    constructor(router, service, efficiencyService, rateService, base64) {
         this.router = router;
         this.service = service;
         this.efficiencyService = efficiencyService;
         this.rateService = rateService;
+        this.base64 = base64
     }
 
     @bindable imageUpload;
@@ -95,7 +97,6 @@ export class DataForm {
         else {
             this.data.Rate = this.RateDollar;
         }
-        console.log(this.data.Rate)
     }
 
     @computedFrom("data.Id")
@@ -120,6 +121,8 @@ export class DataForm {
         this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
         this.data.Risk = this.data.Risk ? this.data.Risk : 5;
         this.imageSrc = this.isEdit ? (this.data.ImageFile ? this.data.ImageFile : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.data.ImageFile = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64File(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.data.ImageType = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64Type(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
 
         let promises = [];
 
@@ -223,8 +226,8 @@ export class DataForm {
         }
     }
 
-    get convectionLoader() {
-        return articleSeasonLoader;
+    get lineLoader() {
+        return lineLoader;
     }
 
     get sizeRangeLoader() {
