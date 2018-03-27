@@ -182,6 +182,11 @@ export class DataForm {
                 }
                 this.data.RO_Retail_SizeBreakdowns = this.getSizeBreakdownsData();
             }
+            else {
+                if (this.readOnly) {
+                    this.data.RO_Retail_SizeBreakdowns = this.data.RO_Retail_SizeBreakdowns.filter(value => value.Total > 0);
+                }
+            }
 
             this.addSubscription();
         }
