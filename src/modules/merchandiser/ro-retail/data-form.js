@@ -167,9 +167,9 @@ export class DataForm {
             }
 
             if (this.data.CostCalculationRetail.CostCalculationRetail_Materials.length !== 0) {
-                this.CCR_M_Fabric = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "FABRIC");
-                this.CCR_M_Accessories = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "ACCESSORIES");
-                this.CCR_M_Rate = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "ONGKOS");
+                this.CCR_M_Fabric = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "FAB");
+                this.CCR_M_Accessories = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "ACC");
+                this.CCR_M_Rate = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
             }
 
             if (this.data.CostCalculationRetail.SizeRange && this.data.CostCalculationRetail.SizeRange.RelatedSizes)
