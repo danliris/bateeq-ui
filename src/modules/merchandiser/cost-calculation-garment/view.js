@@ -1,11 +1,13 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './services/service';
+import { Dialog } from '../../../au-components/dialog/dialog';
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const US = "US$. ";
+const RP = "Rp. ";
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
     title = "Detail Cost Calculation Garment";
     readOnly = true;
@@ -48,9 +50,14 @@ export class View {
         ]
     };
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
+    }
+
+    get isDollar() {
+        return this.data.Rate.Id !== 0;
     }
 
     async activate(params) {
@@ -59,34 +66,34 @@ export class View {
         this.data.FabricAllowance = numeral(this.data.FabricAllowance).format();
         this.data.AccessoriesAllowance = numeral(this.data.AccessoriesAllowance).format();
         let total = 0;
-        if (this.data.CostCalculationGarment_Materials){
+        if (this.data.CostCalculationGarment_Materials) {
             this.data.CostCalculationGarment_Materials.forEach(item => {
                 total += Number(item.Total);
             })
         }
         this.data.Total = total;
-        this.data.AfterOTL1 = this.data.Total + this.data.OTL1.CalculatedRate;
-        this.data.AfterOTL2 = this.data.AfterOTL1 + this.data.OTL2.CalculatedRate;
+        this.data.AfterOTL1 = this.data.Total + this.data.OTL1.CalculatedValue;
+        this.data.AfterOTL2 = this.data.AfterOTL1 + this.data.OTL2.CalculatedValue;
         this.data.AfterRisk = (100 + this.data.Risk) * this.data.AfterOTL2 / 100;
         this.data.AfterFreightCost = this.data.AfterRisk + this.data.FreightCost;
-        this.data.ConfirmPriceWithRate = this.data.ConfirmPrice * this.data.RateDollar.Rate;
-        let CMT_Price = 0;
+        this.data.ConfirmPriceWithRate = this.data.ConfirmPrice * this.data.Rate.Value;
+        let CM_Price = 0;
         if (this.data.CostCalculationGarment_Materials) {
             this.data.CostCalculationGarment_Materials.forEach(item => {
-                CMT_Price += Number(item.CMT_Price);
+                CM_Price += Number(item.CM_Price);
             })
         }
-        let FOB_Price = this.data.ConfirmPrice + CMT_Price;
-        this.data.FOB_Price = US + numeral(FOB_Price).format();
-        this.data.CMT_Price = US + numeral(CMT_Price).format();
-        this.data.CNF_Price = US + numeral(0).format();
-        this.data.CIF_Price = US + numeral(0).format();
+        let FOB_Price = this.data.ConfirmPrice + CM_Price;
+        this.data.ConfirmPrice = this.isDollar ? US + numeral(this.data.ConfirmPrice).format() : RP + numeral(this.data.ConfirmPrice).format();
+        this.data.FOB_Price = this.isDollar ? US + numeral(FOB_Price).format() : RP + numeral(FOB_Price).format();
+        this.data.CMT_Price = CM_Price > 0 ? this.data.ConfirmPrice : numeral(0).format();
+        this.data.CNF_Price = this.isDollar ? US + numeral(0).format() : RP + numeral(0).format();
+        this.data.CIF_Price = this.isDollar ? US + numeral(0).format() : RP + numeral(0).format();
         this.data.priceInfo = [
             { FOB_Price: this.data.FOB_Price, CMT_Price: this.data.CMT_Price, CNF_Price: this.data.CNF_Price, CIF_Price: this.data.CIF_Price }
         ]
-        this.data.Freight = US + numeral(this.data.Freight).format();
-        this.data.Insurance = US + numeral(this.data.Insurance).format();
-        this.data.ConfirmPrice = US + numeral(this.data.ConfirmPrice).format();
+        this.data.Freight = this.isDollar ? US + numeral(this.data.Freight).format() : RP + numeral(this.data.Freight).format();
+        this.data.Insurance = this.isDollar ? US + numeral(this.data.Insurance).format() : RP + numeral(this.data.Insurance).format();
         this.data.SMV_Cutting = numeral(this.data.SMV_Cutting).format();
         this.data.SMV_Sewing = numeral(this.data.SMV_Sewing).format();
         this.data.SMV_Finishing = numeral(this.data.SMV_Finishing).format();
@@ -113,6 +120,9 @@ export class View {
         this.service.delete(this.data)
             .then(result => {
                 this.list();
-            });
+            })
+            .catch(e => {
+                this.dialog.alert(e, "Hapus Cost Calculation Garment");
+            })
     }
 }

@@ -1,13 +1,14 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './services/service';
+import { Dialog } from '../../../au-components/dialog/dialog';
 import numeral from 'numeral';
 const defaultNumberFormat = "0,0.00";
 const ongkosNumberFormat = "0,0.000";
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class View {
-    title = "Detail Cost Calculation";
+    title = "Detail Cost Calculation Retail";
     readOnly = true;
     length0 = {
         label: {
@@ -54,22 +55,23 @@ export class View {
         ]
     };
 
-    constructor(router, service) {
+    constructor(router, service, dialog) {
         this.router = router;
         this.service = service;
+        this.dialog = dialog;
     }
 
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.data.OL.Rate = numeral(this.data.OL.Rate).format(ongkosNumberFormat);
-        this.data.OTL1.Rate = numeral(this.data.OTL1.Rate).format(ongkosNumberFormat);
-        this.data.OTL2.Rate = numeral(this.data.OTL2.Rate).format(ongkosNumberFormat);
-        this.data.OTL3.Rate = numeral(this.data.OTL3.Rate).format(ongkosNumberFormat);
-        this.data.OL.CalculatedRate = numeral(this.data.OL.CalculatedRate).format(ongkosNumberFormat);
-        this.data.OTL1.CalculatedRate = numeral(this.data.OTL1.CalculatedRate).format(ongkosNumberFormat);
-        this.data.OTL2.CalculatedRate = numeral(this.data.OTL2.CalculatedRate).format(ongkosNumberFormat);
-        this.data.OTL3.CalculatedRate = numeral(this.data.OTL3.CalculatedRate).format(ongkosNumberFormat);
+        this.data.OL.Value = numeral(this.data.OL.Value).format(ongkosNumberFormat);
+        this.data.OTL1.Value = numeral(this.data.OTL1.Value).format(ongkosNumberFormat);
+        this.data.OTL2.Value = numeral(this.data.OTL2.Value).format(ongkosNumberFormat);
+        this.data.OTL3.Value = numeral(this.data.OTL3.Value).format(ongkosNumberFormat);
+        this.data.OL.CalculatedValue = numeral(this.data.OL.CalculatedValue).format(ongkosNumberFormat);
+        this.data.OTL1.CalculatedValue = numeral(this.data.OTL1.CalculatedValue).format(ongkosNumberFormat);
+        this.data.OTL2.CalculatedValue = numeral(this.data.OTL2.CalculatedValue).format(ongkosNumberFormat);
+        this.data.OTL3.CalculatedValue = numeral(this.data.OTL3.CalculatedValue).format(ongkosNumberFormat);
         this.data.HPP = numeral(this.data.HPP).format(defaultNumberFormat);
         this.data.WholesalePrice = numeral(this.data.WholesalePrice).format(defaultNumberFormat);
         this.data.STD_Hour = numeral(this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing).format(defaultNumberFormat);
@@ -109,6 +111,9 @@ export class View {
         this.service.delete(this.data)
             .then(result => {
                 this.list();
+            })
+            .catch(e => {
+                this.dialog.alert(e, "Hapus Cost Calculation Retail");
             });
     }
 }

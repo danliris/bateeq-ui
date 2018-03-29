@@ -1,5 +1,6 @@
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { Base64 } from '../../../lib/base64';
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 const costCalculationRetailLoader = require('../../../loader/cost-calculation-retail-loader');
 const defaultSizeBreakdownsColumns = [
@@ -12,7 +13,7 @@ const info = {
     size: Number.MAX_SAFE_INTEGER
 }
 
-@inject(Router, Service, BindingEngine)
+@inject(Router, Service, BindingEngine, Base64)
 export class DataForm {
     @bindable title;
     @bindable readOnly = false;
@@ -81,12 +82,42 @@ export class DataForm {
         return costCalculationRetailLoader;
     }
 
-    constructor(router, service, bindingEngine) {
+    constructor(router, service, bindingEngine, base64) {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
+        this.base64 = base64;
     }
 
+    @bindable imageUpload;
+    imageUploadChanged(newValue) {
+        let imageInput = document.getElementById('imageInput');
+        let reader = new FileReader();
+        reader.onload = event => {
+            let base64Image = event.target.result;
+            this.imagesSrc.push(base64Image);
+            this.imagesSrcChanged(this.imagesSrc);
+        }
+        reader.readAsDataURL(imageInput.files[imageInput.files.length - 1]);
+    }
+
+    @bindable imagesSrc = [];
+    imagesSrcChanged(newValue) {
+        this.data.ImagesFile = [];
+        this.data.ImagesType = [];
+        newValue.forEach(imageSrc => {
+            let imageFile = this.base64.getBase64File(imageSrc);
+            let imageType = this.base64.getBase64Type(imageSrc);
+            this.data.ImagesFile.push(imageFile);
+            this.data.ImagesType.push(imageType);
+        })
+    }
+
+    removeImage(index) {
+        this.imagesSrc.splice(index, 1);
+        this.imagesSrcChanged(this.imagesSrc);
+    }
+    
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -120,6 +151,10 @@ export class DataForm {
                 this.data.Color = findColor ? findColor : this.articleColors[0];
             }
         }
+
+        this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
+        this.data.ImagesType = this.data.ImagesType ? this.data.ImagesType : [];
+        this.imagesSrc = this.data.ImagesFile.slice();
     }
 
     @bindable costCalculationRetail;
@@ -132,9 +167,9 @@ export class DataForm {
             }
 
             if (this.data.CostCalculationRetail.CostCalculationRetail_Materials.length !== 0) {
-                this.CCR_M_Fabric = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "FABRIC");
-                this.CCR_M_Accessories = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "ACCESSORIES");
-                this.CCR_M_Rate = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "ONGKOS");
+                this.CCR_M_Fabric = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "FAB");
+                this.CCR_M_Accessories = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "ACC");
+                this.CCR_M_Rate = this.data.CostCalculationRetail.CostCalculationRetail_Materials.filter(item => item.Category.Name.toUpperCase() === "ONG");
             }
 
             if (this.data.CostCalculationRetail.SizeRange && this.data.CostCalculationRetail.SizeRange.RelatedSizes)
@@ -146,6 +181,11 @@ export class DataForm {
                     this.storesFetched = true;
                 }
                 this.data.RO_Retail_SizeBreakdowns = this.getSizeBreakdownsData();
+            }
+            else {
+                if (this.readOnly) {
+                    this.data.RO_Retail_SizeBreakdowns = this.data.RO_Retail_SizeBreakdowns.filter(value => value.Total > 0);
+                }
             }
 
             this.addSubscription();

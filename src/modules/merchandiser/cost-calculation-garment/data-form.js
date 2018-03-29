@@ -3,22 +3,22 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './services/service';
 import { EfficiencyService } from './services/efficiency-service';
 import { RateService } from './services/rate-service';
+import { Base64 } from '../../../lib/base64';
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
-const articleSeasonLoader = require('../../../loader/season-loader');
+const lineLoader = require('../../../loader/line-loader');
 const sizeRangeLoader = require('../../../loader/size-range-loader');
 const buyerLoader = require('../../../loader/buyer-loader');
 
-@inject(Router, Service, EfficiencyService, RateService)
+@inject(Router, Service, EfficiencyService, RateService, Base64)
 export class DataForm {
     @bindable title;
-
     @bindable readOnly = true;
     @bindable disabled = true;
     @bindable data = {};
     @bindable error = {};
-    defaultRate = { Id: 0, Rate: 0, CalculatedRate: 0 };
+    defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
     length0 = {
         label: {
             align: "left"
@@ -58,15 +58,45 @@ export class DataForm {
             { header: "Kuantitas Budget", value: "BudgetQuantity" },
         ],
         onAdd: function () {
-            this.data.CostCalculationGarment_Materials.push({ QuantityOrder: this.data.Quantity, FabricAllowance: this.data.FabricAllowance, AccessoriesAllowance: this.data.AccessoriesAllowance, RateDollar: this.data.RateDollar });
+            this.data.CostCalculationGarment_Materials.push({ QuantityOrder: this.data.Quantity, FabricAllowance: this.data.FabricAllowance, AccessoriesAllowance: this.data.AccessoriesAllowance, Rate: this.data.Rate });
+            console.log(this.data.CostCalculationGarment_Materials);
         }.bind(this)
-    };
+    }
+    radio = {
+        Dollar: "Dollar",
+        Rupiah: "Rupiah"
+    }
 
-    constructor(router, service, efficiencyService, rateService) {
+    constructor(router, service, efficiencyService, rateService, base64) {
         this.router = router;
         this.service = service;
         this.efficiencyService = efficiencyService;
         this.rateService = rateService;
+        this.base64 = base64
+    }
+
+    @bindable imageUpload;
+    @bindable imageSrc;
+    imageUploadChanged(newValue) {
+        let imageInput = document.getElementById('imageInput');
+        let reader = new FileReader();
+        reader.onload = event => {
+            let base64Image = event.target.result;
+            this.imageSrc = base64Image;
+            this.data.ImageFile = base64Image.substr(base64Image.indexOf(',') + 1);
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+        this.data.ImageType = imageInput.files[0].type;
+    }
+
+    @bindable selectedRate;
+    selectedRateChanged(newValue) {
+        if (newValue.toUpperCase() === "RUPIAH") {
+            this.data.Rate = { Id: 0, Value: 1, CalculatedValue: 1 };
+        }
+        else {
+            this.data.Rate = this.RateDollar;
+        }
     }
 
     @computedFrom("data.Id")
@@ -90,6 +120,9 @@ export class DataForm {
         this.fabricAllowance = this.data.FabricAllowance ? this.data.FabricAllowance : 0;
         this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
         this.data.Risk = this.data.Risk ? this.data.Risk : 5;
+        this.imageSrc = this.isEdit ? (this.data.ImageFile ? this.data.ImageFile : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.data.ImageFile = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64File(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.data.ImageType = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64Type(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
 
         let promises = [];
 
@@ -104,7 +137,7 @@ export class DataForm {
             wage = this.rateService.search({ keyword: "OL" })
                 .then(results => {
                     let result = results.data[0] ? results.data[0] : this.defaultRate;
-                    result.Rate = numeral(numeral(result.Rate).format(rateNumberFormat)).value();
+                    result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
                     return result;
                 });
         }
@@ -121,28 +154,28 @@ export class DataForm {
             THR = this.rateService.search({ keyword: "THR" })
                 .then(results => {
                     let result = results.data[0] ? results.data[0] : this.defaultRate;
-                    result.Rate = numeral(numeral(result.Rate).format(rateNumberFormat)).value();
+                    result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
                     return result;
                 });
         }
         promises.push(THR);
 
-        let rateDollar;
-        if (this.data.RateDollar) {
-            rateDollar = new Promise((resolve, reject) => {
-                resolve(this.data.RateDollar);
+        let rate;
+        if (this.data.Rate) {
+            rate = new Promise((resolve, reject) => {
+                resolve(this.data.Rate);
             });
         }
         else {
-            this.data.RateDollar = this.defaultRate;
-            rateDollar = this.rateService.search({ keyword: "RATE" })
+            this.data.Rate = this.defaultRate;
+            rate = this.rateService.search({ keyword: "USD" })
                 .then(results => {
                     let result = results.data[0] ? results.data[0] : this.defaultRate;
-                    result.Rate = numeral(numeral(result.Rate).format(rateNumberFormat)).value();
+                    result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
                     return result;
                 });
         }
-        promises.push(rateDollar);
+        promises.push(rate);
 
         let OTL1;
         if (this.data.OTL1) {
@@ -179,21 +212,22 @@ export class DataForm {
         let all = await Promise.all(promises);
         this.data.Wage = all[0];
         this.data.THR = all[1];
-        this.data.RateDollar = all[2];
+        this.RateDollar = all[2];
         this.data.OTL1 = all[3];
         this.data.OTL2 = all[4];
+        this.selectedRate = this.data.Rate ? this.radio.Dollar : this.radio.Rupiah;
         if (this.data.CostCalculationGarment_Materials) {
             this.data.CostCalculationGarment_Materials.forEach(item => {
                 item.QuantityOrder = this.data.Quantity;
                 item.FabricAllowance = this.data.FabricAllowance;
                 item.AccessoriesAllowance = this.data.AccessoriesAllowance;
-                item.RateDollar = this.data.RateDollar;
+                item.Rate = this.data.Rate;
             })
         }
     }
 
-    get convectionLoader() {
-        return articleSeasonLoader;
+    get lineLoader() {
+        return lineLoader;
     }
 
     get sizeRangeLoader() {
@@ -245,9 +279,9 @@ export class DataForm {
         return SMV_Total;
     }
 
-    @computedFrom('data.CommissionPortion', 'data.ConfirmPrice', 'data.Freight', 'data.Insurance', 'data.RateDollar')
+    @computedFrom('data.CommissionPortion', 'data.ConfirmPrice', 'data.Freight', 'data.Insurance', 'data.Rate')
     get commissionRate() {
-        let CommissionRate = this.data.CommissionPortion / 100 * (this.data.ConfirmPrice - this.data.Insurance - this.data.Freight) * this.data.RateDollar.Rate;
+        let CommissionRate = this.data.CommissionPortion / 100 * (this.data.ConfirmPrice - this.data.Insurance - this.data.Freight) * this.data.Rate.Value;
         CommissionRate = numeral(CommissionRate).format();
         this.data.CommissionRate = numeral(CommissionRate).value();
         return CommissionRate;
@@ -255,37 +289,37 @@ export class DataForm {
 
     @computedFrom('data.OTL1', 'data.SMV_Total')
     get calculatedRateOTL1() {
-        let calculatedRateOTL1 = this.data.SMV_Total ? this.data.OTL1.Rate * this.data.SMV_Total * 60 : 0;
+        let calculatedRateOTL1 = this.data.SMV_Total ? this.data.OTL1.Value * this.data.SMV_Total * 60 : 0;
         calculatedRateOTL1 = numeral(calculatedRateOTL1).format();
-        this.data.OTL1.CalculatedRate = numeral(calculatedRateOTL1).value();
+        this.data.OTL1.CalculatedValue = numeral(calculatedRateOTL1).value();
         return calculatedRateOTL1;
     }
 
     @computedFrom('data.OTL2', 'data.SMV_Total')
     get calculatedRateOTL2() {
-        let calculatedRateOTL2 = this.data.SMV_Total ? this.data.OTL2.Rate * this.data.SMV_Total * 60 : 0;
+        let calculatedRateOTL2 = this.data.SMV_Total ? this.data.OTL2.Value * this.data.SMV_Total * 60 : 0;
         calculatedRateOTL2 = numeral(calculatedRateOTL2).format();
-        this.data.OTL2.CalculatedRate = numeral(calculatedRateOTL2).value();
+        this.data.OTL2.CalculatedValue = numeral(calculatedRateOTL2).value();
         return calculatedRateOTL2;
     }
 
     @computedFrom('data.Wage', 'data.SMV_Sewing', 'data.Efficiency' + 'data.SMV_Cutting', 'data.SMV_Finishing', 'data.THR', 'data.SMV_Total')
     get productionCost() {
         let productionCost = this.data.Efficiency ?
-            (this.data.Efficiency.Value ? this.data.Wage.Rate * this.data.SMV_Sewing * 100 / this.data.Efficiency.Value +
-                this.data.Wage.Rate * this.data.SMV_Cutting * 100 / 75 +
-                this.data.Wage.Rate * this.data.SMV_Finishing * 100 / 90 +
-                this.data.THR.Rate * this.data.SMV_Total : 0)
+            (this.data.Efficiency.Value ? this.data.Wage.Value * this.data.SMV_Sewing * 100 / this.data.Efficiency.Value +
+                this.data.Wage.Value * this.data.SMV_Cutting * 100 / 75 +
+                this.data.Wage.Value * this.data.SMV_Finishing * 100 / 90 +
+                this.data.THR.Value * this.data.SMV_Total : 0)
             : 0;
         productionCost = numeral(productionCost).format();
         this.data.ProductionCost = numeral(productionCost).value();
         return productionCost;
     }
 
-    @computedFrom('data.ConfirmPrice', 'data.RateDollar', 'data.CommissionRate')
+    @computedFrom('data.ConfirmPrice', 'data.Rate', 'data.CommissionRate')
     get NETFOB() {
-        let NETFOB = this.data.ConfirmPrice * this.data.RateDollar.Rate - this.data.CommissionRate;
-        NETFOB = numeral(NETFOB).format();  
+        let NETFOB = this.data.ConfirmPrice * this.data.Rate.Value - this.data.CommissionRate;
+        NETFOB = numeral(NETFOB).format();
         this.data.NETFOB = numeral(NETFOB).value();
         return NETFOB;
     }
@@ -309,7 +343,7 @@ export class DataForm {
                 allMaterialCost += item.Total;
             })
         }
-        let subTotal = allMaterialCost !== 0 ? (allMaterialCost + this.data.OTL1.CalculatedRate + this.data.OTL2.CalculatedRate) * (100 + this.data.Risk) / 100 + this.data.FreightCost : 0;
+        let subTotal = allMaterialCost !== 0 ? (allMaterialCost + this.data.OTL1.CalculatedValue + this.data.OTL2.CalculatedValue) * (100 + this.data.Risk) / 100 + this.data.FreightCost : 0;
         let NETFOBP = this.data.NETFOB && subTotal !== 0 ? (this.data.NETFOB - subTotal) / subTotal * 100 : 0;
         NETFOBP = numeral(NETFOBP).format();
         this.data.NETFOBP = numeral(NETFOBP).value();

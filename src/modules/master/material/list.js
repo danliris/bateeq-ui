@@ -26,7 +26,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (let data of result.data){
-                    data.Category.FullName = data.Category.Name + " - " + data.Category.SubCategory;
+                    data.Category.FullName = data.Category.SubCategory ? data.Category.Name + " - " + data.Category.SubCategory : data.Category.Name;
                 }
                 return {
                     total: result.info.total,

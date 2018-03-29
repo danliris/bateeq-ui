@@ -3,6 +3,7 @@ import { Service } from './services/service';
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 import { OngkosService } from './services/ongkos-service';
 import { EfficiencyService } from './services/efficiency-service';
+import { Base64 } from '../../../lib/base64';
 import { NumberFormatValueConverter } from '../../../lib/number-format-value-converter';
 import numeral from 'numeral';
 const articleStyleLoader = require('../../../loader/sub-counter-loader');
@@ -13,7 +14,7 @@ const articleCounterLoader = require('../../../loader/counter-loader');
 const defaultNumberFormat = "0,0.00";
 const ongkosNumberFormat = "0,0.000";
 
-@inject(Router, Service, BindingEngine, OngkosService, EfficiencyService, NumberFormatValueConverter)
+@inject(Router, Service, BindingEngine, OngkosService, EfficiencyService, NumberFormatValueConverter, Base64)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -42,7 +43,7 @@ export class DataForm {
         RoundingOthers: "RoundingOthers",
     }
 
-    defaultRate = { Id: 0, Rate: 0, CalculatedRate: 0 };
+    defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
 
     length0 = {
         label: {
@@ -88,13 +89,28 @@ export class DataForm {
         }.bind(this)
     };
 
-    constructor(router, service, bindingEngine, ongkosService, efficiencyService, numberFormatValueConverter) {
+    constructor(router, service, bindingEngine, ongkosService, efficiencyService, numberFormatValueConverter, base64) {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.ongkosService = ongkosService;
         this.efficiencyService = efficiencyService;
         this.numberFormatValueConverter = numberFormatValueConverter;
+        this.base64 = base64
+    }
+
+    @bindable imageUpload;
+    @bindable imageSrc;
+    imageUploadChanged(newValue) {
+        let imageInput = document.getElementById('imageInput');
+        let reader = new FileReader();
+        reader.onload = event => {
+            let base64Image = event.target.result;
+            this.imageSrc = base64Image;
+            this.data.ImageFile = base64Image.substr(base64Image.indexOf(',') + 1);
+        }
+        reader.readAsDataURL(imageInput.files[0]);
+        this.data.ImageType = imageInput.files[0].type;
     }
 
     @computedFrom("data.Id")
@@ -126,45 +142,48 @@ export class DataForm {
         this.OTL1Check = this.data.OTL1 ? (this.data.OTL1.Id ? true : false) : false;
         this.OTL2Check = this.data.OTL2 ? (this.data.OTL2.Id ? true : false) : false;
         this.OTL3Check = this.data.OTL3 ? (this.data.OTL3.Id ? true : false) : false;
+        this.imageSrc = this.isEdit ? (this.data.ImageFile ? this.data.ImageFile : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.data.ImageFile = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64File(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.data.ImageType = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64Type(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
 
         this.defaultOL = await this.ongkosService.search({ keyword: "OL" })
             .then(results => {
                 let result = results.data[0] ? results.data[0] : this.defaultRate;
-                result.CalculatedRate = 0;
+                result.CalculatedValue = 0;
                 return result;
             });
         this.defaultOTL1 = await this.ongkosService.search({ keyword: "OTL 1" })
             .then(results => {
                 let result = results.data[0] ? results.data[0] : this.defaultRate;
-                result.CalculatedRate = 0;
+                result.CalculatedValue = 0;
                 return result;
             });
         this.defaultOTL2 = await this.ongkosService.search({ keyword: "OTL 2" })
             .then(results => {
                 let result = results.data[0] ? results.data[0] : this.defaultRate;
-                result.CalculatedRate = 0;
+                result.CalculatedValue = 0;
                 return result;
             });
         this.defaultOTL3 = await this.ongkosService.search({ keyword: "OTL 3" })
             .then(results => {
                 let result = results.data[0] ? results.data[0] : this.defaultRate;
-                result.CalculatedRate = 0;
+                result.CalculatedValue = 0;
                 return result;
             });
         this.defaultTHR = await this.ongkosService.search({ keyword: "THR" })
             .then(results => {
                 let result = results.data[0] ? results.data[0] : this.defaultRate;
-                result.CalculatedRate = 0;
+                result.CalculatedValue = 0;
                 return result;
             });
     }
 
     @computedFrom("OLCheck", "data.SH_Cutting", "data.SH_Sewing", "data.SH_Finishing")
-    get OLValue() {
+    get OL() {
         if (this.OLCheck) {
             if (!(this.data.OL ? (this.data.OL.Id ? true : false) : false) || this.uncheckedOnceOL) {
-                let mTarifOL = this.defaultOL.Rate;
-                let mTarifTHR = this.defaultTHR.Rate;
+                let mTarifOL = this.defaultOL.Value;
+                let mTarifTHR = this.defaultTHR.Value;
                 let mSWCutting = this.data.SH_Cutting * 0.06;
                 let mSWSewing = this.data.SH_Sewing * 0.06;
                 let mSWFinishing = this.data.SH_Finishing * 0.06;
@@ -177,8 +196,8 @@ export class DataForm {
                     mTarifTHR * 60 * mTotalSW;
                 let result = {
                     Id: this.defaultOL.Id,
-                    Rate: this.defaultOL.Rate,
-                    CalculatedRate: parseFloat(calculatedOL.toFixed(2))
+                    Value: this.defaultOL.Value,
+                    CalculatedValue: parseFloat(calculatedOL.toFixed(2))
                 }
                 this.data.OL = result;
             }
@@ -189,22 +208,22 @@ export class DataForm {
         }
         return {
             Id: this.data.OL.Id,
-            Rate: numeral(this.data.OL.Rate).format(ongkosNumberFormat),
-            CalculatedRate: this.data.OL.CalculatedRate
+            Value: numeral(this.data.OL.Value).format(ongkosNumberFormat),
+            CalculatedValue: this.data.OL.CalculatedValue
         };
     }
 
     @computedFrom("OTL1Check", "data.SH_Cutting", "data.SH_Sewing", "data.SH_Finishing")
-    get OTL1Value() {
+    get OTL1() {
         if (this.OTL1Check) {
             if (!(this.data.OTL1 ? (this.data.OTL1.Id ? true : false) : false) || this.uncheckedOnceOTL1) {
-                let mTarifOTL1 = this.defaultOTL1.Rate;
+                let mTarifOTL1 = this.defaultOTL1.Value;
                 let mTotalSH = this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
                 let calculatedOTL1 = mTarifOTL1 * mTotalSH * 3.6;
                 let result = {
                     Id: this.defaultOTL1.Id,
-                    Rate: this.defaultOTL1.Rate,
-                    CalculatedRate: parseFloat(calculatedOTL1.toFixed(2))
+                    Value: this.defaultOTL1.Value,
+                    CalculatedValue: parseFloat(calculatedOTL1.toFixed(2))
                 }
                 this.data.OTL1 = result;
             }
@@ -215,22 +234,22 @@ export class DataForm {
         }
         return {
             Id: this.data.OTL1.Id,
-            Rate: numeral(this.data.OTL1.Rate).format(ongkosNumberFormat),
-            CalculatedRate: this.data.OTL1.CalculatedRate
+            Value: numeral(this.data.OTL1.Value).format(ongkosNumberFormat),
+            CalculatedValue: this.data.OTL1.CalculatedValue
         };
     }
 
     @computedFrom("OTL2Check", "data.SH_Cutting", "data.SH_Sewing", "data.SH_Finishing")
-    get OTL2Value() {
+    get OTL2() {
         if (this.OTL2Check) {
             if (!(this.data.OTL2 ? (this.data.OTL2.Id ? true : false) : false) || this.uncheckedOnceOTL2) {
-                let mTarifOTL2 = this.defaultOTL2.Rate;
+                let mTarifOTL2 = this.defaultOTL2.Value;
                 let mTotalSH = this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
                 let calculatedOTL2 = mTarifOTL2 * mTotalSH * 3.6;
                 let result = {
                     Id: this.defaultOTL2.Id,
-                    Rate: this.defaultOTL2.Rate,
-                    CalculatedRate: parseFloat(calculatedOTL2.toFixed(2))
+                    Value: this.defaultOTL2.Value,
+                    CalculatedValue: parseFloat(calculatedOTL2.toFixed(2))
                 }
                 this.data.OTL2 = result;
             }
@@ -241,22 +260,22 @@ export class DataForm {
         }
         return {
             Id: this.data.OTL2.Id,
-            Rate: numeral(this.data.OTL2.Rate).format(ongkosNumberFormat),
-            CalculatedRate: this.data.OTL2.CalculatedRate
+            Value: numeral(this.data.OTL2.Value).format(ongkosNumberFormat),
+            CalculatedValue: this.data.OTL2.CalculatedValue
         };
     }
 
     @computedFrom("OTL3Check", "data.SH_Cutting", "data.SH_Sewing", "data.SH_Finishing")
-    get OTL3Value() {
+    get OTL3() {
         if (this.OTL3Check) {
             if (!(this.data.OTL3 ? (this.data.OTL3.Id ? true : false) : false) || this.uncheckedOnceOTL3) {
-                let mTarifOTL3 = this.defaultOTL3.Rate;
+                let mTarifOTL3 = this.defaultOTL3.Value;
                 let mTotalSH = this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
                 let calculatedOTL3 = mTarifOTL3 * mTotalSH * 3.6;
                 let result = {
                     Id: this.defaultOTL3.Id,
-                    Rate: this.defaultOTL3.Rate,
-                    CalculatedRate: parseFloat(calculatedOTL3.toFixed(2))
+                    Value: this.defaultOTL3.Value,
+                    CalculatedValue: parseFloat(calculatedOTL3.toFixed(2))
                 }
                 this.data.OTL3 = result;
             }
@@ -267,8 +286,8 @@ export class DataForm {
         }
         return {
             Id: this.data.OTL3.Id,
-            Rate: numeral(this.data.OTL3.Rate).format(ongkosNumberFormat),
-            CalculatedRate: this.data.OTL3.CalculatedRate
+            Value: numeral(this.data.OTL3.Value).format(ongkosNumberFormat),
+            CalculatedValue: this.data.OTL3.CalculatedValue
         };
     }
 
@@ -306,7 +325,7 @@ export class DataForm {
         }
         let totalCost = 0;
         if (totalMaterial > 0) {
-            totalCost = totalMaterial + this.data.OL.CalculatedRate + this.data.OTL1.CalculatedRate + this.data.OTL2.CalculatedRate + this.data.OTL3.CalculatedRate;
+            totalCost = totalMaterial + this.data.OL.CalculatedValue + this.data.OTL1.CalculatedValue + this.data.OTL2.CalculatedValue + this.data.OTL3.CalculatedValue;
         }
 
         this.data.HPP = parseFloat((totalCost + totalCost * this.data.Risk / 100).toFixed(2));

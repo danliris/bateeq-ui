@@ -1,0 +1,16 @@
+<template>
+    <ai-dialog style="max-width:750px;">
+        <ai-dialog-header>
+            ${title}
+        </ai-dialog-header>
+
+        <ai-dialog-body>
+            <h4>${message}</h4>
+        </ai-dialog-body>
+
+        <ai-dialog-footer>
+            <button class="btn btn-default" click.trigger="controller.ok(message)">Ok</button>
+        </ai-dialog-footer>
+
+    </ai-dialog>
+</template>
