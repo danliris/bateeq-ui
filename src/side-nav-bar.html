@@ -11,6 +11,7 @@
             <ul class="sidebar-menu">
                 <li repeat.for="[key, value] of group" click.delegate="selectMenu(value, key)" value.bind="activeMenu" class.bind="activeMenu == key ? 'active' : ''">
                     <a href="#" title.bind="key.toUpperCase()">
+                        <i class="fa fa-list-alt" if.bind="key.toUpperCase() == 'MASTER'"></i>
                         <i class="fa fa-shopping-bag" if.bind="key.toUpperCase() == 'TOKO'"></i>
                         <i class="fa fa-bank" if.bind="key.toUpperCase() == 'GUDANG PUSAT'"></i>
                         <i class="fa fa-table" if.bind="key.toUpperCase() == 'LAPORAN'"></i>
@@ -20,6 +21,7 @@
                         <i class="fa fa-cogs" if.bind="key.toUpperCase() == 'FINISHING'"></i>
                         <i class="fa fa-gg-circle" if.bind="key.toUpperCase() == 'GENERAL INVENTORY'"></i>
                         <i class="fa fa-user-o" if.bind="key.toUpperCase() == 'AUTH'"></i>
+                        <i class="fa fa-credit-card" if.bind="key.toUpperCase() == 'PURCHASING'"></i>
                         <span if.bind="!minimized">${key.toUpperCase()}</span>
                         <div class="pull-right" if.bind="value.length > 0 && !minimized">
                             <i class="fa fa-angle-right"></i>

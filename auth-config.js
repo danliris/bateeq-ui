@@ -1,11 +1,12 @@
 export default {
     endpoint: "auth",
-    configureEndpoints: ["auth", "core", "master", "manufacture", "inventory", "merchandiser", "md", "sales"],
+    configureEndpoints: ["auth", "core", "master", "manufacture", "inventory", "merchandiser", "md", "sales", "purchasing"],
 
     loginUrl: "/authenticate",
     profileUrl: "/me",
 
-    authTokenType: "JWT",
+    authTokenType:"Bearer",
+    //authTokenType: "JWT",
     accessTokenProp: "data",
 
     storageChangedReload : true

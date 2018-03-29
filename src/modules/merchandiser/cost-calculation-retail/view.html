@@ -1,0 +1,92 @@
+<template>
+    <style>
+        .bordered {
+            border-style: solid;
+            border-width: 1px;
+            padding-top: 15px;
+        }
+
+        .bordered-next {
+            border-left-width: 0px;
+            padding-top: 18.5px;
+            padding-bottom: 18.5px;
+        }
+
+        .bordered-not-last {
+            border-bottom-width: 0px;
+        }
+
+        .bordered .price {
+            font-size: 20px;
+        }
+    </style>
+    <au-input-form title.bind="title" with.bind="context">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="col-md-4">
+                    <au-textbox label="RO" options.bind="length0" value.bind="data.RO" error.bind="error.RO" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Artikel" options.bind="length0" value.bind="data.Article" error.bind="error.Article" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Style" options.bind="length0" value.bind="data.Style.name" error.bind="error.Style.name" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Season" options.bind="length0" value.bind="data.Season.name" error.bind="error.Season.name" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Konter" options.bind="length0" value.bind="data.Counter.name" error.bind="error.Counter.name" read-only.bind="readOnly"></au-textbox>
+                </div>
+                <div class="col-md-4">
+                    <au-textbox label="Buyer" options.bind="length0" value.bind="data.Buyer.Name" error.bind="error.Buyer.Name" read-only.bind="readOnly"></au-textbox>
+                    <au-datepicker label="Delivery Date" options.bind="length0" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate"
+                        read-only.bind="readOnly"></au-datepicker>
+                    <au-textbox label="Size Range" options.bind="length0" value.bind="data.SizeRange.Name" error.bind="error.SizeRange.Name"
+                        read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Efficiency (%)" options.bind="length0" value.bind="data.Efficiency.Value" error.bind="error.Efficiency.Value"
+                        read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Risk (%)" options.bind="length0" value.bind="data.Risk" read-only.bind="readOnly"></au-textbox>
+                </div>
+                <div class="col-md-4">
+                    <au-textbox label="Tarif OL" options.bind="length6" value.bind="data.OL.Value" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Tarif OTL 1" options.bind="length6" value.bind="data.OTL1.Value" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Tarif OTL 2" options.bind="length6" value.bind="data.OTL2.Value" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="Tarif OTL 3" options.bind="length6" value.bind="data.OTL3.Value" read-only.bind="readOnly"></au-textbox>
+                    <au-textbox label="STD Hour" options.bind="length6" value.bind="data.STD_Hour" read-only.bind="readOnly"></au-textbox>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <img src.bind="data.ImageFile || 'https://bateeqstorage.blob.core.windows.net/other/no-image.jpg'" class="center-block" height="auto"
+                    width="60%">
+                <br>
+                <div class="text-center">${data.Article}</div>
+            </div>
+        </div>
+        <br>
+        <au-collection items.bind="data.CostCalculationRetail_Materials" columns.bind="costCalculationRetail_MaterialsInfo.columns"
+            item-template="modules/merchandiser/cost-calculation-retail/template/view/cost-calculation-retail-material" footer-template="modules/merchandiser/cost-calculation-retail/template/view/cost-calculation-retail-material-footer">
+        </au-collection>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-12" style="margin-left: -15px;">
+                    <p>Kalkulasi HPP: Total Cost + (Total Cost * Risk)</p>
+                </div>
+                <div class="col-md-5 bordered">
+                    <au-numeric label="OL" options.bind="length0" value.bind="data.OL.CalculatedValue" read-only.bind="readOnly"></au-numeric>
+                    <au-numeric label="OTL 1" options.bind="length0" value.bind="data.OTL1.CalculatedValue" read-only.bind="readOnly"></au-numeric>
+                    <au-numeric label="OTL 2" options.bind="length0" value.bind="data.OTL2.CalculatedValue" read-only.bind="readOnly"></au-numeric>
+                    <au-numeric label="OTL 3" options.bind="length0" value.bind="data.OTL3.CalculatedValue" read-only.bind="readOnly"></au-numeric>
+                </div>
+                <div class="col-md-7 bordered bordered-next bordered-not-last">
+                    <p>HPP</p>
+                    <p class="price">Rp.${data.HPP}</p>
+                </div>
+                <div class="col-md-7 bordered bordered-next">
+                    <p>Wholesale Price: HPP * 2.20</p>
+                    <p class="price">Rp.${data.WholesalePrice}</p>
+                </div>
+                <br>
+                <div class="col-md-12" style="margin-left: -15px; margin-top: 20px;">
+                    <au-multiline label="Keterangan" value.bind="data.Description" options.bind="length0" read-only.bind="readOnly"></au-multiline>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <au-collection items.bind="data.priceInfo" columns.bind="priceInfo.columns" item-template="modules/merchandiser/cost-calculation-retail/template/view/price-info">
+                </au-collection>
+            </div>
+        </div>
+    </au-input-form>
+</template>

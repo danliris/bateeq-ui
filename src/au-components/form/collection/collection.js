@@ -33,7 +33,7 @@ export class Collection {
     this.buildContext();
   }
 
-  @computedFrom("columns")
+  @computedFrom("columns", "columns.length")
   get __columns() {
     if (!this.__hasColumns)
       return [];
