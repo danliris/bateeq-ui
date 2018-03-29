@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing",
-            permission: { "PBL.01": 1 },
+            permission: { "*": 1 },
             iconClass: 'fa fa-credit-card'
         }
     },
