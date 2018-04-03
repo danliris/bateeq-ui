@@ -22,8 +22,9 @@
             </div>
             <div class="col-md-4">
                 <au-textbox label="Style" value.bind="data.CostCalculationRetail.Style.name" read-only.bind="disabled" options.bind="length4"
-                    show.bind="hasCostCalculationRetail" read-only.bind="readOnly"></au-textbox>
-                <au-datepicker label="Delivery Date" value.bind="data.CostCalculationRetail.DeliveryDate" read-only.bind="disabled" options.bind="length4"></au-datepicker>
+                    show.bind="hasCostCalculationRetail"></au-textbox>
+                <au-datepicker label="Delivery Date" value.bind="data.CostCalculationRetail.DeliveryDate" read-only.bind="disabled" show.bind="hasCostCalculationRetail"
+                    options.bind="length4"></au-datepicker>
             </div>
         </div>
         <div class="col-md-10">
