@@ -1,7 +1,7 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework'
 import {Service} from './service';
 var UnitLoader = require('../../../loader/unit-loader');
-var CategoryLoader = require('../../../loader/category-loader');
+var CategoryLoader = require('../../../loader/purchasing-category-loader');
 var PurchaseRequestPostedLoader = require('../../../loader/purchase-request-posted-loader');
 var moment = require('moment');
 

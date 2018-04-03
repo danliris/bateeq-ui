@@ -4,7 +4,7 @@ var SupplierLoader = require('../../../loader/supplier-loader');
 var CurrencyLoader = require('../../../loader/currency-loader');
 var VatLoader = require('../../../loader/vat-loader');
 var DivisionLoader = require('../../../loader/division-loader');
-var CategoryLoader = require('../../../loader/category-loader');
+var CategoryLoader = require('../../../loader/purchasing-category-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
