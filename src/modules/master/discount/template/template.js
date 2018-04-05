@@ -1,5 +1,5 @@
-import { bindable } from 'aurelia-framework'
-var ItemLoader = require('../../../../loader/finished-goods-loader');
+import { bindable } from 'aurelia-framework';
+var ItemLoader = require('../../../../loader/finishgood-loader-discount');
 
 export class Template {
     activate(context) {
@@ -16,8 +16,10 @@ export class Template {
     }
 
     itemChanged(e) {
-        if (this.data.item)
-            this.data.itemId = this.data.item._id ? this.data.item._id : {};
+        debugger
+        if (this.data) {
+            this.data.itemId = this.data.code_id ? this.data.code_id : {};
+        }
     }
 
     controlOptions = {
