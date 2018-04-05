@@ -42,7 +42,6 @@ export class DataForm {
     }
 
     storeCategoryChanged(e) {
-        debugger;
         var selectedStoreCategory = e.srcElement.value;
         if (selectedStoreCategory !== this.data.storeCategory) {
             this.data.storeCategory = this.selectedStoreCategory;
@@ -57,9 +56,6 @@ export class DataForm {
         this.storeNameOptions = [];
         return Promise.all(getStore)
         .then(result => {
-            debugger;
-            console.log(result);
-
             this.storeNameOptions = result.map(store => {
                 return store.name;
             });
