@@ -141,5 +141,18 @@ module.exports = [
             permission: { "PBL.01": 1 },
             iconClass: ''
         }
+    },
+    {
+        route: 'discount',
+        name: 'discount',
+        moduleId: './modules/master/discount/index',
+        nav: true,
+        title: 'Diskon | Merchandiser',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "MRD.01": 1 },
+            iconClass: ''
+        }
     }
 ]

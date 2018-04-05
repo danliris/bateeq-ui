@@ -1,0 +1,75 @@
+<template>
+    <au-input-form title.bind="title" with.bind="context">
+
+        <div slot="actions" class="btn-group">
+            <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+            <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+            <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+        </div>
+
+        <au-textbox 
+            label="Diskon" 
+            value.bind="data.name" 
+            error.bind="error.name" 
+            placeholder="Nama Diskon" 
+            options.bind="controlOptions">
+        </au-textbox>
+
+        <au-datepicker 
+            label="Mulai Berlaku" 
+            value.bind="data.startDate" 
+            error.bind="error.startDate" 
+            read-only.bind="readOnly" 
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-datepicker 
+            label="Mulai Berlaku" 
+            value.bind="data.endDate" 
+            error.bind="error.endDate" 
+            read-only.bind="readOnly"
+            options.bind="controlOptions">
+        </au-datepicker>
+
+        <au-dropdown 
+            label="Mapping Diskon" 
+            value.bind="data.discountMapping" 
+            error.bind="error.discountMapping" 
+            read-only.bind="readOnly"
+            items.bind="discountMappingOptions" 
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-dropdown 
+            label="Kategori Toko" 
+            value.bind="data.storeCategory" 
+            error.bind="error.storeCategory" 
+            read-only.bind="readOnly"
+            items.bind="storeCategoryOptions" 
+            change.delegate="storeCategoryChanged($event)" 
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-dropdown 
+            label="Toko" 
+            value.bind="data.store.name" 
+            error.bind="error.store.name" 
+            read-only.bind="readOnly" 
+            items.bind="storeNameOptions"
+            options.bind="controlOptions">
+        </au-dropdown>
+
+        <au-collection 
+              items.bind="data.items" 
+              errors.bind="error.items" 
+              columns.bind="itemsColumns" 
+              add.bind="addItems" 
+              remove.bind="removeItems"
+              read-only.bind="readOnly" 
+              item-template="modules/master/discount/template/template">
+        </au-collection>
+  
+
+    </au-input-form>
+</template>
