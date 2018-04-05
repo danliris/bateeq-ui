@@ -1,15 +1,22 @@
 import { inject } from 'aurelia-framework';
 import { Service } from "./../service";
 import { Router } from 'aurelia-router';
+import moment from 'moment';
 
 @inject(Router, Service)
 export class List {
     context = ["Detail"];
     columns = [
         { field: "name", title: "Diskon" },
-        { field: "startDate", title: "Mulai Berlaku" },
-        { field: "endDate", title: "Berlaku Hingga" },
-        { field: "discountType", title: "Tipe Diskon" },
+        { field: "startDate", title: "Mulai Berlaku", formatter: function (value, data, index) {
+            return moment(value).format("DD MMM YYYY");
+          }
+        },
+        { field: "endDate", title: "Berlaku Hingga", formatter: function (value, data, index) {
+            return moment(value).format("DD MMM YYYY");
+          } 
+        },
+        { field: "discountMapping", title: "Mapping Diskon" },
     ];
 
     loader = (info) => {
@@ -28,7 +35,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (let data of result.data) {
-                    data.Category.FullName = data.Category.SubCategory ? data.Category.Name + " - " + data.Category.SubCategory : data.Category.Name;
+                    data.name = data.name ? data.name + "%" : data.name;
                 }
                 return {
                     total: result.info.total,

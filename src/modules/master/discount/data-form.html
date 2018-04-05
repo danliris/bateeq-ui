@@ -8,13 +8,15 @@
             <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
         </div>
 
-        <au-textbox 
-            label="Diskon" 
+        <numeric 
+            label="Diskon (%)" 
             value.bind="data.name" 
             error.bind="error.name" 
-            placeholder="Nama Diskon" 
-            options.bind="controlOptions">
-        </au-textbox>
+            format="0"
+            placeholder ="discount"
+            read-only.bind="readOnly"
+            post-fix="%">
+        </numeric>
 
         <au-datepicker 
             label="Mulai Berlaku" 
