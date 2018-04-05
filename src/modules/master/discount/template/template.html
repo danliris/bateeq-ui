@@ -1,0 +1,41 @@
+<template>
+    <tr>
+        <td  class="col-sm-3">
+            <au-autocomplete 
+                    value.bind="data.barcode" 
+                    error.bind="error.barcode"
+                    change.delegate="itemChanged($event)"
+                    loader.bind="itemLoader"
+                    placeholder="barcode" 
+                    key="code"
+                    read-only.bind="options.readOnly"
+                    options.bind="controlOptions">
+                </au-autocomplete>
+        </td>
+        <td style="text-align:center;" class="col-sm-2">
+            <au-textbox
+                value.bind="data.article.realizationOrder" 
+                read-only.bind="true"
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td class="col-sm-2">
+                <au-textbox 
+                    value.bind="data.name" 
+                    error.bind="error.name"
+                    read-only.bind="true"
+                    options.bind="controlOptions">
+                </au-textbox>
+        </td>
+        <td class="col-sm-2">
+            <au-textbox 
+                value.bind="data.remark" 
+                error.bind="error.remark"
+                read-only.bind="options.readOnly" 
+                placeholder="keterangan" 
+                options.bind="controlOptions">
+            </au-textbox>
+        </td>
+        <td class="col-sm-2" if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
+    </tr>
+</template>
