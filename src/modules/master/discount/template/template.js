@@ -16,7 +16,6 @@ export class Template {
     }
 
     itemChanged(e) {
-        debugger
         if (this.data) {
             this.data.itemId = this.data.code_id ? this.data.code_id : {};
         }
