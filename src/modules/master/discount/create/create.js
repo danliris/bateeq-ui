@@ -61,8 +61,8 @@ export class Create {
         if (data.storeCategory === "- categories -") {
             this.error.storeCategory = "Pilih Kategori Toko";
         }
-
-        if (data.store.name === "- stores -") {
+        
+        if (data.stores.name === "- stores -") {
             this.error.storeName = "Pilih Toko";
         }
 
