@@ -7,7 +7,7 @@ import moment from 'moment';
 export class List {
     context = ["Detail"];
     columns = [
-        { field: "name", title: "Diskon" },
+        { field: "discount", title: "Diskon" },
         { field: "startDate", title: "Mulai Berlaku", formatter: function (value, data, index) {
             return moment(value).format("DD MMM YYYY");
           }
@@ -35,7 +35,7 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (let data of result.data) {
-                    data.name = data.name ? data.name + "%" : data.name;
+                    data.discount = data.discount ? data.discount + "%" : data.discount;
                 }
                 return {
                     total: result.info.total,
