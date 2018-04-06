@@ -3,7 +3,6 @@ import { Service } from './services/service';
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 import { OngkosService } from './services/ongkos-service';
 import { EfficiencyService } from './services/efficiency-service';
-import { Base64 } from '../../../lib/base64';
 import { NumberFormatValueConverter } from '../../../lib/number-format-value-converter';
 import numeral from 'numeral';
 const articleStyleLoader = require('../../../loader/sub-counter-loader');
@@ -14,7 +13,7 @@ const articleCounterLoader = require('../../../loader/counter-loader');
 const defaultNumberFormat = "0,0.00";
 const ongkosNumberFormat = "0,0.000";
 
-@inject(Router, Service, BindingEngine, OngkosService, EfficiencyService, NumberFormatValueConverter, Base64)
+@inject(Router, Service, BindingEngine, OngkosService, EfficiencyService, NumberFormatValueConverter)
 export class DataForm {
     @bindable title;
     @bindable readOnly;
@@ -89,14 +88,13 @@ export class DataForm {
         }.bind(this)
     };
 
-    constructor(router, service, bindingEngine, ongkosService, efficiencyService, numberFormatValueConverter, base64) {
+    constructor(router, service, bindingEngine, ongkosService, efficiencyService, numberFormatValueConverter) {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.ongkosService = ongkosService;
         this.efficiencyService = efficiencyService;
         this.numberFormatValueConverter = numberFormatValueConverter;
-        this.base64 = base64
     }
 
     @bindable imageUpload;
@@ -106,11 +104,9 @@ export class DataForm {
         let reader = new FileReader();
         reader.onload = event => {
             let base64Image = event.target.result;
-            this.imageSrc = base64Image;
-            this.data.ImageFile = base64Image.substr(base64Image.indexOf(',') + 1);
+            this.imageSrc = this.data.ImageFile = base64Image;
         }
         reader.readAsDataURL(imageInput.files[0]);
-        this.data.ImageType = imageInput.files[0].type;
     }
 
     @computedFrom("data.Id")
@@ -142,9 +138,7 @@ export class DataForm {
         this.OTL1Check = this.data.OTL1 ? (this.data.OTL1.Id ? true : false) : false;
         this.OTL2Check = this.data.OTL2 ? (this.data.OTL2.Id ? true : false) : false;
         this.OTL3Check = this.data.OTL3 ? (this.data.OTL3.Id ? true : false) : false;
-        this.imageSrc = this.isEdit ? (this.data.ImageFile ? this.data.ImageFile : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
-        this.data.ImageFile = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64File(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
-        this.data.ImageType = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64Type(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.imageSrc = this.data.ImageFile = this.isEdit ? (this.data.ImageFile || "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
 
         this.defaultOL = await this.ongkosService.search({ keyword: "OL" })
             .then(results => {
