@@ -3,9 +3,10 @@ import { Router } from 'aurelia-router';
 import { Service } from './../service';
 
 @inject(Router, Service)
-export class Create {
+export class Edit {
     hasCancel = true;
     hasSave = true;
+    readOnlyDiscount = true;
 
     constructor(router, service) {
         this.router = router;
@@ -13,36 +14,46 @@ export class Create {
     }
 
     bind() {
-        this.data = { items: [] };
         this.error = {};
     }
 
-    list() {
-        this.router.navigateToRoute('list');
+    async activate(params) {
+        var id = params.id;
+        this.prId = id;
+        this.data = await this.service.getById(id);
+
+        if (this.data.items) {
+            debugger
+            this.data.items.forEach(item => {
+                item.product.toString = function () {
+                    return [this.code, this.name]
+                        .filter((item, index) => {
+                            return item && item.toString().trim().length > 0;
+                        }).join(" - ");
+                }
+            });
+        }
     }
 
     cancel(event) {
-        this.router.navigateToRoute('list');
+        this.router.navigateToRoute('view', { id: this.data._id });
     }
 
     save(event) {
-        this.error = {};
         this.validateUI(this.data);
-        
+
         if (Object.getOwnPropertyNames(this.error).length < 1) {
-            this.service.create(this.data)
-                .then(result => {
-                    this.list();
-                })
-                .catch(e => {
-                    this.error = e;
-                });
+            this.service.update(this.data).then(result => {
+                this.cancel();
+            }).catch(e => {
+                this.error = e;
+            });
         }
     }
 
     validateUI(data) {
         //Check Field if Empty
-        if (data.discount === 0 ) {
+        if (data.discount === 0) {
             this.error.discount = "Masukkan Nilai Diskon"
         }
 
@@ -54,7 +65,7 @@ export class Create {
             this.error.endDate = "Masukkan Tanggal Selesai Berlaku Diskon"
         }
 
-        if (data.discountMapping === "- discount -" ) {
+        if (data.discountMapping === "- discount -") {
             this.error.discountMapping = "Pilih tipe Diskon";
         }
 
