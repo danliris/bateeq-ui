@@ -7,6 +7,7 @@ export class Edit {
     hasCancel = true;
     hasSave = true;
     readOnlyDiscount = true;
+    storeNameOptions = [];
 
     constructor(router, service) {
         this.router = router;
@@ -31,6 +32,8 @@ export class Edit {
                         }).join(" - ");
                 }
             });
+
+            this.storeNameOptions.push(this.data.stores.name);
         }
     }
 
