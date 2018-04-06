@@ -10,7 +10,7 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
 
-    discountMappingOptions = ["- discount -","Diskon 1", "Diskon 2"];
+    discountMappingOptions = ["- discount -", "Diskon 1", "Diskon 2"];
     storeCategoryOptions = ["- categories -", "ALL", "DEPT STORE", "STAND ALONE", "FACTORY OUTLET", "MARKET PLACE"];
     storeNameOptions = ["- stores -"];
 
@@ -55,11 +55,16 @@ export class DataForm {
 
         this.storeNameOptions = [];
         return Promise.all(getStore)
-        .then(result => {
-            this.storeNameOptions = result.map(store => {
-                return store.name;
+            .then(result => {
+
+                if (storeCategory !== "ALL") {
+                    this.storeNameOptions = result.map(store => {
+                        return store.name;
+                    });
+                } else {
+                    this.storeNameOptions.push("ALL");
+                }
             });
-        });
     }
 
     get addItems() {

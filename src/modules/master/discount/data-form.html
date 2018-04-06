@@ -10,8 +10,8 @@
 
         <numeric 
             label="Diskon (%)" 
-            value.bind="data.name" 
-            error.bind="error.name" 
+            value.bind="data.discount" 
+            error.bind="error.discount" 
             format="0"
             placeholder ="discount"
             read-only.bind="readOnly"
@@ -56,7 +56,7 @@
         <au-dropdown 
             label="Toko" 
             value.bind="data.store.name" 
-            error.bind="error.store.name" 
+            error.bind="error.storeName" 
             read-only.bind="readOnly" 
             items.bind="storeNameOptions"
             options.bind="controlOptions">
