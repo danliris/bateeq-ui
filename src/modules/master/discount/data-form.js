@@ -42,6 +42,7 @@ export class DataForm {
     }
 
     storeCategoryChanged(e) {
+        debugger
         var selectedStoreCategory = e.srcElement.value;
         if (selectedStoreCategory !== this.data.storeCategory) {
             this.data.storeCategory = this.selectedStoreCategory;

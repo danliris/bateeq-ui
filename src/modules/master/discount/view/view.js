@@ -6,7 +6,7 @@ import { Service } from './../service';
 export class View {
     hasCancel = true;
     hasEdit = true;
-    hasDelete = false;
+    hasDelete = true;
     prId = "";
     readOnlyDiscount = true;
 
