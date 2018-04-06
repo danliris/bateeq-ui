@@ -61,6 +61,7 @@ export class DataForm {
                     this.storeNameOptions = result.map(store => {
                         return store.name;
                     });
+                    this.storeNameOptions.splice(0,0,"ALL");
                 } else {
                     this.storeNameOptions.push("ALL");
                 }

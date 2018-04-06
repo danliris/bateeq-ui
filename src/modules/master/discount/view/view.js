@@ -8,6 +8,7 @@ export class View {
     hasEdit = true;
     hasDelete = false;
     prId = "";
+    readOnlyDiscount = true;
 
     constructor(router, service) {
         this.router = router;
@@ -20,9 +21,8 @@ export class View {
         this.data = await this.service.getById(id);
 
         if (this.data.items) {
-            debugger
             this.data.items.forEach(item => {
-                item.product.toString = function () {
+                item.toString = function () {
                     return [this.code, this.name]
                         .filter((item, index) => {
                             return item && item.toString().trim().length > 0;
