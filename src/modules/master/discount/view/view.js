@@ -9,6 +9,7 @@ export class View {
     hasDelete = true;
     prId = "";
     readOnlyDiscount = true;
+    storeNameOptions = [];
 
     constructor(router, service) {
         this.router = router;
@@ -21,6 +22,10 @@ export class View {
         this.data = await this.service.getById(id);
 
         if (this.data.items) {
+            if (this.data.stores.length > 1) {
+                this.data.stores.name = "ALL";
+            }
+
             this.data.items.forEach(item => {
                 item.toString = function () {
                     return [this.code, this.name]
