@@ -38,7 +38,6 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
-        this.error = this.context.error;
         if (this.data.stores) {
             if (this.data.stores.length > 0) {
                 this.storeNameOptions.push("ALL");
@@ -62,17 +61,6 @@ export class DataForm {
         }
 
         this.storeNameOptions = await this.changeStore(selectedStoreCategory);
-    }
-
-    async discountChanged(e) {
-        this.error = {};
-        var selectedDiscount = e.srcElement.value;
-        var notValidDiscount = await this.service.getAvailableDiscount(selectedDiscount);
-        if (notValidDiscount) {
-            if (notValidDiscount.length > 0) {
-                this.error.discount = "Diskon Sudah Ada";
-            }
-        }
     }
 
     changeStore(storeCategory) {
