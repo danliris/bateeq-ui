@@ -40,6 +40,7 @@ export class DataForm {
         this.data = this.context.data;
         if (this.data.stores) {
             if (this.data.stores.length > 0) {
+                this.storeNameOptions = [];
                 this.storeNameOptions.push("ALL");
             } else {
                 this.storeNameOptions = [];

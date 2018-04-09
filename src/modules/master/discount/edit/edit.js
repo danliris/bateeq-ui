@@ -1,6 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './../service';
+import { debug } from 'util';
 
 @inject(Router, Service)
 export class Edit {
@@ -40,7 +41,9 @@ export class Edit {
     save(event) {
         this.error = {};
         this.validateUI(this.data);
-
+        if (this.data.stores.length > 1) {
+            this.data.stores = {"name":"ALL"};
+        } 
         if (Object.getOwnPropertyNames(this.error).length < 1) {
             this.service.update(this.data).then(result => {
                 this.cancel();
