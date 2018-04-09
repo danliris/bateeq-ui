@@ -39,25 +39,33 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        if (this.data.stores) {
+            if (this.data.stores.length > 0) {
+                this.storeNameOptions.push("ALL");
+            } else {
+                this.storeNameOptions = [];
+                this.storeNameOptions.push(this.data.stores.name);
+            }
+        }
     }
 
     async storeCategoryChanged(e) {
-        this.storeNameOptions = [];
+
+        if (this.storeNameOptions.length > 0) {
+            this.storeNameOptions = [];
+        }
+
         var selectedStoreCategory = e.srcElement.value;
+
         if (selectedStoreCategory !== this.data.storeCategory) {
             this.data.storeCategory = this.selectedStoreCategory;
         }
-        var store = await this.changeStore(selectedStoreCategory);
 
-        if (store.length > 0) {
-            store.forEach(result => {
-                this.storeNameOptions.push(result);
-            })
-        }
+        this.storeNameOptions = await this.changeStore(selectedStoreCategory);
     }
 
     async discountChanged(e) {
-        this.error ={};
+        this.error = {};
         var selectedDiscount = e.srcElement.value;
         var notValidDiscount = await this.service.getAvailableDiscount(selectedDiscount);
         if (notValidDiscount) {
