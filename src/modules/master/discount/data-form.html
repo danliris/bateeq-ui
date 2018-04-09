@@ -15,7 +15,8 @@
             format="0"
             placeholder ="discount"
             read-only.bind="readOnlyDiscount"
-            post-fix="%">
+            post-fix="%"
+            change.delegate="discountChanged($event)">
         </numeric>
 
         <au-datepicker 

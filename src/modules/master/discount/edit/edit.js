@@ -14,8 +14,9 @@ export class Edit {
         this.service = service;
     }
 
-    bind() {
-        this.error = {};
+    bind(context) {
+        this.context = context;
+        this.data = context.data;
     }
 
     async activate(params) {
@@ -24,6 +25,10 @@ export class Edit {
         this.data = await this.service.getById(id);
 
         if (this.data.items) {
+            if (this.data.stores.length > 1) {
+                this.data.stores.name = "ALL";
+            }
+
             this.data.items.forEach(item => {
                 item.toString = function () {
                     return [this.code, this.name]
@@ -32,7 +37,6 @@ export class Edit {
                         }).join(" - ");
                 }
             });
-
             this.storeNameOptions.push(this.data.stores.name);
         }
     }
@@ -42,6 +46,7 @@ export class Edit {
     }
 
     save(event) {
+        this.error = {};
         this.validateUI(this.data);
 
         if (Object.getOwnPropertyNames(this.error).length < 1) {
@@ -74,7 +79,7 @@ export class Edit {
         if (data.storeCategory === "- categories -") {
             this.error.storeCategory = "Pilih Kategori Toko";
         }
-        
+
         if (data.stores.name === "- stores -") {
             this.error.storeName = "Pilih Toko";
         }

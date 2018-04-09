@@ -41,30 +41,46 @@ export class DataForm {
         this.error = this.context.error;
     }
 
-    storeCategoryChanged(e) {
+    async storeCategoryChanged(e) {
+        this.storeNameOptions = [];
         var selectedStoreCategory = e.srcElement.value;
         if (selectedStoreCategory !== this.data.storeCategory) {
             this.data.storeCategory = this.selectedStoreCategory;
         }
+        var store = await this.changeStore(selectedStoreCategory);
 
-        this.changeStore(selectedStoreCategory);
+        if (store.length > 0) {
+            store.forEach(result => {
+                this.storeNameOptions.push(result);
+            })
+        }
+    }
+
+    async discountChanged(e) {
+        this.error ={};
+        var selectedDiscount = e.srcElement.value;
+        var notValidDiscount = await this.service.getAvailableDiscount(selectedDiscount);
+        if (notValidDiscount) {
+            if (notValidDiscount.length > 0) {
+                this.error.discount = "Diskon Sudah Ada";
+            }
+        }
     }
 
     changeStore(storeCategory) {
         var getStore = StoreLoader(storeCategory);
-
-        this.storeNameOptions = [];
+        var storeName = [];
         return Promise.all(getStore)
             .then(result => {
-
                 if (storeCategory !== "ALL") {
-                    this.storeNameOptions = result.map(store => {
+                    storeName = result.map(store => {
                         return store.name;
                     });
-                    this.storeNameOptions.splice(0,0,"ALL");
+                    storeName.splice(0, 0, "ALL");
                 } else {
-                    this.storeNameOptions.push("ALL");
+                    storeName.push("ALL");
                 }
+                return Promise.resolve(storeName);
             });
     }
 
