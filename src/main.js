@@ -28,7 +28,7 @@ export async function configure(aurelia) {
       var manufacture = "https://bateeq-core-api.mybluemix.net/v1/manufacture/";
       var inventory = "https://bateeq-inventory-api.mybluemix.net/v1/inventory/";
       var merchandiser = "https://bateeq-inventory-api.mybluemix.net/v1/merchandiser/";
-      var md = "https://com-bateeq-service-merchandiser.azurewebsites.net/v1/";
+      var md = "https://com-bateeq-service-merchandiser-prd.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api.mybluemix.net/v1/sales/";
       var purchasing = "https://bateeq-inventory-api.mybluemix.net/v1/purchasing/"
     
