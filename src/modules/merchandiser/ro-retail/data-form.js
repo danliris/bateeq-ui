@@ -1,6 +1,5 @@
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-import { Base64 } from '../../../lib/base64';
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 const costCalculationRetailLoader = require('../../../loader/cost-calculation-retail-loader');
 const defaultSizeBreakdownsColumns = [
@@ -13,7 +12,7 @@ const info = {
     size: Number.MAX_SAFE_INTEGER
 }
 
-@inject(Router, Service, BindingEngine, Base64)
+@inject(Router, Service, BindingEngine)
 export class DataForm {
     @bindable title;
     @bindable readOnly = false;
@@ -82,11 +81,10 @@ export class DataForm {
         return costCalculationRetailLoader;
     }
 
-    constructor(router, service, bindingEngine, base64) {
+    constructor(router, service, bindingEngine) {
         this.router = router;
         this.service = service;
         this.bindingEngine = bindingEngine;
-        this.base64 = base64;
     }
 
     @bindable imageUpload;
@@ -104,12 +102,8 @@ export class DataForm {
     @bindable imagesSrc = [];
     imagesSrcChanged(newValue) {
         this.data.ImagesFile = [];
-        this.data.ImagesType = [];
         newValue.forEach(imageSrc => {
-            let imageFile = this.base64.getBase64File(imageSrc);
-            let imageType = this.base64.getBase64Type(imageSrc);
-            this.data.ImagesFile.push(imageFile);
-            this.data.ImagesType.push(imageType);
+            this.data.ImagesFile.push(imageSrc);
         })
     }
 
@@ -153,7 +147,6 @@ export class DataForm {
         }
 
         this.data.ImagesFile = this.data.ImagesFile ? this.data.ImagesFile : [];
-        this.data.ImagesType = this.data.ImagesType ? this.data.ImagesType : [];
         this.imagesSrc = this.data.ImagesFile.slice();
     }
 

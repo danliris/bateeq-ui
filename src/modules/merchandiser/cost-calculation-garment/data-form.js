@@ -3,7 +3,6 @@ import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { Service } from './services/service';
 import { EfficiencyService } from './services/efficiency-service';
 import { RateService } from './services/rate-service';
-import { Base64 } from '../../../lib/base64';
 import numeral from 'numeral';
 numeral.defaultFormat("0,0.00");
 const rateNumberFormat = "0,0.000";
@@ -11,7 +10,7 @@ const lineLoader = require('../../../loader/line-loader');
 const sizeRangeLoader = require('../../../loader/size-range-loader');
 const buyerLoader = require('../../../loader/buyer-loader');
 
-@inject(Router, Service, EfficiencyService, RateService, Base64)
+@inject(Router, Service, EfficiencyService, RateService)
 export class DataForm {
     @bindable title;
     @bindable readOnly = true;
@@ -67,12 +66,11 @@ export class DataForm {
         Rupiah: "Rupiah"
     }
 
-    constructor(router, service, efficiencyService, rateService, base64) {
+    constructor(router, service, efficiencyService, rateService) {
         this.router = router;
         this.service = service;
         this.efficiencyService = efficiencyService;
         this.rateService = rateService;
-        this.base64 = base64
     }
 
     @bindable imageUpload;
@@ -82,11 +80,9 @@ export class DataForm {
         let reader = new FileReader();
         reader.onload = event => {
             let base64Image = event.target.result;
-            this.imageSrc = base64Image;
-            this.data.ImageFile = base64Image.substr(base64Image.indexOf(',') + 1);
+            this.imageSrc = this.data.ImageFile = base64Image;
         }
         reader.readAsDataURL(imageInput.files[0]);
-        this.data.ImageType = imageInput.files[0].type;
     }
 
     @bindable selectedRate;
@@ -120,9 +116,7 @@ export class DataForm {
         this.fabricAllowance = this.data.FabricAllowance ? this.data.FabricAllowance : 0;
         this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
         this.data.Risk = this.data.Risk ? this.data.Risk : 5;
-        this.imageSrc = this.isEdit ? (this.data.ImageFile ? this.data.ImageFile : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
-        this.data.ImageFile = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64File(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
-        this.data.ImageType = this.isEdit ? (this.data.ImageFile ? this.base64.getBase64Type(this.data.ImageFile) : "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
+        this.imageSrc = this.data.ImageFile = this.isEdit ? (this.data.ImageFile || "https://bateeqstorage.blob.core.windows.net/other/no-image.jpg") : "#";
 
         let promises = [];
 
