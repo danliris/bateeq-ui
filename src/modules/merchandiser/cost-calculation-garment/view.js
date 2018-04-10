@@ -9,7 +9,7 @@ const RP = "Rp. ";
 
 @inject(Router, Service, Dialog)
 export class View {
-    title = "Detail Cost Calculation Garment";
+    title = "Detail Cost Calculation Penjualan Umum";
     readOnly = true;
     length4 = {
         label: {
@@ -126,7 +126,7 @@ export class View {
                 this.list();
             })
             .catch(e => {
-                this.dialog.alert(e, "Hapus Cost Calculation Garment");
+                this.dialog.alert(e, "Hapus Cost Calculation Penjualan Umum");
             })
     }
 }

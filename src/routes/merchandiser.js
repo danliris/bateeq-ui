@@ -56,7 +56,7 @@ module.exports = [
         name: 'cost-calculation-garment',
         moduleId: './modules/merchandiser/cost-calculation-garment/index',
         nav: true,
-        title: 'Cost Calculation Garment',
+        title: 'Cost Calculation Penjualan Umum',
         auth: true,
         settings: {
             group: "merchandiser",
@@ -82,7 +82,7 @@ module.exports = [
         name: 'ro-garment',
         moduleId: './modules/merchandiser/ro-garment/index',
         nav: true,
-        title: 'RO Garment',
+        title: 'RO Penjualan Umum',
         auth: true,
         settings: {
             group: "merchandiser",
