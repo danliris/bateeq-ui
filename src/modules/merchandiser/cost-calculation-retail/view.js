@@ -36,12 +36,13 @@ export class View {
 
     costCalculationRetail_MaterialsInfo = {
         columns: [
-            { header: "Category", value: "Category" },
+            { header: "Kategori", value: "Category" },
             { header: "Material", value: "Material" },
-            { header: "Description", value: "Description" },
-            { header: "Quantity", value: "Quantity" },
-            { header: "Conversion", value: "Conversion" },
-            { header: "Total", value: "Total" }
+            { header: "Deskripsi", value: "Description" },
+            { header: "Kuantitas", value: "Quantity" },
+            { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
+            { header: "Konversi", value: "Conversion" },
+            { header: "Total (Rp)", value: "Total" }
         ]
     };
 

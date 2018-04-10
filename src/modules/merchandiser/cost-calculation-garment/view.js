@@ -36,8 +36,8 @@ export class View {
             { header: "Material", value: "Material" },
             { header: "Deskripsi", value: "Description" },
             { header: "Kuantitas", value: "Quantity" },
-            { header: "Rp. PTC/PC", value: "PricePerUnit" },
-            { header: "Rp. Total", value: "Total" }
+            { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
+            { header: "Total (Rp)", value: "Total" }
         ]
     };
 
