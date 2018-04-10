@@ -60,7 +60,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "MRD.01": 1 },
+            permission: { "PJU.01": 1 },
             iconClass: 'fa fa-university'
         }
     },
@@ -86,7 +86,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "merchandiser",
-            permission: { "MRD.01": 1 },
+            permission: { "PJU.01": 1 },
             iconClass: 'fa fa-university'
         }
     }
