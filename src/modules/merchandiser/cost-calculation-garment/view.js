@@ -104,6 +104,10 @@ export class View {
         this.context = context;
     }
 
+    printPdf() {
+        this.service.getPdfById(this.data.Id);
+    }
+    
     list() {
         this.router.navigateToRoute('list');
     }
