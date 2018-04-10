@@ -24,6 +24,16 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    getItemByCode(code) {
+        var endpoint = `${serviceUri}/filter/item/${code}`;
+        return super.get(endpoint);
+    }
+
+    getAvailableDiscount(discount) {
+        var endpoint = `${serviceUri}/filter/discount/${discount}`;
+        return super.get(endpoint);
+    }
+
     update(data) {
         var endpoint = `${serviceUri}/${data._id}`;
         return super.put(endpoint, data);

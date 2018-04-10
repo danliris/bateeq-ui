@@ -38,33 +38,46 @@ export class DataForm {
     bind(context) {
         this.context = context;
         this.data = this.context.data;
-        this.error = this.context.error;
+        if (this.data.stores) {
+            if (this.data.stores.length > 0) {
+                this.storeNameOptions = [];
+                this.storeNameOptions.push("ALL");
+            } else {
+                this.storeNameOptions = [];
+                this.storeNameOptions.push(this.data.stores.name);
+            }
+        }
     }
 
-    storeCategoryChanged(e) {
+    async storeCategoryChanged(e) {
+
+        if (this.storeNameOptions.length > 0) {
+            this.storeNameOptions = [];
+        }
+
         var selectedStoreCategory = e.srcElement.value;
+
         if (selectedStoreCategory !== this.data.storeCategory) {
             this.data.storeCategory = this.selectedStoreCategory;
         }
 
-        this.changeStore(selectedStoreCategory);
+        this.storeNameOptions = await this.changeStore(selectedStoreCategory);
     }
 
     changeStore(storeCategory) {
         var getStore = StoreLoader(storeCategory);
-
-        this.storeNameOptions = [];
+        var storeName = [];
         return Promise.all(getStore)
             .then(result => {
-
                 if (storeCategory !== "ALL") {
-                    this.storeNameOptions = result.map(store => {
+                    storeName = result.map(store => {
                         return store.name;
                     });
-                    this.storeNameOptions.splice(0,0,"ALL");
+                    storeName.splice(0, 0, "ALL");
                 } else {
-                    this.storeNameOptions.push("ALL");
+                    storeName.push("ALL");
                 }
+                return Promise.resolve(storeName);
             });
     }
 
