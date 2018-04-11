@@ -23,18 +23,16 @@ export class DataForm {
         }
     }
 
+    itemsColumns = [
+        { header: "Barcode", value: "code" },
+        { header: "RO", value: "article.realizationOrder" },
+        { header: "Nama Produk", value: "name" },
+        { header: "Keterangan", value: "remark" }
+    ]
+
     constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
-
-        this.itemsColumns = {
-            columns: ["RO"],
-            onAdd: () => {
-                this.data.items.push({});
-            }, options: {
-                filter: {}
-            }
-        }
     }
 
     bind(context) {
@@ -81,5 +79,11 @@ export class DataForm {
                 }
                 return Promise.resolve(storeName);
             });
+    }
+
+    get addItems() {
+        return (event) => {
+            this.data.items.push({})
+        };
     }
 }

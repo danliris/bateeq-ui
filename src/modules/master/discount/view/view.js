@@ -10,6 +10,7 @@ export class View {
     prId = "";
     readOnlyDiscount = true;
     storeNameOptions = [];
+    readOnly = true;
 
     constructor(router, service) {
         this.router = router;
@@ -20,21 +21,13 @@ export class View {
         var id = params.id;
         this.prId = id;
         this.data = await this.service.getById(id);
-
         if (this.data.items) {
             if (this.data.stores.length > 1) {
                 this.data.stores.name = "ALL";
             }
-
-            this.data.items.forEach(item => {
-                item.toString = function () {
-                    return [this.code, this.name]
-                        .filter((item, index) => {
-                            return item && item.toString().trim().length > 0;
-                        }).join(" - ");
-                }
-            });
         }
+
+        this.isShowing = true;
     }
 
     cancel(event) {
