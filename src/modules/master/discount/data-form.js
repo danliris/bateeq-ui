@@ -1,8 +1,7 @@
-import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework';
+import { inject, bindable, BindingEngine } from 'aurelia-framework';
 import { Service } from "./service";
 var StoreLoader = require('../../../loader/store-loader');
 
-@containerless()
 @inject(Service, BindingEngine)
 export class DataForm {
     @bindable readOnly = false;
