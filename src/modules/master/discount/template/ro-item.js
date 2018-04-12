@@ -53,8 +53,15 @@ export class ROItem {
         return (keyword, filter) => {
             return FinishedItemLoader(keyword, filter)
                 .then(data => {
-                    return this.removeRedundantRO(data);
+                    if (keyword.toUpperCase() === "NONE" ||
+                        keyword.toUpperCase() === "NO") {
+                        this.isShowing = true;
+                        return this.data['realizationOrder'] = {'realizationOrder': 'NO' };
+                    } else {
+                        return this.removeRedundantRO(data);
+                    }
                 });
+
         };
     }
 
@@ -86,5 +93,11 @@ export class ROItem {
 
     onRemove() {
         this.bind();
+    }
+
+    get addItem() {
+        return (event) => {
+            this.data.itemsDetails.push({});
+        };
     }
 }
