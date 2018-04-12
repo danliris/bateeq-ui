@@ -14,13 +14,18 @@ export class ROItemDetails {
         this.error = context.error;
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
+        
         if (!this.data._id) {
             this.data = this.data.code;
         }
         
-        if (this.data.error) {
-            this.error = {};
-            this.error['code'] = this.data.error;
+        if (this.data) {
+            var error = this.data.error;
+
+            if (error) {
+                this.error = {};
+                this.error['code'] = this.data.error;
+            }
         }
     }
 
