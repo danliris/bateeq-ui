@@ -9,7 +9,7 @@ const RP = "Rp. ";
 
 @inject(Router, Service, Dialog)
 export class View {
-    title = "Detail Cost Calculation Garment";
+    title = "Detail Cost Calculation Penjualan Umum";
     readOnly = true;
     length4 = {
         label: {
@@ -36,8 +36,8 @@ export class View {
             { header: "Material", value: "Material" },
             { header: "Deskripsi", value: "Description" },
             { header: "Kuantitas", value: "Quantity" },
-            { header: "Rp. PTC/PC", value: "PricePerUnit" },
-            { header: "Rp. Total", value: "Total" }
+            { header: "Harga Per Satuan (Rp)", value: "PricePerUnit" },
+            { header: "Total (Rp)", value: "Total" }
         ]
     };
 
@@ -104,6 +104,10 @@ export class View {
         this.context = context;
     }
 
+    printPdf() {
+        this.service.getPdfById(this.data.Id);
+    }
+    
     list() {
         this.router.navigateToRoute('list');
     }
@@ -122,7 +126,7 @@ export class View {
                 this.list();
             })
             .catch(e => {
-                this.dialog.alert(e, "Hapus Cost Calculation Garment");
+                this.dialog.alert(e, "Hapus Cost Calculation Penjualan Umum");
             })
     }
 }
