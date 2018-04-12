@@ -17,6 +17,11 @@ export class ROItemDetails {
         if (!this.data._id) {
             this.data = this.data.code;
         }
+        
+        if (this.data.error) {
+            this.error = {};
+            this.error['code'] = this.data.error;
+        }
     }
 
     async codeChanged(e) {

@@ -39,6 +39,10 @@ export class ROItem {
             };
 
             for (let item of products) {
+                var hasItem = await this.service.getItemByCode(item.code);
+                if (hasItem) {
+                    item["error"] = "Produk sudah digunakan, gunakan Produk yg lain";
+                }
                 processedData.itemsDetails.push(item);
             }
 
