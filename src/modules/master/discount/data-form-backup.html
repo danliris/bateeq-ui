@@ -65,10 +65,13 @@
         <au-collection 
               items.bind="data.items" 
               errors.bind="error.items" 
-              columns.bind="itemsColumns.columns" 
-              add.bind="itemsColumns.onAdd"
-              read-only.bind="readOnly"
-              item-template="modules/master/discount/template/ro-item">
+              columns.bind="itemsColumns" 
+              add.bind="addItems" 
+              remove.bind="removeItems"
+              read-only.bind="readOnly" 
+              item-template="modules/master/discount/template/template">
         </au-collection>
+  
+
     </au-input-form>
 </template>

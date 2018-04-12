@@ -1,34 +1,28 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './../service';
+import { debug } from 'util';
 
 @inject(Router, Service)
 export class Edit {
     hasCancel = true;
     hasSave = true;
     readOnlyDiscount = true;
-    storeNameOptions = [];
 
     constructor(router, service) {
         this.router = router;
         this.service = service;
     }
 
-    bind(context) {
-        this.context = context;
-        this.data = context.data;
+    bind() {
+        this.error = {};
     }
 
     async activate(params) {
         var id = params.id;
         this.prId = id;
         this.data = await this.service.getById(id);
-
-        if (this.data.items) {
-            if (this.data.stores.length > 1) {
-                this.data.stores.name = "ALL";
-            }
-
+        if (this.data.items.length > 0) {
             this.data.items.forEach(item => {
                 item.toString = function () {
                     return [this.code, this.name]
@@ -37,7 +31,6 @@ export class Edit {
                         }).join(" - ");
                 }
             });
-            this.storeNameOptions.push(this.data.stores.name);
         }
     }
 
@@ -48,7 +41,9 @@ export class Edit {
     save(event) {
         this.error = {};
         this.validateUI(this.data);
-
+        if (this.data.stores.length > 1) {
+            this.data.stores = {"name":"ALL"};
+        } 
         if (Object.getOwnPropertyNames(this.error).length < 1) {
             this.service.update(this.data).then(result => {
                 this.cancel();

@@ -2,6 +2,7 @@ import { bindable } from 'aurelia-framework';
 var ItemLoader = require('../../../../loader/finishgood-loader-discount');
 import { Service } from './../service';
 import { inject, Lazy } from 'aurelia-framework';
+import { debug } from 'util';
 
 @inject(Service)
 export class Template {
@@ -29,17 +30,13 @@ export class Template {
     async codeChanged(newValue) {
         this.error = {};
         var item = await this.service.getItemByCode(newValue.code);
+        debugger
         if (item.length > 0) {
             this.error.code = "Produk sudah digunakan, gunakan Produk yg lain";
         } else {
             this.data.itemId = newValue._id;
             this.data.item = newValue;
         }
-
-        // if (newValue) {
-        //     this.data.itemId = newValue._id;
-        //     this.data.item = newValue;
-        // }
     }
 
     controlOptions = {
