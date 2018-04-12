@@ -1,7 +1,6 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './../service';
-import { debug } from 'util';
 
 @inject(Router, Service)
 export class Edit {
@@ -22,16 +21,7 @@ export class Edit {
         var id = params.id;
         this.prId = id;
         this.data = await this.service.getById(id);
-        if (this.data.items.length > 0) {
-            this.data.items.forEach(item => {
-                item.toString = function () {
-                    return [this.code, this.name]
-                        .filter((item, index) => {
-                            return item && item.toString().trim().length > 0;
-                        }).join(" - ");
-                }
-            });
-        }
+        this.isShowing = true;
     }
 
     cancel(event) {

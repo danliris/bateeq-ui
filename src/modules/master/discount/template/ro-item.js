@@ -31,9 +31,7 @@ export class ROItem {
     }
 
     async realizationOrderChanged(newValue, oldValue) {
-        console.log(newValue);
         if (newValue) {
-            this.data = {};
             var products = await FinishedItemLoader(newValue.realizationOrder);
             var processedData = {
                 realizationOrder: newValue,
