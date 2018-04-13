@@ -15,8 +15,10 @@ export class ROItemDetails {
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
         
-        if (!this.data._id) {
-            this.data = this.data.code;
+        if (this.data.code) {
+            if (this.data.code._id) {
+                this.data = this.data.code;
+            }
         }
         
         if (this.data) {
