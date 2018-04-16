@@ -40,7 +40,7 @@ export class ROItem {
 
             for (let item of products) {
                 var hasItem = await this.service.getItemByCode(item.code);
-                if (hasItem) {
+                if (hasItem.length > 0) {
                     item["error"] = "Produk sudah digunakan, gunakan Produk yg lain";
                 }
                 processedData.itemsDetails.push(item);
