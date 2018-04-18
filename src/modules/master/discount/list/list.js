@@ -7,8 +7,8 @@ import moment from 'moment';
 export class List {
     context = ["Detail"];
     columns = [
-        { field: "discountOne", title: "Diskon" },
-        { field: "discountTwo", title: "Diskon" },
+        { field: "discountOne", title: "Diskon 1" },
+        { field: "discountTwo", title: "Diskon 2" },
         { field: "startDate", title: "Mulai Berlaku", formatter: function (value, data, index) {
             return moment(value).format("DD MMM YYYY");
           }
