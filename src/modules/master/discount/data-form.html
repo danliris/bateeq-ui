@@ -9,9 +9,19 @@
         </div>
 
         <numeric 
-            label="Diskon (%)" 
-            value.bind="data.discount" 
-            error.bind="error.discount" 
+            label="Diskon 1 (%)" 
+            value.bind="data.discountOne" 
+            error.bind="error.discountOne" 
+            format="0"
+            placeholder ="discount"
+            read-only.bind="readOnlyDiscount"
+            post-fix="%">
+        </numeric>
+
+        <numeric 
+            label="Diskon 2 (%)" 
+            value.bind="data.discountTwo" 
+            error.bind="error.discountTwo" 
             format="0"
             placeholder ="discount"
             read-only.bind="readOnlyDiscount"
@@ -33,15 +43,6 @@
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
-
-        <au-dropdown 
-            label="Mapping Diskon" 
-            value.bind="data.discountMapping" 
-            error.bind="error.discountMapping" 
-            read-only.bind="readOnly"
-            items.bind="discountMappingOptions" 
-            options.bind="controlOptions">
-        </au-dropdown>
 
         <au-dropdown 
             label="Kategori Toko" 
