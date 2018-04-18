@@ -9,7 +9,6 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
 
-    discountMappingOptions = ["- discount -", "Diskon 1", "Diskon 2"];
     storeCategoryOptions = ["- categories -", "ALL", "DEPT STORE", "STAND ALONE", "FACTORY OUTLET", "MARKET PLACE"];
     storeNameOptions = ["- stores -"];
 
