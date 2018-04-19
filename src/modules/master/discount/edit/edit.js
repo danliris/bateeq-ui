@@ -1,7 +1,6 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './../service';
-import { debug } from 'util';
 
 @inject(Router, Service)
 export class Edit {
@@ -22,16 +21,7 @@ export class Edit {
         var id = params.id;
         this.prId = id;
         this.data = await this.service.getById(id);
-        if (this.data.items.length > 0) {
-            this.data.items.forEach(item => {
-                item.toString = function () {
-                    return [this.code, this.name]
-                        .filter((item, index) => {
-                            return item && item.toString().trim().length > 0;
-                        }).join(" - ");
-                }
-            });
-        }
+        this.isShowing = true;
     }
 
     cancel(event) {
@@ -55,8 +45,12 @@ export class Edit {
 
     validateUI(data) {
         //Check Field if Empty
-        if (data.discount === 0) {
-            this.error.discount = "Masukkan Nilai Diskon"
+        if (data.discountOne === 0) {
+
+            if (data.discountTwo === 0) {
+                this.error.discountOne = "Masukkan Salah Satu Diskon";
+                this.error.discountTwo = "Masukkan Salah Satu Diskon";
+            }
         }
 
         if (data.startDate === undefined) {

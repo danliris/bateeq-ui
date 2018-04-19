@@ -1,8 +1,7 @@
-import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework';
+import { inject, bindable, BindingEngine } from 'aurelia-framework';
 import { Service } from "./service";
 var StoreLoader = require('../../../loader/store-loader');
 
-@containerless()
 @inject(Service, BindingEngine)
 export class DataForm {
     @bindable readOnly = false;
@@ -10,7 +9,6 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
 
-    discountMappingOptions = ["- discount -", "Diskon 1", "Diskon 2"];
     storeCategoryOptions = ["- categories -", "ALL", "DEPT STORE", "STAND ALONE", "FACTORY OUTLET", "MARKET PLACE"];
     storeNameOptions = ["- stores -"];
 

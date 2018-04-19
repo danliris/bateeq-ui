@@ -10,10 +10,10 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
+        this.data = {};
     }
 
     bind() {
-        this.data = { items: [] };
         this.error = {};
     }
 
@@ -42,8 +42,13 @@ export class Create {
 
     validateUI(data) {
         //Check Field if Empty
-        if (data.discount === 0 ) {
-            this.error.discount = "Masukkan Nilai Diskon"
+
+        if (data.discountOne === 0) {
+
+            if (data.discountTwo === 0) {
+                this.error.discountOne = "Masukkan Salah Satu Diskon";
+                this.error.discountTwo = "Masukkan Salah Satu Diskon";
+            }
         }
 
         if (data.startDate === undefined) {

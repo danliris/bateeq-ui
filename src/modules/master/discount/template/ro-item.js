@@ -31,9 +31,7 @@ export class ROItem {
     }
 
     async realizationOrderChanged(newValue, oldValue) {
-        console.log(newValue);
         if (newValue) {
-            this.data = {};
             var products = await FinishedItemLoader(newValue.realizationOrder);
             var processedData = {
                 realizationOrder: newValue,
@@ -41,6 +39,10 @@ export class ROItem {
             };
 
             for (let item of products) {
+                var hasItem = await this.service.getItemByCode(item.code);
+                if (hasItem.length > 0) {
+                    item["error"] = "Produk sudah digunakan, gunakan Produk yg lain";
+                }
                 processedData.itemsDetails.push(item);
             }
 
@@ -55,8 +57,15 @@ export class ROItem {
         return (keyword, filter) => {
             return FinishedItemLoader(keyword, filter)
                 .then(data => {
-                    return this.removeRedundantRO(data);
+                    if (keyword.toUpperCase() === "NONE" ||
+                        keyword.toUpperCase() === "NO") {
+                        this.isShowing = true;
+                        return this.data['realizationOrder'] = {'realizationOrder': 'NO' };
+                    } else {
+                        return this.removeRedundantRO(data);
+                    }
                 });
+
         };
     }
 
@@ -88,5 +97,11 @@ export class ROItem {
 
     onRemove() {
         this.bind();
+    }
+
+    get addItem() {
+        return (event) => {
+            this.data.itemsDetails.push({});
+        };
     }
 }

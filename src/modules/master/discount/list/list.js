@@ -7,7 +7,8 @@ import moment from 'moment';
 export class List {
     context = ["Detail"];
     columns = [
-        { field: "discount", title: "Diskon" },
+        { field: "discountOne", title: "Diskon 1" },
+        { field: "discountTwo", title: "Diskon 2" },
         { field: "startDate", title: "Mulai Berlaku", formatter: function (value, data, index) {
             return moment(value).format("DD MMM YYYY");
           }
@@ -15,8 +16,7 @@ export class List {
         { field: "endDate", title: "Berlaku Hingga", formatter: function (value, data, index) {
             return moment(value).format("DD MMM YYYY");
           } 
-        },
-        { field: "discountMapping", title: "Mapping Diskon" },
+        }
     ];
 
     loader = (info) => {
@@ -35,7 +35,8 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 for (let data of result.data) {
-                    data.discount = data.discount ? data.discount + "%" : data.discount;
+                    data.discountOne = data.discountOne ? data.discountOne + "%" : data.discountOne;
+                    data.discountTwo = data.discountTwo ? data.discountTwo + "%" : data.discountTwo;
                 }
                 return {
                     total: result.info.total,
