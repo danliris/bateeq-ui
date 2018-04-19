@@ -100,6 +100,10 @@ export class View {
         this.service.getPdfById(this.data.Id);
     }
 
+    printBudget() {
+        this.service.getBudgetById(this.data.Id);
+    }
+    
     list() {
         this.router.navigateToRoute('list');
     }
