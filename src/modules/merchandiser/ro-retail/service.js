@@ -73,4 +73,9 @@ export class Service extends RestService {
                 return Promise.resolve(result.data);
             });
     }
+
+    getPdfById(id) {
+        var endpoint = `${serviceUri}/pdf/${id}`;
+        return super.getPdf(endpoint);
+    }
 }
