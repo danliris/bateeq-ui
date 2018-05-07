@@ -322,13 +322,13 @@ export class DataForm {
             totalCost = totalMaterial + this.data.OL.CalculatedValue + this.data.OTL1.CalculatedValue + this.data.OTL2.CalculatedValue + this.data.OTL3.CalculatedValue;
         }
 
-        this.data.HPP = parseFloat((totalCost + totalCost * this.data.Risk / 100).toFixed(2));
+        this.data.HPP = parseFloat((totalCost + totalCost * this.data.Risk / 100).toFixed(0));
         return this.numberFormatValueConverter.toView(this.data.HPP, defaultNumberFormat);
     }
 
     @computedFrom("data.HPP")
     get WholesalePrice() {
-        this.data.WholesalePrice = this.data.HPP ? parseFloat((this.data.HPP * 2.2).toFixed(2)) : 0;
+        this.data.WholesalePrice = this.data.HPP ? parseFloat((this.data.HPP * 2.2).toFixed(0)) : 0;
         return this.numberFormatValueConverter.toView(this.data.WholesalePrice, defaultNumberFormat);
     }
 
