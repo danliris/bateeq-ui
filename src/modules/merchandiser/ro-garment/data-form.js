@@ -22,32 +22,32 @@ export class DataForm {
         columns: [
             { header: "Fabric", value: "Category" },
             { header: "Name", value: "Material" },
-            { header: "Deskripsi", value: "Description" },
-            { header: "Kuantitas", value: "Quantity" },
-            { header: "Keterangan", value: "Information" }
+            { header: "Description", value: "Description" },
+            { header: "Quantity", value: "Quantity" },
+            { header: "Remark", value: "Information" }
         ]
     }
     CCG_M_AccessoriesInfo = {
         columns: [
             { header: "Accessories  ", value: "Category" },
             { header: "Name", value: "Material" },
-            { header: "Deskripsi", value: "Description" },
-            { header: "Kuantitas", value: "Quantity" },
-            { header: "Keterangan", value: "Information" }
+            { header: "Description", value: "Description" },
+            { header: "Quantity", value: "Quantity" },
+            { header: "Remark", value: "Information" }
         ]
     }
     CCG_M_RateInfo = {
         columns: [
             { header: "Ongkos", value: "Category" },
             { header: "Name", value: "Material" },
-            { header: "Deskripsi", value: "Description" },
-            { header: "Kuantitas", value: "Quantity" },
-            { header: "Keterangan", value: "Information" }
+            { header: "Description", value: "Description" },
+            { header: "Quantity", value: "Quantity" },
+            { header: "Remark", value: "Information" }
         ]
     }
     RO_Garment_SizeBreakdownsInfo = {
         columns: [
-            { header: "Warna", value: "Color" },
+            { header: "Color", value: "Color" },
             { header: "Size Range", value: "RO_Garment_SizeBreakdowns_Detail" },
         ],
         options: { readOnly: this.readOnly },
