@@ -3,8 +3,8 @@ import { Service } from './service';
 import { inject, bindable, computedFrom, BindingEngine } from 'aurelia-framework';
 const costCalculationRetailLoader = require('../../../loader/cost-calculation-retail-loader');
 const defaultSizeBreakdownsColumns = [
-    { header: "Kode Toko", value: "Code" },
-    { header: "Toko", value: "Name" },
+    { header: "Store Code", value: "Code" },
+    { header: "Store", value: "Name" },
     { header: "Total", value: "Total" }
 ]
 const info = {
@@ -43,27 +43,27 @@ export class DataForm {
         columns: [
             { header: "Fabric", value: "Category" },
             { header: "Name", value: "Material" },
-            { header: "Deskripsi", value: "Description" },
-            { header: "Kuantitas", value: "Quantity" },
-            { header: "Keterangan", value: "Information" }
+            { header: "Description", value: "Description" },
+            { header: "Quantity", value: "Quantity" },
+            { header: "Remark", value: "Information" }
         ]
     }
     CCR_M_AccessoriesInfo = {
         columns: [
             { header: "Accessories  ", value: "Category" },
             { header: "Name", value: "Material" },
-            { header: "Deskripsi", value: "Description" },
-            { header: "Kuantitas", value: "Quantity" },
-            { header: "Keterangan", value: "Information" }
+            { header: "Description", value: "Description" },
+            { header: "Quantity", value: "Quantity" },
+            { header: "Remark", value: "Information" }
         ]
     }
     CCR_M_RateInfo = {
         columns: [
             { header: "Ongkos", value: "Category" },
             { header: "Name", value: "Material" },
-            { header: "Deskripsi", value: "Description" },
-            { header: "Kuantitas", value: "Quantity" },
-            { header: "Keterangan", value: "Information" }
+            { header: "Description", value: "Description" },
+            { header: "Quantity", value: "Quantity" },
+            { header: "Remark", value: "Information" }
         ]
     }
 
