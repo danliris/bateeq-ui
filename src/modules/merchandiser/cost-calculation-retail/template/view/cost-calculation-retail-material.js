@@ -1,6 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import numeral from 'numeral';
 const defaultNumberFormat = "0,0.00";
+const rupiahNumberFormat = "0,0";
 
 export class CostCalculationRetailMaterial {
 
@@ -19,6 +20,6 @@ export class CostCalculationRetailMaterial {
     this.data.QuantityInUnit = numeral(this.data.Quantity).format(defaultNumberFormat) + " " + this.data.UOMQuantity.Name;
     this.data.PricePerUnit = numeral(this.data.Price).format(defaultNumberFormat) + " / " + this.data.UOMPrice.Name;
     this.data.Conversion = numeral(this.data.Conversion).format(defaultNumberFormat);
-    this.data.Total = numeral(this.data.Total).format(defaultNumberFormat);
+    this.data.Total = numeral(this.data.Total).format(rupiahNumberFormat);
   }
 }
