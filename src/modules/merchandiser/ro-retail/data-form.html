@@ -1,80 +1,82 @@
 <template>
-    <style>
-        .large-textarea>div>div>textarea {
-            height: 25em !important;
-        }
-    </style>
-    <au-input-form title.bind="title" with.bind="context">
-        <div class="row">
-            <div class="col-md-4">
-                <au-autocomplete label="No RO" placeholder="Cari RO" value.bind="costCalculationRetail" error.bind="error.CostCalculationRetail"
-                    loader.one-time="costCalculationRetailLoader" query.bind="filterCostCalculationRetail" options.bind="length4"
-                    key="Code" text="RO" read-only.bind="readOnly || isEdit"></au-autocomplete>
-                <au-textbox label="Konter" value.bind="data.CostCalculationRetail.Counter.name" read-only.bind="disabled" options.bind="length4"
-                    show.bind="hasCostCalculationRetail" read-only.bind="readOnly"></au-textbox>
-                <au-numeric label="Kuantitas RO" format="0" value.bind="data.Total" read-only.bind="disabled" options.bind="length4" show.bind="readOnly"></au-numeric>
-            </div>
-            <div class="col-md-4">
-                <au-textbox label="Artikel" value.bind="data.CostCalculationRetail.Article" read-only.bind="disabled" options.bind="length4"
-                    show.bind="hasCostCalculationRetail" read-only.bind="readOnly"></au-textbox>
-                <au-dropdown label="Warna" value.bind="data.Color" items.bind="articleColors" options.bind="length4" show.bind="hasCostCalculationRetail"
-                    read-only.bind="readOnly"></au-dropdown>
-            </div>
-            <div class="col-md-4">
-                <au-textbox label="Style" value.bind="data.CostCalculationRetail.Style.name" read-only.bind="disabled" options.bind="length4"
-                    show.bind="hasCostCalculationRetail"></au-textbox>
-                <au-datepicker label="Delivery Date" value.bind="data.CostCalculationRetail.DeliveryDate" read-only.bind="disabled" show.bind="hasCostCalculationRetail"
-                    options.bind="length4"></au-datepicker>
-            </div>
-        </div>
-        <div class="col-md-10">
-            <div class="row" show.bind="hasCCR_M_Fabric">
-                <au-collection title="Fabric" items.bind="CCR_M_Fabric" columns.bind="CCR_M_FabricInfo.columns" item-template="modules/merchandiser/ro-retail/template/ro-retail-material"
-                    read-only.bind="readOnly">
-                </au-collection>
-            </div>
-            <div class="row" show.bind="hasCCR_M_Accessories">
-                <au-collection title="Accessories" items.bind="CCR_M_Accessories" columns.bind="CCR_M_AccessoriesInfo.columns" item-template="modules/merchandiser/ro-retail/template/ro-retail-material"
-                    read-only.bind="readOnly">
-                </au-collection>
-            </div>
-            <div class="row" show.bind="hasCCR_M_Rate">
-                <au-collection title="Ongkos" items.bind="CCR_M_Rate" columns.bind="CCR_M_RateInfo.columns" item-template="modules/merchandiser/ro-retail/template/ro-retail-material"
-                    read-only.bind="readOnly">
-                </au-collection>
-            </div>
-        </div>
-        <div class="col-md-2" if.bind="hasCostCalculationRetail">
-            <img src.bind="data.CostCalculationRetail.ImageFile || 'https://bateeqstorage.blob.core.windows.net/other/no-image.jpg'"
-                class="center-block" height="auto" width="60%">
+  <style>
+    .large-textarea>div>div>textarea {
+      height: 25em !important;
+    }
+  </style>
+  <au-input-form title.bind="title" with.bind="context">
+    <div class="row">
+      <div class="col-md-4">
+        <au-autocomplete label="No RO" placeholder="Cari RO" value.bind="costCalculationRetail" error.bind="error.CostCalculationRetail"
+          loader.one-time="costCalculationRetailLoader" query.bind="filterCostCalculationRetail" options.bind="length4" key="Code"
+          text="RO" read-only.bind="readOnly || isEdit"></au-autocomplete>
+        <au-textbox label="Konter" value.bind="data.CostCalculationRetail.Counter.name" read-only.bind="disabled" options.bind="length4"
+          show.bind="hasCostCalculationRetail" read-only.bind="readOnly"></au-textbox>
+        <au-numeric label="Kuantitas RO" format="0" value.bind="data.Total" read-only.bind="disabled" options.bind="length4" show.bind="readOnly"></au-numeric>
+      </div>
+      <div class="col-md-4">
+        <au-textbox label="Artikel" value.bind="data.CostCalculationRetail.Article" read-only.bind="disabled" options.bind="length4"
+          show.bind="hasCostCalculationRetail" read-only.bind="readOnly"></au-textbox>
+        <au-dropdown label="Warna" value.bind="data.Color" items.bind="articleColors" options.bind="length4" show.bind="hasCostCalculationRetail"
+          read-only.bind="readOnly"></au-dropdown>
+      </div>
+      <div class="col-md-4">
+        <au-textbox label="Style" value.bind="data.CostCalculationRetail.Style.name" read-only.bind="disabled" options.bind="length4"
+          show.bind="hasCostCalculationRetail"></au-textbox>
+        <au-datepicker label="Delivery Date" value.bind="data.CostCalculationRetail.DeliveryDate" read-only.bind="disabled" show.bind="hasCostCalculationRetail"
+          options.bind="length4"></au-datepicker>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <div class="row" show.bind="hasCCR_M_Fabric">
+        <au-collection title="Fabric" items.bind="CCR_M_Fabric" columns.bind="CCR_M_FabricInfo.columns" item-template="modules/merchandiser/ro-retail/template/ro-retail-material"
+          read-only.bind="readOnly">
+        </au-collection>
+      </div>
+      <div class="row" show.bind="hasCCR_M_Accessories">
+        <au-collection title="Accessories" items.bind="CCR_M_Accessories" columns.bind="CCR_M_AccessoriesInfo.columns" item-template="modules/merchandiser/ro-retail/template/ro-retail-material"
+          read-only.bind="readOnly">
+        </au-collection>
+      </div>
+      <div class="row" show.bind="hasCCR_M_Rate">
+        <au-collection title="Ongkos" items.bind="CCR_M_Rate" columns.bind="CCR_M_RateInfo.columns" item-template="modules/merchandiser/ro-retail/template/ro-retail-material"
+          read-only.bind="readOnly">
+        </au-collection>
+      </div>
+    </div>
+    <div class="col-md-2" if.bind="hasCostCalculationRetail">
+      <img src.bind="data.CostCalculationRetail.ImageFile || 'https://bateeqstorage.blob.core.windows.net/other/no-image.jpg'"
+        class="center-block" height="auto" width="60%">
+      <br>
+    </div>
+    <div class="row" if.bind="hasSizeBreakdowns">
+      <div class="col-md-12">
+        <au-collection title="Size Breakdown" items.bind="data.RO_Retail_SizeBreakdowns" columns.bind="RO_Retail_SizeBreakdownsInfo.columns"
+          options.bind="RO_Retail_SizeBreakdownsInfo.options" item-template="modules/merchandiser/ro-retail/template/ro-retail-sizebreakdown"
+          footer-template="modules/merchandiser/ro-retail/template/ro-retail-sizebreakdown-footer" read-only.bind="readOnly">
+        </au-collection>
+      </div>
+    </div>
+    <div class="row" show.bind="hasCostCalculationRetail">
+      <div class="col-md-8">
+        <au-multiline class="large-textarea" label="Instruksi" placeholder="Isi Instruksi" value.bind="data.Instruction" options.bind="length2"
+          read-only.bind="readOnly"></au-multiline>
+      </div>
+    </div>
+    <div class="row" show.bind="hasCostCalculationRetail">
+      <div class="col-md-12">
+        <input type="file" id="imageInput" value.bind="imageUpload" accept="image/*" if.bind="!readOnly" multiple>
+        <br>
+        <template repeat.for="imageSrc of imagesSrc">
+          <div style="display: inline-block; height: 250px; width: auto; margin-right:20px;">
+            <img src.bind="imageSrc" class="center-block" height="200px">
             <br>
-        </div>
-        <div class="row" if.bind="hasSizeBreakdowns">
-            <div class="col-md-12">
-                <au-collection title="Size Breakdown" items.bind="data.RO_Retail_SizeBreakdowns" columns.bind="RO_Retail_SizeBreakdownsInfo.columns"
-                    options.bind="RO_Retail_SizeBreakdownsInfo.options" item-template="modules/merchandiser/ro-retail/template/ro-retail-sizebreakdown"
-                    footer-template="modules/merchandiser/ro-retail/template/ro-retail-sizebreakdown-footer" read-only.bind="readOnly">
-                </au-collection>
-            </div>
-        </div>
-        <div class="row" show.bind="hasCostCalculationRetail">
-            <div class="col-md-8">
-                <au-multiline class="large-textarea" label="Instruksi" placeholder="Isi Instruksi" value.bind="data.Instruction" options.bind="length2"
-                    read-only.bind="readOnly"></au-multiline>
-            </div>
-        </div>
-        <div class="row" show.bind="hasCostCalculationRetail">
-            <div class="col-md-12">
-                <input type="file" id="imageInput" value.bind="imageUpload" accept="image/*" if.bind="!readOnly" multiple>
-                <br>
-                <template repeat.for="imageSrc of imagesSrc">
-                    <div style="display: inline-block; height: 200px; width: auto;">
-                        <img src.bind="imageSrc" class="center-block" height="200px" width="auto" style="margin-right:20px">
-                        <br>
-                        <button type="button" class="btn btn-danger center-block" if.bind="!readOnly" click.delegate="removeImage($index)">Remove</button>
-                    </div>
-                </template>
-            </div>
-        </div>
-    </au-input-form>
+            <au-textbox class="center-block" value.bind="data.ImagesName[$index]" read-only.bind="readOnly"></au-textbox>
+            <br>
+            <button type="button" class="btn btn-danger center-block" if.bind="!readOnly" click.delegate="removeImage($index)">Remove</button>
+          </div>
+        </template>
+      </div>
+    </div>
+  </au-input-form>
 </template>

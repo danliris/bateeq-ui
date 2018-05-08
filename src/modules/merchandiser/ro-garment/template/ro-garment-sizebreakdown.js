@@ -13,7 +13,7 @@ export class ROGarmentSizeBreakdown {
         columns: [
             { header: "Keterangan", value: "Information" },
             { header: "Size", value: "Size" },
-            { header: "Kuantitas", value: "Quantity" },
+            { header: "Quantity", value: "Quantity" },
         ],
         options: { readOnly: this.readOnly },
         onAdd: function () {

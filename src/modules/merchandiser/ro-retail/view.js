@@ -34,4 +34,8 @@ export class View {
                 this.list();
             });
     }
+
+    printPdf() {
+        this.service.getPdfById(this.data.Id);
+    }
 }
