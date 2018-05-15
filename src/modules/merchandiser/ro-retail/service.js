@@ -70,6 +70,10 @@ export class Service extends RestService {
         return promise
             .then(result => {
                 this.publish(promise);
+                result.data.sort((a,b) => {
+                    if (a.code < b.code) return -1;
+                    if (a.code > b.code) return 1;
+                });
                 return Promise.resolve(result.data);
             });
     }
