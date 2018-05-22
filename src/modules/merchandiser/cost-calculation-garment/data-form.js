@@ -130,7 +130,7 @@ export class DataForm {
       ? this.data.AccessoriesAllowance
       : 0;
     this.data.Risk = this.data.Risk ? this.data.Risk : 5;
-    this.imageSrc = this.data.ImageFile = this.data.ImageFile;
+    this.imageSrc = this.data.ImageFile;
 
     let promises = [];
 
