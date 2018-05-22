@@ -14,13 +14,49 @@ export class Copy {
   async activate(params) {
     this.id = params.id;
     this.data = await this.service.getById(this.id);
-    ['Id', 'Code', 'RO', 'RO_SerialNumber', "ImagePath", "RO_RetailId", '_IsDeleted', 'Active', '_CreatedUtc', '_CreatedBy', '_CreatedAgent', '_LastModifiedUtc', '_LastModifiedBy', '_LastModifiedAgent'].forEach(prop => delete this.data[prop]);
+    this.clearDataProperties();
+    this.getLineWithCode();
+  }
+
+  clearDataProperties() {
+    [
+      "Id",
+      "Code",
+      "RO",
+      "RO_SerialNumber",
+      "ImagePath",
+      "RO_RetailId",
+      "_IsDeleted",
+      "Active",
+      "_CreatedUtc",
+      "_CreatedBy",
+      "_CreatedAgent",
+      "_LastModifiedUtc",
+      "_LastModifiedBy",
+      "_LastModifiedAgent"
+    ].forEach(prop => delete this.data[prop]);
     this.data.CostCalculationGarment_Materials.forEach(ccm => {
-      ['Id', 'Code', 'PO', 'PO_SerialNumber', '_IsDeleted', 'Active', '_CreatedUtc', '_CreatedBy', '_CreatedAgent', '_LastModifiedUtc', '_LastModifiedBy', '_LastModifiedAgent'].forEach(prop => delete ccm[prop]);
+      [
+        "Id",
+        "Code",
+        "PO",
+        "PO_SerialNumber",
+        "_IsDeleted",
+        "Active",
+        "_CreatedUtc",
+        "_CreatedBy",
+        "_CreatedAgent",
+        "_LastModifiedUtc",
+        "_LastModifiedBy",
+        "_LastModifiedAgent"
+      ].forEach(prop => delete ccm[prop]);
     });
-    if (!this.data.Line.Code){
-      const {Code} = await this.service.getLineById(this.data.Line.Id);
-      this.data.Line.Code = Code;
+  }
+
+  async getLineWithCode() {
+    if (!this.data.Line.Code) {
+      const line = await this.service.getLineById(this.data.Line.Id);
+      this.data.Line = line ? line : null;
     }
   }
 
