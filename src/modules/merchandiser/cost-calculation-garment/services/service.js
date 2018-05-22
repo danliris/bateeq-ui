@@ -3,6 +3,7 @@ import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../../utils/rest-service';
 
 const serviceUri = "cost-calculation-garments";
+const linesUri = "lines";
 
 export class Service extends RestService {
 
@@ -48,5 +49,10 @@ export class Service extends RestService {
     getBudgetById(id) {
         var endpoint = `${serviceUri}/budget/${id}`;
         return super.getPdf(endpoint);
+    }
+
+    getLineById(id){
+      var endpoint = `${linesUri}/${id}`;
+      return super.get(endpoint);
     }
 }
