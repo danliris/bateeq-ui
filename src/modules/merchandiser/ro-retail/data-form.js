@@ -214,6 +214,11 @@ export class DataForm {
       })
 
     let startingIndex = 2;
+
+    this.sizeBreakdowns.sort((a,b) => {
+      return a.header - b.header;
+    });
+    
     this.sizeBreakdowns.forEach(size => {
       this.RO_Retail_SizeBreakdownsInfo.columns.splice(startingIndex, 0, size);
       startingIndex++;
