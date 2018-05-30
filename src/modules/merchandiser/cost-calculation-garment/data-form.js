@@ -382,6 +382,7 @@ export class DataForm {
     let subTotal =
       allMaterialCost !== 0
         ? (allMaterialCost +
+            this.data.ProductionCost +
             this.data.OTL1.CalculatedValue +
             this.data.OTL2.CalculatedValue) *
             (100 + this.data.Risk) /
