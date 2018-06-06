@@ -205,6 +205,8 @@ export class DataForm {
   }
 
   refreshSizeBreakdownsTable() {
+    var sizes = [];
+    var sorter = require('apparel-sorter');
     this.sizeBreakdowns = this.data.RO_Retail_SizeBreakdowns.length === 0 ?
       this.data.CostCalculationRetail.SizeRange.RelatedSizes.map(rs => {
         return { header: rs.Size.Name, value: rs.Size.Name.split(' ').join('_') }
@@ -213,7 +215,21 @@ export class DataForm {
         return { header: sb.split('_').join(' '), value: sb }
       })
 
+    this.sizeBreakdowns.forEach(size => {
+      sizes.push(size.header);
+    })
+
     let startingIndex = 2;
+    sizes = sorter.sort(sizes);
+    sizes = sizes.map(item => {
+      var size = {};
+      size.header = item;
+      size.value = item;
+
+      return size;
+    })
+    this.sizeBreakdowns = sizes;
+
     this.sizeBreakdowns.forEach(size => {
       this.RO_Retail_SizeBreakdownsInfo.columns.splice(startingIndex, 0, size);
       startingIndex++;

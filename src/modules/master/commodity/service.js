@@ -1,14 +1,13 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
-import { RestService } from '../../../../utils/rest-service';
+import { RestService } from '../../../utils/rest-service';
 
-const serviceUri = "cost-calculation-garments";
-const linesUri = "lines";
+const serviceUri = "commodities";
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "md");
+        super(http, aggregator, config, "masterplan");
     }
 
     search(info) {
@@ -39,20 +38,5 @@ export class Service extends RestService {
     delete(data) {
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
-    }
-
-    getPdfById(id) {
-        var endpoint = `${serviceUri}/pdf/${id}`;
-        return super.getPdf(endpoint);
-    }
-
-    getBudgetById(id) {
-        var endpoint = `${serviceUri}/budget/${id}`;
-        return super.getPdf(endpoint);
-    }
-
-    getLineById(id){
-      var endpoint = `${linesUri}/${id}`;
-      return super.get(endpoint);
     }
 }

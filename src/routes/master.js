@@ -154,5 +154,31 @@ module.exports = [
             permission: { "MRD.01": 1 },
             iconClass: ''
         }
+    },
+    {
+        route: 'commodities',
+        name: 'commodities',
+        moduleId: './modules/master/commodity/index',
+        nav: true,
+        title: 'Komoditas',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: ''
+        }
+    },
+    {
+        route: 'sections',
+        name: 'sections',
+        moduleId: './modules/master/section/index',
+        nav: true,
+        title: 'Seksi',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { "*": 1 },
+            iconClass: ''
+        }
     }
 ]

@@ -175,9 +175,7 @@ export class DataForm {
         ? true
         : false
       : false;
-    this.imageSrc = this.data.ImageFile = this.isEdit
-      ? this.data.ImageFile || "#"
-      : "#";
+    this.imageSrc = this.data.ImageFile;
 
     this.defaultOL = await this.ongkosService
       .search({ keyword: "OL" })
