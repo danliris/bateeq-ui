@@ -156,19 +156,6 @@ module.exports = [
         }
     },
     {
-        route: 'commodities',
-        name: 'commodities',
-        moduleId: './modules/master/commodity/index',
-        nav: true,
-        title: 'Komoditas',
-        auth: true,
-        settings: {
-            group: "master",
-            permission: { "*": 1 },
-            iconClass: ''
-        }
-    },
-    {
         route: 'sections',
         name: 'sections',
         moduleId: './modules/master/section/index',
@@ -178,6 +165,19 @@ module.exports = [
         settings: {
             group: "master",
             permission: { "*": 1 },
+            iconClass: ''
+        }
+    },
+    {
+        route: 'weekly-plan',
+        name: 'weekly-plan',
+        moduleId: './modules/master/weekly-plan/index',
+        nav: true,
+        title: 'Master Minggu',
+        auth: true,
+        settings: {
+            group: "master",
+            permission: { '*': 1 },
             iconClass: ''
         }
     }
