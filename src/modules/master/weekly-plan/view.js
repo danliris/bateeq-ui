@@ -15,7 +15,6 @@ export class View {
     }
 
     async activate(params) {
-        debugger
         var id = params.id;
         this.data = await this.service.getById(id);
         var totalUsedEH = this.data.Items.reduce(

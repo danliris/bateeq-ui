@@ -29,26 +29,21 @@ export class Service extends RestService {
     }
 
     update(data) {
-        debugger
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        debugger
         var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
-    // getUnitById(id) {
-    //     var config = Container.instance.get(Config);
-    //     var _endpoint = config.getEndpoint("core");
-    //     var _serviceUri = `master/unit/${id}`;
-
-    //     return _endpoint.find(_serviceUri)
-    //         .then(result => {
-    //             return result.data;
-    //         });
-
-    // }
+    getByYearAndUnitCode (data) {
+        var filter = {
+            Year : data.Year,
+            Code : data.UnitCode
+        }
+        var endpoint = `${serviceUri}/is-exist/${data.Year}/${data.UnitCode}`;
+        return super.get(endpoint);
+    }
 }
