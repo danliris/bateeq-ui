@@ -17,7 +17,6 @@ export class Edit {
     }
 
     async activate(params) {
-        debugger
         var id = params.id;
         this.data = await this.service.getById(id);
     }
@@ -27,7 +26,6 @@ export class Edit {
     }
 
     save(event) {
-        debugger
         this.service.update(this.data).then(result => {
             this.cancel();
         }).catch(e => {

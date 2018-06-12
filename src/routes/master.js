@@ -167,18 +167,5 @@ module.exports = [
             permission: { "*": 1 },
             iconClass: ''
         }
-    },
-    {
-        route: 'weekly-plan',
-        name: 'weekly-plan',
-        moduleId: './modules/master/weekly-plan/index',
-        nav: true,
-        title: 'Master Minggu',
-        auth: true,
-        settings: {
-            group: "master",
-            permission: { '*': 1 },
-            iconClass: ''
-        }
     }
 ]

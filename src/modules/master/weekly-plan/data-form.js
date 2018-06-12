@@ -185,7 +185,6 @@ export class DataForm {
     }
 
     selectedUnitChanged(newValue) {
-        debugger
         if (newValue) {
             this.data.UnitId = newValue._id;
             this.data.UnitCode = newValue.code;
@@ -205,7 +204,6 @@ export class DataForm {
     }
 
     onitemchange(event) {
-        debugger
         var tdPath = 4; // td index in $event.path
         var trPath = 5; // tr index in $event.path
         var column = event.path[tdPath].cellIndex; // index start from 0
