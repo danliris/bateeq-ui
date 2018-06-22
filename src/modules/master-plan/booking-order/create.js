@@ -1,11 +1,11 @@
-import { inject, Lazy } from "aurelia-framework";
+import { inject } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-  hasCancel = true;
   hasSave = true;
+  hasCancel = true;
 
   constructor(router, service) {
     this.router = router;
@@ -18,11 +18,11 @@ export class Create {
     this.router.navigateToRoute("list");
   }
 
-  cancel(event) {
+  cancel() {
     this.list();
   }
 
-  save(event) {
+  save() {
     this.service
       .create(this.data)
       .then(result => {

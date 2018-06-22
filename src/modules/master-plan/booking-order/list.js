@@ -1,5 +1,6 @@
-import { inject, Lazy } from "aurelia-framework";
+import { inject } from "aurelia-framework";
 import { Router } from "aurelia-router";
+import moment from "moment";
 import { Service } from "./service";
 
 @inject(Router, Service)
@@ -25,12 +26,30 @@ export class List {
     this.router.navigateToRoute("create");
   }
 
+  rowFormatter(data, index) {
+    if (data.StatusRemainingOrder.toUpperCase() === "EXPIRED")
+      return { classes: "danger" };
+    else return {};
+  }
+
   columns = [
     { field: "Code", title: "Kode Booking" },
-    { field: "BookingDate", title: "Tanggal Booking" },
+    {
+      field: "BookingDate",
+      title: "Tanggal Booking",
+      formatter: function(value) {
+        return moment(value).format("DD MMM YYYY");
+      }
+    },
     { field: "Buyer.Name", title: "Buyer" },
     { field: "OrderQuantity", title: "Jumlah Order" },
-    { field: "DeliveryDate", title: "Tanggal Pengiriman" },
+    {
+      field: "DeliveryDate",
+      title: "Tanggal Pengiriman",
+      formatter: function(value) {
+        return moment(value).format("DD MMM YYYY");
+      }
+    },
     { field: "Remark", title: "Keterangan" },
     { field: "Status", title: "Status Booking Order" },
     { field: "StatusTotalConfirm", title: "Status Jumlah Confirm" },

@@ -1,17 +1,11 @@
-import { inject, Lazy, bindable } from "aurelia-framework";
+import { inject } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import { Service } from "./service";
 
 @inject(Router, Service)
 export class View {
   hasCancel = true;
-  hasEdit = true;
-  hasDelete = true;
-  hasCancelConfirm = true;
-  hasConfirm = true;
   hasBlockingPlan = false;
-  expireBooking = false;
-
   readOnly = true;
 
   constructor(router, service) {
@@ -22,21 +16,21 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    this.hasEdit = this.data.DetailConfirms.length <= 0;
+    const expired = this.data.StatusRemainingOrder.toUpperCase() === "EXPIRED";
+    const nothingConfirmed = this.data.DetailConfirms.length <= 0;
+    const notAllConfirmed =
+      this.data.StatusTotalConfirm.toUpperCase() === "BELUM CONFIRM" ||
+      Number(this.data.StatusTotalConfirm) < 0;
+    const hasRemaining = this.data.StatusRemainingOrder.toUpperCase() !== "-";
+    this.hasEdit = this.hasDelete =
+      nothingConfirmed && hasRemaining && !expired;
+    this.hasConfirm = hasRemaining && !expired;
+    this.hasCancelRemaining = notAllConfirmed && hasRemaining && !expired;
+    this.hasDeleteRemaining = notAllConfirmed && hasRemaining && expired;
   }
 
   list() {
     this.router.navigateToRoute("list");
-  }
-
-  cancel() {
-    this.list();
-  }
-
-  delete() {
-    this.service.delete(this.data).then(result => {
-      this.list();
-    });
   }
 
   view(params) {
@@ -48,6 +42,10 @@ export class View {
     this.activate(params);
   }
 
+  cancel() {
+    this.list();
+  }
+
   edit() {
     this.router.navigateToRoute("edit", { id: this.data.Id });
   }
@@ -56,8 +54,20 @@ export class View {
     this.router.navigateToRoute("confirm", { id: this.data.Id });
   }
 
+  delete() {
+    this.service.delete(this.data).then(result => {
+      this.list();
+    });
+  }
+
   cancelRemaining() {
-    this.service.cancelRemaining(this.data).then(result => {
+    this.service.setRemainingOrderQuantity(this.data).then(result => {
+      this.list();
+    });
+  }
+
+  deleteRemaining() {
+    this.service.setRemainingOrderQuantity(this.data).then(result => {
       this.list();
     });
   }

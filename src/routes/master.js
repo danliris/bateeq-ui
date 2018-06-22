@@ -167,18 +167,5 @@ module.exports = [
       permission: { "*": 1 },
       iconClass: ""
     }
-  },
-  {
-    route: "booking-orders",
-    name: "booking-orders",
-    moduleId: "./modules/master-plan/booking-order/index",
-    nav: true,
-    title: "Booking Order",
-    auth: true,
-    settings: {
-      group: "master",
-      permission: { "*": 1 },
-      iconClass: ""
-    }
   }
 ];
