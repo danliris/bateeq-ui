@@ -1,5 +1,5 @@
 import { inject, bindable } from "aurelia-framework";
-import { Router, activationStrategy } from "aurelia-router";
+import { Router } from "aurelia-router";
 import moment from "moment";
 import { Dialog } from "../../../../components/dialog/dialog";
 import { Service } from "../service";
@@ -45,10 +45,10 @@ export class DetailItem {
 
   @bindable RO;
   ROChanged(newValue) {
-    this.data.RO = newValue.RO;
-    this.data.Article = newValue.Article;
-    this.data.Style = newValue.Style;
-    this.data.Counter = newValue.Counter;
+    this.data.RO = newValue ? newValue.RO : "";
+    this.data.Article = newValue ? newValue.Article : "";
+    this.data.Style = newValue ? newValue.Style : "";
+    this.data.Counter = newValue ? newValue.Counter : "";
   }
 
   oncancel(data) {
