@@ -37,7 +37,7 @@ export class View {
         this.Id = this.data._id;
 
         if (!this.Id) {
-            this.Id = data.Id;
+            this.Id = this.data.Id;
         }
 
         this.router.navigateToRoute('edit', { id: this.Id });
