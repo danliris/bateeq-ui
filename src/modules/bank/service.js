@@ -7,6 +7,7 @@ import { Config } from "aurelia-api";
 const serviceUri = "banks";
 
 export class Service extends RestService {
+    Id = null;
 
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "master");
@@ -27,12 +28,24 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        this.Id = data._id;
+
+        if (!this.Id) {
+            this.Id = data.Id;
+        }
+
+        var endpoint = `${serviceUri}/${this.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        this.Id = data._id;
+
+        if (!this.Id) {
+            this.Id = data.Id;
+        }
+
+        var endpoint = `${serviceUri}/${this.Id}`;
         return super.delete(endpoint, data);
     } 
 }
