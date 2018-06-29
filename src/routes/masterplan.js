@@ -24,5 +24,18 @@ module.exports = [
       permission: { "*": 1 },
       iconClass: ""
     }
+  },
+  {
+    route: "blocking-plan-sewing",
+    name: "blocking-plan-sewing",
+    moduleId: "./modules/master-plan/blocking-plan-sewing/index",
+    nav: true,
+    title: "Blocking Plan Sewing",
+    auth: true,
+    settings: {
+      group: "masterplan",
+      permission: { "*": 1 },
+      iconClass: ""
+    }
   }
 ];
