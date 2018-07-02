@@ -24,7 +24,7 @@ export class View {
     const hasRemaining = this.data.StatusRemainingOrder.toUpperCase() !== "-";
     this.hasEdit = this.hasDelete =
       nothingConfirmed && hasRemaining && !expired;
-    this.hasConfirm = hasRemaining && !expired;
+    this.hasConfirm = this.data.OrderQuantity >= 0 && !expired;
     this.hasCancelRemaining = notAllConfirmed && hasRemaining && !expired;
     this.hasDeleteRemaining = notAllConfirmed && hasRemaining && expired;
   }
