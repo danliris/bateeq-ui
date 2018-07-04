@@ -27,7 +27,12 @@ export class List {
   }
 
   rowFormatter(data, index) {
-    if (data.StatusRemainingOrder.toUpperCase() === "EXPIRED")
+    if (
+      data.StatusRemainingOrder.toUpperCase() !== "EXPIRED" &&
+      data.Status.toUpperCase() === "SUDAH DIBUAT MASTER PLAN"
+    )
+      return { classes: "success" };
+    else if (data.StatusRemainingOrder.toUpperCase() === "EXPIRED")
       return { classes: "danger" };
     else return {};
   }
