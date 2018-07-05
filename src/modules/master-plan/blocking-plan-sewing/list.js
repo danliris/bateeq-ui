@@ -26,6 +26,17 @@ export class List {
     this.router.navigateToRoute("create");
   }
 
+  rowFormatter(data, index) {
+    if (data.Status.toUpperCase() === "CONFIRM FULL")
+      return { classes: "success" };
+    else if (data.Status.toUpperCase() === "CONFIRM SEBAGIAN")
+      return { classes: "warning" };
+    else if (data.Status.toUpperCase() === "BOOKING ADA PERUBAHAN")
+      return { classes: "primary" };
+    else if (data.Status.toUpperCase() === "BOOKING") return {};
+    else return { classes: "danger" };
+  }
+
   columns = [
     { field: "BookingOrder.Code", title: "Nomor Booking" },
     {
@@ -44,7 +55,8 @@ export class List {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "BookingOrder.Remark", title: "Keterangan" }
+    { field: "BookingOrder.Remark", title: "Keterangan" },
+    { field: "Status", title: "Status" }
   ];
 
   loader = info => {

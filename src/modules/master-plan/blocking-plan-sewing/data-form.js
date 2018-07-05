@@ -72,7 +72,7 @@ export class DataForm {
   @bindable detailConfirms;
   async selectedBookingOrderChanged(newValue) {
     let data;
-    if (this.readOnly) {
+    if (this.readOnly || this.isEdit) {
       data = newValue;
     } else {
       data =
@@ -107,10 +107,7 @@ export class DataForm {
     this.data = this.context.data;
     this.error = this.context.error;
     if ((this.readOnly || this.isEdit) && this.data) {
-      const bookingOrder = await this.service.getBookingOrderById(
-        this.data.BookingOrderId
-      );
-      this.selectedBookingOrder = bookingOrder;
+      this.selectedBookingOrder = this.data.BookingOrder;
     }
     this.workSchedules_Info.options.readOnly = this.readOnly;
 
