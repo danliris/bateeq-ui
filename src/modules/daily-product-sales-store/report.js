@@ -79,7 +79,7 @@ export class Report {
     getData() {
         var dateFrom = moment(new Date()).startOf('day');
         var dateTo = moment(new Date()).endOf('day');
-        this.service.getStoreSummary(dateFrom.format(), dateTo.format(), this.query)
+        this.service.getStoreSummary(dateFrom.format('YYYY-MM-DD'), dateTo.format('YYYY-MM-DD'), this.query)
             .then((result) => {
                 this.summary = result.data;
                 this.query.size = parseInt(result.query.size || 15);
