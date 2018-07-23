@@ -1,0 +1,50 @@
+<template>
+  <au-input-form title.bind="title" with.bind="context">
+    <au-textbox label="Kode Booking" value.bind="data.Code" error.bind="error.Code" read-only="true" if.bind="data.Code" options.bind="controlOptions">
+    </au-textbox>
+
+    <au-autocomplete label="Seksi" value.bind="data.Section" error.bind="error.Section" loader.bind="sectionLoader" key="Code"
+      text="Name" placeholder="Cari Seksi" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-datepicker label="Tanggal Booking" value.bind="data.BookingDate" error.bind="error.BookingDate" read-only="true" options.bind="controlOptions">
+    </au-datepicker>
+
+    <au-autocomplete value.bind="data.Buyer" error.bind="error.Buyer" label="Buyer" loader.bind="buyerLoader" key="Code" text="Name"
+      placeholder="Cari Buyer" read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+    </au-autocomplete>
+
+    <au-numeric label="Jumlah Order Awal" value.bind="data.InitialOrderQuantity" error.bind="error.InitialOrderQuantity" format="0"
+      read-only=true if.bind="data.InitialOrderQuantity" options.bind="controlOptions">
+    </au-numeric>
+
+    <au-numeric label="Jumlah Order" value.bind="data.OrderQuantity" error.bind="error.OrderQuantity" format="0" read-only.bind="readOnly || isConfirmBooking"
+      options.bind="controlOptions">
+    </au-numeric>
+
+    <au-datepicker label="Tanggal Pengiriman" value.bind="data.DeliveryDate" error.bind="error.DeliveryDate" read-only.bind="readOnly || isConfirmBooking"
+      options.bind="controlOptions">
+    </au-datepicker>
+
+    <au-multiline label="Keterangan" value.bind="data.Remark" error.bind="error.Remark" placeholder="Tambah Keterangan" read-only.bind="readOnly || isConfirmBooking"
+      options.bind="controlOptions">
+    </au-multiline>
+
+    <au-collection title="Detail Confirm" items.bind="data.DetailConfirms" errors.bind="error.DetailConfirms" columns.bind="detailConfirmsInfo.columns"
+      add.bind="detailConfirmsInfo.onAdd" remove.bind="detailConfirmsInfo.onRemove" options.bind="detailConfirmsInfo.options"
+      read-only.bind="!isConfirmBooking" if.bind="data.Code" item-template="modules/master-plan/booking-order/templates/booking-order-detail"
+      footer-template="modules/master-plan/booking-order/templates/booking-order-detail-footer">
+    </au-collection>
+
+    <div slot="actions" class="btn-group">
+      <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
+      <button class="btn btn-primary" click.delegate="context.edit($event)" if.one-way="context.hasEdit">Ubah</button>
+      <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
+      <button class="btn btn-primary" click.delegate="context.confirm($event)" if.one-way="context.hasConfirm">Confirm Booking</button>
+      <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
+      <button class="btn btn-danger" click.delegate="context.cancelRemaining($event)" if.one-way="context.hasCancelRemaining">Cancel Sisa</button>
+      <button class="btn btn-success" click.delegate="context.masterPlan($event)" if.one-way="context.hasMasterPlan">Detail Blocking Plan Sewing</button>
+      <button class="btn btn-primary" click.delegate="context.deleteRemaining($event)" if.one-way="context.hasDeleteRemaining">Hapus Sisa</button>
+    </div>
+  </au-input-form>
+</template>

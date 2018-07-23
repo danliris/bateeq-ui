@@ -1,0 +1,32 @@
+<template>
+  <tr>
+    <td>
+      <au-textbox value.bind="data.RO" read-only=true options.bind="controlOption">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.Article" read-only=true options.bind="controlOption">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.Style" read-only=true options.bind="controlOption">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.Counter" read-only=true options.bind="controlOption">
+      </au-textbox>
+    </td>
+    <td>
+      <au-numeric value.bind="data.Total" read-only=true options.bind="controlOption">
+      </au-numeric>
+    </td>
+    <td>
+      <au-multiline value.bind="data.Remark" read-only=true options.bind="controlOption">
+      </au-multiline>
+    </td>
+    <td>
+      <au-datepicker value.bind="data.DeliveryDate" read-only=true options.bind="controlOption">
+      </au-datepicker>
+    </td>
+  </tr>
+</template>
