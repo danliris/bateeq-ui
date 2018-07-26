@@ -17,32 +17,37 @@ Bluebird.config({ warnings: false });
 export async function configure(aurelia) {
   aurelia.use
     .standardConfiguration()
-    .feature('au-components')
-    .feature('components')
-    .feature('converters')
+    .feature("au-components")
+    .feature("components")
+    .feature("converters")
     .plugin("aurelia-api", config => {
+      var auth = "https://bateeq-auth-api-uat.azurewebsites.net/v1/";
+      var core = "https://bateeq-core-api-uat.azurewebsites.net/v1/core/";
+      var master = "https://bateeq-core-api-uat.azurewebsites.net/v1/master/";
+      var manufacture =
+        "https://bateeq-core-api-uat.azurewebsites.net/v1/manufacture/";
+      var inventory =
+        "https://bateeq-inventory-api-uat.azurewebsites.net/v1/inventory/";
+      var merchandiser =
+        "https://bateeq-inventory-api-uat.azurewebsites.net/v1/merchandiser/";
+      var md =
+        "https://com-bateeq-service-merchandiser-uat.azurewebsites.net/v1/";
+      var sales = "https://bateeq-pos-api-uat.azurewebsites.net/v1/sales/";
+      var purchasing =
+        "https://bateeq-inventory-api-uat.azurewebsites.net/v1/purchasing/";
+      var masterplan =
+        "https://com-bateeq-service-masterplan-uat.azurewebsites.net/v1/";
 
-      var auth = "https://bateeq-auth-api.mybluemix.net/v1/";
-      var core = "https://bateeq-core-api.mybluemix.net/v1/core/";
-      var master = "https://bateeq-core-api.mybluemix.net/v1/master/";
-      var manufacture = "https://bateeq-core-api.mybluemix.net/v1/manufacture/";
-      var inventory = "https://bateeq-inventory-api.mybluemix.net/v1/inventory/";
-      var merchandiser = "https://bateeq-inventory-api.mybluemix.net/v1/merchandiser/";
-      var md = "https://com-bateeq-service-merchandiser.azurewebsites.net/v1/";
-      var sales = "https://bateeq-pos-api.mybluemix.net/v1/sales/";
-      var purchasing = "https://bateeq-inventory-api.mybluemix.net/v1/purchasing/";
-      var masterplan = "https://com-bateeq-service-masterplan.azurewebsites.net/v1/";
-    
-      config.registerEndpoint('auth', auth);
-      config.registerEndpoint('core', core);
-      config.registerEndpoint('master', master);
-      config.registerEndpoint('manufacture', manufacture);
-      config.registerEndpoint('inventory', inventory);
-      config.registerEndpoint('merchandiser', merchandiser);
-      config.registerEndpoint('md', md);
-      config.registerEndpoint('sales', sales);
-      config.registerEndpoint('purchasing', purchasing);
-      config.registerEndpoint('masterplan', masterplan);
+      config.registerEndpoint("auth", auth);
+      config.registerEndpoint("core", core);
+      config.registerEndpoint("master", master);
+      config.registerEndpoint("manufacture", manufacture);
+      config.registerEndpoint("inventory", inventory);
+      config.registerEndpoint("merchandiser", merchandiser);
+      config.registerEndpoint("md", md);
+      config.registerEndpoint("sales", sales);
+      config.registerEndpoint("purchasing", purchasing);
+      config.registerEndpoint("masterplan", masterplan);
     
     })
     .plugin("aurelia-authentication", baseConfig => {
