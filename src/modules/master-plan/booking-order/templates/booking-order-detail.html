@@ -1,0 +1,49 @@
+<template>
+  <tr if.bind="!data.isCanceled">
+
+    <td width="12%">
+      <au-autocomplete value.bind="RO" error.bind="error.RO" placeholder="Cari RO" read-only.bind="options.readOnly" key="RO" text="RO"
+        loader.one-time="costCalculationLoader" options.bind="controlOption">
+      </au-autocomplete>
+    </td>
+
+    <td width="10%">
+      <au-textbox value.bind="data.Article" read-only.bind="disabled" options.bind="controlOption"></au-textbox>
+    </td>
+
+    <td width="10%">
+      <au-textbox value.bind="data.Style" read-only.bind="disabled" options.bind="controlOption"></au-textbox>
+    </td>
+
+    <td width="10%">
+      <au-textbox value.bind="data.Counter" read-only.bind="disabled" options.bind="controlOption"></au-textbox>
+    </td>
+
+    <td width="12%">
+      <au-numeric value.bind="data.Total" error.bind="error.Total" format="0" read-only.bind="options.readOnly" options.bind="controlOption"></au-numeric>
+    </td>
+
+    <td width="12%">
+      <au-datepicker value.bind="data.DeliveryDate" error.bind="error.DeliveryDate" read-only.bind="options.readOnly" options.bind="controlOptions">
+      </au-datepicker>
+    </td>
+
+    <td width="12%">
+      <au-datepicker value.bind="data.ConfirmDate" error.bind="error.ConfirmDate" read-only="true" options.bind="controlOptions">
+      </au-datepicker>
+    </td>
+
+    <td width="20%">
+      <au-multiline value.bind="data.Remark" error.bind="error.Remark" placeholder="Isi Keterangan" read-only.bind="options.readOnly"
+        options.bind="controlOption">
+      </au-multiline>
+    </td>
+
+    <td if.bind="!options.readOnly">
+      <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+    </td>
+    <td if.bind="options.readOnly">
+      <button class="btn btn-danger" click.delegate="oncancel(data)">Cancel Confirm</button>
+    </td>
+  </tr>
+</template>

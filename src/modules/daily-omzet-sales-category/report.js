@@ -50,7 +50,7 @@ export class Report {
         var dateFrom = moment(new Date()).startOf('day');
         var dateTo = moment(new Date()).endOf('day');
 
-        this.service.getSummaryPos(dateFrom.format(), dateTo.format())
+        this.service.getSummaryPos(dateFrom.format('YYYY-MM-DD'), dateTo.format('YYYY-MM-DD'))
             .then((result) => {
                 this.summary = result;
                 this.calculateSum();
