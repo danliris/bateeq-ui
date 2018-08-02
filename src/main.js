@@ -38,18 +38,16 @@ export async function configure(aurelia) {
       var masterplan =
         "https://com-bateeq-service-masterplan-uat.azurewebsites.net/v1/";
 
-    
-      config.registerEndpoint('auth', auth);
-      config.registerEndpoint('core', core);
-      config.registerEndpoint('master', master);
-      config.registerEndpoint('manufacture', manufacture);
-      config.registerEndpoint('inventory', inventory);
-      config.registerEndpoint('merchandiser', merchandiser);
-      config.registerEndpoint('md', md);
-      config.registerEndpoint('sales', sales);
-      config.registerEndpoint('purchasing', purchasing);
-      config.registerEndpoint('masterplan', masterplan);
-    
+      config.registerEndpoint("auth", auth);
+      config.registerEndpoint("core", core);
+      config.registerEndpoint("master", master);
+      config.registerEndpoint("manufacture", manufacture);
+      config.registerEndpoint("inventory", inventory);
+      config.registerEndpoint("merchandiser", merchandiser);
+      config.registerEndpoint("md", md);
+      config.registerEndpoint("sales", sales);
+      config.registerEndpoint("purchasing", purchasing);
+      config.registerEndpoint("masterplan", masterplan);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);
