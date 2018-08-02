@@ -38,7 +38,7 @@ export class Report {
     async activate() {
         let dateFrom = moment(new Date()).subtract(1, 'days').startOf('day');
         let dateTo = moment(new Date()).subtract(1, 'days').endOf('day');
-        let apiResult = await this.service.getSalesSummary(dateFrom.format(), dateTo.format())
+        let apiResult = await this.service.getSalesSummary(dateFrom.format('YYYY-MM-DD'), dateTo.format('YYYY-MM-DD'))
             .then(result => {
                 return result;
             });

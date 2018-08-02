@@ -1,0 +1,75 @@
+<template>
+  <tr>
+    <td>
+      <au-checkbox value.bind="data.isConfirmed" read-only.bind="readOnly" options.bind="controlOptions">
+      </au-checkbox>
+    </td>
+    <td>
+      <au-autocomplete value.bind="selectedRO" error.bind="error.selectedRO" placeholder="Cari RO" read-only.bind="readOnly" key="RO"
+        text="RO" loader.one-time="costCalculationLoader" options.bind="controlOptions">
+      </au-autocomplete>
+    </td>
+    <td>
+      <au-textbox value.bind="data.Article" read-only=true options.bind="controlOptions">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.Style" read-only=true options.bind="controlOptions">
+      </au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="data.Counter" read-only=true options.bind="controlOptions">
+      </au-textbox>
+    </td>
+    <td>
+      <au-numeric value.bind="data.SMV_Sewing" read-only=true options.bind="controlOptions">
+      </au-numeric>
+    </td>
+    <td>
+      <au-autocomplete value.bind="data.Unit" error.bind="error.Unit" placeholder="Cari Unit" read-only.bind="readOnly" key="code"
+        text="code" loader.one-time="unitLoader" options.bind="controlOptions">
+      </au-autocomplete>
+    </td>
+    <td>
+      <au-autocomplete value.bind="data.Year" error.bind="error.Year" placeholder="Cari Tahun" if.bind="unitExist" read-only.bind="readOnly"
+        key="Year" text="Year" query.bind="filterYear" loader.one-time="yearLoader" options.bind="controlOptions">
+      </au-autocomplete>
+    </td>
+    <td>
+      <au-autocomplete value.bind="data.Week" error.bind="error.Week" placeholder="Cari Minggu" query.bind="filterWeek" if.bind="yearExist"
+        read-only.bind="readOnly" key="WeekNumber" text.bind="weekView" loader.one-time="weekLoader" options.bind="controlOptions">
+      </au-autocomplete>
+    </td>
+    <td>
+      <au-textbox value.bind="remainingEH" read-only=true options.bind="controlOptions">
+      </au-textbox>
+    </td>
+    <td>
+      <au-numeric value.bind="data.TotalOrder" read-only.bind="readOnly" options.bind="controlOptions">
+      </au-numeric>
+    </td>
+    <td>
+      <au-multiline value.bind="data.Remark" placeholder="Isi Keterangan" read-only.bind="readOnly" options.bind="controlOptions">
+      </au-multiline>
+    </td>
+    <td>
+      <au-datepicker value.bind="data.DeliveryDate" error.bind="error.DeliveryDate" read-only.bind="readOnly" options.bind="controlOptions">
+      </au-datepicker>
+    </td>
+    <td>
+      <au-numeric value.bind="efficiency" read-only=true options.bind="controlOptions">
+      </au-numeric>
+    </td>
+    <td>
+      <au-numeric value.bind="EH_Booking" read-only=true options.bind="controlOptions">
+      </au-numeric>
+    </td>
+    <td>
+      <au-numeric value.bind="EH_Remaining" read-only=true options.bind="controlOptions">
+      </au-numeric>
+    </td>
+    <td if.bind="!readOnly">
+      <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
+    </td>
+  </tr>
+</template>
