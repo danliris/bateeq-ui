@@ -19,8 +19,9 @@ export class View {
                 this.totalQuantity = 0;
                 this.totalPrice = 0;
                 for (var item of this.data.items) {
+                    item.totalPrice = parseInt(item.quantity * item.item.domesticSale);
                     this.totalQuantity += parseInt(item.quantity);
-                    this.totalPrice += parseInt(item.quantity * item.item.domesticSale);
+                    this.totalPrice += item.totalPrice;
                 }
                 
                 this.data._createdDate = moment(data._createdDate).format("DD MMM YYYY HH:mm:ss");

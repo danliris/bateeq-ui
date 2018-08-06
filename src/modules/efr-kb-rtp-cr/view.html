@@ -146,10 +146,10 @@
                 ${item.quantity} x
             </div>
             <div class="col-xs-4 ">
-                    ${(1 * item.item.domesticSale.toLocaleString()).toLocaleString()}
+                    ${ item.item.domesticSale.toLocaleString() }
             </div>
             <div class="col-xs-4 ">
-                    ${(item.quantity*item.item.domesticSale).toLocaleString()}
+                    ${ item.totalPrice.toLocaleString() }
             </div>
             <div class="col-xs-12 ">
                 ${item.remark}
