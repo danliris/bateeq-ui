@@ -106,7 +106,7 @@
     "react-dom": "15.4.1",
     "react-dynamic-number": "1.4.5",
     "xlsx": "^0.13.0",
-    "aurelia-binding": "2.1.1",
+    "aurelia-binding": "^2.1.1",
     "apparel-sorter": "0.2.1"
   },
   "devDependencies": {
