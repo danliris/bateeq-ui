@@ -1,8 +1,6 @@
 export class DetailFooter {
   activate(context) {
     this.context = context;
-    console.log(this.context);
-    // this.colspan = this.context.options.readOnly ? 5 : 4;
     this.colspan = 5;
   }
 

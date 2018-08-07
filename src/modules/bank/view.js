@@ -7,6 +7,7 @@ export class View {
     @bindable readOnlyCode = true;
     @bindable readOnlyName = true;
     @bindable readOnlyDescription = true;
+    Id = null;
 
     constructor(router, service) {
         this.router = router;
@@ -33,6 +34,12 @@ export class View {
     }
 
     update() {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.Id = this.data._id;
+
+        if (!this.Id) {
+            this.Id = this.data.Id;
+        }
+
+        this.router.navigateToRoute('edit', { id: this.Id });
     }
 }

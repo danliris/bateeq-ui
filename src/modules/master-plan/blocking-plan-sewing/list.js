@@ -27,38 +27,36 @@ export class List {
   }
 
   rowFormatter(data, index) {
-    if (
-      data.StatusRemainingOrder.toUpperCase() !== "EXPIRED" &&
-      data.Status.toUpperCase() === "SUDAH DIBUAT MASTER PLAN"
-    )
+    if (data.Status.toUpperCase() === "CONFIRM FULL")
       return { classes: "success" };
-    else if (data.StatusRemainingOrder.toUpperCase() === "EXPIRED")
-      return { classes: "danger" };
-    else return {};
+    else if (data.Status.toUpperCase() === "CONFIRM SEBAGIAN")
+      return { classes: "warning" };
+    else if (data.Status.toUpperCase() === "BOOKING ADA PERUBAHAN")
+      return { classes: "primary" };
+    else if (data.Status.toUpperCase() === "BOOKING") return {};
+    else return { classes: "danger" };
   }
 
   columns = [
-    { field: "Code", title: "Kode Booking" },
+    { field: "BookingOrder.Code", title: "Nomor Booking" },
     {
-      field: "BookingDate",
+      field: "BookingOrder.BookingDate",
       title: "Tanggal Booking",
       formatter: function(value) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "Buyer.Name", title: "Buyer" },
-    { field: "OrderQuantity", title: "Jumlah Order" },
+    { field: "BookingOrder.Buyer.Name", title: "Buyer" },
+    { field: "BookingOrder.OrderQuantity", title: "Jumlah Order" },
     {
-      field: "DeliveryDate",
+      field: "BookingOrder.DeliveryDate",
       title: "Tanggal Pengiriman",
       formatter: function(value) {
         return moment(value).format("DD MMM YYYY");
       }
     },
-    { field: "Remark", title: "Keterangan" },
-    { field: "Status", title: "Status Booking Order" },
-    { field: "StatusTotalConfirm", title: "Status Jumlah Confirm" },
-    { field: "StatusRemainingOrder", title: "Status Sisa Order" }
+    { field: "BookingOrder.Remark", title: "Keterangan" },
+    { field: "Status", title: "Status" }
   ];
 
   loader = info => {

@@ -4,9 +4,6 @@ import { Service } from "./service";
 
 @inject(Router, Service)
 export class Create {
-  hasSave = true;
-  hasCancel = true;
-
   constructor(router, service) {
     this.router = router;
     this.service = service;
@@ -18,11 +15,11 @@ export class Create {
     this.router.navigateToRoute("list");
   }
 
-  cancel() {
+  cancelCallback() {
     this.list();
   }
 
-  save() {
+  saveCallback() {
     this.service
       .create(this.data)
       .then(result => {

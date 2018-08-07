@@ -1,8 +1,4 @@
-import { inject, Lazy } from "aurelia-framework";
-import { HttpClient } from "aurelia-fetch-client";
 import { RestService } from "../../../utils/rest-service";
-import { Container } from "aurelia-dependency-injection";
-import { Config } from "aurelia-api";
 
 const serviceUri = "booking-orders";
 const detailServiceUri = "booking-order-details";
@@ -46,8 +42,8 @@ export class Service extends RestService {
     return super.delete(endpoint, data);
   }
 
-  cancelRemaining(data) {
-    const endpoint = `${serviceUri}/cancel-remaining/${data.Id}`;
+  setRemainingOrderQuantity(data) {
+    const endpoint = `${serviceUri}/set-remaining-order-quantity/${data.Id}`;
     return super.put(endpoint, data);
   }
 }

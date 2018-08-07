@@ -51,7 +51,7 @@ export class List {
                 var date = new Date(d);
                 var from = moment(d).startOf('day');
                 var to = moment(d).endOf('day');
-                getData.push(this.service.getAllRttByFilter(from.format(), to.format(), this.data.filter.status));
+                getData.push(this.service.getAllRttByFilter(from.format('YYYY-MM-DD'), to.format('YYYY-MM-DD'), this.data.filter.status));
             }
             Promise.all(getData)
                 .then(rttPerDays => {

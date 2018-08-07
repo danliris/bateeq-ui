@@ -8,6 +8,7 @@ export class List {
     data = [];
     info = { page: 1, keyword: '' };
     keyword = '';
+    Id = null;
 
     constructor(router, service) {
         this.router = router;
@@ -60,13 +61,25 @@ export class List {
     contextCallback(event) {
         var arg = event.detail;
         var data = arg.data;
+        this.Id = data._id;
+
+        if (!this.Id) {
+            this.Id = data.Id;
+        }
+
         switch (arg.name) {
             case "detail":
-                this.router.navigateToRoute('view', { id: data._id })
+                this.router.navigateToRoute('view', { id: this.Id })
         }
     }
 
     view(data) {
-        this.router.navigateToRoute('view', { id: data._id });
+        this.Id = data._id;
+
+        if (!this.Id) {
+            this.Id = data.Id;
+        }
+        
+        this.router.navigateToRoute('view', { id: this.Id });
     }
 }

@@ -3,30 +3,26 @@ import { Router } from "aurelia-router";
 import { Service } from "./service";
 
 @inject(Router, Service)
-export class Create {
-  hasSave = true;
-  hasCancel = true;
-
+export class Edit {
   constructor(router, service) {
     this.router = router;
     this.service = service;
-    this.data = {};
-    this.error = {};
   }
 
-  list() {
-    this.router.navigateToRoute("list");
+  async activate(params) {
+    var id = params.id;
+    this.data = await this.service.getById(id);
   }
 
-  cancel() {
-    this.list();
+  cancelCallback() {
+    this.router.navigateToRoute("view", { id: this.data.Id });
   }
 
-  save() {
+  saveCallback() {
     this.service
-      .create(this.data)
+      .update(this.data)
       .then(result => {
-        this.list();
+        this.router.navigateToRoute("view", { id: this.data.Id });
       })
       .catch(e => {
         this.error = e;

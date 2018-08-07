@@ -71,8 +71,8 @@ export class Report {
         this.dateFrom = moment(this.dateFrom).startOf('day');
         this.dateTo = moment(this.dateTo).endOf('day');
         var filter = {
-            dateFrom: this.dateFrom.format(),
-            dateTo: this.dateTo.format(),
+            dateFrom: this.dateFrom.format('YYYY-MM-DD'),
+            dateTo: this.dateTo.format('YYYY-MM-DD'),
             transaction: this.transactionType.id || 0,
             packingListStatus: this.packingListStatus.id || 0,
             storageId: this.storage._id || ''
@@ -85,8 +85,8 @@ export class Report {
         this.dateTo = moment(this.dateTo).endOf('day');
 
         var filter = {
-            dateFrom: this.dateFrom.format(),
-            dateTo: this.dateTo.format(),
+            dateFrom: this.dateFrom.format('YYYY-MM-DD'),
+            dateTo: this.dateTo.format('YYYY-MM-DD'),
             transaction: this.transactionType.id || 0,
             packingListStatus: this.packingListStatus.id || 0,
             storageId: this.storage._id || ''
