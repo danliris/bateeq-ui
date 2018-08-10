@@ -46,4 +46,9 @@ export class Service extends RestService {
     const endpoint = `${serviceUri}/set-remaining-order-quantity/${data.Id}`;
     return super.put(endpoint, data);
   }
+
+  getBlockingPlanById(id) {
+    var endpoint = `blocking-plans/${id}`;
+    return super.get(endpoint);
+  }
 }
