@@ -50,7 +50,7 @@ export class DataForm {
       { header: "EH Booking" },
       { header: "Sisa EH" }
     ],
-    onAdd: function() {
+    onAdd: function () {
       this.data.WorkSchedules.push({});
     }.bind(this),
     options: { readOnly: this.readOnly }
@@ -166,6 +166,11 @@ export class DataForm {
       { title: "Tahun", field: "Year" },
       { title: "Unit", field: "UnitCode" }
     ];
+
+    weeklyPlan.Items.sort((a, b) => {
+      return a.WeekNumber - b.WeekNumber;
+    });
+
     for (const item of weeklyPlan.Items) {
       columns.push({
         title: `W${item.WeekNumber} ${moment(item.EndDate).format("DD MMM")}`,
@@ -186,6 +191,7 @@ export class DataForm {
         data[`Week${item.WeekNumber}`] = item.RemainingEh;
       previewData.push(data);
     }
+    
     return previewData;
   }
 }
