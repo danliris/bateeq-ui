@@ -44,7 +44,7 @@ export class ROItem {
                 var hasItem = await this.service.getItemByCode(item.code);
 
                 if (hasItem.length > 0) {
-                    debugger
+                    
                     hasItem.forEach(dataItem => {
                         if (innerData.startDate >= new Date(dataItem.startDate) &&
                             innerData.startDate <= new Date(dataItem.endDate) ||
