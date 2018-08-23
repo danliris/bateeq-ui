@@ -32,7 +32,7 @@
             label="Mulai Berlaku" 
             value.bind="data.startDate" 
             error.bind="error.startDate" 
-            read-only.bind="readOnly" 
+            read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
 
@@ -69,6 +69,7 @@
               columns.bind="itemsColumns.columns" 
               add.bind="itemsColumns.onAdd"
               read-only.bind="readOnly"
+              options.bind="detailOptions"
               item-template="modules/master/discount/template/ro-item">
         </au-collection>
     </au-input-form>
