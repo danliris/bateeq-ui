@@ -7,12 +7,14 @@ export class ROItemDetails {
 
     constructor(service) {
         this.service = service;
+        this.innerData = {};
     }
 
     activate(context) {
         this.data = context.data;
         this.error = context.error;
         this.options = context.context.options;
+        this.innerData = this.options.innerData;
         this.readOnly = context.options.readOnly;
         
         if (this.data.code) {
@@ -33,9 +35,21 @@ export class ROItemDetails {
 
     async codeChanged(e) {
         this.error = {};
+        var innerData = this.innerData;
         var item = await this.service.getItemByCode(e.srcElement.value);
         if (item.length > 0) {
-            this.error.code = "Produk sudah digunakan, gunakan Produk yg lain";
+            var errorCode = "";
+
+            item.forEach(dataItem => {
+                if (innerData.startDate >= new Date(dataItem.startDate) &&
+                    innerData.startDate <= new Date(dataItem.endDate) ||
+                    new Date(dataItem.startDate) >= innerData.startDate && 
+                    new Date(dataItem.startDate) <= innerData.endDate) {
+                    errorCode = "Produk sudah digunakan";
+                }
+            });
+
+            this.error.code = errorCode;
         } else {
             this.data = this.data.code;
         }

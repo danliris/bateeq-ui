@@ -12,7 +12,7 @@ export class ROItem {
         this.service = service;
     }
 
-    activate(context) {
+    async activate(context) {
         this.data = context.data;
         this.error = context.error;
         this.options = context.context.options;
@@ -28,9 +28,11 @@ export class ROItem {
         if (!this.readOnly) {
             this.columns.push("");
         }
+        this.innerData = context.context.options.innerData;
     }
 
     async realizationOrderChanged(newValue, oldValue) {
+        var innerData = this.innerData;
         if (newValue) {
             var products = await FinishedItemLoader(newValue.realizationOrder);
             var processedData = {
@@ -40,9 +42,19 @@ export class ROItem {
 
             for (let item of products) {
                 var hasItem = await this.service.getItemByCode(item.code);
+
                 if (hasItem.length > 0) {
-                    item["error"] = "Produk sudah digunakan, gunakan Produk yg lain";
+                    
+                    hasItem.forEach(dataItem => {
+                        if (innerData.startDate >= new Date(dataItem.startDate) &&
+                            innerData.startDate <= new Date(dataItem.endDate) ||
+                            new Date(dataItem.startDate) >= innerData.startDate && 
+                            new Date(dataItem.startDate) <= innerData.endDate) {
+                            item["error"] = "Produk sudah digunakan";
+                        }
+                    });
                 }
+
                 processedData.itemsDetails.push(item);
             }
 
@@ -60,7 +72,7 @@ export class ROItem {
                     if (keyword.toUpperCase() === "NONE" ||
                         keyword.toUpperCase() === "NO") {
                         this.isShowing = true;
-                        return this.data['realizationOrder'] = {'realizationOrder': 'NO' };
+                        return this.data['realizationOrder'] = { 'realizationOrder': 'NO' };
                     } else {
                         return this.removeRedundantRO(data);
                     }

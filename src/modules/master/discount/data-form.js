@@ -24,7 +24,6 @@ export class DataForm {
     constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
-
         this.itemsColumns = {
             columns: ["RO"],
             onAdd: () => {
@@ -35,7 +34,7 @@ export class DataForm {
         }
     }
 
-    bind(context) {
+    async bind(context) {
         this.context = context;
         this.data = this.context.data;
         if (this.data.stores) {
@@ -47,6 +46,8 @@ export class DataForm {
                 this.storeNameOptions.push(this.data.stores.name);
             }
         }
+        this.detailOptions = {};
+        this.detailOptions.innerData = this.data;
     }
 
     async storeCategoryChanged(e) {
