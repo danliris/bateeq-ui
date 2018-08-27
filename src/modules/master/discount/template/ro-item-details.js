@@ -1,6 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
 var ItemLoader = require('../../../../loader/finishgood-loader-discount');
+const moment = require('moment');
 
 @inject(Service)
 export class ROItemDetails {
@@ -16,13 +17,13 @@ export class ROItemDetails {
         this.options = context.context.options;
         this.innerData = this.options.innerData;
         this.readOnly = context.options.readOnly;
-        
+
         if (this.data.code) {
             if (this.data.code._id) {
                 this.data = this.data.code;
             }
         }
-        
+
         if (this.data) {
             var error = this.data.error;
 
@@ -37,14 +38,19 @@ export class ROItemDetails {
         this.error = {};
         var innerData = this.innerData;
         var item = await this.service.getItemByCode(e.srcElement.value);
+
         if (item.length > 0) {
             var errorCode = "";
 
             item.forEach(dataItem => {
-                if (innerData.startDate >= new Date(dataItem.startDate) &&
-                    innerData.startDate <= new Date(dataItem.endDate) ||
-                    new Date(dataItem.startDate) >= innerData.startDate && 
-                    new Date(dataItem.startDate) <= innerData.endDate) {
+                var formStart = moment(innerData.startDate).startOf('day');
+                var formEnd = moment(innerData.endDate).endOf('day');
+                var itemStart = moment(dataItem.startDate).startOf('day');
+                var itemEnd = moment(dataItem.endDate).endOf('day');
+                if (formStart >= itemStart &&
+                    formStart <= itemEnd ||
+                    itemStart >= formStart &&
+                    itemStart <= formEnd) {
                     errorCode = "Produk sudah digunakan";
                 }
             });
