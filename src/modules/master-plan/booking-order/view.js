@@ -27,6 +27,7 @@ export class View {
     this.hasConfirm = this.data.OrderQuantity >= 0 && !expired;
     this.hasCancelRemaining = notAllConfirmed && hasRemaining && !expired;
     this.hasDeleteRemaining = notAllConfirmed && hasRemaining && expired;
+    this.hasBlockingPlan = Boolean(this.data.BlockingPlanId);
   }
 
   list() {
@@ -64,6 +65,10 @@ export class View {
     this.service.setRemainingOrderQuantity(this.data).then(result => {
       this.list();
     });
+  }
+
+  detailBlockingPlan() {
+    this.router.navigateToRoute("detail", { id: this.data.BlockingPlanId });
   }
 
   deleteRemaining() {

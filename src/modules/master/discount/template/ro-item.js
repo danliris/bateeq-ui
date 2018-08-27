@@ -1,6 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
 var FinishedItemLoader = require("./../../../../loader/finishgood-loader-discount");
+const moment = require('moment');
 
 @inject(Service)
 export class ROItem {
@@ -12,7 +13,7 @@ export class ROItem {
         this.service = service;
     }
 
-    activate(context) {
+    async activate(context) {
         this.data = context.data;
         this.error = context.error;
         this.options = context.context.options;
@@ -28,9 +29,11 @@ export class ROItem {
         if (!this.readOnly) {
             this.columns.push("");
         }
+        this.innerData = context.context.options.innerData;
     }
 
     async realizationOrderChanged(newValue, oldValue) {
+        var innerData = this.innerData;
         if (newValue) {
             var products = await FinishedItemLoader(newValue.realizationOrder);
             var processedData = {
@@ -40,9 +43,23 @@ export class ROItem {
 
             for (let item of products) {
                 var hasItem = await this.service.getItemByCode(item.code);
+
                 if (hasItem.length > 0) {
-                    item["error"] = "Produk sudah digunakan, gunakan Produk yg lain";
+
+                    hasItem.forEach(dataItem => {
+                        var formStart = moment(innerData.startDate).startOf('day');
+                        var formEnd = moment(innerData.endDate).endOf('day');
+                        var itemStart = moment(dataItem.startDate).startOf('day');
+                        var itemEnd = moment(dataItem.endDate).endOf('day');
+                        if (formStart >= itemStart &&
+                            formStart <= itemEnd ||
+                            itemStart >= formStart &&
+                            itemStart <= formEnd) {
+                            item["error"] = "Produk sudah digunakan";
+                        }
+                    });
                 }
+
                 processedData.itemsDetails.push(item);
             }
 
@@ -60,7 +77,7 @@ export class ROItem {
                     if (keyword.toUpperCase() === "NONE" ||
                         keyword.toUpperCase() === "NO") {
                         this.isShowing = true;
-                        return this.data['realizationOrder'] = {'realizationOrder': 'NO' };
+                        return this.data['realizationOrder'] = { 'realizationOrder': 'NO' };
                     } else {
                         return this.removeRedundantRO(data);
                     }
