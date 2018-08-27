@@ -1,6 +1,7 @@
 import { inject, bindable } from 'aurelia-framework';
 import { Service } from '../service';
 var FinishedItemLoader = require("./../../../../loader/finishgood-loader-discount");
+const moment = require('moment');
 
 @inject(Service)
 export class ROItem {
@@ -44,12 +45,16 @@ export class ROItem {
                 var hasItem = await this.service.getItemByCode(item.code);
 
                 if (hasItem.length > 0) {
-                    
+
                     hasItem.forEach(dataItem => {
-                        if (innerData.startDate >= new Date(dataItem.startDate) &&
-                            innerData.startDate <= new Date(dataItem.endDate) ||
-                            new Date(dataItem.startDate) >= innerData.startDate && 
-                            new Date(dataItem.startDate) <= innerData.endDate) {
+                        var formStart = moment(innerData.startDate).startOf('day');
+                        var formEnd = moment(innerData.endDate).endOf('day');
+                        var itemStart = moment(dataItem.startDate).startOf('day');
+                        var itemEnd = moment(dataItem.endDate).endOf('day');
+                        if (formStart >= itemStart &&
+                            formStart <= itemEnd ||
+                            itemStart >= formStart &&
+                            itemStart <= formEnd) {
                             item["error"] = "Produk sudah digunakan";
                         }
                     });
