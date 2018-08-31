@@ -95,7 +95,7 @@ module.exports = [
         name: 'unit-payment-price-correction-note',
         moduleId: './modules/purchasing/price-correction/index',
         nav: true,
-        title: 'Correction of Purchasing Price',
+        title: 'Correction Purchasing',
         auth: true,
         settings: {
             group: "purchasing",
