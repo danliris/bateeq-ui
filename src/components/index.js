@@ -19,5 +19,8 @@ export function configure(config) {
         './customs/collections/role/role-permission-item-collection',
         './customs/collections/account/role-item-collection',
         './customs/collections/account/store-item-collection',
+        
+        './customs/auto-suggests/unit-payment-order-auto-suggest',
+        './customs/auto-suggests/supplier-auto-suggest',
     );
 }
