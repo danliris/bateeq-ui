@@ -97,6 +97,9 @@ export class DataForm {
     ],
     onAdd: function() {
       this.data.CostCalculationRetail_Materials.push({});
+    }.bind(this),
+    onRemove: function () {
+      console.log("Material removed")
     }.bind(this)
   };
 
