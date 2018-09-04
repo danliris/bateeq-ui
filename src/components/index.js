@@ -22,6 +22,6 @@ export function configure(config) {
         
         './customs/auto-suggests/unit-payment-order-auto-suggest',
         './customs/auto-suggests/supplier-auto-suggest',
-        './customs/collection/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
+        './customs/collections/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
     );
 }
