@@ -35,7 +35,7 @@
             <au-numeric value.bind="total" read-only.bind="disabled"></au-numeric>
         </td>
         <td style="width: 3%" if.bind="!readOnly">
-            <button class="btn btn-danger pull-right" click.delegate="onremove(stepIndicators, $event)">-</button>
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>
