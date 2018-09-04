@@ -95,7 +95,20 @@ module.exports = [
         name: 'unit-payment-price-correction-note',
         moduleId: './modules/purchasing/price-correction/index',
         nav: true,
-        title: 'Correction Purchasing',
+        title: 'Price Correction',
+        auth: true,
+        settings: {
+            group: "purchasing",
+            permission: { "PBL.01": 1 },
+            iconClass: 'fa fa-credit-card'
+        }
+    },
+    {
+        route: 'quantity-correction',
+        name: 'unit-payment-quantity-correction-note',
+        moduleId: './modules/purchasing/quantity-correction/index',
+        nav: true,
+        title: 'Quantity Correction',
         auth: true,
         settings: {
             group: "purchasing",
