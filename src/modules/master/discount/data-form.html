@@ -62,6 +62,7 @@
             items.bind="storeNameOptions"
             options.bind="controlOptions">
         </au-dropdown>
+        <multiline label="Keterangan" value.bind="data.information" error.bind="error.information" read-only.bind="readOnly" ></multiline>
 
         <au-collection 
               items.bind="data.items" 
