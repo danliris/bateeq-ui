@@ -97,6 +97,9 @@ export class DataForm {
     ],
     onAdd: function() {
       this.data.CostCalculationRetail_Materials.push({});
+    }.bind(this),
+    onRemove: function () {
+      console.log("Material removed")
     }.bind(this)
   };
 
@@ -114,6 +117,7 @@ export class DataForm {
     this.ongkosService = ongkosService;
     this.efficiencyService = efficiencyService;
     this.numberFormatValueConverter = numberFormatValueConverter;
+    this.defaultOL = this.defaultOTL1 = this.defaultOTL2 = this.defaultOTL3 = this.defaultTHR = this.defaultRate;
   }
 
   @bindable imageUpload;
@@ -155,10 +159,6 @@ export class DataForm {
     this.SelectedRounding = this.data.SelectedRounding
       ? this.data.SelectedRounding
       : this.radio.Rounding20;
-    this.uncheckedOnceOL = false;
-    this.uncheckedOnceOTL1 = false;
-    this.uncheckedOnceOTL2 = false;
-    this.uncheckedOnceOTL3 = false;
     this.OLCheck = this.data.OL ? (this.data.OL.Id ? true : false) : false;
     this.OTL1Check = this.data.OTL1
       ? this.data.OTL1.Id
@@ -215,6 +215,8 @@ export class DataForm {
   }
 
   @computedFrom(
+    "defaultOL",
+    "defaultTHR",
     "OLCheck",
     "data.SH_Cutting",
     "data.SH_Sewing",
@@ -222,32 +224,26 @@ export class DataForm {
   )
   get OL() {
     if (this.OLCheck) {
-      if (
-        !(this.data.OL ? (this.data.OL.Id ? true : false) : false) ||
-        this.uncheckedOnceOL
-      ) {
-        let mTarifOL = this.defaultOL.Value;
-        let mTarifTHR = this.defaultTHR.Value;
-        let mSWCutting = this.data.SH_Cutting;
-        let mSWSewing = this.data.SH_Sewing;
-        let mSWFinishing = this.data.SH_Finishing;
-        let mTotalSW = mSWCutting + mSWSewing + mSWFinishing;
-        let mEff_Prod = 100;
-        let mEff = this.data.Efficiency.Value || 0;
-        let calculatedOL =
-          mTarifOL * mSWCutting * mEff_Prod / 75 +
-          mTarifOL * mSWSewing * mEff_Prod / mEff +
-          mTarifOL * mSWFinishing * mEff_Prod / 90 +
-          mTarifTHR * mTotalSW;
-        let result = {
-          Id: this.defaultOL.Id,
-          Value: this.defaultOL.Value,
-          CalculatedValue: parseFloat(calculatedOL.toFixed(2))
-        };
-        this.data.OL = result;
-      }
+      let mTarifOL = this.defaultOL.Value;
+      let mTarifTHR = this.defaultTHR.Value;
+      let mSWCutting = this.data.SH_Cutting;
+      let mSWSewing = this.data.SH_Sewing;
+      let mSWFinishing = this.data.SH_Finishing;
+      let mTotalSW = mSWCutting + mSWSewing + mSWFinishing;
+      let mEff_Prod = 100;
+      let mEff = this.data.Efficiency.Value || 0;
+      let calculatedOL =
+        mTarifOL * mSWCutting * mEff_Prod / 75 +
+        mTarifOL * mSWSewing * mEff_Prod / mEff +
+        mTarifOL * mSWFinishing * mEff_Prod / 90 +
+        mTarifTHR * mTotalSW;
+      let result = {
+        Id: this.defaultOL.Id,
+        Value: this.defaultOL.Value,
+        CalculatedValue: parseFloat(calculatedOL.toFixed(2))
+      };
+      this.data.OL = result;
     } else {
-      this.uncheckedOnceOL = true;
       this.data.OL = this.defaultRate;
     }
     return {
@@ -258,6 +254,7 @@ export class DataForm {
   }
 
   @computedFrom(
+    "defaultOTL1",
     "OTL1Check",
     "data.SH_Cutting",
     "data.SH_Sewing",
@@ -265,23 +262,17 @@ export class DataForm {
   )
   get OTL1() {
     if (this.OTL1Check) {
-      if (
-        !(this.data.OTL1 ? (this.data.OTL1.Id ? true : false) : false) ||
-        this.uncheckedOnceOTL1
-      ) {
-        let mTarifOTL1 = this.defaultOTL1.Value;
-        let mTotalSH =
-          this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
-        let calculatedOTL1 = mTarifOTL1 * mTotalSH * 60;
-        let result = {
-          Id: this.defaultOTL1.Id,
-          Value: this.defaultOTL1.Value,
-          CalculatedValue: parseFloat(calculatedOTL1.toFixed(2))
-        };
-        this.data.OTL1 = result;
-      }
+      let mTarifOTL1 = this.defaultOTL1.Value;
+      let mTotalSH =
+        this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
+      let calculatedOTL1 = mTarifOTL1 * mTotalSH * 60;
+      let result = {
+        Id: this.defaultOTL1.Id,
+        Value: this.defaultOTL1.Value,
+        CalculatedValue: parseFloat(calculatedOTL1.toFixed(2))
+      };
+      this.data.OTL1 = result;
     } else {
-      this.uncheckedOnceOTL1 = true;
       this.data.OTL1 = this.defaultRate;
     }
     return {
@@ -292,6 +283,7 @@ export class DataForm {
   }
 
   @computedFrom(
+    "defaultOTL2",
     "OTL2Check",
     "data.SH_Cutting",
     "data.SH_Sewing",
@@ -299,23 +291,17 @@ export class DataForm {
   )
   get OTL2() {
     if (this.OTL2Check) {
-      if (
-        !(this.data.OTL2 ? (this.data.OTL2.Id ? true : false) : false) ||
-        this.uncheckedOnceOTL2
-      ) {
-        let mTarifOTL2 = this.defaultOTL2.Value;
-        let mTotalSH =
-          this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
-        let calculatedOTL2 = mTarifOTL2 * mTotalSH * 60;
-        let result = {
-          Id: this.defaultOTL2.Id,
-          Value: this.defaultOTL2.Value,
-          CalculatedValue: parseFloat(calculatedOTL2.toFixed(2))
-        };
-        this.data.OTL2 = result;
-      }
+      let mTarifOTL2 = this.defaultOTL2.Value;
+      let mTotalSH =
+        this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
+      let calculatedOTL2 = mTarifOTL2 * mTotalSH * 60;
+      let result = {
+        Id: this.defaultOTL2.Id,
+        Value: this.defaultOTL2.Value,
+        CalculatedValue: parseFloat(calculatedOTL2.toFixed(2))
+      };
+      this.data.OTL2 = result;
     } else {
-      this.uncheckedOnceOTL2 = true;
       this.data.OTL2 = this.defaultRate;
     }
     return {
@@ -326,6 +312,7 @@ export class DataForm {
   }
 
   @computedFrom(
+    "defaultOTL3",
     "OTL3Check",
     "data.SH_Cutting",
     "data.SH_Sewing",
@@ -333,23 +320,17 @@ export class DataForm {
   )
   get OTL3() {
     if (this.OTL3Check) {
-      if (
-        !(this.data.OTL3 ? (this.data.OTL3.Id ? true : false) : false) ||
-        this.uncheckedOnceOTL3
-      ) {
-        let mTarifOTL3 = this.defaultOTL3.Value;
-        let mTotalSH =
-          this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
-        let calculatedOTL3 = mTarifOTL3 * mTotalSH * 60;
-        let result = {
-          Id: this.defaultOTL3.Id,
-          Value: this.defaultOTL3.Value,
-          CalculatedValue: parseFloat(calculatedOTL3.toFixed(2))
-        };
-        this.data.OTL3 = result;
-      }
+      let mTarifOTL3 = this.defaultOTL3.Value;
+      let mTotalSH =
+        this.data.SH_Cutting + this.data.SH_Sewing + this.data.SH_Finishing;
+      let calculatedOTL3 = mTarifOTL3 * mTotalSH * 60;
+      let result = {
+        Id: this.defaultOTL3.Id,
+        Value: this.defaultOTL3.Value,
+        CalculatedValue: parseFloat(calculatedOTL3.toFixed(2))
+      };
+      this.data.OTL3 = result;
     } else {
-      this.uncheckedOnceOTL3 = true;
       this.data.OTL3 = this.defaultRate;
     }
     return {
