@@ -17,7 +17,8 @@ export class List {
         { field: "endDate", title: "Berlaku Hingga", formatter: function (value, data, index) {
             return moment(value).format("DD MMM YYYY");
           } 
-        }
+        },
+        { field: "information", title: "Keterangan" }
     ];
 
     loader = (info) => {
