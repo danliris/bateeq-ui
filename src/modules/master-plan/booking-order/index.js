@@ -13,7 +13,7 @@ export class Index {
         moduleId: "./create",
         name: "create",
         nav: false,
-        title: "Create: Data Bank"
+        title: "Buat"
       },
       {
         route: "view/:id",
@@ -34,7 +34,14 @@ export class Index {
         moduleId: "./confirm",
         name: "confirm",
         nav: false,
-        title: "Confirm: Booking"
+        title: "Confirm"
+      },
+      {
+        route: "detail/:id",
+        moduleId: "./detail",
+        name: "detail",
+        nav: false,
+        title: "Detail Blocking Plan Sewing"
       }
     ]);
     this.router = router;

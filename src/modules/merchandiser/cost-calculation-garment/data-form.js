@@ -64,6 +64,9 @@ export class DataForm {
         Rate: this.data.Rate
       });
       console.log(this.data.CostCalculationGarment_Materials);
+    }.bind(this),
+    onRemove: function () {
+      console.log("Material removed")
     }.bind(this)
   };
   radio = {
