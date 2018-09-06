@@ -51,11 +51,24 @@ export class ROItem {
                         var formEnd = moment(innerData.endDate).endOf('day');
                         var itemStart = moment(dataItem.startDate).startOf('day');
                         var itemEnd = moment(dataItem.endDate).endOf('day');
-                        if (formStart >= itemStart &&
-                            formStart <= itemEnd ||
-                            itemStart >= formStart &&
-                            itemStart <= formEnd) {
-                            item["error"] = "Produk sudah digunakan";
+
+                        if (innerData.discountOne == dataItem.discountOne &&
+                            innerData.discountTwo == dataItem.discountTwo) {
+
+                            if (formStart >= itemStart &&
+                                formStart <= itemEnd ||
+                                itemStart >= formStart &&
+                                itemStart <= formEnd) {
+                                item["error"] = "Produk sudah digunakan";
+                            }
+                        } else {
+                            
+                            if (formStart >= itemStart &&
+                                formStart <= itemEnd ||
+                                itemStart >= formStart &&
+                                itemStart <= formEnd) {
+                                item["error"] = "Produk sudah digunakan";
+                            }
                         }
                     });
                 }
