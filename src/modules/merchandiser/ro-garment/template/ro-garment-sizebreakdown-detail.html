@@ -11,7 +11,7 @@
             <au-numeric format="0" value.bind="data.Quantity" error.bind="error.Quantity" options.bind="controlOptions" read-only.bind="readOnly"></au-numeric>
         </td>
         <td class="col-md-1" if.bind="!readOnly">
-            <button class="btn btn-danger pull-right" click.delegate="onremove(stepIndicators, $event)">-</button>
+            <button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button>
         </td>
     </tr>
 </template>
