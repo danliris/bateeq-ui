@@ -69,9 +69,9 @@ export class ROItemDetails {
             });
 
             this.error.code = errorCode;
-        } else {
-            this.data = this.data.code;
         }
+        var itemsData = this.data.code;
+        Object.assign(this.data, itemsData);
     }
 
     get itemLoader() {

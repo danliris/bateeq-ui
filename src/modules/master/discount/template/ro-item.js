@@ -34,12 +34,13 @@ export class ROItem {
 
     async realizationOrderChanged(newValue, oldValue) {
         var innerData = this.innerData;
-        if (newValue) {
+        var processedData = {
+            realizationOrder: newValue,
+            itemsDetails: []
+        };
+
+        if (newValue && newValue.realizationOrder != 'NO') {
             var products = await FinishedItemLoader(newValue.realizationOrder);
-            var processedData = {
-                realizationOrder: newValue,
-                itemsDetails: []
-            };
 
             for (let item of products) {
                 var hasItem = await this.service.getItemByCode(item.code);
@@ -62,7 +63,7 @@ export class ROItem {
                                 item["error"] = "Produk sudah digunakan";
                             }
                         } else {
-                            
+
                             if (formStart >= itemStart &&
                                 formStart <= itemEnd ||
                                 itemStart >= formStart &&
@@ -77,10 +78,11 @@ export class ROItem {
             }
 
             Object.assign(this.data, processedData);
-            this.isShowing = true;
         } else {
-            this.data = {};
+            this.data.realizationOrder = processedData.realizationOrder;
+            this.data.itemsDetails = processedData.itemsDetails;
         }
+        this.isShowing = true;
     }
 
     get articleRealizationOrderLoader() {
@@ -90,7 +92,8 @@ export class ROItem {
                     if (keyword.toUpperCase() === "NONE" ||
                         keyword.toUpperCase() === "NO") {
                         this.isShowing = true;
-                        return this.data['realizationOrder'] = { 'realizationOrder': 'NO' };
+                        data = [];
+                        return this.removeRedundantRO(data);
                     } else {
                         return this.removeRedundantRO(data);
                     }
@@ -100,9 +103,15 @@ export class ROItem {
     }
 
     removeRedundantRO(data) {
-        var realizationOrders = data.map(item => {
-            return { 'realizationOrder': item.article.realizationOrder };
-        });
+        var realizationOrders = [];
+
+        if (data.length > 0) {
+            realizationOrders = data.map(item => {
+                return { 'realizationOrder': item.article.realizationOrder };
+            });
+        } else {
+            realizationOrders.push({ 'realizationOrder': 'NO' });
+        }
 
         function removeDuplicates(originalArray, prop) {
             var newArray = [];
