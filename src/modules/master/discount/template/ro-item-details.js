@@ -47,7 +47,7 @@ export class ROItemDetails {
                 var formEnd = moment(innerData.endDate).endOf('day');
                 var itemStart = moment(dataItem.startDate).startOf('day');
                 var itemEnd = moment(dataItem.endDate).endOf('day');
-
+                debugger
                 if (innerData.discountOne == dataItem.discountOne &&
                     innerData.discountTwo == dataItem.discountTwo) {
 
@@ -55,15 +55,15 @@ export class ROItemDetails {
                         formStart <= itemEnd ||
                         itemStart >= formStart &&
                         itemStart <= formEnd) {
-                        item["error"] = "Produk sudah digunakan";
+                        errorCode = "Produk sudah digunakan";
                     }
                 } else {
-                    
+
                     if (formStart >= itemStart &&
                         formStart <= itemEnd ||
                         itemStart >= formStart &&
                         itemStart <= formEnd) {
-                        item["error"] = "Produk sudah digunakan";
+                        errorCode = "Produk sudah digunakan";
                     }
                 }
             });
