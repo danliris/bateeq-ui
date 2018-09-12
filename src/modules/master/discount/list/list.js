@@ -7,6 +7,7 @@ import moment from 'moment';
 export class List {
     context = ["Detail"];
     columns = [
+        { field: "code", title: "Kode Diskon" },
         { field: "discountOne", title: "Diskon 1" },
         { field: "discountTwo", title: "Diskon 2" },
         { field: "startDate", title: "Mulai Berlaku", formatter: function (value, data, index) {
@@ -16,7 +17,8 @@ export class List {
         { field: "endDate", title: "Berlaku Hingga", formatter: function (value, data, index) {
             return moment(value).format("DD MMM YYYY");
           } 
-        }
+        },
+        { field: "information", title: "Keterangan" }
     ];
 
     loader = (info) => {

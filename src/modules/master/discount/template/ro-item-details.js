@@ -47,18 +47,30 @@ export class ROItemDetails {
                 var formEnd = moment(innerData.endDate).endOf('day');
                 var itemStart = moment(dataItem.startDate).startOf('day');
                 var itemEnd = moment(dataItem.endDate).endOf('day');
-                if (formStart >= itemStart &&
-                    formStart <= itemEnd ||
-                    itemStart >= formStart &&
-                    itemStart <= formEnd) {
-                    errorCode = "Produk sudah digunakan";
+                if (innerData.discountOne == dataItem.discountOne &&
+                    innerData.discountTwo == dataItem.discountTwo) {
+
+                    if (formStart >= itemStart &&
+                        formStart <= itemEnd ||
+                        itemStart >= formStart &&
+                        itemStart <= formEnd) {
+                        errorCode = "Produk sudah digunakan";
+                    }
+                } else {
+
+                    if (formStart >= itemStart &&
+                        formStart <= itemEnd ||
+                        itemStart >= formStart &&
+                        itemStart <= formEnd) {
+                        errorCode = "Produk sudah digunakan";
+                    }
                 }
             });
 
             this.error.code = errorCode;
-        } else {
-            this.data = this.data.code;
         }
+        var itemsData = this.data.code;
+        Object.assign(this.data, itemsData);
     }
 
     get itemLoader() {
