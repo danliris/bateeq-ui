@@ -28,7 +28,7 @@ export class Create {
     save(event) {
         this.error = {};
         this.validateUI(this.data);
-        
+
         if (Object.getOwnPropertyNames(this.error).length < 1) {
             this.service.create(this.data)
                 .then(result => {
@@ -41,16 +41,6 @@ export class Create {
     }
 
     validateUI(data) {
-        //Check Field if Empty
-
-        if (data.discountOne === 0) {
-
-            if (data.discountTwo === 0) {
-                this.error.discountOne = "Masukkan Salah Satu Diskon";
-                this.error.discountTwo = "Masukkan Salah Satu Diskon";
-            }
-        }
-
         if (data.startDate === undefined) {
             this.error.startDate = "Masukkan Tanggal Mulai Berlaku Diskon"
         }
@@ -59,14 +49,14 @@ export class Create {
             this.error.endDate = "Masukkan Tanggal Selesai Berlaku Diskon"
         }
 
-        if (data.discountMapping === "- discount -" ) {
+        if (data.discountMapping === "- discount -") {
             this.error.discountMapping = "Pilih tipe Diskon";
         }
 
         if (data.storeCategory === "- categories -") {
             this.error.storeCategory = "Pilih Kategori Toko";
         }
-        
+
         if (data.stores.name === "- stores -") {
             this.error.storeName = "Pilih Toko";
         }
@@ -75,5 +65,12 @@ export class Create {
         if (data.endDate < data.startDate) {
             this.error.endDate = "Tidak Boleh Kurang Dari Mulai Berlaku Diskon";
         }
+        
+        //Check if item inside items not have realization Order
+        data.items.forEach(item => {
+            if (!item.realizationOrder) {
+                item['realizationOrder'] = { 'realizationOrder': 'NO' };
+            }
+        });
     }
 }
