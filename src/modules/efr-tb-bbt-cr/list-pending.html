@@ -13,14 +13,18 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
+                <th>Toko Asal</th>
                 <th>Packing List</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
+            <tr></tr>
             <tr repeat.for="item of data">
-                <td>${item.packingList}</td> 
-                <td><button class="btn btn-primary" click.delegate="accept(item)">Terima</buttona></td>
+                <td>${item.source.name}</td>
+                <td>${item.packingList}</td>
+                <td><button class="btn btn-primary" click.delegate="accept(item)">Terima</buttona>
+                </td>
             </tr>
         </tbody>
     </table>
