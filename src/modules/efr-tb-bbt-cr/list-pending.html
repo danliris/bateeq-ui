@@ -26,8 +26,10 @@
                 <td if.bind = "item.reference != ''">${item.reference}</td>
                 <td if.bind = "item.reference == ''"> - </td>
                 <td>${item.packingList}</td>
-                <td>${item.source.name}</td>
-                <td>${item.destination.name}</td>
+                <td if.bind = "item.reference != ''">${item.sourceReference}</td>
+                <td if.bind = "item.reference == ''">${item.source.name}</td>
+                <td if.bind = "item.reference != ''">${item.destinationReference}</td>
+                <td if.bind = "item.reference == ''">${item.destination.name}</td>
                 <td><button class="btn btn-primary" click.delegate="accept(item)">Terima</buttona>
                 </td>
             </tr>
