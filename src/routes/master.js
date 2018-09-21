@@ -143,6 +143,19 @@ module.exports = [
     }
   },
   {
+    route: 'garment-product',
+    name: 'garment-product',
+    moduleId: './modules/master/garment-product/index',
+    nav: true,
+    title: 'Product | Garment',
+    auth: true,
+    settings: {
+        group: "master",
+        permission: { "PBL.01": 1 },
+        iconClass: ''
+    }
+},
+  {
     route: "discount",
     name: "discount",
     moduleId: "./modules/master/discount/index",
