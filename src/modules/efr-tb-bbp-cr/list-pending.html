@@ -13,14 +13,23 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
+                <th>Transfer Stok</th>
                 <th>Packing List</th>
+                <th>Toko Asal</th>
+                <th>Toko Tujuan</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             <tr repeat.for="item of data">
-                <td>${item.packingList}</td> 
-                <td><button class="btn btn-primary" click.delegate="accept(item)">Terima</buttona></td>
+                <td if.bind = "item.reference != ''">${item.reference}</td>
+                <td if.bind = "item.reference == ''"> - </td>
+                <td>${item.packingList}</td>
+                <td if.bind = "item.reference != ''">${item.sourceReference}</td>
+                <td if.bind = "item.reference == ''">${item.source.name}</td>
+                <td if.bind = "item.reference != ''">${item.destinationReference}</td>
+                <td if.bind = "item.reference == ''">${item.destination.name}</td>
+                <td><button class="btn btn-primary" click.delegate="accept(item)">Terima</button></td>
             </tr>
         </tbody>
     </table>
