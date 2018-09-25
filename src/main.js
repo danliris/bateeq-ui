@@ -38,7 +38,8 @@ export async function configure(aurelia) {
       var masterplan =
         "https://com-bateeq-service-masterplan-dev.azurewebsites.net/v1/";
 
-      config.registerEndpoint("auth", auth);
+      
+        config.registerEndpoint("auth", auth);
       config.registerEndpoint("core", core);
       config.registerEndpoint("master", master);
       config.registerEndpoint("manufacture", manufacture);
