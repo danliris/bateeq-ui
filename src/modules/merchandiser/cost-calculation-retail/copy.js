@@ -17,7 +17,7 @@ export class Copy {
     this.id = params.id;
     this.data = await this.service.getById(this.id);
     this.clearDataProperties();
-    this.getSeasonWithCode();
+    await this.getSeasonWithCode();
   }
 
   clearDataProperties() {
