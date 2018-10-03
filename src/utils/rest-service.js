@@ -123,6 +123,7 @@ export class RestService {
   }
 
   getPdf(endpoint, header) {
+    
     var request = {
       method: 'GET',
       headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf" }))
