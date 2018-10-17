@@ -5,6 +5,7 @@ import { Service } from "./service";
 @inject(Router, Service)
 export class Create {
   constructor(router, service) {
+    this.CustomeTitle = "Add Blocking Plan Sewing"
     this.router = router;
     this.service = service;
     this.data = {};
@@ -25,8 +26,8 @@ export class Create {
       .then(result => {
         this.list();
       })
-      .catch(e => {
-        this.error = e;
+      .catch(e => {       
+        this.error = e;      
       });
   }
 }
