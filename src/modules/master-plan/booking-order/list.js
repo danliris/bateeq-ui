@@ -9,6 +9,7 @@ export class List {
   data = [];
   info = { page: 1, keyword: "" };
   keyword = "";
+  
 
   constructor(router, service) {
     this.router = router;
@@ -27,20 +28,27 @@ export class List {
   }
 
   rowFormatter(data, index) {
-    if (
-      data.StatusRemainingOrder.toUpperCase() !== "EXPIRED" &&
-      data.Status.toUpperCase() === "SUDAH DIBUAT MASTER PLAN"
-    )
-      return { classes: "success" };
-    else if (data.StatusRemainingOrder.toUpperCase() === "EXPIRED")
-      return { classes: "danger" };
-    else return {};
-  }
-
-  columns = [
-    { field: "Code", title: "Kode Booking" },
+    if (data.StatusRemainingOrder.toUpperCase() !== "EXPIRED" )
     {
-      field: "BookingDate",
+      if (data.Status.toUpperCase() ===  "SUDAH DIBUAT MASTER PLAN")
+      {
+        return {classes: "success"};
+      }
+      else if(data.StatusRemainingOrder.toUpperCase() === "ON PROCESS") 
+      {
+        return {classes:"info"};
+      }
+      else return {};   
+    }
+    else{
+      return {classes:"danger"};
+    }
+    
+  }
+  columns = [    
+    { field: "Code", title: "Kode Booking" },
+    { 
+      field: "BookingDate",      
       title: "Tanggal Booking",
       formatter: function(value) {
         return moment(value).format("DD MMM YYYY");
@@ -48,7 +56,7 @@ export class List {
     },
     { field: "Buyer.Name", title: "Buyer" },
     { field: "OrderQuantity", title: "Jumlah Order" },
-    {
+    { 
       field: "DeliveryDate",
       title: "Tanggal Pengiriman",
       formatter: function(value) {
@@ -77,7 +85,7 @@ export class List {
 
     return this.service.search(arg).then(result => {
       var data = {};
-      data.total = result.info.total;
+      data.total = result.info.total; 
       data.data = result.data;
       return {
         total: result.info.total,

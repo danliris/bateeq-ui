@@ -37,6 +37,7 @@ export class View {
 
   costCalculationRetail_MaterialsInfo = {
     columns: [
+      
       { header: "Kategori", value: "Category" },
       { header: "Material", value: "Material" },
       { header: "Deskripsi", value: "Description" },
@@ -206,6 +207,7 @@ export class View {
   }
 
   printPdf() {
+    debugger
     this.service.getPdfById(this.data.Id);
   }
 

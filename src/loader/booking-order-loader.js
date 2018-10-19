@@ -7,7 +7,7 @@ module.exports = function(keyword, filter) {
   var config = Container.instance.get(Config);
   var endpoint = config.getEndpoint("masterplan");
 
-  return endpoint.find(resource, { keyword: keyword }).then(results => {
+  return endpoint.find(resource, { keyword: keyword, filter:JSON.stringify(filter)}).then(results => {
     return results.data;
   });
 };

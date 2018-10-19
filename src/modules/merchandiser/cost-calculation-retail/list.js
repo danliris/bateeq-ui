@@ -13,6 +13,7 @@ export class List {
     ];
 
     loader = (info) => {
+        
         var order = {};
 
         if (info.sort)

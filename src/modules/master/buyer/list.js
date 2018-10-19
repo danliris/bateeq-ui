@@ -10,8 +10,10 @@ export class List {
         { field: "Email", title: "Email" },
         { field: "Address1", title: "Alamat 1" }
     ];
+    
 
     loader = (info) => {
+       
         var order = {};
 
         if (info.sort)
@@ -22,15 +24,19 @@ export class List {
             size: info.limit,
             keyword: info.search,
             order: order
+        
         }
-
+        
         return this.service.search(arg)
             .then(result => {
+               
                 return {
                     total: result.info.total,
                     data: result.data
                 }
+               
             });
+           
     }
 
     constructor(router, service) {
