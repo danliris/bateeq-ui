@@ -27,24 +27,44 @@ export class List {
     this.router.navigateToRoute("create");
   }
 
-  rowFormatter(data, index) {
-    if (data.StatusRemainingOrder.toUpperCase() !== "EXPIRED" )
-    {
-      if (data.Status.toUpperCase() ===  "SUDAH DIBUAT MASTER PLAN")
-      {
-        return {classes: "success"};
-      }
-      else if(data.StatusRemainingOrder.toUpperCase() === "ON PROCESS") 
-      {
-        return {classes:"info"};
-      }
-      else return {};   
+  rowFormatter(data, index) { 
+    if (data.StatusRemainingOrder.toUpperCase() !== "EXPIRED" ){
+        if (data.Status.toUpperCase() ===  "SUDAH DIBUAT MASTER PLAN"){
+          return {classes: "success"};
+        }
+        else if (data.Status.toUpperCase() === "BOOKING"){
+          return {};
+        }
+        else if (data.Status.toUpperCase() === "CONFIRMED"){
+          return {classess:"info"};
+        }
+        else if(data.StatusRemainingOrder.toUpperCase() === "ON PROCESS") {
+          return {classes:"info"};
+        }
+        else return {
+        };   
     }
-    else{
+  else {
+    return {classes:"danger"};
+  }
+  }
+  /*rowFormatter(data, index) { 
+     if (data.StatusRemainingOrder.toUpperCase() !== "EXPIRED" ){
+        if (data.Status.toUpperCase() ===  "SUDAH DIBUAT MASTER PLAN"){
+          return {classes: "success"};
+        }
+        else if(data.StatusRemainingOrder.toUpperCase() === "ON PROCESS") {
+          return {classes:"info"};
+        }
+        else return {
+
+        };   
+    }
+    else {
       return {classes:"danger"};
     }
-    
-  }
+  }*/
+ 
   columns = [    
     { field: "Code", title: "Kode Booking" },
     { 
