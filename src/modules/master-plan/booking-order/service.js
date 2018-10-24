@@ -43,7 +43,7 @@ export class Service extends RestService {
   }
 
   setRemainingOrderQuantity(data) {
-    const endpoint = `${serviceUri}/set-remaining-order-quantity/${data.Id}`;
+    const endpoint = `${serviceUri}/set-remaining-order-quantity`;
     return super.put(endpoint, data);
   }
 
