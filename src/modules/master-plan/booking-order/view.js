@@ -64,7 +64,7 @@ export class View {
   cancelRemaining() {
 
     var finalData = {
-      IdBookingOrder : this.data.Id,
+      BookingOrderId : this.data.Id,
       StatusBooking: "CANCEL"
     }
 
@@ -80,7 +80,7 @@ export class View {
   deleteRemaining() {
 
     var finalData = {
-      IdBookingOrder : this.data.Id,
+      BookingOrderId : this.data.Id,
       StatusBooking: "DELETE"
     }
 
