@@ -28,24 +28,25 @@ export class List {
   }
 
   rowFormatter(data, index) {
-    if (data.Status.toUpperCase() === "CONFIRM FULL")
-    {
-      return {classes: "success"};    
+        if (data.Status.toUpperCase() === "CONFIRM FULL")
+        {
+          return {classes: "success"};    
+        }
+        else if (data.Status.toUpperCase() === "CONFIRM SEBAGIAN")
+        {
+          return { classes: "warning" };
+        }
+        else if (data.Status.toUpperCase() === "BOOKING ADA PERUBAHAN")
+        {
+          return { classes: "info" };
+        }
+        else if (data.Status.toUpperCase() === "BOOKING") 
+        {
+          return {};
+        }
+        else return { classes: "danger" };
     }
-    else if (data.Status.toUpperCase() === "CONFIRM SEBAGIAN")
-    {
-      return { classes: "warning" };
-    }
-    else if (data.Status.toUpperCase() === "BOOKING ADA PERUBAHAN")
-    {
-      return { classes: "primary" };
-    }
-    else if (data.Status.toUpperCase() === "BOOKING") 
-    {
-       return {};
-    }
-    else return { classes: "danger" };
-  }
+   
 
   columns = [
     { field: "BookingOrder.Code", title: "Nomor Booking" },
