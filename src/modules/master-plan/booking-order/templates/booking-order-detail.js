@@ -62,9 +62,14 @@ export class DetailItem {
         "Cancel Confirm"
       )
       .then(response => {
-        this.service.deleteDetail(this.data).then(result => {
-          this.options.viewCallback();
-        });
+        console.log(response)
+        switch (response) {
+          case 'ok':
+          this.service.deleteDetail(this.data).then(result => {this.options.viewCallback();});
+              break;
+          case 'cancelled': 
+              break;
+          }
       });
   }
 }
