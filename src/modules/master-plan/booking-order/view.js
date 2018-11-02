@@ -62,7 +62,13 @@ export class View {
   }
 
   cancelRemaining() {
-    this.service.setRemainingOrderQuantity(this.data).then(result => {
+
+    var finalData = {
+      BookingOrderId : this.data.Id,
+      StatusBooking: "CANCEL"
+    }
+
+    this.service.setRemainingOrderQuantity(finalData).then(result => {
       this.list();
     });
   }
@@ -72,7 +78,13 @@ export class View {
   }
 
   deleteRemaining() {
-    this.service.setRemainingOrderQuantity(this.data).then(result => {
+
+    var finalData = {
+      BookingOrderId : this.data.Id,
+      StatusBooking: "DELETE"
+    }
+
+    this.service.setRemainingOrderQuantity(finalData).then(result => {
       this.list();
     });
   }

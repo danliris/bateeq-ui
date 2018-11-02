@@ -93,6 +93,9 @@ export class DataForm {
     this.router = router;
     this.service = service;
   }
+  filterBookingOrder= {
+    Expired : ""
+  }
 
   columnPreview = {
     thisYear: [],
@@ -121,19 +124,27 @@ export class DataForm {
       getWeeklyPlanPromise.nextYear
     ]);
 
-    this.columnPreview.thisYear.push(
-      ...this.getPreviewWeeklyPlanColumns(weeklyPlans[0][0])
-    );
-    this.columnPreview.nextYear.push(
-      ...this.getPreviewWeeklyPlanColumns(weeklyPlans[1][0])
-    );
+    if (weeklyPlans[0][0] && weeklyPlans[0])
+    {
+      this.columnPreview.thisYear.push(
+        ...this.getPreviewWeeklyPlanColumns(weeklyPlans[0][0])
+      );
 
-    this.weeklyPlansPreview.thisYear.push(
-      ...this.getPreviewWeeklyPlansData(weeklyPlans[0])
-    );
-    this.weeklyPlansPreview.nextYear.push(
-      ...this.getPreviewWeeklyPlansData(weeklyPlans[1])
-    );
+      this.weeklyPlansPreview.thisYear.push(
+        ...this.getPreviewWeeklyPlansData(weeklyPlans[0])
+      );
+    }
+
+    if (weeklyPlans[1][0] && weeklyPlans[1])
+    {
+      this.columnPreview.nextYear.push(
+        ...this.getPreviewWeeklyPlanColumns(weeklyPlans[1][0])
+      );
+  
+      this.weeklyPlansPreview.nextYear.push(
+        ...this.getPreviewWeeklyPlansData(weeklyPlans[1])
+      );
+    }
 
     const options = {
       thisYear: {

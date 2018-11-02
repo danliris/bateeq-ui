@@ -5,10 +5,8 @@ export class Item {
     this.item = context.data;
     this.error = context.error;
     this.options = context.options;
-    console.log(this.error);
   }
-
-  // @computedFrom("item.qtySO", "item.qtyBeforeSO")
+  
   get qtyDifferent(){
       return (this.item.qtyBeforeSO - this.item.qtySO);
   }

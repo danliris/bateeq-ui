@@ -15,7 +15,6 @@ export class DataForm {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        console.log(this.source +","+ this.destination);
     }
 
     getStorage(config) {
@@ -64,10 +63,10 @@ export class DataForm {
                 return this.name;
             }
             return destination;
-        }) 
+        })
     }
 
     detached() {
-    } 
+    }
 
 }

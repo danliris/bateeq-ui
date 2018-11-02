@@ -95,11 +95,10 @@ export class DataForm {
       { header: "Conversion", value: "Conversion" },
       { header: "Total", value: "Total" }
     ],
-    onAdd: function() {
+    onAdd: function () {
       this.data.CostCalculationRetail_Materials.push({});
     }.bind(this),
     onRemove: function () {
-      console.log("Material removed")
     }.bind(this)
   };
 

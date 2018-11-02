@@ -55,16 +55,20 @@ export class DetailItem {
     this.dialog
       .prompt(
         "Cancel Confirm RO " +
-          this.data.RO +
-          " (Jumlah: " +
-          this.data.Total +
-          "). Lanjutkan?",
+        this.data.RO +
+        " (Jumlah: " +
+        this.data.Total +
+        "). Lanjutkan?",
         "Cancel Confirm"
       )
       .then(response => {
-        this.service.deleteDetail(this.data).then(result => {
-          this.options.viewCallback();
-        });
+        switch (response) {
+          case 'ok':
+            this.service.deleteDetail(this.data).then(result => { this.options.viewCallback(); });
+            break;
+          case 'cancelled':
+            break;
+        }
       });
   }
 }

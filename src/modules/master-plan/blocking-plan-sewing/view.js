@@ -7,6 +7,7 @@ export class View {
   readOnly = true;
 
   constructor(router, service) {
+    this.CustomeTitle = "Detail Informasi Blocking Plan Sewing"
     this.router = router;
     this.service = service;
   }

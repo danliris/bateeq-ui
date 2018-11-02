@@ -35,16 +35,15 @@ export class Create {
             .then(isExsist => {
                 if (isExsist == null) {
                     this.service.create(this.data)
-                    .then(result => {
-                        alert("Successful to create data");
-                        this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
-                    })
-                    .catch(e => {
-                        this.error = e;
-                        console.log(this.error);
-                    })
+                        .then(result => {
+                            alert("Successful to create data");
+                            this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
+                        })
+                        .catch(e => {
+                            this.error = e;
+                        })
                 } else {
-                    alert("Year "+ isExsist.Year + " with Unit Code "+ isExsist.UnitCode +" is already exists");
+                    alert("Year " + isExsist.Year + " with Unit Code " + isExsist.UnitCode + " is already exists");
                 }
             });
     }

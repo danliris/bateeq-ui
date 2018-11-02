@@ -2,7 +2,6 @@ const sizeLoader = require('../../../../loader/size-md-loader');
 
 export class StepIndicatorItem {
     activate(context) {
-        console.log("step-indicator-Items")
         this.context = context;
         this.data = context.data;
         this.error = context.error;

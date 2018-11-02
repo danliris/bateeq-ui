@@ -4,7 +4,7 @@ import { Service } from './service';
 
 
 @inject(Router, Service)
-export class List { 
+export class List {
     total;
     constructor(router, service) {
         this.router = router;
@@ -13,25 +13,22 @@ export class List {
         // this.filter = "";  
     }
 
-    async activate() { 
+    async activate() {
     }
 
-    reloadItem() { 
-        this.total=0;
-        this.storageId= this.storage ? this.storage._id  : "";
-         console.log(this.storageId);
-        
+    reloadItem() {
+        this.total = 0;
+        this.storageId = this.storage ? this.storage._id : "";
+
         this.service.getAdjustmentByStorageId(this.storageId)
-       
+
             .then(result => {
                 this.data = [];
-                //console.log(result);
-                for (var data of result)
-                {
-                   for(var item of data.items){                       
-                        item._createdDate=data._createdDate;
-                        item.storageName=data.storage.name;
-                        this.total=this.total+item.qtyAdjustment;
+                for (var data of result) {
+                    for (var item of data.items) {
+                        item._createdDate = data._createdDate;
+                        item.storageName = data.storage.name;
+                        this.total = this.total + item.qtyAdjustment;
                         this.data.push(item);
                     }
                 }

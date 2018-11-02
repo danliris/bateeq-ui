@@ -81,13 +81,6 @@ export class Report {
     }
 
     showReport() {
-        console.log(`From : ${this.dateFrom}`);
-        console.log(`To : ${this.dateTo}`);
-        console.log(`Transaksi: ${this.transactionType.id}`);
-        console.log(`PL Not Received : ${this.plNotReceived}`);
-        console.log(`PL Received : ${this.plReceived}`);
-        console.log(`Storage : ${this.storage}`);
-
         this.dateFrom = moment(this.dateFrom).startOf('day');
         this.dateTo = moment(this.dateTo).endOf('day');
 

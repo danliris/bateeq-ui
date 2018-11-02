@@ -13,7 +13,7 @@ export class DetailConfirm {
     this.service = service;
   }
 
-  activate(context) {
+  activate(context) { 
     this.context = context;
     this.data = context.data;
     this.error = context.error;

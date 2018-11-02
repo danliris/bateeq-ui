@@ -67,35 +67,29 @@ export class Report {
        var arrGeneralSales = [];
        for(var item of dimGeneralSales){
            var remark = "";
-           console.log(item);
            if(item.remark && item.remark.length > 0){
                for(var a of item.remark){
                  remark += `${a.Ket} :Rp.${parseInt( a.Totalrp ).toLocaleString()} ;`;  
                }
                item.remark = remark;
-               console.log(remark);
            }
            arrGeneralSales.push(item);           
        }
        this.generalSales = arrGeneralSales;
-       console.log(this.generalSales);
         //this.vvip = this.convertToLocaleString(this.getArray(apiResult.data.vvip));
         var dimVvip = this.convertToLocaleString(this.getArray(apiResult.data.vvip));
         var arrVvip = [];
         for(var item of dimVvip){
             var remark = "";
-            console.log(item);
             if(item.remark && item.remark.length > 0){
                 for(var a of item.remark){
                   remark += `${a.Ket} :Rp.${parseInt( a.Totalrp ).toLocaleString()} ;`;  
                 }
                 item.remark = remark;
-                console.log(remark);
             }
             arrVvip.push(item);           
         }
         this.vvip = arrVvip;
-        console.log(this.vvip);
 
     }
 

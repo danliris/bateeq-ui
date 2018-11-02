@@ -10,7 +10,7 @@ const costCalculationRetailServiceUri = "cost-calculation-retails";
 export class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "md");
+        super(http, aggregator, config, "mdd");
     }
 
     search(info) {
@@ -24,6 +24,7 @@ export class Service extends RestService {
     }
 
     getById(id) {
+        
         var endpoint = `${serviceUri}/${id}`;
         return super.get(endpoint);
     }
@@ -79,7 +80,9 @@ export class Service extends RestService {
     }
 
     getPdfById(id) {
+        
         var endpoint = `${serviceUri}/pdf/${id}`;
+        
         return super.getPdf(endpoint);
     }
 }
