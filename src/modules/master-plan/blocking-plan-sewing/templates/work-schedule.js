@@ -67,6 +67,14 @@ export class WorkSchedule {
     this.options = context.options;
     this.readOnly = this.options.readOnly;
 
+    if (this.readOnly) {
+      if (this.data.isConfirmed) {
+        this.data.isConfirmed = "Ya";
+      } else {
+        this.data.isConfirmed = "Tidak";
+      }
+    }
+    
     if (!_.isEmpty(this.data)) {
       this.selectedRO = {
         RO: this.data.RO,
