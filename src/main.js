@@ -21,16 +21,16 @@ export async function configure(aurelia) {
     .feature("components")
     .feature("converters")
     .plugin("aurelia-api", config => {
-      var auth = "https://bateeq-auth-api-dev.azurewebsites.net/v1/";
-      var core = "https://bateeq-core-api-dev.azurewebsites.net/v1/core/";
-      var master = "https://bateeq-core-api-dev.azurewebsites.net/v1/master/";
-      var manufacture ="https://bateeq-core-api-dev.azurewebsites.net/v1/manufacture/";
-      var inventory ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/inventory/";
-      var merchandiser ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/merchandiser/";
-      var md ="https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
-      var sales = "https://bateeq-pos-api-dev.azurewebsites.net/v1/sales/";
-      var purchasing ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/purchasing/";
-      var masterplan ="https://com-bateeq-service-masterplan-dev.azurewebsites.net/v1/";
+      var auth = "https://bateeq-auth-api-uat.azurewebsites.net/v1/";
+      var core = "https://bateeq-core-api-uat.azurewebsites.net/v1/core/";
+      var master = "https://bateeq-core-api-uat.azurewebsites.net/v1/master/";
+      var manufacture ="https://bateeq-core-api-uat.azurewebsites.net/v1/manufacture/";
+      var inventory ="https://bateeq-inventory-api-uat.azurewebsites.net/v1/inventory/";
+      var merchandiser ="https://bateeq-inventory-api-uat.azurewebsites.net/v1/merchandiser/";
+      var md ="https://com-bateeq-service-merchandiser-uat.azurewebsites.net/v1/";
+      var sales = "https://bateeq-pos-api-uat.azurewebsites.net/v1/sales/";
+      var purchasing ="https://bateeq-inventory-api-uat.azurewebsites.net/v1/purchasing/";
+      var masterplan ="https://com-bateeq-service-masterplan-uat.azurewebsites.net/v1/";
 
       //Config API
       config.registerEndpoint("auth", auth);
