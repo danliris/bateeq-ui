@@ -152,16 +152,9 @@ export class Upload {
     finishedGoodsChange(e) {
         this.clearTable();
         this.dataSource.push(this.product);
-        // this.service.getMotif(this.product.code.substring(9, 11))
-        //     .then((motif) => {
-        //         if (motif) {
-        //             this.article_motif = motif.data;
-        //         }
-        //     })
     }
 
     changeColor(e) {
-        console.log(e);
     }
 
     deleteAll() {
@@ -298,15 +291,12 @@ export class Upload {
         if (this.data.ro == "" || this.data.ro == undefined) {
             e["ro"] = "Nomor RO harus diisi"
         }
-        
+
         if (Object.keys(e).length > 0) {
             this.error = e;
         } else {
             var formData = new FormData();
             formData.append("imageUpload", fileList1[0]);
-            // formData.append("motifUpload", fileList2[0]);
-
-            // console.log(formData);
             var endpoint = 'upload/image';
             var request = {
                 method: 'POST',
