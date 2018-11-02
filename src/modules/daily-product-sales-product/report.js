@@ -86,7 +86,6 @@ export class Report {
                 this.query.page = parseInt(result.query.page || 1);
                 this.query.total = parseInt(result.query.total || 1);
                 this.summarizeReport();
-                console.log(this.summary);
             });
     }
 

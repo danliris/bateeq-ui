@@ -124,8 +124,6 @@ export class DataForm {
       getWeeklyPlanPromise.nextYear
     ]);
 
-    console.log(weeklyPlans);
-
     if (weeklyPlans[0][0] && weeklyPlans[0])
     {
       this.columnPreview.thisYear.push(

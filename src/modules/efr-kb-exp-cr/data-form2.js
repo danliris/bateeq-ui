@@ -34,7 +34,6 @@ export class DataForm {
                     })
             })
             .catch(e => {
-                console.log(e)
                 this.loadFailed = true;
             })
     }

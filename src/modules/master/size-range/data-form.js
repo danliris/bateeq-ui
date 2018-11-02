@@ -24,7 +24,6 @@ export class DataForm {
             this.data.RelatedSizes.push({ Size: "" });
         }.bind(this),
         onRemove: function () {
-            console.log("step removed");
         }.bind(this)
     };
 
