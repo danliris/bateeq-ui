@@ -67,19 +67,6 @@ export class WorkSchedule {
     this.options = context.options;
     this.readOnly = this.options.readOnly;
 
-    if (this.readOnly === true)
-    {
-      if (this.data.isConfirmed === true)
-      {
-        this.data.isConfirmed = "Ya";
-      }
-
-      if (this.data.isConfirmed === false)
-      {
-        this.data.isConfirmed = "Tidak";
-      }
-    }
-
     if (!_.isEmpty(this.data)) {
       this.selectedRO = {
         RO: this.data.RO,
@@ -90,6 +77,19 @@ export class WorkSchedule {
       };
       this.data.Week.RemainingEh = this.data.RemainingEh;
       this.data.Week.Efficiency = this.data.Efficiency;
+    }
+
+    if (this.readOnly) {
+      if (this.data.isConfirmed) {
+        this.data.isConfirmed = 'Ya';
+      } else {
+        this.data.isConfirmed = 'Tidak';
+      }
+    } else {
+      if (this.data.isConfirmed === undefined)
+      {
+        this.data.isConfirmed = false;
+      }
     }
   }
 
