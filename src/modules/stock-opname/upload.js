@@ -20,6 +20,11 @@ export class Create {
         this.router.navigateToRoute('list');
     }
 
+    rollbackUpload() {
+        debugger
+        this.router.navigateToRoute('upload');
+    }
+
     get storageLoader() {
         return StorageLoader;
     }
@@ -30,14 +35,14 @@ export class Create {
         var fileInput = document.getElementById("fileCsv");
         var fileList = fileInput.files;
         var storage = this.data.storage;
-        
+
         if (fileList[0] == undefined) {
             e.file = "File Path harus dipilih";
             this.error = e;
-        } else if(!storage){
+        } else if (!storage) {
             e.storage = "Harus diisi";
             this.error = e;
-        }  else {
+        } else {
             formData.append("storageId", storage._id);
             formData.append("fileUpload", fileList[0]);
 
@@ -53,23 +58,18 @@ export class Create {
             return promise
                 .then((result) => {
                     this.service.publish(promise);
-                    if (result.status == 200) {
-                        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
-                        this.service._downloadFile(getRequest);
-                        this.service.publish(getRequest);
-                        alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki. Silahkan lihat Error Log untuk melihat detil dari error tersebut.");
-                        this.list();
+                    if (result.status == 409) {
+                        alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki");
                     }
                     else if (result.status == 404) {
                         alert("Urutan format kolom CSV tidak sesuai.\n Format: Barcode, Nama Barang, Kuantitas Stock");
                     }
-                    else if(result.status == 412){
+                    else if (result.status == 412) {
                         alert("Dokumen harus csv format");
                     }
                     else {
                         alert("Data Berhasil Diupload");
                         this.list();
-
                     }
                     return Promise.resolve(result);
                 });
