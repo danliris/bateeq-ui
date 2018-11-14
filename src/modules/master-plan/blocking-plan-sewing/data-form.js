@@ -1,15 +1,18 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import moment from "moment";
+import { Dialog } from "../../../components/dialog/dialog";
 import { Service } from "./service";
+import { ROSizeBreakdownFooter } from "../../merchandiser/ro-retail/template/ro-retail-sizebreakdown-footer";
 const bookingOrderLoader = require("../../../loader/booking-order-loader");
 
-@inject(Router, Service)
+@inject(Router, Dialog, Service)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable data = {};
   @bindable error = {};
+  @bindable isHasRo;
   controlOptions = {
     label: {
       length: 4
@@ -18,6 +21,13 @@ export class DataForm {
       length: 5
     }
   };
+
+  constructor(router, dialog, service) {
+    this.router = router;
+    this.dialog = dialog;
+    this.service = service;
+    this.isHasRo = true;
+  }
 
   detailConfirms_Info = {
     columns: [
@@ -51,14 +61,32 @@ export class DataForm {
       { header: "Sisa EH" }
     ],
     onAdd: function () {
-      this.data.WorkSchedules.push({});
+      this.dialog.confirm("Tambah data jadwal Pengerjaan?", "TAMBAH DATA")
+        .then(response => {
+          if (response == 'ok') {
+            this.data.WorkSchedules.push({});
+            this.isHasRo = true;
+            this.workSchedules_Info.options.isHasRo = this.isHasRo = this.isHasRo;
+          }
+          else {
+            this.data.WorkSchedules.push({});
+            this.isHasRo = false;
+            this.workSchedules_Info.options.isHasRo = this.isHasRo = this.isHasRo;
+          }
+        }
+       
+        )
     }.bind(this),
     options: { readOnly: this.readOnly }
+
   };
+
+
 
   get bookingOrderLoader() {
     return bookingOrderLoader;
   }
+
 
   @computedFrom("data.Id")
   get isEdit() {
@@ -89,12 +117,9 @@ export class DataForm {
     this.detailConfirms = data ? data.DetailConfirms : null;
   }
 
-  constructor(router, service) {
-    this.router = router;
-    this.service = service;
-  }
-  filterBookingOrder= {
-    Expired : ""
+
+  filterBookingOrder = {
+    Expired: ""
   }
 
   columnPreview = {
@@ -109,11 +134,12 @@ export class DataForm {
     this.context = context;
     this.data = this.context.data;
     this.error = this.context.error;
+    this.workSchedules_Info.options.readOnly = this.readOnly;
+    this.workSchedules_Info.options.isHasRo = this.isHasRo;
     if ((this.readOnly || this.isEdit) && this.data) {
       this.selectedBookingOrder = this.data.BookingOrder;
     }
-    this.workSchedules_Info.options.readOnly = this.readOnly;
-
+ 
     const getYear = new Date().getFullYear();
     const getWeeklyPlanPromise = {
       thisYear: this.service.getWeeklyPlanByYear(getYear.toString()),
@@ -124,8 +150,7 @@ export class DataForm {
       getWeeklyPlanPromise.nextYear
     ]);
 
-    if (weeklyPlans[0][0] && weeklyPlans[0])
-    {
+    if (weeklyPlans[0][0] && weeklyPlans[0]) {
       this.columnPreview.thisYear.push(
         ...this.getPreviewWeeklyPlanColumns(weeklyPlans[0][0])
       );
@@ -135,12 +160,11 @@ export class DataForm {
       );
     }
 
-    if (weeklyPlans[1][0] && weeklyPlans[1])
-    {
+    if (weeklyPlans[1][0] && weeklyPlans[1]) {
       this.columnPreview.nextYear.push(
         ...this.getPreviewWeeklyPlanColumns(weeklyPlans[1][0])
       );
-  
+
       this.weeklyPlansPreview.nextYear.push(
         ...this.getPreviewWeeklyPlansData(weeklyPlans[1])
       );
@@ -202,7 +226,7 @@ export class DataForm {
         data[`Week${item.WeekNumber}`] = item.RemainingEh;
       previewData.push(data);
     }
-    
+
     return previewData;
   }
 }

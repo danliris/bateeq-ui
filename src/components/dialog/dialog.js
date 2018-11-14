@@ -1,6 +1,7 @@
 import { inject, noView } from 'aurelia-framework';
 import { DialogService } from 'aurelia-dialog';
 import { Prompt } from './prompt';
+import { Confirm }from './confirm';
 import { Error } from './error';
 
 @inject(DialogService)
@@ -8,6 +9,17 @@ import { Error } from './error';
 export class Dialog {
     constructor(dialogService) {
         this.dialogService = dialogService;
+    }
+    confirm(message, title) {
+        return this.show(Confirm, { title: title, message: message })
+            .then(response => {
+                var result = "ok";
+
+                if (response.wasCancelled)
+                    result = "cancelled";
+
+                return Promise.resolve(result);
+            });
     }
 
     prompt(message, title) {
