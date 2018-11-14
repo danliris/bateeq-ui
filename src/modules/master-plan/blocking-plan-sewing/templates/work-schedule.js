@@ -79,10 +79,6 @@ export class WorkSchedule {
     this.options = context.options;
     this.readOnly = this.options.readOnly;
 
-
-
-
-    
     if (!_.isEmpty(this.data)) {
       this.selectedRO = {
         RO: this.data.RO,
