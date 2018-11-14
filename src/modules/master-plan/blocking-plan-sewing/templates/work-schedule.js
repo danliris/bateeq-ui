@@ -23,13 +23,13 @@ export class WorkSchedule {
   constructor(service) {
     this.service = service;
   }
-  
-  get styleLoader(){
+
+  get styleLoader() {
     return searchStyle;
   }
-  get counterLoader(){
+  get counterLoader() {
     return searchcounter;
-   
+
   }
 
   get costCalculationLoader() {
@@ -80,19 +80,6 @@ export class WorkSchedule {
     this.readOnly = this.context.context.options.readOnly;
     this.isHasRo = this.context.context.options.isHasRo;
 
-    if (this.readOnly === true)
-    {
-      if (this.data.isConfirmed === true)
-      {
-        this.data.isConfirmed = "Ya";
-      }
-
-      if (this.data.isConfirmed === false)
-      {
-        this.data.isConfirmed = "Tidak";
-      }
-    }
-
     if (!_.isEmpty(this.data)) {
       this.selectedRO = {
         RO: this.data.RO,
@@ -100,17 +87,9 @@ export class WorkSchedule {
         Style: this.data.Style,
         Counter: this.data.Counter,
         SMV_Sewing: this.data.SMV_Sewing
-        
       };
-       console.log(this.data);
-       console.log(this.data.EH_Remaining);
-      if (this.data.week){
-        this.data.Week.RemainingEh = this.data.RemainingEh;
-        this.data.Week.Efficiency = this.data.Efficiency;
-      }
-      
     }
-    else{
+    else {
       this.selectedRO = {
         RO: this.data.RO,
         Article: this.data.Article,
@@ -120,16 +99,26 @@ export class WorkSchedule {
       };
     }
 
- 
+    if (this.readOnly) {
+      if (this.data.isConfirmed) {
+        this.data.isConfirmed = 'Ya';
+      } else {
+        this.data.isConfirmed = 'Tidak';
+      }
+    } else {
+      if (this.data.isConfirmed === undefined) {
+        this.data.isConfirmed = false;
+      }
+    }
   }
 
   @bindable selectedRO;
   selectedROChanged(newValue) {
-      this.data.RO = newValue && newValue.RO ? newValue.RO : "";
-      this.data.Article = newValue && newValue.Article ? newValue.Article : "";
-      this.data.Style = newValue && newValue.Style ? newValue.Style : "";
-      this.data.Counter = newValue && newValue.Counter ? newValue.Counter : "";
-      this.data.SMV_Sewing = newValue && newValue.SMV_Sewing ? newValue.SMV_Sewing : 0;
+    this.data.RO = newValue && newValue.RO ? newValue.RO : "";
+    this.data.Article = newValue && newValue.Article ? newValue.Article : "";
+    this.data.Style = newValue && newValue.Style ? newValue.Style : "";
+    this.data.Counter = newValue && newValue.Counter ? newValue.Counter : "";
+    this.data.SMV_Sewing = newValue && newValue.SMV_Sewing ? newValue.SMV_Sewing : 0;
   }
 
 
