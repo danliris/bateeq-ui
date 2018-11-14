@@ -77,9 +77,8 @@ export class WorkSchedule {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.readOnly = this.context.context.options.readOnly;
-    this.isHasRo = this.context.context.options.isHasRo;
-
+    this.readOnly = this.options.readOnly;
+    
     if (!_.isEmpty(this.data)) {
       this.selectedRO = {
         RO: this.data.RO,
