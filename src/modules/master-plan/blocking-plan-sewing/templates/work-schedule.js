@@ -2,10 +2,14 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "../service";
 import moment from "moment";
 import _ from "lodash";
+
+const searchStyle = require("../../../../loader/style-search-loader");
+const searchcounter = require("../../../../loader/counter-search-loader");
 const searchCCByRO = require("../../../../loader/search-by-ro-merchandiser");
 const searchUnit = require("../../../../loader/unit-loader");
 const searchYear = require("../../../../loader/weekly-plan-loader");
 const searchWeek = require("../../../../loader/weekly-plan-item-loader");
+//const searchSMWSewing = require("../../../../loader/")
 const defaultNumberFormat = "0,0.00";
 
 @inject(Service)
@@ -15,6 +19,18 @@ export class WorkSchedule {
       length: 12
     }
   };
+
+  constructor(service) {
+    this.service = service;
+  }
+  
+  get styleLoader(){
+    return searchStyle;
+  }
+  get counterLoader(){
+    return searchcounter;
+   
+  }
 
   get costCalculationLoader() {
     return searchCCByRO;
@@ -56,16 +72,13 @@ export class WorkSchedule {
     return week.WeekText;
   };
 
-  constructor(service) {
-    this.service = service;
-  }
-
-  activate(context) {
+  async activate(context) {
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.readOnly = this.options.readOnly;
+    this.readOnly = this.context.context.options.readOnly;
+    this.isHasRo = this.context.context.options.isHasRo;
 
     if (this.readOnly === true)
     {
@@ -87,21 +100,38 @@ export class WorkSchedule {
         Style: this.data.Style,
         Counter: this.data.Counter,
         SMV_Sewing: this.data.SMV_Sewing
+        
       };
-      this.data.Week.RemainingEh = this.data.RemainingEh;
-      this.data.Week.Efficiency = this.data.Efficiency;
+       console.log(this.data);
+       console.log(this.data.EH_Remaining);
+      if (this.data.week){
+        this.data.Week.RemainingEh = this.data.RemainingEh;
+        this.data.Week.Efficiency = this.data.Efficiency;
+      }
+      
     }
+    else{
+      this.selectedRO = {
+        RO: this.data.RO,
+        Article: this.data.Article,
+        Style: this.data.Style,
+        Counter: this.data.Counter,
+        SMV_Sewing: this.data.SMV_Sewing
+      };
+    }
+
+ 
   }
 
   @bindable selectedRO;
   selectedROChanged(newValue) {
-    this.data.RO = newValue && newValue.RO ? newValue.RO : "";
-    this.data.Article = newValue && newValue.Article ? newValue.Article : "";
-    this.data.Style = newValue && newValue.Style ? newValue.Style : "";
-    this.data.Counter = newValue && newValue.Counter ? newValue.Counter : "";
-    this.data.SMV_Sewing =
-      newValue && newValue.SMV_Sewing ? newValue.SMV_Sewing : 0;
+      this.data.RO = newValue && newValue.RO ? newValue.RO : "";
+      this.data.Article = newValue && newValue.Article ? newValue.Article : "";
+      this.data.Style = newValue && newValue.Style ? newValue.Style : "";
+      this.data.Counter = newValue && newValue.Counter ? newValue.Counter : "";
+      this.data.SMV_Sewing = newValue && newValue.SMV_Sewing ? newValue.SMV_Sewing : 0;
   }
+
 
   @computedFrom("data.Unit")
   get unitExist() {
