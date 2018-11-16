@@ -6,6 +6,8 @@ const searchCCByRO = require("../../../../loader/search-by-ro-merchandiser");
 const searchUnit = require("../../../../loader/unit-loader");
 const searchYear = require("../../../../loader/weekly-plan-loader");
 const searchWeek = require("../../../../loader/weekly-plan-item-loader");
+const searchStyle = require("../../../../loader/style-search-loader");
+const searchcounter = require("../../../../loader/counter-search-loader");
 const defaultNumberFormat = "0,0.00";
 
 @inject(Service)
@@ -30,6 +32,15 @@ export class WorkSchedule {
 
   get weekLoader() {
     return searchWeek;
+  }
+
+  get styleLoader() {
+    return searchStyle;
+  }
+
+  get counterLoader() {
+    return searchcounter;
+
   }
 
   @computedFrom("includedUnitCode")
@@ -65,17 +76,16 @@ export class WorkSchedule {
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.readOnly = this.options.readOnly;
+    this.readOnly = this.context.context.options.readOnly;
+    this.isHasRo = this.context.context.options.isHasRo;
+    this.isHasRoReadOnly = this.context.context.options.isHasRoReadOnly;
 
-    if (this.readOnly === true)
-    {
-      if (this.data.isConfirmed === true)
-      {
+    if (this.readOnly === true) {
+      if (this.data.isConfirmed === true) {
         this.data.isConfirmed = "Ya";
       }
 
-      if (this.data.isConfirmed === false)
-      {
+      if (this.data.isConfirmed === false) {
         this.data.isConfirmed = "Tidak";
       }
     }
@@ -99,8 +109,7 @@ export class WorkSchedule {
     this.data.Article = newValue && newValue.Article ? newValue.Article : "";
     this.data.Style = newValue && newValue.Style ? newValue.Style : "";
     this.data.Counter = newValue && newValue.Counter ? newValue.Counter : "";
-    this.data.SMV_Sewing =
-      newValue && newValue.SMV_Sewing ? newValue.SMV_Sewing : 0;
+    this.data.SMV_Sewing = newValue && newValue.SMV_Sewing ? newValue.SMV_Sewing : 0;
   }
 
   @computedFrom("data.Unit")
@@ -110,6 +119,7 @@ export class WorkSchedule {
     } else {
       this.data.Year = null;
     }
+   
     return Boolean(this.data.Unit);
   }
 
@@ -125,6 +135,8 @@ export class WorkSchedule {
 
   @computedFrom("data.Week")
   get remainingEH() {
+    this.getStyleName();
+    this.getCountereName();
     this.data.RemainingEh =
       this.data.Week && this.data.Week.RemainingEh
         ? this.data.Week.RemainingEh
@@ -160,4 +172,22 @@ export class WorkSchedule {
     this.data.EH_Remaining = Number(EH_RemainingValue.toFixed(2));
     return this.data.EH_Remaining;
   }
+
+  getStyleName() {
+    if (typeof this.data.Style === 'object') {
+      var styleName = this.data.Style.name;
+      this.data.Style = styleName;
+    }
+    return this.data.Style;
+  }
+
+   getCountereName() {
+    if (typeof this.data.Counter === 'object') {
+      var counterName = this.data.Counter.name;
+      this.data.Counter = counterName;
+    }
+    return this.data.Counter;
+  }
+
+ 
 }

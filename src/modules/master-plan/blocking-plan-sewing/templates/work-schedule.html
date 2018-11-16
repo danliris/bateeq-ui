@@ -1,30 +1,41 @@
 <template>
   <tr>
+      <td>
+          <au-checkbox value.bind="data.isConfirmed" read-only.bind="readOnly" options.bind="controlOptions">
+          </au-checkbox>
+      </td>
     <td>
-      <au-checkbox value.bind="data.isConfirmed" 
-                   read-only.bind="readOnly"
-                   options.bind="controlOptions">
-      </au-checkbox>
+        <au-textbox value.bind="data.RO" error.bind="error.Article" placeholder="Masukan RO"  if.bind="!isHasRo"
+        read-only.bind="isHasRo && isHasRoReadOnly == true ? true : false" options.bind="controlOptions">
+        </au-textbox>
+
+        <au-autocomplete value.bind="selectedRO" 
+        error.bind="error.selectedRO" 
+        placeholder="Cari RO" 
+        read-only.bind="readOnly" 
+        key="RO"
+        text="RO" 
+        loader.one-time="costCalculationLoader" 
+        options.bind="controlOptions" if.bind="isHasRo">
+        </au-autocomplete>  
     </td>
     <td>
-      <au-autocomplete value.bind="selectedRO" error.bind="error.selectedRO" placeholder="Cari RO" read-only.bind="readOnly" key="RO"
-        text="RO" loader.one-time="costCalculationLoader" options.bind="controlOptions">
+        <au-textbox value.bind="data.Article" error.bind="error.Article" placeholder="Masukan Article" 
+        read-only.bind="isHasRo && readOnly == true ? true : false  " options.bind="controlOptions">
+        </au-textbox>
+    </td>
+    <td>
+        <au-autocomplete value.bind="data.Style" error.bind="error.Style" placeholder="Cari Style" read-only.bind=isHasRo 
+        key="code" text="name" loader.one-time="isHasRo == true ? '' : styleLoader" options.bind="controlOptions">
+        </au-autocomplete>
+    </td>
+    <td>
+        <au-autocomplete value.bind="data.Counter" error.bind="error.Counter" placeholder="Cari Konter" read-only.bind=isHasRo 
+      key="code" text="name" loader.one-time="isHasRo == true ? '' : counterLoader" options.bind="controlOptions">
       </au-autocomplete>
     </td>
     <td>
-      <au-textbox value.bind="data.Article" read-only=true options.bind="controlOptions">
-      </au-textbox>
-    </td>
-    <td>
-      <au-textbox value.bind="data.Style" read-only=true options.bind="controlOptions">
-      </au-textbox>
-    </td>
-    <td>
-      <au-textbox value.bind="data.Counter" read-only=true options.bind="controlOptions">
-      </au-textbox>
-    </td>
-    <td>
-      <au-numeric value.bind="data.SMV_Sewing" read-only=true options.bind="controlOptions">
+      <au-numeric value.bind="data.SMV_Sewing" read-only.bind=isHasRo options.bind="controlOptions">
       </au-numeric>
     </td>
     <td>

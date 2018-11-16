@@ -1,15 +1,18 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import moment from "moment";
+import { Dialog } from "../../../components/dialog/dialog";
 import { Service } from "./service";
 const bookingOrderLoader = require("../../../loader/booking-order-loader");
 
-@inject(Router, Service)
+@inject(Router, Service, Dialog)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
   @bindable data = {};
   @bindable error = {};
+  @bindable isHasRo;
+  @bindable isHasRoReadOnly;
   controlOptions = {
     label: {
       length: 4
@@ -51,10 +54,59 @@ export class DataForm {
       { header: "Sisa EH" }
     ],
     onAdd: function () {
-      this.data.WorkSchedules.push({});
-    }.bind(this),
-    options: { readOnly: this.readOnly }
+      var countRow = 0;
+      if (this.data.WorkSchedules.length == 0) {
+        this.dialog.confirmRO("Tambah data jadwal Pengerjaan?", "TAMBAH DATA")
+          .then(response => {
+            if (response == 'ok') {
+              this.isHasRo = true;
+              this.isHasRoReadOnly = true;
+              this.workSchedules_Info.options.isHasRo = this.isHasRo;
+            }
+            else {
+              this.isHasRo = false;
+              this.isHasRoReadOnly = false;
+              this.workSchedules_Info.options.isHasRo = this.isHasRo;
+            }
+            this.data.WorkSchedules.push({});
+          })
+      }
+      else {
+        var countError = 0;
+        this.data.WorkSchedules.forEach(element => {
+          if (element.Week == null) {
+            countError++;
+          }
+        });
+
+        if (countError > 0) {
+          this.dialog.prompt("Data Jadwal pengerjaan belum lengkap, Lengkapi data terlebih dahulu ! ", "KONFIRMASI KELENGKEPAN DATA")
+            .then(response => {
+              if (response == 'ok') { }
+            })
+
+        }
+        else {
+          this.dialog.confirmRO("Tambah data jadwal Pengerjaan?", "TAMBAH DATA")
+            .then(response => {
+              if (response == 'ok') {
+                this.isHasRo = true;
+                this.isHasRoReadOnly = true;
+                this.workSchedules_Info.options.isHasRo = this.isHasRo;
+              }
+              else {
+                this.isHasRo = false;
+                this.isHasRoReadOnly = false;
+                this.workSchedules_Info.options.isHasRo = this.isHasRo;
+              }
+              this.data.WorkSchedules.push({});
+            }
+            )
+        }
+      }
+    }.bind(this), options: { readOnly: this.readOnly }
   };
+
 
   get bookingOrderLoader() {
     return bookingOrderLoader;
@@ -89,12 +141,14 @@ export class DataForm {
     this.detailConfirms = data ? data.DetailConfirms : null;
   }
 
-  constructor(router, service) {
+  constructor(router, service, dialog) {
     this.router = router;
     this.service = service;
+    this.dialog = dialog;
+    this.isHasRo = true;
   }
-  filterBookingOrder= {
-    Expired : ""
+  filterBookingOrder = {
+    Expired: ""
   }
 
   columnPreview = {
@@ -115,6 +169,8 @@ export class DataForm {
     this.workSchedules_Info.options.readOnly = this.readOnly;
 
     const getYear = new Date().getFullYear();
+
+
     const getWeeklyPlanPromise = {
       thisYear: this.service.getWeeklyPlanByYear(getYear.toString()),
       nextYear: this.service.getWeeklyPlanByYear((getYear + 1).toString())
@@ -124,23 +180,21 @@ export class DataForm {
       getWeeklyPlanPromise.nextYear
     ]);
 
-    if (weeklyPlans[0][0] && weeklyPlans[0])
-    {
+    if (weeklyPlans[0][0] && weeklyPlans[0]) {
       this.columnPreview.thisYear.push(
         ...this.getPreviewWeeklyPlanColumns(weeklyPlans[0][0])
       );
-
       this.weeklyPlansPreview.thisYear.push(
+
         ...this.getPreviewWeeklyPlansData(weeklyPlans[0])
       );
     }
 
-    if (weeklyPlans[1][0] && weeklyPlans[1])
-    {
+    if (weeklyPlans[1][0] && weeklyPlans[1]) {
       this.columnPreview.nextYear.push(
         ...this.getPreviewWeeklyPlanColumns(weeklyPlans[1][0])
       );
-  
+
       this.weeklyPlansPreview.nextYear.push(
         ...this.getPreviewWeeklyPlansData(weeklyPlans[1])
       );
@@ -173,6 +227,7 @@ export class DataForm {
   }
 
   getPreviewWeeklyPlanColumns(weeklyPlan) {
+
     const columns = [
       { title: "Tahun", field: "Year" },
       { title: "Unit", field: "UnitCode" }
@@ -202,7 +257,11 @@ export class DataForm {
         data[`Week${item.WeekNumber}`] = item.RemainingEh;
       previewData.push(data);
     }
-    
+
     return previewData;
+  }
+
+  getIsWorkScheduleReadOnly(){
+
   }
 }
