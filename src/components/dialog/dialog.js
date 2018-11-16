@@ -23,9 +23,9 @@ export class Dialog {
             });
     }
 
-    confirmRO(message,title){
-        return this.show(ConfirmRO,{title:title, message:message})
-                   .then(response =>{
+    confirmRO(message, title){
+        return this.show(ConfirmRO, { title: title, message: message})
+                   .then(response => {
                        var result ='ok';
                         if (response.wasCancelled)
                         {

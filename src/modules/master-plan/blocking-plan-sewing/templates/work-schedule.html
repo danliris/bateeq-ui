@@ -6,7 +6,7 @@
       </td>
     <td>
         <au-textbox value.bind="data.RO" error.bind="error.Article" placeholder="Masukan RO"  if.bind="!isHasRo"
-        read-only.bind="isHasRo && isHasRoReadOnly == true ? true : false" options.bind="controlOptions">
+        read-only.bind="isHasRo" options.bind="controlOptions">
         </au-textbox>
 
         <au-autocomplete value.bind="selectedRO" 

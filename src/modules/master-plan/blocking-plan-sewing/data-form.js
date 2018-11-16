@@ -1,12 +1,12 @@
 import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import { Dialog } from "../../../components/dialog/dialog";
+import { Dialog } from '../../../components/dialog/dialog';
 import { Service } from "./service";
 import { ROSizeBreakdownFooter } from "../../merchandiser/ro-retail/template/ro-retail-sizebreakdown-footer";
 const bookingOrderLoader = require("../../../loader/booking-order-loader");
 
-@inject(Router, Service, Dialog)
+@inject(Router, Dialog, Service)
 export class DataForm {
   @bindable title;
   @bindable readOnly;
@@ -62,18 +62,15 @@ export class DataForm {
       { header: "Sisa EH" }
     ],
     onAdd: function () {
-      var countRow = 0;
       if (this.data.WorkSchedules.length == 0) {
         this.dialog.confirmRO("Tambah data jadwal Pengerjaan?", "TAMBAH DATA")
           .then(response => {
             if (response == 'ok') {
               this.isHasRo = true;
-              this.isHasRoReadOnly = true;
               this.workSchedules_Info.options.isHasRo = this.isHasRo;
             }
             else {
               this.isHasRo = false;
-              this.isHasRoReadOnly = false;
               this.workSchedules_Info.options.isHasRo = this.isHasRo;
             }
             this.data.WorkSchedules.push({});
@@ -99,12 +96,10 @@ export class DataForm {
             .then(response => {
               if (response == 'ok') {
                 this.isHasRo = true;
-                this.isHasRoReadOnly = true;
                 this.workSchedules_Info.options.isHasRo = this.isHasRo;
               }
               else {
                 this.isHasRo = false;
-                this.isHasRoReadOnly = false;
                 this.workSchedules_Info.options.isHasRo = this.isHasRo;
               }
               this.data.WorkSchedules.push({});
@@ -236,7 +231,7 @@ export class DataForm {
       { title: "Tahun", field: "Year" },
       { title: "Unit", field: "UnitCode" }
     ];
-    
+
     weeklyPlan.Items.sort((a, b) => {
       return a.WeekNumber - b.WeekNumber;
     });
