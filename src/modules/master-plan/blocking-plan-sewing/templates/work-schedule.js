@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "../service";
 import moment from "moment";
 import _ from "lodash";
+
 const searchCCByRO = require("../../../../loader/search-by-ro-merchandiser");
 const searchUnit = require("../../../../loader/unit-loader");
 const searchYear = require("../../../../loader/weekly-plan-loader");
@@ -17,6 +18,18 @@ export class WorkSchedule {
       length: 12
     }
   };
+
+  constructor(service) {
+    this.service = service;
+  }
+
+  get styleLoader() {
+    return searchStyle;
+  }
+  get counterLoader() {
+    return searchcounter;
+
+  }
 
   get costCalculationLoader() {
     return searchCCByRO;
@@ -67,11 +80,7 @@ export class WorkSchedule {
     return week.WeekText;
   };
 
-  constructor(service) {
-    this.service = service;
-  }
-
-  activate(context) {
+  async activate(context) {
     this.context = context;
     this.data = context.data;
     this.error = context.error;
@@ -79,16 +88,6 @@ export class WorkSchedule {
     this.readOnly = this.context.context.options.readOnly;
     this.isHasRo = this.context.context.options.isHasRo;
     this.isHasRoReadOnly = this.context.context.options.isHasRoReadOnly;
-
-    if (this.readOnly === true) {
-      if (this.data.isConfirmed === true) {
-        this.data.isConfirmed = "Ya";
-      }
-
-      if (this.data.isConfirmed === false) {
-        this.data.isConfirmed = "Tidak";
-      }
-    }
 
     if (!_.isEmpty(this.data)) {
       this.selectedRO = {
@@ -98,8 +97,27 @@ export class WorkSchedule {
         Counter: this.data.Counter,
         SMV_Sewing: this.data.SMV_Sewing
       };
-      this.data.Week.RemainingEh = this.data.RemainingEh;
-      this.data.Week.Efficiency = this.data.Efficiency;
+    }
+    else {
+      this.selectedRO = {
+        RO: this.data.RO,
+        Article: this.data.Article,
+        Style: this.data.Style,
+        Counter: this.data.Counter,
+        SMV_Sewing: this.data.SMV_Sewing
+      };
+    }
+
+    if (this.readOnly) {
+      if (this.data.isConfirmed) {
+        this.data.isConfirmed = 'Ya';
+      } else {
+        this.data.isConfirmed = 'Tidak';
+      }
+    } else {
+      if (this.data.isConfirmed === undefined) {
+        this.data.isConfirmed = false;
+      }
     }
   }
 
@@ -112,6 +130,7 @@ export class WorkSchedule {
     this.data.SMV_Sewing = newValue && newValue.SMV_Sewing ? newValue.SMV_Sewing : 0;
   }
 
+
   @computedFrom("data.Unit")
   get unitExist() {
     if (this.data.Unit) {
@@ -119,12 +138,13 @@ export class WorkSchedule {
     } else {
       this.data.Year = null;
     }
-   
+
     return Boolean(this.data.Unit);
   }
 
   @computedFrom("data.Year")
   get yearExist() {
+    this.getCounterName();
     if (this.data.Year) {
       this.includedWeeklyPlanId = this.data.Year.Id ? this.data.Year.Id : null;
     } else {
@@ -135,13 +155,13 @@ export class WorkSchedule {
 
   @computedFrom("data.Week")
   get remainingEH() {
+    if (this.data.RemainingEh === undefined || this.data.RemainingEh == 0) {
+      this.data.RemainingEh = this.data.Week && this.data.Week.RemainingEh ? this.data.Week.RemainingEh : 0;
+    }
+
     this.getStyleName();
-    this.getCountereName();
-    this.data.RemainingEh =
-      this.data.Week && this.data.Week.RemainingEh
-        ? this.data.Week.RemainingEh
-        : 0;
     return this.data.RemainingEh;
+
   }
 
   @computedFrom("data.Week")
@@ -181,7 +201,7 @@ export class WorkSchedule {
     return this.data.Style;
   }
 
-   getCountereName() {
+  getCounterName() {
     if (typeof this.data.Counter === 'object') {
       var counterName = this.data.Counter.name;
       this.data.Counter = counterName;
@@ -189,5 +209,5 @@ export class WorkSchedule {
     return this.data.Counter;
   }
 
- 
+
 }

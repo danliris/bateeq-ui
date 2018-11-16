@@ -3,6 +3,7 @@ import { Router } from "aurelia-router";
 import moment from "moment";
 import { Dialog } from "../../../components/dialog/dialog";
 import { Service } from "./service";
+import { ROSizeBreakdownFooter } from "../../merchandiser/ro-retail/template/ro-retail-sizebreakdown-footer";
 const bookingOrderLoader = require("../../../loader/booking-order-loader");
 
 @inject(Router, Service, Dialog)
@@ -12,7 +13,7 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
   @bindable isHasRo;
-  @bindable isHasRoReadOnly;
+
   controlOptions = {
     label: {
       length: 4
@@ -21,6 +22,13 @@ export class DataForm {
       length: 5
     }
   };
+
+  constructor(router, dialog, service) {
+    this.router = router;
+    this.dialog = dialog;
+    this.service = service;
+    this.isHasRo = true;
+  }
 
   detailConfirms_Info = {
     columns: [
@@ -107,10 +115,10 @@ export class DataForm {
     }.bind(this), options: { readOnly: this.readOnly }
   };
 
-
   get bookingOrderLoader() {
     return bookingOrderLoader;
   }
+
 
   @computedFrom("data.Id")
   get isEdit() {
@@ -141,12 +149,6 @@ export class DataForm {
     this.detailConfirms = data ? data.DetailConfirms : null;
   }
 
-  constructor(router, service, dialog) {
-    this.router = router;
-    this.service = service;
-    this.dialog = dialog;
-    this.isHasRo = true;
-  }
   filterBookingOrder = {
     Expired: ""
   }
@@ -161,26 +163,28 @@ export class DataForm {
   };
   async bind(context) {
     this.context = context;
+    this.service = this.context.service;
     this.data = this.context.data;
     this.error = this.context.error;
+    this.workSchedules_Info.options.readOnly = this.readOnly;
+    this.workSchedules_Info.options.isHasRo = this.isHasRo;
     if ((this.readOnly || this.isEdit) && this.data) {
       this.selectedBookingOrder = this.data.BookingOrder;
     }
-    this.workSchedules_Info.options.readOnly = this.readOnly;
-
+ 
     const getYear = new Date().getFullYear();
-
-
     const getWeeklyPlanPromise = {
       thisYear: this.service.getWeeklyPlanByYear(getYear.toString()),
       nextYear: this.service.getWeeklyPlanByYear((getYear + 1).toString())
     };
+
     const weeklyPlans = await Promise.all([
       getWeeklyPlanPromise.thisYear,
       getWeeklyPlanPromise.nextYear
     ]);
 
-    if (weeklyPlans[0][0] && weeklyPlans[0]) {
+
+    if (weeklyPlans[0].length > 0) {
       this.columnPreview.thisYear.push(
         ...this.getPreviewWeeklyPlanColumns(weeklyPlans[0][0])
       );
@@ -190,7 +194,7 @@ export class DataForm {
       );
     }
 
-    if (weeklyPlans[1][0] && weeklyPlans[1]) {
+    if (weeklyPlans[1].length > 0) {
       this.columnPreview.nextYear.push(
         ...this.getPreviewWeeklyPlanColumns(weeklyPlans[1][0])
       );
@@ -232,7 +236,7 @@ export class DataForm {
       { title: "Tahun", field: "Year" },
       { title: "Unit", field: "UnitCode" }
     ];
-
+    
     weeklyPlan.Items.sort((a, b) => {
       return a.WeekNumber - b.WeekNumber;
     });
@@ -247,6 +251,7 @@ export class DataForm {
   }
 
   getPreviewWeeklyPlansData(weeklyPlans) {
+
     let previewData = [];
     for (const weeklyPlan of weeklyPlans) {
       const data = {
