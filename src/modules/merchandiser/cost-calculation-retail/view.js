@@ -207,7 +207,6 @@ export class View {
   }
 
   printPdf() {
-    debugger
     this.service.getPdfById(this.data.Id);
   }
 
