@@ -21,21 +21,23 @@
     </td>
     <td>
         <au-textbox value.bind="data.Article" error.bind="error.Article" placeholder="Masukan Article" 
-        read-only.bind="isHasRo && readOnly == true ? true : false  " options.bind="controlOptions">
+        read-only.bind="data.isHasRoViewing? true : false" options.bind="controlOptions">
         </au-textbox>
     </td>
     <td>
-        <au-autocomplete value.bind="data.Style" error.bind="error.Style" placeholder="Cari Style" read-only.bind=isHasRo 
-        key="code" text="name" loader.one-time="isHasRo == true ? '' : styleLoader" options.bind="controlOptions">
+        <au-autocomplete value.bind="data.Style" error.bind="error.Style" placeholder="Cari Style" 
+                         read-only.bind="data.isHasRoViewing? true : false" key="code" 
+                        text="name" loader.one-time="isHasRo == true ? '' : styleLoader" options.bind="controlOptions">
         </au-autocomplete>
     </td>
     <td>
-        <au-autocomplete value.bind="data.Counter" error.bind="error.Counter" placeholder="Cari Konter" read-only.bind=isHasRo 
-      key="code" text="name" loader.one-time="isHasRo == true ? '' : counterLoader" options.bind="controlOptions">
+        <au-autocomplete value.bind="data.Counter" error.bind="error.Counter" placeholder="Cari Konter" 
+                         read-only.bind="data.isHasRoViewing? true : false" key="code" text="name" 
+                        loader.one-time="isHasRo == true ? '' : counterLoader" options.bind="controlOptions">
       </au-autocomplete>
     </td>
     <td>
-        <au-numeric value.bind="data.SMV_Sewing" read-only.bind=isHasRo options.bind="controlOptions">
+        <au-numeric value.bind="data.SMV_Sewing" read-only.bind="data.isHasRoViewing? true : false" options.bind="controlOptions">
         </au-numeric>
     </td>
 
@@ -45,8 +47,8 @@
       </au-autocomplete>
     </td>
     <td>
-      <au-autocomplete value.bind="data.Year" error.bind="error.WorkSchedules.Year" placeholder="Cari Tahun" if.bind="unitExist" read-only.bind=readOnly
-        key="Year" text="Year" query.bind="filterYear" loader.one-time="yearLoader" options.bind="controlOptions">
+      <au-autocomplete value.bind="data.Year" error.bind="error.WorkSchedules.Year" placeholder="Cari Tahun" if.bind="unitExist" 
+      read-only.bind=readOnly key="Year" text="Year" query.bind="filterYear" loader.one-time="yearLoader" options.bind="controlOptions">
       </au-autocomplete>
     </td>
     <td>

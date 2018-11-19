@@ -72,8 +72,24 @@ export class DataForm {
             else {
               this.isHasRo = false;
               this.workSchedules_Info.options.isHasRo = this.isHasRo;
+            } 
+            var workSchedule = {
+             
+            };
+            if (this.isHasRo){
+              workSchedule = {
+                isHasRoViewing :true
+              };
+              this.data.WorkSchedules.push(workSchedule);
+                    
             }
-            this.data.WorkSchedules.push({});
+            else{
+               workSchedule = {
+                isHasRoViewing :false
+              };
+              this.data.WorkSchedules.push(workSchedule);
+            }
+                 
           })
       }
       else {
@@ -102,9 +118,26 @@ export class DataForm {
                 this.isHasRo = false;
                 this.workSchedules_Info.options.isHasRo = this.isHasRo;
               }
-              this.data.WorkSchedules.push({});
+
+              var workSchedule = {
+             
+              };
+                if (this.isHasRo){
+                   workSchedule = {
+                    isHasRoViewing :true
+                  };
+                  this.data.WorkSchedules.push(workSchedule); 
+
+                }
+                else{
+                   workSchedule = {
+                    isHasRoViewing :false
+                  };
+                  this.data.WorkSchedules.push(workSchedule); 
+                } 
+               
             }
-            )
+          )
         }
       }
     }.bind(this), options: { readOnly: this.readOnly }
