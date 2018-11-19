@@ -24,13 +24,13 @@
       read-only=true if.bind="detailConfirms" item-template="modules/master-plan/blocking-plan-sewing/templates/detail-confirm">
     </au-collection>
 
+
+    <au-collection title="Jadwal Pengerjaan " items.bind="data.WorkSchedules" columns.bind="workSchedules_Info.columns"
+      add.bind="workSchedules_Info.onAdd" remove.bind="workSchedules_Info.onRemove" read-only.bind="readOnly" error.bind = "error.WorkSchedules"
+      options.bind="workSchedules_Info.options" item-template="modules/master-plan/blocking-plan-sewing/templates/work-schedule">
     <au-textbox read-only=true error.bind="error.ValidateWorkSchedules" ></au-textbox>
 
-    <au-collection title="Jadwal Pengerjaan" items.bind="data.WorkSchedules" columns.bind="workSchedules_Info.columns" 
-      add.bind="workSchedules_Info.onAdd" remove.bind="workSchedules_Info.onRemove" read-only.bind="readOnly"
-      options.bind="workSchedules_Info.options" item-template="modules/master-plan/blocking-plan-sewing/templates/work-schedule" 
-      errors.bind="error.WorkSchedules">
-    </au-collection>
+  
 
 
     <h4>LIST OF ANNUAL YEARS</h4>

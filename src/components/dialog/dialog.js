@@ -3,6 +3,7 @@ import { DialogService } from 'aurelia-dialog';
 import { Prompt } from './prompt';
 import { Confirm }from './confirm';
 import { Error } from './error';
+import { ConfirmRO } from './confirmRO';
 
 @inject(DialogService)
 @noView()
@@ -20,6 +21,19 @@ export class Dialog {
 
                 return Promise.resolve(result);
             });
+    }
+
+    confirmRO(message, title){
+        return this.show(ConfirmRO, { title: title, message: message})
+                   .then(response => {
+                       var result ='ok';
+                        if (response.wasCancelled)
+                        {
+                            result ='cancelled';
+                        }
+                      
+                       return Promise.resolve(result);
+                   })
     }
 
     prompt(message, title) {

@@ -11,5 +11,4 @@ module.exports = function (keyword, filter) {
     return endpoint.find(resource.concat('/' + keyword))
         .then(results => {
             return results.data;
-        });
-}
+        })};

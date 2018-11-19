@@ -3,13 +3,12 @@ import { Service } from "../service";
 import moment from "moment";
 import _ from "lodash";
 
-const searchStyle = require("../../../../loader/style-search-loader");
-const searchcounter = require("../../../../loader/counter-search-loader");
 const searchCCByRO = require("../../../../loader/search-by-ro-merchandiser");
 const searchUnit = require("../../../../loader/unit-loader");
 const searchYear = require("../../../../loader/weekly-plan-loader");
 const searchWeek = require("../../../../loader/weekly-plan-item-loader");
-//const searchSMWSewing = require("../../../../loader/")
+const searchStyle = require("../../../../loader/style-search-loader");
+const searchcounter = require("../../../../loader/counter-search-loader");
 const defaultNumberFormat = "0,0.00";
 
 @inject(Service)
@@ -46,6 +45,15 @@ export class WorkSchedule {
 
   get weekLoader() {
     return searchWeek;
+  }
+
+  get styleLoader() {
+    return searchStyle;
+  }
+
+  get counterLoader() {
+    return searchcounter;
+
   }
 
   @computedFrom("includedUnitCode")
@@ -142,11 +150,13 @@ export class WorkSchedule {
     } else {
       this.data.Year = null;
     }
+
     return Boolean(this.data.Unit);
   }
 
   @computedFrom("data.Year")
   get yearExist() {
+    this.getCounterName();
     if (this.data.Year) {
       this.includedWeeklyPlanId = this.data.Year.Id ? this.data.Year.Id : null;
     } else {
@@ -157,11 +167,13 @@ export class WorkSchedule {
 
   @computedFrom("data.Week")
   get remainingEH() {
-    this.data.RemainingEh =
-      this.data.Week && this.data.Week.RemainingEh
-        ? this.data.Week.RemainingEh
-        : 0;
+    if (this.data.RemainingEh === undefined || this.data.RemainingEh == 0) {
+      this.data.RemainingEh = this.data.Week && this.data.Week.RemainingEh ? this.data.Week.RemainingEh : 0;
+    }
+
+    this.getStyleName();
     return this.data.RemainingEh;
+
   }
 
   @computedFrom("data.Week")
@@ -192,4 +204,22 @@ export class WorkSchedule {
     this.data.EH_Remaining = Number(EH_RemainingValue.toFixed(2));
     return this.data.EH_Remaining;
   }
+
+  getStyleName() {
+    if (typeof this.data.Style === 'object') {
+      var styleName = this.data.Style.name;
+      this.data.Style = styleName;
+    }
+    return this.data.Style;
+  }
+
+  getCounterName() {
+    if (typeof this.data.Counter === 'object') {
+      var counterName = this.data.Counter.name;
+      this.data.Counter = counterName;
+    }
+    return this.data.Counter;
+  }
+
+
 }
