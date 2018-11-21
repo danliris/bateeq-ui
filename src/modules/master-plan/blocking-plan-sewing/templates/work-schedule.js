@@ -53,8 +53,24 @@ export class WorkSchedule {
 
   get counterLoader() {
     return searchcounter;
-
   }
+
+  getStyleName() {
+    if (typeof this.data.Style === 'object') {
+      var styleName = this.data.Style.name;
+      this.data.Style = styleName;
+    }
+    return this.data.Style;
+  }
+
+  getCounterName() {
+    if (typeof this.data.Counter === 'object') {
+      var counterName = this.data.Counter.name;
+      this.data.Counter = counterName;
+    }
+    return this.data.Counter;
+  }
+
 
   @computedFrom("includedUnitCode")
   get filterYear() {
@@ -108,8 +124,10 @@ export class WorkSchedule {
     }
 
     if (this.readOnly) {
-      if (this.data.isConfirmed) {
+      if (this.data.isConfirmed == true) {
         this.data.isConfirmed = 'Ya';
+       
+
       } else {
         this.data.isConfirmed = 'Tidak';
       }
@@ -143,12 +161,12 @@ export class WorkSchedule {
 
   @computedFrom("data.Year")
   get yearExist() {
-    this.getCounterName();
     if (this.data.Year) {
       this.includedWeeklyPlanId = this.data.Year.Id ? this.data.Year.Id : null;
     } else {
       this.data.Week = null;
     }
+    this.getStyleName();
     return Boolean(this.data.Year);
   }
 
@@ -158,9 +176,8 @@ export class WorkSchedule {
       this.data.RemainingEh = this.data.Week && this.data.Week.RemainingEh ? this.data.Week.RemainingEh : 0;
     }
 
-    this.getStyleName();
+    this.getCounterName();
     return this.data.RemainingEh;
-
   }
 
   @computedFrom("data.Week")
@@ -192,21 +209,6 @@ export class WorkSchedule {
     return this.data.EH_Remaining;
   }
 
-  getStyleName() {
-    if (typeof this.data.Style === 'object') {
-      var styleName = this.data.Style.name;
-      this.data.Style = styleName;
-    }
-    return this.data.Style;
-  }
-
-  getCounterName() {
-    if (typeof this.data.Counter === 'object') {
-      var counterName = this.data.Counter.name;
-      this.data.Counter = counterName;
-    }
-    return this.data.Counter;
-  }
 
 
 }
