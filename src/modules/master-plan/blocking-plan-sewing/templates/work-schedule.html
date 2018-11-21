@@ -1,7 +1,9 @@
 <template>
   <tr>
       <td>
-          <au-checkbox value.bind="data.isConfirmed" read-only.bind="readOnly" options.bind="controlOptions">
+          <au-checkbox value.bind="data.isConfirmed" 
+                       read-only.bind="readOnly" 
+                       options.bind="controlOptions">
           </au-checkbox>
       </td>
     <td>
@@ -21,23 +23,23 @@
     </td>
     <td>
         <au-textbox value.bind="data.Article" error.bind="error.Article" placeholder="Masukan Article" 
-        read-only.bind="data.isHasRoViewing? true : false" options.bind="controlOptions">
+        read-only.bind="readOnly? true : data.isHasRoViewing? true : false" options.bind="controlOptions">
         </au-textbox>
     </td>
     <td>
         <au-autocomplete value.bind="data.Style" error.bind="error.Style" placeholder="Cari Style" 
-                         read-only.bind="data.isHasRoViewing? true : false" key="code" 
+                         read-only.bind="readOnly? true : data.isHasRoViewing? true : false" key="code" 
                         text="name" loader.one-time="isHasRo == true ? '' : styleLoader" options.bind="controlOptions">
         </au-autocomplete>
     </td>
     <td>
         <au-autocomplete value.bind="data.Counter" error.bind="error.Counter" placeholder="Cari Konter" 
-                         read-only.bind="data.isHasRoViewing? true : false" key="code" text="name" 
+                         read-only.bind="readOnly? true : data.isHasRoViewing? true : false" key="code" text="name" 
                         loader.one-time="isHasRo == true ? '' : counterLoader" options.bind="controlOptions">
       </au-autocomplete>
     </td>
     <td>
-        <au-numeric value.bind="data.SMV_Sewing" read-only.bind="data.isHasRoViewing? true : false" options.bind="controlOptions">
+        <au-numeric value.bind="data.SMV_Sewing" read-only.bind="readOnly? true :data.isHasRoViewing? true : false" options.bind="controlOptions">
         </au-numeric>
     </td>
 
