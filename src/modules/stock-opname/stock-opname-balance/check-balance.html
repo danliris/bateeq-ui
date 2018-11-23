@@ -1,0 +1,26 @@
+<template>
+    <au-input-form title="Stock Opname Balance">
+        <au-autocomplete value.bind="data.storage" error.bind="error.storage" label="Sumber Penyimpanan" loader.bind="storageLoader"
+            placeholder="Cari Sumber Penyimpanan" key="code" text="name">
+        </au-autocomplete>
+        <div class="btn-group pull-right">
+            <button class="btn btn-primary" click.delegate="checkBalance()">Check</button>
+        </div>
+    </au-input-form>
+    <table class="table table-bordered" show.bind="showTable">
+        <thead>
+            <tr>
+                <th style="text-align:center">Barcode</th>
+                <th style="text-align:center">Product Name</th>
+                <th style="text-align:center">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="item of stockOpnameBalance.products">
+                <td style="text-align:center">${item.productCode}</td>
+                <td style="text-align:center">${item.productName}</td>
+                <td style="text-align:center">${item.quantityOpname}</td>
+            </tr>
+        </tbody>
+    </table>
+</template>
