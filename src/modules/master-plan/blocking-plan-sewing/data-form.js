@@ -174,7 +174,7 @@ export class DataForm {
     this.orderQuantity = data ? data.OrderQuantity : 0;
     this.data.DeliveryDate = data ? data.DeliveryDate : "";
     this.remark = data ? data.Remark : "";
-    this.detailConfirms = data ? data.DetailConfirms : null;
+    this.detailConfirms = data ? data.DetailConfirms : null; 
   }
 
   filterBookingOrder = {
@@ -198,8 +198,7 @@ export class DataForm {
     this.workSchedules_Info.options.isHasRo = this.isHasRo;
     if ((this.readOnly || this.isEdit) && this.data) {
       this.selectedBookingOrder = this.data.BookingOrder;
-    }
- 
+}
     const getYear = new Date().getFullYear();
     const getWeeklyPlanPromise = {
       thisYear: this.service.getWeeklyPlanByYear(getYear.toString()),
@@ -256,6 +255,7 @@ export class DataForm {
       "refreshOptions",
       options.nextYear
     );
+    
   }
 
   getPreviewWeeklyPlanColumns(weeklyPlan) {
@@ -297,4 +297,4 @@ export class DataForm {
   getIsWorkScheduleReadOnly(){
 
   }
-}
+};

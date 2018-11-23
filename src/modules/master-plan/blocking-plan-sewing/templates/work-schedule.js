@@ -2,6 +2,7 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "../service";
 import moment from "moment";
 import _ from "lodash";
+import { debug } from "util";
 
 const searchCCByRO = require("../../../../loader/search-by-ro-merchandiser");
 const searchUnit = require("../../../../loader/unit-loader");
@@ -21,6 +22,7 @@ export class WorkSchedule {
 
   constructor(service) {
     this.service = service;
+    
   }
 
   get styleLoader() {
@@ -103,6 +105,7 @@ export class WorkSchedule {
     this.options = context.options;
     this.readOnly = this.context.context.options.readOnly;
     this.isHasRo = this.context.context.options.isHasRo;
+    // console.log(this);
 
     if (!_.isEmpty(this.data)) {
       this.selectedRO = {
@@ -122,6 +125,7 @@ export class WorkSchedule {
         SMV_Sewing: this.data.SMV_Sewing
       };
     }
+   
   }
 
   @bindable selectedRO;
