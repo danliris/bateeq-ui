@@ -122,20 +122,6 @@ export class WorkSchedule {
         SMV_Sewing: this.data.SMV_Sewing
       };
     }
-
-    if (this.readOnly) {
-      if (this.data.isConfirmed == true) {
-        this.data.isConfirmed = 'Ya';
-       
-
-      } else {
-        this.data.isConfirmed = 'Tidak';
-      }
-    } else {
-      if (this.data.isConfirmed === undefined) {
-        this.data.isConfirmed = false;
-      }
-    }
   }
 
   @bindable selectedRO;
@@ -155,7 +141,6 @@ export class WorkSchedule {
     } else {
       this.data.Year = null;
     }
-
     return Boolean(this.data.Unit);
   }
 
@@ -177,15 +162,15 @@ export class WorkSchedule {
     }
 
     this.getCounterName();
-    return this.data.RemainingEh;
+    return this.data.RemainingEh = Number(this.data.RemainingEh.toFixed(2));
   }
 
   @computedFrom("data.Week")
   get efficiency() {
-    this.data.Efficiency =
-      this.data.Week && this.data.Week.Efficiency
-        ? this.data.Week.Efficiency
-        : 0;
+    if (this.data.Efficiency === undefined || this.data.Efficiency ==0)
+    {
+      this.data.Efficiency = this.data.Week && this.data.Week.Efficiency? this.data.Week.Efficiency: 0;
+    }
     return this.data.Efficiency;
   }
 

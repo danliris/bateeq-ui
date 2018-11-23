@@ -1,7 +1,7 @@
 <template>
   <tr>
       <td>
-          <au-checkbox value.bind="data.isConfirmed" 
+          <au-checkbox value.bind="readOnly? data.isConfirmed?  'Ya' : 'Tidak':data.isConfirmed " 
                        read-only.bind="readOnly" 
                        options.bind="controlOptions">
           </au-checkbox>
