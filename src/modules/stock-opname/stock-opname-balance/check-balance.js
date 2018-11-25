@@ -37,6 +37,6 @@ export class CheckBalance {
         { header: "Barcode", value: "productCode" },
         { header: "Nama", value: "productName" },
         { header: "Kuantitas SO", value: "quantityOpname" },
-        { header: "Tanggal SO", value: "_updatedDate" }
+        { header: "Tanggal SO", value: "opnameDate" }
     ];
 }
