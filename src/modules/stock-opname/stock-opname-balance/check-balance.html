@@ -7,20 +7,11 @@
             <button class="btn btn-primary" click.delegate="checkBalance()">Check</button>
         </div>
     </au-input-form>
-    <table class="table table-bordered" show.bind="showTable">
-        <thead>
-            <tr>
-                <th style="text-align:center">Barcode</th>
-                <th style="text-align:center">Product Name</th>
-                <th style="text-align:center">Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr repeat.for="item of stockOpnameBalance.products">
-                <td style="text-align:center">${item.productCode}</td>
-                <td style="text-align:center">${item.productName}</td>
-                <td style="text-align:center">${item.quantityOpname}</td>
-            </tr>
-        </tbody>
-    </table>
+    <au-collection 
+        show.bind="showTable" 
+        items.bind="stockOpnameBalance.products" 
+        columns.bind="productColumns"
+        title="Saldo Stok" 
+        read-only.bind="readOnly">
+    </au-collection>
 </template>
