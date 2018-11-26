@@ -15,7 +15,6 @@ export class CheckBalance {
         this.service = service;
         this.data = {};
         this.stockOpnameBalance = {};
-        this.isShow = false;
     }
 
     get storageLoader() {
@@ -25,8 +24,10 @@ export class CheckBalance {
     checkBalance() {
         this.service.getBalanceByStorage(this.data.storage)
             .then((result) => {
+                console.log(result);
+                
                 this.stockOpnameBalance = result;
-                this.isShow = false;
+                this.showTable = true;
             })
             .catch((error) => {
                 Promise.reject(error);
