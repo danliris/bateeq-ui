@@ -14,7 +14,7 @@ export class CheckBalance {
         this.router = router;
         this.service = service;
         this.data = {};
-        this.stockOpnameBalance = {};
+        this.stockOpnameBalance = [];
     }
 
     get storageLoader() {
@@ -35,9 +35,9 @@ export class CheckBalance {
     }
 
     productColumns = [
-        { header: "Barcode", value: "productCode" },
-        { header: "Nama", value: "productName" },
-        { header: "Kuantitas SO", value: "quantityOpname" },
+        { header: "Barcode", value: "product.code" },
+        { header: "Nama", value: "product.name" },
+        { header: "Kuantitas SO", value: "product.quantity" },
         { header: "Tanggal SO", value: "opnameDate" }
     ];
 }
