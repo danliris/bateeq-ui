@@ -24,7 +24,9 @@ export class Item {
 
   @computedFrom("item.isAdjusted")
   get createdDate(){
-    return (this.item.isAdjusted ? moment(this.item._createdDate).format('DD-MMM-YYYY') : '')
+    var _myCreatedDate = moment(this.item._createdDate).format('DD-MMM-YYY');
+    var myString = 'SO tanggal';
+    return (this.item.isAdjusted ? myString + ' ' + _myCreatedDate  : '')
   }
  
 
