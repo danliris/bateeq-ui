@@ -10,33 +10,63 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-        
+        this.checkAll = false;
+
+        if (this.readOnly) {
+            this.itemsColumns = [
+                { header: "Barcode", value: "code" },
+                { header: "Nama Barang", value: "item.name" },
+                { header: "Kuantitas Stock Sebelum SO", value: "qtyBeforeSO" },
+                { header: "Kuantitas SO", value: "qtySO" },
+                { header: "Selisih", value: "qtySO - qtyBeforeSO" },
+                { header: "catatan", value: "remark" },
+                { header: "Sesuaikan Dengan SO", value: "isAdjusted" }
+            ];
+        }
     }
 
     itemsColumns = [
         { header: "Barcode", value: "code" },
-        { header: "Nama Barang", value: "item.name"},
+        { header: "Nama Barang", value: "item.name" },
         { header: "Kuantitas Stock Sebelum SO", value: "qtyBeforeSO" },
         { header: "Kuantitas SO", value: "qtySO" },
         { header: "Selisih", value: "qtySO - qtyBeforeSO" },
-        { header: "Sesuaikan Dengan SO" , value: "isAdjusted"},
-        { header: "catatan", value: "remark" }
+        { header: "catatan", value: "remark" },
+        { header: "Sesuaikan Dengan SO", value: "isAdjusted" },
+        { header: "", value: "__check" }
     ]
 
-    get status(){
+    get status() {
         return this.data.isProcessed ? "Sudah Diproses" : "Belum Diproses";
     }
 
-    get checkAllAdjusted(){
-        var changeElement = this.data.items.map(element => {
-            if (element.isEdit == true) {
-                element.isAdjusted = true;
-                element.remark = element._createdDate;
-            } 
-            return element;
-        });
-      
-        this.data.items = changeElement;
+    checkAllCallBack($event) {
+        var e = $event;
+        if (this.checkAll == false && e.path.length == 19) {
+            var changeElement = this.data.items.map(element => {
+                if (element.isEdit == true) {
+                    element.isAdjusted = true;
+                    element.remark = element._createdDate;
+                }
+                this.checkAll = true;
+                return element;
+            });
+            this.data.items = changeElement;
+        }
+        else {
+            if (e.path.length == 19) {
+                var changeElement = this.data.items.map(element => {
+                    if (element.isEdit == true) {
+                        element.isAdjusted = false;
+                        element.remark = '';
+                    }
+                    this.checkAll = false;
+                    return element;
+                });
+                this.data.items = changeElement;
+            }
+        }
     }
+
 
 }

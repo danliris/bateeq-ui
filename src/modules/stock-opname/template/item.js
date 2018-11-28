@@ -8,7 +8,6 @@ export class Item {
     this.item = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.item._createdDate = moment(this.item._createdDate).format('DD-MMM-YYYY');
   }
   
   get qtyDifferent(){
@@ -25,7 +24,7 @@ export class Item {
 
   @computedFrom("item.isAdjusted")
   get createdDate(){
-    return (this.item.isAdjusted ? this.item._createdDate : '')
+    return (this.item.isAdjusted ? moment(this.item._createdDate).format('DD-MMM-YYYY') : '')
   }
  
 
