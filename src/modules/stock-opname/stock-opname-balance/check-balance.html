@@ -12,6 +12,7 @@
         items.bind="stockOpnameBalance" 
         columns.bind="productColumns"
         title="Saldo Stok" 
-        read-only.bind="readOnly">
+        read-only.bind="readOnly"
+        item-template="modules/stock-opname/stock-opname-balance/template/item">
     </au-collection>
 </template>
