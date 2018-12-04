@@ -24,18 +24,19 @@ module.exports = [
             permission: { "ACC.01": 1, "FNC.01": 1},
             iconClass: 'fa fa-gg-circle'
         }
-    },
-    {
-        route: 'stock-opname-balance',
-        name: 'stock-opname-balance',
-        moduleId: './modules/stock-opname/stock-opname-balance/index',
-        nav: true,
-        title: 'Stock Opname Balance',
-        auth: true,
-        settings: {
-            group: "general inventory",
-            permission: { "ACC.01": 1, "FNC.01": 1},
-            iconClass: 'fa fa-gg-circle'
-        }
     }
+    // ,
+    // {
+    //     route: 'stock-opname-balance',
+    //     name: 'stock-opname-balance',
+    //     moduleId: './modules/stock-opname/stock-opname-balance/index',
+    //     nav: true,
+    //     title: 'Stock Opname Balance',
+    //     auth: true,
+    //     settings: {
+    //         group: "general inventory",
+    //         permission: { "ACC.01": 1, "FNC.01": 1},
+    //         iconClass: 'fa fa-gg-circle'
+    //     }
+    // }
 ]
