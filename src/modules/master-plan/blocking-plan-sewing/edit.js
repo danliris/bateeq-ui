@@ -12,6 +12,9 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
+    this.data.WorkSchedules.forEach(element => {
+      element.isHasRoViewing = true;
+    });
   }
 
   cancelCallback() {

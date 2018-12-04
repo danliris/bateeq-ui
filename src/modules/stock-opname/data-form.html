@@ -1,8 +1,7 @@
 <template>
-    <au-input-form 
-    title.bind="title">
-
+    <au-input-form title.bind="title">
         <div slot="actions" class="btn-group">
+            <!-- <button class="btn btn-success" click.delegate="checkAllAdjusted" if.one-way="context.hasCancel">Sesuaikan dengan SO [Check All]</button> -->
             <button class="btn btn-default" click.delegate="context.cancel($event)" if.one-way="context.hasCancel">Kembali</button>
             <button class="btn btn-success" click.delegate="context.save($event)" if.one-way="context.hasSave">Simpan</button>
             <button class="btn btn-danger" click.delegate="context.delete($event)" if.one-way="context.hasDelete">Hapus</button>
@@ -28,14 +27,15 @@
             label="Status" 
             value.one-way="status" 
             read-only="true">
-        </au-textbox>
+        </au-textbox>      
         <au-collection 
-            items.bind="data.items"
-            errors.bind="error.items" 
-            columns.bind="itemsColumns" 
-            title="Item"
-            read-only.bind="readOnly" 
-            item-template="modules/stock-opname/template/item">
+                    items.bind="data.items"
+                    errors.bind="error.items" 
+                    columns.bind="itemsColumns" 
+                    title="Item"
+                    read-only.bind="readOnly" 
+                    change.delegate="checkAllCallBack($event)"
+                    item-template="modules/stock-opname/template/item">
         </au-collection>
         <!--<div if.bind="error">
             <span style="color:red">- Catatan harus diisi .</span>

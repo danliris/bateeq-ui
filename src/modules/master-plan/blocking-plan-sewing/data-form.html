@@ -5,10 +5,10 @@
       query.bind="filterBookingOrder" options.bind="controlOptions">
     </au-autocomplete>
 
-    <au-datepicker label="Tanggal Booking" value.bind="data.BookingDate" read-only=true options.bind="controlOptions">
+    <au-datepicker label="Tanggal Booking" value.bind="data.BookingDate"  read-only.bind="readOnly" options.bind="controlOptions">
     </au-datepicker>
 
-    <au-autocomplete label="Buyer" value.bind="buyer" text="Name" read-only=true options.bind="controlOptions">
+    <au-autocomplete label="Buyer" value.bind="buyer" text="Name" read-only.bind="readOnly" options.bind="controlOptions">
     </au-autocomplete>
 
     <au-numeric label="Jumlah Order" value.bind="orderQuantity" format="0" read-only=true options.bind="controlOptions">
@@ -24,12 +24,14 @@
       read-only=true if.bind="detailConfirms" item-template="modules/master-plan/blocking-plan-sewing/templates/detail-confirm">
     </au-collection>
 
-    <au-textbox error.bind="error.ValidateWorkSchedules" read-only.bind="true"></au-textbox>
+    <au-textbox read-only=true error.bind="error.ValidateWorkSchedules" >
 
+    </au-textbox>
     <au-collection title="Jadwal Pengerjaan " items.bind="data.WorkSchedules" columns.bind="workSchedules_Info.columns"
-      add.bind="workSchedules_Info.onAdd" remove.bind="workSchedules_Info.onRemove" read-only.bind="readOnly"
+      add.bind="workSchedules_Info.onAdd" remove.bind="workSchedules_Info.onRemove" read-only.bind="readOnly" error.bind = "error.WorkSchedules"
       options.bind="workSchedules_Info.options" item-template="modules/master-plan/blocking-plan-sewing/templates/work-schedule">
-    </au-collection>
+   </au-collection>  
+
 
     <h4>LIST OF ANNUAL YEARS</h4>
     <au-table view-model.ref="tablePreviewThisYear" columns.bind="columnPreview.thisYear" data.bind="weeklyPlansPreview.thisYear"></au-table>

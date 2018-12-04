@@ -13,7 +13,7 @@ export class Index {
         moduleId: "./create",
         name: "create",
         nav: false,
-        title: "Create: Data Bank"
+        title: "Buat | BLocking Plan Sewing"
       },
       {
         route: "view/:id",
