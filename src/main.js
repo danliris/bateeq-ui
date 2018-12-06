@@ -31,6 +31,7 @@ export async function configure(aurelia) {
       var sales = "https://bateeq-pos-api.azurewebsites.net/v1/sales/";
       var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
       var masterplan ="https://com-bateeq-service-masterplan.azurewebsites.net/v1/";
+    
 
       //Config API
       config.registerEndpoint("auth", auth);
