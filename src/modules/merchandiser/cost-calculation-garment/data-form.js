@@ -56,17 +56,15 @@ export class DataForm {
       { header: "Jumlah Ongkir", value: "TotalShippingFee" },
       { header: "Kuantitas Budget", value: "BudgetQuantity" }
     ],
-    onAdd: function() {
+    onAdd: function () {
       this.data.CostCalculationGarment_Materials.push({
         QuantityOrder: this.data.Quantity,
         FabricAllowance: this.data.FabricAllowance,
         AccessoriesAllowance: this.data.AccessoriesAllowance,
         Rate: this.data.Rate
       });
-      console.log(this.data.CostCalculationGarment_Materials);
     }.bind(this),
     onRemove: function () {
-      console.log("Material removed")
     }.bind(this)
   };
   radio = {
@@ -341,12 +339,12 @@ export class DataForm {
     let productionCost = this.data.Efficiency
       ? this.data.Efficiency.Value
         ? this.data.Wage.Value *
-            this.data.SMV_Sewing *
-            100 /
-            this.data.Efficiency.Value +
-          this.data.Wage.Value * this.data.SMV_Cutting * 100 / 75 +
-          this.data.Wage.Value * this.data.SMV_Finishing * 100 / 90 +
-          this.data.THR.Value * this.data.SMV_Total
+        this.data.SMV_Sewing *
+        100 /
+        this.data.Efficiency.Value +
+        this.data.Wage.Value * this.data.SMV_Cutting * 100 / 75 +
+        this.data.Wage.Value * this.data.SMV_Finishing * 100 / 90 +
+        this.data.THR.Value * this.data.SMV_Total
         : 0
       : 0;
     productionCost = numeral(productionCost).format();
@@ -385,12 +383,12 @@ export class DataForm {
     let subTotal =
       allMaterialCost !== 0
         ? (allMaterialCost +
-            this.data.ProductionCost +
-            this.data.OTL1.CalculatedValue +
-            this.data.OTL2.CalculatedValue) *
-            (100 + this.data.Risk) /
-            100 +
-          this.data.FreightCost
+          this.data.ProductionCost +
+          this.data.OTL1.CalculatedValue +
+          this.data.OTL2.CalculatedValue) *
+        (100 + this.data.Risk) /
+        100 +
+        this.data.FreightCost
         : 0;
     let NETFOBP =
       this.data.NETFOB && subTotal !== 0

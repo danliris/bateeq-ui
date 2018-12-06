@@ -1,0 +1,17 @@
+<template>
+    <ai-dialog>
+        <ai-dialog-header>${title}</ai-dialog-header>
+
+        <ai-dialog-body>
+            <h4>${message}</h4>
+        </ai-dialog-body>
+
+        <ai-dialog-footer>
+                <button click.trigger="controller.ok(message)">RO sudah ada !</button>
+            <button click.trigger="controller.cancel()">RO belum ada !</button>
+           
+        </ai-dialog-footer>
+
+    </ai-dialog>
+
+</template>

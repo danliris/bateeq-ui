@@ -2,10 +2,14 @@ import { inject, bindable, computedFrom } from "aurelia-framework";
 import { Service } from "../service";
 import moment from "moment";
 import _ from "lodash";
+import { debug } from "util";
+
 const searchCCByRO = require("../../../../loader/search-by-ro-merchandiser");
 const searchUnit = require("../../../../loader/unit-loader");
 const searchYear = require("../../../../loader/weekly-plan-loader");
 const searchWeek = require("../../../../loader/weekly-plan-item-loader");
+const searchStyle = require("../../../../loader/style-search-loader");
+const searchcounter = require("../../../../loader/counter-search-loader");
 const defaultNumberFormat = "0,0.00";
 
 @inject(Service)
@@ -15,6 +19,19 @@ export class WorkSchedule {
       length: 12
     }
   };
+
+  constructor(service) {
+    this.service = service;
+    
+  }
+
+  get styleLoader() {
+    return searchStyle;
+  }
+  get counterLoader() {
+    return searchcounter;
+
+  }
 
   get costCalculationLoader() {
     return searchCCByRO;
@@ -31,6 +48,31 @@ export class WorkSchedule {
   get weekLoader() {
     return searchWeek;
   }
+
+  get styleLoader() {
+    return searchStyle;
+  }
+
+  get counterLoader() {
+    return searchcounter;
+  }
+
+  getStyleName() {
+    if (typeof this.data.Style === 'object') {
+      var styleName = this.data.Style.name;
+      this.data.Style = styleName;
+    }
+    return this.data.Style;
+  }
+
+  getCounterName() {
+    if (typeof this.data.Counter === 'object') {
+      var counterName = this.data.Counter.name;
+      this.data.Counter = counterName;
+    }
+    return this.data.Counter;
+  }
+
 
   @computedFrom("includedUnitCode")
   get filterYear() {
@@ -56,16 +98,15 @@ export class WorkSchedule {
     return week.WeekText;
   };
 
-  constructor(service) {
-    this.service = service;
-  }
-
-  activate(context) {
+  async activate(context) {
     this.context = context;
     this.data = context.data;
     this.error = context.error;
     this.options = context.options;
-    this.readOnly = this.options.readOnly;
+    this.readOnly = this.context.context.options.readOnly;
+    this.isHasRo = this.context.context.options.isHasRo;
+    // console.log(this);
+
     if (!_.isEmpty(this.data)) {
       this.selectedRO = {
         RO: this.data.RO,
@@ -74,9 +115,17 @@ export class WorkSchedule {
         Counter: this.data.Counter,
         SMV_Sewing: this.data.SMV_Sewing
       };
-      this.data.Week.RemainingEh = this.data.RemainingEh;
-      this.data.Week.Efficiency = this.data.Efficiency;
     }
+    else {
+      this.selectedRO = {
+        RO: this.data.RO,
+        Article: this.data.Article,
+        Style: this.data.Style,
+        Counter: this.data.Counter,
+        SMV_Sewing: this.data.SMV_Sewing
+      };
+    }
+   
   }
 
   @bindable selectedRO;
@@ -85,9 +134,9 @@ export class WorkSchedule {
     this.data.Article = newValue && newValue.Article ? newValue.Article : "";
     this.data.Style = newValue && newValue.Style ? newValue.Style : "";
     this.data.Counter = newValue && newValue.Counter ? newValue.Counter : "";
-    this.data.SMV_Sewing =
-      newValue && newValue.SMV_Sewing ? newValue.SMV_Sewing : 0;
+    this.data.SMV_Sewing = newValue && newValue.SMV_Sewing ? newValue.SMV_Sewing : 0;
   }
+
 
   @computedFrom("data.Unit")
   get unitExist() {
@@ -106,24 +155,26 @@ export class WorkSchedule {
     } else {
       this.data.Week = null;
     }
+    this.getStyleName();
     return Boolean(this.data.Year);
   }
 
   @computedFrom("data.Week")
   get remainingEH() {
-    this.data.RemainingEh =
-      this.data.Week && this.data.Week.RemainingEh
-        ? this.data.Week.RemainingEh
-        : 0;
-    return this.data.RemainingEh;
+    if (this.data.RemainingEh === undefined || this.data.RemainingEh == 0) {
+      this.data.RemainingEh = this.data.Week && this.data.Week.RemainingEh ? this.data.Week.RemainingEh : 0;
+    }
+
+    this.getCounterName();
+    return this.data.RemainingEh = Number(this.data.RemainingEh.toFixed(2));
   }
 
   @computedFrom("data.Week")
   get efficiency() {
-    this.data.Efficiency =
-      this.data.Week && this.data.Week.Efficiency
-        ? this.data.Week.Efficiency
-        : 0;
+    if (this.data.Efficiency === undefined || this.data.Efficiency ==0)
+    {
+      this.data.Efficiency = this.data.Week && this.data.Week.Efficiency? this.data.Week.Efficiency: 0;
+    }
     return this.data.Efficiency;
   }
 
@@ -146,4 +197,7 @@ export class WorkSchedule {
     this.data.EH_Remaining = Number(EH_RemainingValue.toFixed(2));
     return this.data.EH_Remaining;
   }
+
+
+
 }

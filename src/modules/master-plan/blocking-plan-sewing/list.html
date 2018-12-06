@@ -1,9 +1,9 @@
 <template>
-  <h1 class="page-header">Blocking Plan Sewing</h1>
+  <h2 clas="page-header">${CustomeTitle}</h2>
   <au-table data.bind="loader" columns.bind="columns" sortable.bind="true" page-size="25" context.bind="context" context-click.delegate="contextCallback($event)"
     row-formatter.bind="rowFormatter">
-    <div slot="toolbar" class="btn-group">
+  <div slot="toolbar" class="btn-group">
       <button class="btn btn-success" click.delegate="create()">Buat</button>
-    </div>
+  </div>
   </au-table>
 </template>

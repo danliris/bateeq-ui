@@ -1,38 +1,56 @@
 <template>
   <tr>
+      <td>
+          <au-checkbox value.bind="data.isConfirmed" 
+                       read-only.bind="readOnly" 
+                       options.bind="controlOptions">
+          </au-checkbox>
+      </td>
     <td>
-      <au-checkbox value.bind="data.isConfirmed" read-only.bind="readOnly" options.bind="controlOptions">
-      </au-checkbox>
+        <au-textbox value.bind="data.RO" error.bind="error.Article" placeholder="Masukan RO"  if.bind="!isHasRo"
+        read-only.bind="isHasRo" options.bind="controlOptions">
+        </au-textbox>
+
+        <au-autocomplete value.bind="selectedRO" 
+        error.bind="error.selectedRO" 
+        placeholder="Cari RO" 
+        read-only.bind="readOnly" 
+        key="RO"
+        text="RO" 
+        loader.one-time="costCalculationLoader" 
+        options.bind="controlOptions" if.bind="isHasRo">
+        </au-autocomplete>  
     </td>
     <td>
-      <au-autocomplete value.bind="selectedRO" error.bind="error.selectedRO" placeholder="Cari RO" read-only.bind="readOnly" key="RO"
-        text="RO" loader.one-time="costCalculationLoader" options.bind="controlOptions">
+        <au-textbox value.bind="data.Article" error.bind="error.Article" placeholder="Masukan Article" 
+        read-only.bind="readOnly? true : data.isHasRoViewing? true : false" options.bind="controlOptions">
+        </au-textbox>
+    </td>
+    <td>
+        <au-autocomplete value.bind="data.Style" error.bind="error.Style" placeholder="Cari Style" 
+                         read-only.bind="readOnly? true : data.isHasRoViewing? true : false" key="code" 
+                        text="name" loader.one-time="isHasRo == true ? '' : styleLoader" options.bind="controlOptions">
+        </au-autocomplete>
+    </td>
+    <td>
+        <au-autocomplete value.bind="data.Counter" error.bind="error.Counter" placeholder="Cari Konter" 
+                         read-only.bind="readOnly? true : data.isHasRoViewing? true : false" key="code" text="name" 
+                        loader.one-time="isHasRo == true ? '' : counterLoader" options.bind="controlOptions">
       </au-autocomplete>
     </td>
     <td>
-      <au-textbox value.bind="data.Article" read-only=true options.bind="controlOptions">
-      </au-textbox>
+        <au-numeric value.bind="data.SMV_Sewing" read-only.bind="readOnly? true :data.isHasRoViewing? true : false" options.bind="controlOptions">
+        </au-numeric>
     </td>
+
     <td>
-      <au-textbox value.bind="data.Style" read-only=true options.bind="controlOptions">
-      </au-textbox>
-    </td>
-    <td>
-      <au-textbox value.bind="data.Counter" read-only=true options.bind="controlOptions">
-      </au-textbox>
-    </td>
-    <td>
-      <au-numeric value.bind="data.SMV_Sewing" read-only=true options.bind="controlOptions">
-      </au-numeric>
-    </td>
-    <td>
-      <au-autocomplete value.bind="data.Unit" error.bind="error.Unit" placeholder="Cari Unit" read-only.bind="readOnly" key="code"
+      <au-autocomplete value.bind="data.Unit" error.bind="error.Unit" placeholder="Cari Unit" read-only.bind=readOnly key="code"
         text="code" loader.one-time="unitLoader" options.bind="controlOptions">
       </au-autocomplete>
     </td>
     <td>
-      <au-autocomplete value.bind="data.Year" error.bind="error.Year" placeholder="Cari Tahun" if.bind="unitExist" read-only.bind="readOnly"
-        key="Year" text="Year" query.bind="filterYear" loader.one-time="yearLoader" options.bind="controlOptions">
+      <au-autocomplete value.bind="data.Year" error.bind="error.WorkSchedules.Year" placeholder="Cari Tahun" if.bind="unitExist" 
+      read-only.bind=readOnly key="Year" text="Year" query.bind="filterYear" loader.one-time="yearLoader" options.bind="controlOptions">
       </au-autocomplete>
     </td>
     <td>
@@ -41,15 +59,15 @@
       </au-autocomplete>
     </td>
     <td>
-      <au-textbox value.bind="remainingEH" read-only=true options.bind="controlOptions">
+      <au-textbox value.bind="remainingEH" error.bind="error.remainingEH"  read-only.bind=true options.bind="controlOptions">
       </au-textbox>
     </td>
     <td>
-      <au-numeric value.bind="data.TotalOrder" read-only.bind="readOnly" options.bind="controlOptions">
+      <au-numeric value.bind="data.TotalOrder" error.bind="error.TotalOrder" read-only.bind="readOnly" options.bind="controlOptions">
       </au-numeric>
     </td>
     <td>
-      <au-multiline value.bind="data.Remark" placeholder="Isi Keterangan" read-only.bind="readOnly" options.bind="controlOptions">
+      <au-multiline value.bind="data.Remark" placeholder="Isi Keterangan" error.bind="error.Remark" read-only.bind="readOnly" options.bind="controlOptions">
       </au-multiline>
     </td>
     <td>
@@ -57,15 +75,15 @@
       </au-datepicker>
     </td>
     <td>
-      <au-numeric value.bind="efficiency" read-only=true options.bind="controlOptions">
+      <au-numeric value.bind="efficiency" error.bind="error.efficiency" read-only=true options.bind="controlOptions">
       </au-numeric>
     </td>
     <td>
-      <au-numeric value.bind="EH_Booking" read-only=true options.bind="controlOptions">
+      <au-numeric value.bind="EH_Booking" error.bind="error.EH_Booking" read-only=true options.bind="controlOptions">
       </au-numeric>
     </td>
     <td>
-      <au-numeric value.bind="EH_Remaining" read-only=true options.bind="controlOptions">
+      <au-numeric value.bind="EH_Remaining" error.bind="error.EH_Remaining" read-only=true options.bind="controlOptions">
       </au-numeric>
     </td>
     <td if.bind="!readOnly">

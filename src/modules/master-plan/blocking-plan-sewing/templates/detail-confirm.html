@@ -7,6 +7,16 @@
     <td>
       <au-textbox value.bind="data.Article" read-only=true options.bind="controlOption">
       </au-textbox>
+      <au-textbox value.bind="data.IsAddNew == true ? 
+                               '*Ket: MD telah menambah detail ini' : 
+                               data.IsConfirmDelete == true ?
+                               '*Ket: MD telah menghapus detail ini' :
+                               ''" 
+                  read-only="true" 
+                  options.bind="controlOption"
+                  style=color:red>
+      </au-textbox>
+      
     </td>
     <td>
       <au-textbox value.bind="data.Style" read-only=true options.bind="controlOption">

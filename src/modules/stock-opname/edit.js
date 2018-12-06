@@ -18,24 +18,24 @@ export class Edit {
   async activate(params) {
     var id = params.id;
     this.data = await this.service.getById(id);
-    if(!this.data.isProcessed){
-        var inventories = await this.service.getItemInInventory(id);
-        for(var a of this.data.items){
-            for(var b of inventories){
-                if(b && b.item){
-                    if(a.item.code === b.item.code)
-                        a.qtyBeforeSO = b.quantity;
-                }
-            }
-            if((a.qtyBeforeSO - a.qtySO) === 0)
-              a["isView"] = true;
-            else
-              a["isEdit"] = true;
+    if (!this.data.isProcessed) {
+      var inventories = await this.service.getItemInInventory(id);
+      for (var a of this.data.items) {
+        for (var b of inventories) {
+          if (b && b.item) {
+            if (a.item.code === b.item.code)
+              a.qtyBeforeSO = b.quantity;
+          }
         }
+        if ((a.qtyBeforeSO - a.qtySO) === 0)
+          a["isView"] = true;
+        else
+          a["isEdit"] = true;
+      }
     }
     this.error = {
-      storage : "",
-      items : []
+      storage: "",
+      items: []
     }
   }
 
@@ -50,12 +50,10 @@ export class Edit {
         this.cancel();
       })
       .catch(e => {
-        if(e.storage)
+        if (e.storage)
           this.error["storage"] = e.storage;
-        if(e.items)
+        if (e.items)
           this.error["items"] = e.items;
-        // console.log(this.error);
-        // this.error = e;
-      })
+      });
   }
 }

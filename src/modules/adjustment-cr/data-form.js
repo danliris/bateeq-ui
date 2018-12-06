@@ -76,11 +76,9 @@ export class DataForm {
             this.data.sourceId = this.data.source._id;
         else
             this.data.sourceId = null;
-
-        console.log(this.data.sourceId);
     }
 
-    get hasSource(){
+    get hasSource() {
         return this.data && this.data.sourceId && this.data.sourceId !== '';
     }
 
@@ -118,22 +116,22 @@ export class DataForm {
         this.data.items.splice(itemIndex, 1);
     }
 
-    inQtyChanged(item){
+    inQtyChanged(item) {
         var itemIndex = this.data.items.indexOf(item);
-        this.data.items[itemIndex].Qty=this.data.items[itemIndex].availableQuantity+this.data.items[itemIndex].inQty;
-        if(this.data.items[itemIndex].outQty && this.data.items[itemIndex].outQty>0){
-            this.data.items[itemIndex].Qty=this.data.items[itemIndex].Qty-this.data.items[itemIndex].outQty;
+        this.data.items[itemIndex].Qty = this.data.items[itemIndex].availableQuantity + this.data.items[itemIndex].inQty;
+        if (this.data.items[itemIndex].outQty && this.data.items[itemIndex].outQty > 0) {
+            this.data.items[itemIndex].Qty = this.data.items[itemIndex].Qty - this.data.items[itemIndex].outQty;
         }
     }
-    outQtyChanged(item){
+    outQtyChanged(item) {
         var itemIndex = this.data.items.indexOf(item);
-        this.data.items[itemIndex].Qty=this.data.items[itemIndex].availableQuantity-this.data.items[itemIndex].outQty;
-        if(this.data.items[itemIndex].inQty && this.data.items[itemIndex].inQty>0){
-            this.data.items[itemIndex].Qty=this.data.items[itemIndex].Qty+this.data.items[itemIndex].inQty;
+        this.data.items[itemIndex].Qty = this.data.items[itemIndex].availableQuantity - this.data.items[itemIndex].outQty;
+        if (this.data.items[itemIndex].inQty && this.data.items[itemIndex].inQty > 0) {
+            this.data.items[itemIndex].Qty = this.data.items[itemIndex].Qty + this.data.items[itemIndex].inQty;
         }
     }
 
-    get sourceLoader(){
+    get sourceLoader() {
         return SourceLoader;
     }
 }

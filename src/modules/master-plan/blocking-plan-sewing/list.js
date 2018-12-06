@@ -11,6 +11,7 @@ export class List {
   keyword = "";
 
   constructor(router, service) {
+    this.CustomeTitle = "List Of Blocking Plan Sewing"
     this.router = router;
     this.service = service;
   }
@@ -27,15 +28,25 @@ export class List {
   }
 
   rowFormatter(data, index) {
-    if (data.Status.toUpperCase() === "CONFIRM FULL")
-      return { classes: "success" };
-    else if (data.Status.toUpperCase() === "CONFIRM SEBAGIAN")
-      return { classes: "warning" };
-    else if (data.Status.toUpperCase() === "BOOKING ADA PERUBAHAN")
-      return { classes: "primary" };
-    else if (data.Status.toUpperCase() === "BOOKING") return {};
-    else return { classes: "danger" };
-  }
+        if (data.Status.toUpperCase() === "CONFIRM FULL")
+        {
+          return {classes: "success"};    
+        }
+        else if (data.Status.toUpperCase() === "CONFIRM SEBAGIAN")
+        {
+          return { classes: "warning" };
+        }
+        else if (data.Status.toUpperCase() === "BOOKING ADA PERUBAHAN")
+        {
+          return { classes: "info" };
+        }
+        else if (data.Status.toUpperCase() === "BOOKING") 
+        {
+          return {};
+        }
+        else return { classes: "danger" };
+    }
+   
 
   columns = [
     { field: "BookingOrder.Code", title: "Nomor Booking" },
@@ -48,8 +59,8 @@ export class List {
     },
     { field: "BookingOrder.Buyer.Name", title: "Buyer" },
     { field: "BookingOrder.OrderQuantity", title: "Jumlah Order" },
-    {
-      field: "BookingOrder.DeliveryDate",
+    { 
+      field: "BookingOrder.DeliveryDate", 
       title: "Tanggal Pengiriman",
       formatter: function(value) {
         return moment(value).format("DD MMM YYYY");
@@ -61,7 +72,6 @@ export class List {
 
   loader = info => {
     var order = {};
-
     if (info.sort) {
       order[info.sort] = info.order;
     }
@@ -80,6 +90,7 @@ export class List {
       return {
         total: result.info.total,
         data: result.data
+        
       };
     });
   };

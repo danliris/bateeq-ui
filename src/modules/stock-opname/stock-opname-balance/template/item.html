@@ -1,0 +1,16 @@
+<template>
+  <tr>
+    <td style="text-align:center" class="col-sm-2">
+      <au-textbox value.bind="item.product.code" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="item.product.name" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="item.product.quantity" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+    <td>
+      <au-textbox value.bind="item.opnameDate" read-only="true" options.bind="controlOptions"></au-textbox>
+    </td>
+  </tr>
+</template>

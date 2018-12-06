@@ -23,7 +23,6 @@ export class View {
                     this.totalPrice += parseInt(item.quantity * item.item.domesticSale);
                 }
                 this.data._createdDate = moment(data._createdDate).format("DD MMM YYYY HH:mm:ss");
-                console.log(this.data._createdDate);
                 this.service.getSPKByReference(this.data.code).then(spk => {
                     this.data.spk = spk;
                 })
@@ -35,7 +34,6 @@ export class View {
     }
 
     print() {
-        console.log(this.data._id);
         this.service.getPdfById(this.data._id);
     }
 

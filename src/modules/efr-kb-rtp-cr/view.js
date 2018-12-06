@@ -25,7 +25,6 @@ export class View {
                 }
                 
                 this.data._createdDate = moment(data._createdDate).format("DD MMM YYYY HH:mm:ss");
-                console.log(this.data._createdDate);
                 this.service.getSPKByReference(this.data.code).then(spk => {
                     this.data.spk = spk;
                 })
