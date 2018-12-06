@@ -8,7 +8,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "masterplan",
-      permission: { "*": 1 },
+      permission: { "PIC.01": 1 },
       iconClass: ""
     }
   },
@@ -21,7 +21,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "masterplan",
-      permission: { "*": 1 },
+      permission: { "MRD.01": 1 },
       iconClass: ""
     }
   },
@@ -34,7 +34,7 @@ module.exports = [
     auth: true,
     settings: {
       group: "masterplan",
-      permission: { "*": 1 },
+      permission: { "PIC.01": 1 },
       iconClass: ""
     }
   }
