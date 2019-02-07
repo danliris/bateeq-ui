@@ -1,0 +1,44 @@
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+
+
+@inject(Router, Service)
+export class View {
+    packingList = '';
+    password = '';
+    constructor(router, service) {
+        this.router = router;
+        this.service = service;
+        this.printStruk = "";
+    }
+
+    activate(params) {
+        var id = params.id;
+        this.service.getById(id)
+            .then(data => {
+                this.data = data;
+                // this.generatePrintStrukTable();
+            })
+    }
+
+    list() {
+        this.router.navigateToRoute('list');
+    }
+
+    edit() {
+        this.router.navigateToRoute('edit', { id: this.data._id });
+    }
+
+    delete() {
+        this.service.delete(this.data)
+            .then(result => {
+                this.list();
+            });
+    }
+
+    print() {
+        this.service.getPdfById(this.data._id);
+    }
+
+} 
