@@ -80,17 +80,27 @@ export class View {
                 this.printStruk += "            <div class='col-xs-5'> Kasir </div>";
                 this.printStruk += "            <div class='col-xs-7'> " + this.data._createdBy + " </div>";
                 this.printStruk += "        </td>";
+
                 this.printStruk += "    </tr>";
                 this.printStruk += "    <tr>";
                 this.printStruk += "        <td colspan='3' class='text-left'>";
-                this.printStruk += "            <div class='col-xs-5'> Dari </div>";
+                this.printStruk += "            <div class='col-xs-5'> Sumber </div>";
                 this.printStruk += "            <div class='col-xs-7'> " + this.data.source.code + "-" + this.data.source.name + " </div>";
                 this.printStruk += "        </td>";
                 this.printStruk += "    </tr>";
+                
                 this.printStruk += "    <tr>";
                 this.printStruk += "        <td colspan='3' class='text-left'>";
                 this.printStruk += "            <div class='col-xs-5'> Tujuan </div>";
-                this.printStruk += "            <div class='col-xs-7'> " + this.data.destination.code + "-" + this.data.destination.name + " </div>";
+                this.printStruk += "            <div class='col-xs-7'> GDG.01-GUDANG BARANG JADI 1 </div>";
+                //this.printStruk += "            <div class='col-xs-7'> " + this.data.source.code + "-" + this.data.source.name + " </div>";
+                this.printStruk += "        </td>";
+                this.printStruk += "    </tr>";
+                
+                this.printStruk += "    <tr>";
+                this.printStruk += "        <td colspan='3' class='text-left'>";
+                this.printStruk += "            <div class='col-xs-5'> Keterangan </div>";
+                this.printStruk += "            <div class='col-xs-7'> " + "Transfer ke " + this.data.destination.code + "-" + this.data.destination.name + " </div>";
                 this.printStruk += "        </td>";
                 this.printStruk += "    </tr>";
                 this.printStruk += "    <tr>";
