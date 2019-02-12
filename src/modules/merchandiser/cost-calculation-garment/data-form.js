@@ -142,7 +142,7 @@ export class DataForm {
       });
     } else {
       this.data.Wage = this.defaultRate;
-      wage = this.rateService.search({ keyword: "OL" }).then(results => {
+      wage = this.rateService.search({ keyword: "OL U" }).then(results => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         result.Value = numeral(
           numeral(result.Value).format(rateNumberFormat)
@@ -193,7 +193,7 @@ export class DataForm {
       });
     } else {
       this.data.OTL1 = this.defaultRate;
-      OTL1 = this.rateService.search({ keyword: "OTL 1" }).then(results => {
+      OTL1 = this.rateService.search({ keyword: "OTL 1 U" }).then(results => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         return result;
       });
@@ -207,7 +207,7 @@ export class DataForm {
       });
     } else {
       this.data.OTL2 = this.defaultRate;
-      OTL2 = this.rateService.search({ keyword: "OTL 2" }).then(results => {
+      OTL2 = this.rateService.search({ keyword: "OTL 2 U" }).then(results => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         return result;
       });

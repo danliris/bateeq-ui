@@ -51,6 +51,19 @@ module.exports = [
         }
     },
     {
+        route: 'packingList-tt',
+        name: 'packingList-tt',
+        moduleId: './modules/packing-list-tt/index',
+        nav: true,
+        title: 'PackingList Transfer Stock',
+        auth: true,
+        settings: {
+            group: "gudang pusat",
+            permission: { "GDG.01": 1 },
+            iconClass: 'fa fa-bank'
+        }
+    },
+    {
         route: 'efr-kb-exp',
         name: 'efr-kb-exp',
         moduleId: './modules/efr-kb-exp-cr/index',
