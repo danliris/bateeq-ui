@@ -26,12 +26,19 @@ export class List {
         this.columns = [
             { field: "code", title: "Nomor Dokumen" },
             { field: "reference", title: "Nomor Referensi" },
-            { field: "source.code", title: "Sumber Penyimpanan",
+            { field: "source.code", title: "Sumber",
             formatter: function (value, data) {
                     return value + " - " + data.source.name;
                 } 
              },
-            { field: "destination.code", title: "Tujuan Penyimpanan",
+
+             { field: "destination.code", title: "Tujuan",
+             formatter: function (value, row, index) {
+                return value ? "GDG.01 - GUDANG BARANG JADI 1" : "";
+                } 
+              },
+
+            { field: "destination.code", title: "Transfer Ke",
             formatter: function (value, data) {
                     return value + " - " + data.destination.name;
                 } 
