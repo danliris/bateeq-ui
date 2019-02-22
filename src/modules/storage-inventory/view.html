@@ -17,6 +17,7 @@
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
+                <th>No.</th>  
                 <th>Tanggal</th>
                 <th>Referensi</th>
                 <th>Tipe</th>
@@ -28,6 +29,7 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${$index+1}</td>
                 <td>${item.date}</td>
                 <td>${item.reference}</td>
                 <td>${item.type}</td>
@@ -43,6 +45,6 @@
     </div> 
     <hr/>
     <div class="btn-group pull-right">
-        <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a> 
+        <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
     </div>
 </template>
