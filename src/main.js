@@ -21,6 +21,7 @@ export async function configure(aurelia) {
     .feature("components")
     .feature("converters")
     .plugin("aurelia-api", config => {
+
       var auth = "https://bateeq-auth-api.azurewebsites.net/v1/";
       var core = "https://bateeq-core-api.azurewebsites.net/v1/core/";
       var master = "https://bateeq-core-api.azurewebsites.net/v1/master/";
@@ -32,6 +33,7 @@ export async function configure(aurelia) {
       var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
       var masterplan ="https://com-bateeq-service-masterplan.azurewebsites.net/v1/";
     
+
       //Config API
       config.registerEndpoint("auth", auth);
       config.registerEndpoint("core", core);
