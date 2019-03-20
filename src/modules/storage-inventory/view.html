@@ -29,7 +29,7 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data" click.delegate="view(item)">
-                <td>${$index+1}</td>
+                <td>${(info.page-1)*info.size+$index+1}</td>
                 <td>${item.date}</td>
                 <td>${item.reference}</td>
                 <td>${item.type}</td>
@@ -47,4 +47,5 @@
     <div class="btn-group pull-right">
         <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
     </div>
+    <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
 </template>
