@@ -77,6 +77,7 @@ export class View {
     this.data.Total = total;
     this.data.AfterOTL1 = this.data.Total + this.data.OTL1.CalculatedValue;
     this.data.AfterOTL2 = this.data.AfterOTL1 + this.data.OTL2.CalculatedValue;
+    this.data.TotOTL1OTL2 = this.data.ProductionCost + this.data.OTL1.CalculatedValue + this.data.OTL2.CalculatedValue;
     this.data.AfterRisk = (100 + this.data.Risk) * this.data.AfterOTL2 / 100;
     this.data.AfterFreightCost = this.data.AfterRisk + this.data.FreightCost;
     this.data.ConfirmPriceWithRate =
