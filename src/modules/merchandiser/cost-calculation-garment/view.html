@@ -116,7 +116,7 @@
         <table class="table table-bordered small-column-table">
           <tbody>
             <tr>
-              <td class="label-td">Total</td>
+              <td class="label-td">TOTAL (OL+Material)</td>
               <td colspan="2">${data.Total | numberFormat:'0,0.00'}</td>
             </tr>
             <tr>
@@ -156,6 +156,22 @@
             <tr>
               <td class="label-td">Confirm Price</td>
               <td colspan="2">${data.ConfirmPriceWithRate | numberFormat:'0,0.00'}</td>
+            </tr>
+            <tr>
+              <td class="label-td">OL</td>
+              <td colspan="2">${data.ProductionCost | numberFormat:'0,0.00'}</td>
+            </tr>
+            <tr>
+              <td class="label-td">OTL 1</td>
+              <td colspan="2">${data.OTL1.CalculatedValue | numberFormat:'0,0.00'}</td>
+            </tr>
+            <tr>
+              <td class="label-td">OTL 2</td>
+              <td colspan="2">${data.OTL2.CalculatedValue | numberFormat:'0,0.00'}</td>
+            </tr>
+            <tr>
+              <td class="label-td">TOTAL (OL+OTL1+OTL2)</td>
+              <td colspan="2">${data.TotOTL1OTL2 | numberFormat:'0,0.00'}</td>
             </tr>
           </tbody>
         </table>
