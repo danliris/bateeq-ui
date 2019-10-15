@@ -210,6 +210,10 @@ export class View {
     this.service.getPdfById(this.data.Id);
   }
 
+  printspecol() {
+    this.service.getSpecolById(this.data.Id);
+  }
+
   printBudget() {
     this.service.getBudgetById(this.data.Id);
   }
