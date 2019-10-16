@@ -12,18 +12,25 @@
     </form> 
     <table class="table table-bordered table-hover">
         <thead> 
-            Total : ${total}
+           <th> Total Qty (pcs) : ${total.toLocaleString()}</th>
+           <th> Total Asset (Rp) : ${totalharga.toLocaleString()}</th>
             <tr>
+                <th>RO</th>
                 <th>Barcode</th>
                 <th>Nama</th>
                 <th>Kuantitas</th>
+                <th>Harga</th>
+                <th>Total</th>
             </tr>
         </thead>
         <tbody>
             <tr repeat.for="item of data" click.delegate="view(item)">
+                <td>${item.item.article.realizationOrder}</td>
                 <td>${item.item.code}</td>
                 <td>${item.item.name}</td>
-                <td>${item.quantity}</td>
+                <td>${item.quantity.toLocaleString()}</td>
+                <td>${item.item.domesticSale.toLocaleString()}</td>
+                <td>${[item.quantity*item.item.domesticSale].toLocaleString()}</td>
             </tr>
             
         </tbody>
