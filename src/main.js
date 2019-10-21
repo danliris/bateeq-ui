@@ -26,7 +26,7 @@ export async function configure(aurelia) {
       var ncore ="https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
       var master = "https://bateeq-core-api-dev.azurewebsites.net/v1/master/";
       var manufacture ="https://bateeq-core-api-dev.azurewebsites.net/v1/manufacture/";
-      var inventory ="https://bateeq-inventory-api-prd.azurewebsites.net/v1/inventory/";
+      var inventory ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/inventory/";
       var merchandiser ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/merchandiser/";
       var md ="https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api-dev.azurewebsites.net/v1/sales/";
