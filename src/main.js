@@ -31,11 +31,12 @@ export async function configure(aurelia) {
       var md ="https://com-bateeq-service-merchandiser.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api.azurewebsites.net/v1/sales/";
       var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
-      var masterplan ="https://com-bateeq-service-masterplan.azurewebsites.net/v1/";
+      var nmasterplan ="https://com-bateeq-service-sales.azurewebsites.net/v1/";
 
       //Config API
       config.registerEndpoint("auth", auth);
       config.registerEndpoint("core", core);
+      config.registerEndpoint("ncore", ncore);
       config.registerEndpoint("master", master);
       config.registerEndpoint("manufacture", manufacture);
       config.registerEndpoint("inventory", inventory);
@@ -43,7 +44,8 @@ export async function configure(aurelia) {
       config.registerEndpoint("md", md);
       config.registerEndpoint("sales", sales);
       config.registerEndpoint("purchasing", purchasing);
-      config.registerEndpoint("masterplan", masterplan);
+      //config.registerEndpoint("masterplan", masterplan);
+      config.registerEndpoint("nmasterplan", nmasterplan);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);

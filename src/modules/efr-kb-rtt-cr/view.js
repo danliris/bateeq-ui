@@ -18,11 +18,21 @@ export class View {
         this.service.getById(id)
             .then(data => {
                 this.data = data;
-                this.service.getSPKByReference(data.code)
-                    .then(spk => {
+                const jobs = [this.service.getSPKByReference(data.code), this.service.getPackingListTransferStock(data.code)];
+                Promise.all(jobs)
+                    .then(result => {
+                        const spk = result[0];
+                        const packingListTransferStock = result[1];
                         if (spk != undefined && spk.length > 0) {
                             this.password = spk[0].password;
                             this.packingList = spk[0].packingList;
+                        }
+                        if (packingListTransferStock) {
+                            if (packingListTransferStock[0].source.code == packingListTransferStock[1].destination.code) {
+                                this.tujuan = packingListTransferStock[0].source;
+                            } else if (packingListTransferStock[0].destination.code == packingListTransferStock[1].source.code) {
+                                this.tujuan = packingListTransferStock[0].destination;
+                            }
                         }
                     }).catch(e => {
                     })
@@ -92,8 +102,9 @@ export class View {
                 this.printStruk += "    <tr>";
                 this.printStruk += "        <td colspan='3' class='text-left'>";
                 this.printStruk += "            <div class='col-xs-5'> Tujuan </div>";
-                this.printStruk += "            <div class='col-xs-7'> GDG.01-GUDANG BARANG JADI 1 </div>";
-                //this.printStruk += "            <div class='col-xs-7'> " + this.data.source.code + "-" + this.data.source.name + " </div>";
+                //this.printStruk += "            <div class='col-xs-7'> GDG.05-GUDANG TRANSFER STOCK </div>";
+                // this.printStruk += "            <div class='col-xs-7'> GDG.01-GUDANG BARANG JADI 1 </div>";
+                this.printStruk += "            <div class='col-xs-7'> " + this.tujuan.code + "-" + this.tujuan.name + " </div>";
                 this.printStruk += "        </td>";
                 this.printStruk += "    </tr>";
                 
