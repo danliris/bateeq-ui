@@ -24,6 +24,7 @@ export async function configure(aurelia) {
 
       var auth = "https://bateeq-auth-api.azurewebsites.net/v1/";
       var core = "https://bateeq-core-api.azurewebsites.net/v1/core/";
+      var ncore ="https://com-bateeq-service-core.azurewebsites.net/v1/";
       var master = "https://bateeq-core-api.azurewebsites.net/v1/master/";
       var manufacture ="https://bateeq-core-api.azurewebsites.net/v1/manufacture/";
       var inventory ="https://bateeq-inventory-api.azurewebsites.net/v1/inventory/";
