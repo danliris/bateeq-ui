@@ -46,6 +46,12 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
+  getPackingListTransferStock(coreRef) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("merchandiser").client.baseUrl + 'docs/efr-pk-pbj/packingRTT?keyword=' + coreRef;
+    return super.get(endpoint);
+  }
+
   getByCode(code) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("master").client.baseUrl + 'items/finished-goods/code/' + code;

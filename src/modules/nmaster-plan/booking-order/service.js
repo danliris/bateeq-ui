@@ -57,7 +57,7 @@ export class Service extends RestService {
     getMasterPlanByBookingOrderId(info) {
         var config = Container.instance.get(Config);
         var _serviceUri = `sewing-blocking-plans`;
-        var _endpoint = config.getEndpoint("sales");
+        var _endpoint = config.getEndpoint("nmasterplan");
         return _endpoint.find(_serviceUri, info)
             .then(result => {
                 return result.data;
