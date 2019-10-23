@@ -13,6 +13,46 @@ module.exports = [
     }
   },
   {
+    route: 'garment-buyers',
+    name: 'garment-buyers',
+    moduleId: './modules/master/garment-buyer/index',
+    nav: true,
+    title: 'Buyer Garment',
+    auth: true,
+    settings: {
+        group: "master",
+        permission: {  "C.01": 1, "MRD.01": 1 },
+        iconClass: 'fa fa-adjust'
+    }
+},
+{
+  route: 'divisions',
+  name: 'divisions',
+  moduleId: './modules/master/division/index',
+  nav: true,
+  title: 'Divisi',
+  auth: true,
+  settings: {
+      group: "master",
+      permission: { "C.01": 1, "MRD.01": 1 },
+      iconClass: 'fa fa-adjust'
+  }
+},
+{
+  route: 'units',
+  name: 'units',
+  moduleId: './modules/master/unit/index',
+  nav: true,
+  title: 'Unit',
+  auth: true,
+  settings: {
+      group: "master",
+      permission: {"C.01": 1, "MRD.01": 1 },
+      iconClass: 'fa fa-adjust'
+  }
+
+},
+  {
     route: "category",
     name: "category",
     moduleId: "./modules/master/category/index",
