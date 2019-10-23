@@ -5,7 +5,7 @@ const resource = "sections";
 
 module.exports = function(keyword, filter) {
   var config = Container.instance.get(Config);
-  var endpoint = config.getEndpoint("masterplan");
+  var endpoint = config.getEndpoint("nmasterplan");
 
   return endpoint.find(resource, { keyword: keyword }).then(results => {
     return results.data;
