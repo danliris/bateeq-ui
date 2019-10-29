@@ -1,6 +1,6 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework';
 
-var UnitLoader = require('../../../loader/unit-loader');
+var UnitLoader = require('../../../loader/nunit-loader');
 var MachineLoader = require('../../../loader/machine-loader');
 var YarnLoader = require('../../../loader/spinning-yarn-loader');
 
