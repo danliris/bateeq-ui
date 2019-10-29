@@ -2,7 +2,7 @@ import { bindable, inject, containerless, computedFrom, BindingEngine } from "au
 import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 var moment = require('moment');
-var UnitLoader = require('../../../loader/unit-loader');
+var UnitLoader = require('../../../loader/nunit-loader');
 
 @containerless()
 @inject(Service, BindingSignaler, BindingEngine)
