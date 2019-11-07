@@ -17,7 +17,7 @@ export class List {
   context = ["detail"]
 
   columns = [
-    { field: "code", title: "No. Dokumen" },
+    { field: "no", title: "No. Dokumen" },
     {
       field: "date", title: "Tanggal", formatter: function (value, data, index) {
         return moment(value).format("DD MMM YYYY");
@@ -33,11 +33,12 @@ export class List {
     var order = {};
     if (info.sort)
       order[info.sort] = info.order;
+    // console.log(info)
     var arg = {
       page: parseInt(info.offset / info.limit, 10) + 1,
       size: info.limit,
       keyword: info.search,
-      select: ["date", "code", "referenceNo", "referenceType", "type", "storageName"],
+      select: ["date", "code", "referenceNo", "referenceType", "type","storageName"],
       order: order
     }
 
@@ -60,7 +61,7 @@ export class List {
     var data = arg.data;
     switch (arg.name) {
       case "detail":
-        this.router.navigateToRoute('view', { id: data._id });
+        this.router.navigateToRoute('view', { id: data.Id });
         break;
     }
   }

@@ -27,13 +27,13 @@ export async function configure(aurelia) {
       var master = "https://bateeq-core-api-dev.azurewebsites.net/v1/master/";
       var manufacture ="https://bateeq-core-api-dev.azurewebsites.net/v1/manufacture/";
       var inventory ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/inventory/";
+      var inventoryAzure = "https://com-bateeq-service-inventory-dev.azurewebsites.net/v1/";
       var merchandiser ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/merchandiser/";
       var md ="https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api-dev.azurewebsites.net/v1/sales/";
       var purchasing ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/purchasing/";
       //var masterplan ="https://com-bateeq-service-masterplan-dev.azurewebsites.net/v1/";
       var nmasterplan ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
-
 
       //Config API
       config.registerEndpoint("auth", auth);
@@ -42,6 +42,7 @@ export async function configure(aurelia) {
       config.registerEndpoint("master", master);
       config.registerEndpoint("manufacture", manufacture);
       config.registerEndpoint("inventory", inventory);
+      config.registerEndpoint("inventoryAzure", inventoryAzure);
       config.registerEndpoint("merchandiser", merchandiser);
       config.registerEndpoint("md", md);
       config.registerEndpoint("sales", sales);
