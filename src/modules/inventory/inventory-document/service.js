@@ -4,12 +4,11 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'documents-inventory';
+const serviceUri = 'inventory-documents';
 
 export class Service extends RestService {
-
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "inventory");
+        super(http, aggregator, config, "inventory-azure");
     }
 
     search(info) {
@@ -28,32 +27,31 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
     }
 
     getStorageById(id, select) {
         var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("master");
-        //var _serviceUri = `master/storages/${id}`;
-        var _serviceUri = `storages/${id}`;
+        var _endpoint = config.getEndpoint("ncore");
+        var _serviceUri = `master/storages/${id}`;
 
         return _endpoint.find(_serviceUri)
             .then(result => {
                 return result.data;
             });
-   }
+    }
 
-   getProductById(id, select) {
+    getProductById(id, select) {
         var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("master");
-       // var _serviceUri = `master/products/${id}`;
-        var _serviceUri = `products/${id}`; 
+        var _endpoint = config.getEndpoint("ncore");
+        var _serviceUri = `master/products/${id}`;
+
         return _endpoint.find(_serviceUri)
             .then(result => {
                 return result.data;
@@ -62,9 +60,8 @@ export class Service extends RestService {
 
     getUomById(id, select) {
         var config = Container.instance.get(Config);
-        var _endpoint = config.getEndpoint("master");
-        //var _serviceUri = `master/uoms/${id}`;
-        var _serviceUri = `uoms/${id}`;
+        var _endpoint = config.getEndpoint("ncore");
+        var _serviceUri = `master/uoms/${id}`;
 
         return _endpoint.find(_serviceUri)
             .then(result => {
