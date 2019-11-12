@@ -42,7 +42,7 @@ export async function configure(aurelia) {
       config.registerEndpoint("master", master);
       config.registerEndpoint("manufacture", manufacture);
       config.registerEndpoint("inventory", inventory);
-      config.registerEndpoint("inventoryAzure", inventoryAzure);
+      config.registerEndpoint("inventory-azure", inventoryAzure);
       config.registerEndpoint("merchandiser", merchandiser);
       config.registerEndpoint("md", md);
       config.registerEndpoint("sales", sales);
