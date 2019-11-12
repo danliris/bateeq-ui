@@ -1,6 +1,6 @@
 export default {
     endpoint: "auth",
-    configureEndpoints: ["auth", "core", "master", "manufacture", "inventory", "inventoryAzure", "merchandiser", "md", "sales", "purchasing", "ncore", "nmasterplan"],
+    configureEndpoints: ["auth", "core", "master", "manufacture", "inventory", "inventory-azure", "merchandiser", "md", "sales", "purchasing", "ncore", "nmasterplan"],
 
     loginUrl: "/authenticate",
     profileUrl: "/me",
