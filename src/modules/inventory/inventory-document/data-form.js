@@ -1,6 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var StorageLoader = require('../../../loader/storage-loader');
+var StorageLoader = require('../../../loader/nstorage-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -29,7 +29,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
         if (this.data.storageId) {
             this.selectedStorage = await this.service.getStorageById(this.data.storageId, this.storageFields);
         }
@@ -57,14 +56,14 @@ export class DataForm {
             this.data.storageName = this.selectedStorage.name;
         }
         else {
-            this.data.storageId = {};
+            this.data.storageId = 0;
             this.data.storageCode = "";
             this.data.storageName = "";
         }
     }
 
     storageView = (storage) => {
-        return `${storage.code} - ${storage.name}`
+        return `${storage.unit.name} - ${storage.name}`
     }
 
     get storageLoader() {

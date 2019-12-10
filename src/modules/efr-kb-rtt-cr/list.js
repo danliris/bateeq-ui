@@ -32,12 +32,12 @@ export class List {
                 } 
              },
 
-             { field: "tujuan", title: "Tujuan",
-             formatter: function (value, row, index) {
-                return `${value.code} - ${value.name}`;  
-               // return value ? "GDG.01 - GUDANG BARANG JADI 1" : "";
-                } 
-              },
+            //  { field: "tujuan", title: "Tujuan",
+            //  formatter: function (value, row, index) {
+            //     return `${value.code} - ${value.name}`;  
+            //    // return value ? "GDG.01 - GUDANG BARANG JADI 1" : "";
+            //     } 
+            //   },
 
             { field: "destination.code", title: "Transfer Ke",
             formatter: function (value, data) {
@@ -78,7 +78,7 @@ export class List {
                 let dataPLTS = [];
                 for(var a of dataResult){
                    dataSPKB.push(this.service.getSPKByReference(a.code));
-                   dataPLTS.push(this.service.getPackingListTransferStock(a.code));
+                  // dataPLTS.push(this.service.getPackingListTransferStock(a.code));
                 }
                 return Promise.all(dataSPKB)
                     .then(data => {
@@ -99,27 +99,27 @@ export class List {
                         //     }
                         // }
 
-                        return Promise.all(dataPLTS)
-                            .then(dataPLTS => {
-                                for (let i = 0; i < dataResult.length; i++) {
-                                    const packingListTransferStock = dataPLTS[i];
-                                    let tujuan;
-                                    if (packingListTransferStock) {
-                                        if (packingListTransferStock[0].source.code == packingListTransferStock[1].destination.code) {
-                                            tujuan = packingListTransferStock[0].source;
-                                        } else if (packingListTransferStock[0].destination.code == packingListTransferStock[1].source.code) {
-                                            tujuan = packingListTransferStock[0].destination;
-                                        }
-                                    }
-                                    dataResult[i].tujuan = tujuan;
-                                }
+                        // return Promise.all(dataPLTS)
+                        //     .then(dataPLTS => {
+                        //         for (let i = 0; i < dataResult.length; i++) {
+                        //             const packingListTransferStock = dataPLTS[i];
+                        //             let tujuan;
+                        //             if (packingListTransferStock) {
+                        //                 if (packingListTransferStock[0].source.code == packingListTransferStock[1].destination.code) {
+                        //                     tujuan = packingListTransferStock[0].source;
+                        //                 } else if (packingListTransferStock[0].destination.code == packingListTransferStock[1].source.code) {
+                        //                     tujuan = packingListTransferStock[0].destination;
+                        //                 }
+                        //             }
+                        //             dataResult[i].tujuan = tujuan;
+                        //         }
 
                                 return {
                                     total: result.info.total,
                                     data: dataResult
                                 };
-                            })
-                    });
+                            });
+                    // });
             });
     }
 
