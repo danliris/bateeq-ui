@@ -25,11 +25,4 @@ export class Service extends RestService{
     return super.getXls(endpoint);
 }
   
-  // getAllMovement(storageId, itemId, info)
-  // {
-  //   var config = Container.instance.get(Config);
-  //   var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+"/inventories/"+itemId+"/movements";  
-  //   return super.list(endpoint, info);
-  // }
-   
-}
+ }
