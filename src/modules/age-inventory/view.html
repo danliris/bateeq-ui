@@ -45,9 +45,7 @@
     </div> 
     <hr/>
     <div class="btn-group pull-right">
-        <button click.delegate="list()" class="btn btn-success btn-sm pull-right">Kembali</button>
-        &nbsp;
-        <button style="margin-right:10px; "click.delegate="moveexcel()" class="btn btn-success btn-sm pull-right">Cetak Excel</button>
+        <a click.delegate="list()" class='btn btn-default btn-sm'>Kembali</a>
     </div>
     <pagination if.bind="info" info.bind="info" change.delegate="changePage($event)"></pagination>
 </template>
