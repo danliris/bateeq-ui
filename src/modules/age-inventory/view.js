@@ -16,6 +16,7 @@ export class View {
 
     async activate(params) {
         this.params = params;
+        console.log(params);  
         this.info.keyword = '';
         var storageId = params.storageId;
         var itemId = params.itemId; 
@@ -42,14 +43,6 @@ export class View {
                     obj.date = moment(obj.date, "YYYY-MM-DDTHH:mm:SSSZ").format("DD MMM YYYY - HH:mm:SS")
                 }
             })
-    }
-
-    moveexcel(params) {
-        var params = this.params;
-        var keyword = this.info.keyword;
-        var storageId = params.storageId;
-        var itemId = params.itemId; 
-        this.service.movementExcel(storageId, itemId);
     }
 
     changePage(e) {

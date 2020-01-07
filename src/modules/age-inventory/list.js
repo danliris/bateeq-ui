@@ -18,29 +18,27 @@ export class List {
 
     reloadItem() { 
         this.total=0;
-        this.totalharga=0;
         this.storageId= this.storage._id;
         this.service.getAllInventory(this.storageId, this.filter)
-            .then(data => {
-                this.data = data;
-                for (var item of this.data)
+            .then(result => {
+                this.result = result;
+                console.log(this.result);
+                for (var item of this.result)
                 {
-                    item.subtotale=item.quantity*item.item.domesticSale;
                     this.total=this.total+item.quantity;
-                    this.totalharga=this.totalharga+item.subtotale;
                 }
             })
     }
+    
 
     excel() {
         this.storageId= this.storage._id;
         this.service.generateExcel(this.storageId, this.filter)
-            // .then(data => {
-            //     this.data = data;
+            // .then(result => {
+            //     this.result = result;
             // })
     }
-
-    view(data) { 
-        this.router.navigateToRoute('view', { storageId: data.storageId, itemId: data.itemId });
-    } 
+    // view(data) { 
+    //     this.router.navigateToRoute('view', { storageId: data.storageId, itemId: data.itemId });
+    // } 
 }

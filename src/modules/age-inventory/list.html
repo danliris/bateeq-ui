@@ -1,5 +1,5 @@
 <template>
-    <h1 class="page-header">Laporan Stok</h1>
+    <h1 class="page-header">Laporan Umur Barang</h1>
     <form class="form-horizontal">     
         <storage-auto-suggest   label="Penyimpanan"     value.bind="storage"      error.bind="error.storage"     read-only.bind="readOnly"   ></storage-auto-suggest>
         <textbox                label="filter"          value.bind="filter"  read-only.bind="readOnly"></textbox> 
@@ -14,38 +14,20 @@
     </form> 
     <table class="table table-bordered table-hover">
         <thead> 
-            <tr>
-                <td colspan="2"><b>Keseluruhan</b></th>
-            </tr>
-            <tr>
-                <td>Total Qty</td>
-                <td class="text-right">
-                    <b> ${total.toLocaleString()} </b>
-                </td>
-            </tr>
-            <tr>
-                <td>Total Rupiah</td>
-                <td class="text-right">
-                    <b>${totalharga.toLocaleString()}</b>
-                </td>
-            </tr>
+            Total : ${total}
             <tr>
                 <th>Barcode</th>
                 <th>Nama</th>
-                <th>RO</th>
                 <th>Kuantitas</th>
-                <th>Harga</th>
-                <th>Subtotal</th>
+                <th>Umur Barang (Hari)</th>
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="item of data" click.delegate="view(item)">
-                <td>${item.item.code}</td>
-                <td>${item.item.name}</td>
-                <td>${item.item.article.realizationOrder}</td>
+            <tr repeat.for="item of result" click.delegate="view(item)">
+                <td>${item.itemcode}</td>
+                <td>${item.itemname}</td>
                 <td>${item.quantity}</td>
-                <td>${item.item.domesticSale}</td>
-                <td>${item.subtotale}</td>
+                <td>${item.sls}</td>
             </tr>
             
         </tbody>
