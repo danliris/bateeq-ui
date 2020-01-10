@@ -8,7 +8,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "Inventory",
-            permission: {"GDG.07": 1, "GDG.08": 1, "GDG.10": 1, "PBL.01": 1},
+            permission: {"GDG.07": 1, "GDG.08": 1, "GDG.10": 1, "PBL.01": 1 },
            //permission: {"*": 1},
             iconClass: 'fa fa-gg-circle'
         }
