@@ -19,11 +19,23 @@ export class Service extends RestService{
     return super.get(endpoint);
   }
   
+  generateExcel(storageId, keyword) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+ '/inventories?keyword=' + keyword; 
+    return super.getXls(endpoint);
+}
+  
   getAllMovement(storageId, itemId, info)
   {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+"/inventories/"+itemId+"/movements";  
     return super.list(endpoint, info);
   }
+
+  movementExcel(storageId, itemId) {
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+"/inventories/"+itemId+"/movements";  
+    return super.getXls(endpoint);
+}
    
 }
