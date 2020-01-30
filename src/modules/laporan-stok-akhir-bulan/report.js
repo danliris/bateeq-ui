@@ -7,7 +7,7 @@ import { StockInStorageDialog } from './dialogs/stock-in-storage-dialog';
 @inject(Router, Service, Dialog)
 export class Report {
     @bindable yearMonthsData;
-    detail = ['Detail'];
+    detail = ['Detail', "Detail Excel"];
     yearMonths = [];
     months = [];
     tableData = [];
@@ -92,10 +92,21 @@ export class Report {
         switch (arg.name) {
             case 'Detail':
                 this.checkStockInStorage(data);
+                break;
+            case "Detail Excel":
+                this.excelStockInStorage(data);
+                break;    
         }
     }
 
+    excelStockInStorage(data) {
+        let code = data.code;
+        let name = data.name;
+        this.service.stockExcel(code, this.usedMonth, this.usedYear)    
+    }
+
     checkStockInStorage(data) {
+        console.log(data);
         let code = data.code;
         let name = data.name;
         this.service.getStockInStorage(code, this.usedMonth, this.usedYear).then(results => {

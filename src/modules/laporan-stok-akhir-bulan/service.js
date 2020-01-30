@@ -22,6 +22,11 @@ export class Service extends RestService {
         return super.get(endpoint);
     }
 
+    stockExcel(storageCode, month, year) {
+        var endpoint = `${serviceUri}/${storageCode}/${month}/${year}`;  
+        return super.getXls(endpoint);
+    }
+
     getYearMonthsList(){
         var endpoint = `${serviceUri}`;
         return super.get(endpoint);
