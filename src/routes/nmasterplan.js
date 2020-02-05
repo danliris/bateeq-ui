@@ -85,6 +85,20 @@ module.exports = [
         }
     },
     {
+        route: '/nmaster-plan/booking-order-view',
+        name: 'booking-order',
+        moduleId: './modules/nmaster-plan/booking-order-view/index',
+        nav: true,
+        title: 'VIew Booking Order',
+        auth: true,
+        settings: {
+            group: "nmasterplan",
+            //permission: { "*": 1 },
+            permission: { "C.01": 1, "PIC.01": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
         route: '/nmaster-plan/booking-order-expired',
         name: 'booking-order-expired',
         moduleId: './modules/nmaster-plan/booking-order-expired/index',
