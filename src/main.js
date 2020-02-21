@@ -29,6 +29,7 @@ export async function configure(aurelia) {
           'x-timezone-offset': offset
         }
       }
+
       var auth = "https://bateeq-auth-api-dev.azurewebsites.net/v1/";
       var core = "https://bateeq-core-api-dev.azurewebsites.net/v1/core/";
       var ncore ="https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
