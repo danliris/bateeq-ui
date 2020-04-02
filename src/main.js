@@ -44,7 +44,7 @@ export async function configure(aurelia) {
       var purchasingAzure = "https://com-bateeq-service-purchasing-dev.azurewebsites.net/v1/";
       var finance = "https://com-bateeq-service-finance-accounting-dev.azurewebsites.net/v1/";
       //var masterplan ="https://com-bateeq-service-masterplan-dev.azurewebsites.net/v1/";
-      var nmasterplan = "https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
+      var nmasterplan ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
 
       //Config API
       config.registerEndpoint("auth", auth);
@@ -73,6 +73,7 @@ export async function configure(aurelia) {
       config.settings.startingZIndex = 5;
     })
     .plugin("aurelia-dragula")
+    .plugin('aurelia-bootstrap')
     .developmentLogging();
 
   // Uncomment the line below to enable animation.

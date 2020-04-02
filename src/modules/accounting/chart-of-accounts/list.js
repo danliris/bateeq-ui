@@ -38,7 +38,7 @@ export class List {
 
     let searchResult = await Promise.all([headerDataPromise, ledgerDataPromise]);
 
-    // console.log(searchResult);
+     console.log(searchResult);
 
     let headerData = searchResult[0];
     let ledgerData = searchResult[1];
@@ -77,6 +77,7 @@ export class List {
     }
 
     this.items = items;
+    console.log(this.items)
   }
 
   loader = (info) => {
