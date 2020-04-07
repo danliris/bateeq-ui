@@ -21,6 +21,14 @@ export async function configure(aurelia) {
     .feature("components")
     .feature("converters")
     .plugin("aurelia-api", config => {
+      var offset = new Date().getTimezoneOffset() / 60 * -1;
+      var defaultConfig = {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'x-timezone-offset': offset
+        }
+      }
 
       var auth = "https://bateeq-auth-api.azurewebsites.net/v1/";
       var core = "https://bateeq-core-api.azurewebsites.net/v1/core/";
@@ -33,6 +41,8 @@ export async function configure(aurelia) {
       var md ="https://com-bateeq-service-merchandiser.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api.azurewebsites.net/v1/sales/";
       var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
+      var purchasingAzure = "https://com-bateeq-service-purchasing.azurewebsites.net/v1/";
+      var finance = "https://com-danliris-service-finance-accounting.azurewebsites.net/v1/";
       var nmasterplan ="https://com-bateeq-service-sales.azurewebsites.net/v1/";
 
       //Config API
@@ -47,6 +57,8 @@ export async function configure(aurelia) {
       config.registerEndpoint("md", md);
       config.registerEndpoint("sales", sales);
       config.registerEndpoint("purchasing", purchasing);
+      config.registerEndpoint("purchasing-azure", purchasingAzure, defaultConfig);
+      config.registerEndpoint('finance', finance, defaultConfig);
       //config.registerEndpoint("masterplan", masterplan);
       config.registerEndpoint("nmasterplan", nmasterplan);
     })
@@ -60,6 +72,7 @@ export async function configure(aurelia) {
       config.settings.startingZIndex = 5;
     })
     .plugin("aurelia-dragula")
+    .plugin('aurelia-bootstrap')
     .developmentLogging();
 
   // Uncomment the line below to enable animation.

@@ -134,6 +134,39 @@ export class RestService {
 
   }
 
+  ngetXls(endpoint, header) {
+    var request = {
+      method: 'GET',
+      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/xls", "x-timezone-offset": this.endpoint.defaults.headers["x-timezone-offset"] }))
+    };
+    var getRequest = this.endpoint.client.fetch(endpoint, request)
+    this.publish(getRequest);
+
+    return this._downloadFile(getRequest);
+  }
+
+  ngetPdf(endpoint, header) {
+    var request = {
+      method: 'GET',
+      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf", "x-timezone-offset": this.endpoint.defaults.headers["x-timezone-offset"] }))
+    };
+    var getRequest = this.endpoint.client.fetch(endpoint, request)
+    this.publish(getRequest);
+    return this._downloadFile(getRequest);
+
+  }
+
+  ngetFile(endpoint, header) {
+    var request = {
+      method: 'GET',
+      headers: new Headers(Object.assign({}, this.header, header, { "x-timezone-offset": this.endpoint.defaults.headers["x-timezone-offset"] }))
+    };
+    var getRequest = this.endpoint.client.fetch(endpoint, request)
+    this.publish(getRequest);
+    return this._downloadFile(getRequest);
+
+  }
+
   _downloadFile(request) {
     return request
       .then(response => {
