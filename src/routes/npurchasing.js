@@ -211,7 +211,7 @@ module.exports = [
         }
     },
     {
-        route: 'delivery-order',
+        route: 'ndelivery-order',
         name: 'delivery-order',
         moduleId: './modules/npurchasing/delivery-order/index',
         nav: true,
@@ -280,7 +280,7 @@ module.exports = [
         }
     },
     {
-        route: 'unit-payment-order',
+        route: 'nunit-payment-order',
         name: 'unit-payment-order',
         moduleId: './modules/npurchasing/unit-payment-order/index',
         nav: true,
