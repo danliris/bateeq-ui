@@ -214,6 +214,10 @@ export class View {
     this.service.getSpecolById(this.data.Id);
   }
   
+  printvvip() {
+    this.service.getVvipById(this.data.Id);
+  }
+
   printBudget() {
     this.service.getBudgetById(this.data.Id);
   }
