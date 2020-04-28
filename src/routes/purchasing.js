@@ -91,7 +91,7 @@ module.exports = [
         }
     },
     {
-        route: 'price-correction',
+        route: 'lprice-correction',
         name: 'unit-payment-price-correction-note',
         moduleId: './modules/purchasing/price-correction/index',
         nav: true,
