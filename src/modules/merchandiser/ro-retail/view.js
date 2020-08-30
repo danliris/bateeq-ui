@@ -38,4 +38,12 @@ export class View {
     printPdf() {
         this.service.getPdfById(this.data.Id);
     }
+
+    printspecol() {
+        this.service.getSpecolById(this.data.Id);
+    }
+      
+    printvvip() {
+        this.service.getVvipById(this.data.Id);
+    }
 }
