@@ -46,4 +46,5 @@ export class View {
     printvvip() {
         this.service.getVvipById(this.data.Id);
     }
+
 }

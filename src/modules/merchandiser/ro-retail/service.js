@@ -86,7 +86,8 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
-    getSpecolById(id) {
+  
+   getSpecolById(id) {
         var endpoint = `${serviceUri}/specol/${id}`;
         return super.getPdf(endpoint);
     }
@@ -95,5 +96,4 @@ export class Service extends RestService {
         var endpoint = `${serviceUri}/vvip/${id}`;
         return super.getPdf(endpoint);
     }
-
 }

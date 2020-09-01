@@ -9,10 +9,10 @@ export class UnitReceiptNoteItem {
       this.data.deliveredQuantity=this.data.deliveredQuantity.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     }
     if(this.data.pricePerDealUnit && this.readOnly==true){
-      this.data.pricePerDealUnit=this.data.pricePerDealUnit.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+      this.data.pricePerDealUnit=this.data.pricePerDealUnit.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     }
     if(this.data.PriceTotal && this.readOnly==true){
-      this.data.PriceTotal=this.data.PriceTotal.toLocaleString('en-EN', { minimumFractionDigits: 4 });
+      this.data.PriceTotal=this.data.PriceTotal.toLocaleString('en-EN', { minimumFractionDigits: 2 });
     }
   }
   

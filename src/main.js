@@ -42,7 +42,7 @@ export async function configure(aurelia) {
       var sales = "https://bateeq-pos-api.azurewebsites.net/v1/sales/";
       var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
       var purchasingAzure = "https://com-bateeq-service-purchasing.azurewebsites.net/v1/";
-      var finance = "https://com-danliris-service-finance-accounting.azurewebsites.net/v1/";
+      var finance = "https://com-bateeq-service-finance-accounting.azurewebsites.net/v1/";
       var nmasterplan ="https://com-bateeq-service-sales.azurewebsites.net/v1/";
 
       //Config API

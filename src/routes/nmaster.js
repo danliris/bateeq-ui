@@ -47,7 +47,7 @@ module.exports = [
   auth: true,
   settings: {
       group: "nmaster",
-      permission: { "C.01": 1, "PBL.01": 1 },
+      permission: { "C.01": 1, "C5": 1 },
       iconClass: 'fa fa-dashboard'
   }
 },
