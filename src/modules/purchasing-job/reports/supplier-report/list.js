@@ -2,7 +2,7 @@ import { inject, bindable } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 var moment = require("moment");
-var UnitLoader = require('../../../../loader/unit-loader');
+var UnitLoader = require('../../../../loader/nunit-loader');
 
 @inject(Router, Service)
 export class List {

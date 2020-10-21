@@ -3,7 +3,7 @@ import { BindingSignaler } from 'aurelia-templating-resources';
 import { Service } from "./service";
 import moment from 'moment';
 var SupplierLoader = require('../../../loader/nsupplier-loader');
-var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
+var CurrencyLoader = require('../../../loader/ngarment-currencies-by-date-loader');
 var CustomsLoader = require('../../../loader/garment-customs-by-no-loader');
 
 @containerless()

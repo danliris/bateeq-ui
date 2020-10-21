@@ -2,10 +2,10 @@ import { inject } from 'aurelia-framework';
 import { Service } from "./service";
 import { Router } from 'aurelia-router';
 
-var PRLoader = require('../../../loader/garment-purchase-request-loader');
-var UnitLoader = require('../../../loader/unit-loader');
+var PRLoader = require('../../../loader/garment-purchase-request-loader-job');
+var UnitLoader = require('../../../loader/nunit-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
-var CategoryLoader = require('../../../loader/garment-category-loader');
+var CategoryLoader = require('../../../loader/ngarment-category-loader');
 
 @inject(Router, Service)
 export class List {

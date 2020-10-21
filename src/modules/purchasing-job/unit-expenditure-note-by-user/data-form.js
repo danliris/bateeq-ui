@@ -1,7 +1,7 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 import { AuthService } from "aurelia-authentication";
-var UnitDeliveryOrderLoader = require('../../../loader/garment-unit-delivery-order-for-unit-expenditure-note-loader');
+var UnitDeliveryOrderLoader = require('../../../loader/garment-unit-delivery-order-for-unit-expenditure-note-loader-job');
 import moment from 'moment';
 
 @containerless()

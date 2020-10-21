@@ -4,10 +4,10 @@ import { Service } from "./service";
 
 import moment from 'moment';
 
-var innoLoader = require('../../../../loader/garment-intern-note-loader');
-var invoiceLoader = require('../../../../loader/garment-invoice-note-loader');
-var DOLoader = require('../../../../loader/garment-delivery-order-loader');
-var NKLoader = require('../../../../loader/garment-correction-note-loader');
+var innoLoader = require('../../../../loader/garment-intern-note-loader-job');
+var invoiceLoader = require('../../../../loader/garment-invoice-note-job-loader');
+var DOLoader = require('../../../../loader/garment-delivery-order-loader-job');
+var NKLoader = require('../../../../loader/garment-purchase-correction-loader-job');
 var suppLoader = require('../../../../loader/nsupplier-loader');
 
 

@@ -5,7 +5,7 @@ import moment from 'moment';
 
 var SupplierLoader = require('../../../loader/nsupplier-loader');
 var POEksLoader = require('../../../loader/garment-purchase-order-external-loader');
-var DOLoader = require('../../../loader/garment-delivery-order-loader');
+var DOLoader = require('../../../loader/garment-delivery-order-loader-job');
 
 @inject(Router, Service)
 export class List {

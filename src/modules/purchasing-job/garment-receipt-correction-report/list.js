@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Service } from './service';
 import { Router } from 'aurelia-router';
 
-const UnitLoader = require('../../../loader/unit-loader');
+const UnitLoader = require('../../../loader/nunit-loader');
 
 @inject(Router, Service)
 export class List {

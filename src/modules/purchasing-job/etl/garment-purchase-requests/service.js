@@ -8,7 +8,7 @@ const serviceUri = 'etl-garment-purchase-requests';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-job");
     }
 
 

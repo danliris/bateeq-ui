@@ -4,10 +4,10 @@ import {Router} from 'aurelia-router';
 import moment from 'moment';
 
 // var purchaseOrders = require('../../../loader/garment-product-loader');
-var purchaseOrders = require('../../../loader/garment-purchase-orders-loader');
-var Unit = require('../../../loader/unit-loader');
-var Buyer = require('../../../loader/garment-buyers-loader');
-var Category = require('../../../loader/garment-category-loader');
+var purchaseOrders = require('../../../loader/garment-purchase-orders-loader-job');
+var Unit = require('../../../loader/nunit-loader');
+var Buyer = require('../../../loader/nbuyers-loader');
+var Category = require('../../../loader/ngarment-category-loader');
 
 
 @inject(Router, Service)

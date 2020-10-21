@@ -106,10 +106,11 @@ export class DataForm {
 
     supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
+        console.log(selectedSupplier);
         if (selectedSupplier) {
-            if (selectedSupplier.Id) {
+            if (selectedSupplier._id) {
                 this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier.Id;
+                this.data.supplierId = selectedSupplier._id;
             }
         } else {
             this.data.supplier = {};

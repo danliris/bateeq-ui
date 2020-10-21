@@ -3,7 +3,7 @@ import { factories } from 'powerbi-client';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-var UomLoader = require('../../../../loader/uom-loader');
+var UomLoader = require('../../../../loader/nuom-loader');
 
 const resource = 'master/garmentProducts';
 const POresource= 'garment-internal-purchase-orders';

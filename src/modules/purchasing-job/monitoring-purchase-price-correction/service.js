@@ -7,7 +7,7 @@ const serviceUri = 'purchase-price-correction/monitoring';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-job");
     }
 
 search(no,supplier, dateFrom, dateTo) { 

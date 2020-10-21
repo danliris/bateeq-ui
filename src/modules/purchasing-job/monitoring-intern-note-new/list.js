@@ -4,10 +4,10 @@ import { Service } from "./service";
 import moment from 'moment';
 
 var SupplierLoader = require('../../../loader/nsupplier-loader');
-var InternLoader = require('../../../loader/garment-intern-note-loader');
+var InternLoader = require('../../../loader/garment-intern-note-loader-job');
 var CurrencyLoader = require('../../../loader/currency-loader');
 //var DOLoader = require('../../../loader/garment-delivery-order-loader');
-var InvoiceLoader = require('../../../loader/garment-invoice-note-loader');
+var InvoiceLoader = require('../../../loader/garment-invoice-note-job-loader');
 
 @inject(Service)
 export class List {

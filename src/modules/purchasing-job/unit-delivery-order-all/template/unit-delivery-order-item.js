@@ -3,7 +3,7 @@ import { factories } from 'powerbi-client';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-var UomLoader = require('../../../../loader/uom-loader');
+var UomLoader = require('../../../../loader/nuom-loader');
 export class UnitDeliveryOrderItem {
 
   fabricOptions = ['NON FABRIC', 'MAIN FABRIC', 'CONTRASS', 'INTERLINING', 'LINING', 'PIPING', 'SLEEK', 'FRONTING', 'FELT', 'RIB'];

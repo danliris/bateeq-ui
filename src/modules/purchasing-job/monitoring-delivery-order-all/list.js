@@ -7,7 +7,7 @@ import moment from 'moment';
 //var DOLoader = require('../../../loader/delivery-order-all-loader');
 
 var SupplierLoader = require('../../../loader/nsupplier-loader');
-var POEksLoader = require('../../../loader/garment-purchase-order-external-loader');
+var POEksLoader = require('../../../loader/garment-purchase-order-external-loader-job');
 
 @inject(Service)
 

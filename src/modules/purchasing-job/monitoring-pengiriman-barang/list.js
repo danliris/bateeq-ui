@@ -3,8 +3,8 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-var PRLoader = require('../../../loader/garment-purchase-request-loader');
-var UnitLoader = require('../../../loader/unit-loader');
+var PRLoader = require('../../../loader/garment-purchase-request-loader-job');
+var UnitLoader = require('../../../loader/nunit-loader');
 var BuyerLoader = require('../../../loader/garment-buyers-loader');
 
 @inject(Router, BindingEngine, Service)

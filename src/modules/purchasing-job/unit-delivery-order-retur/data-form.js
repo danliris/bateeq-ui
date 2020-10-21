@@ -1,10 +1,10 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var StorageLoader = require('../../../loader/storage-loader');
+var StorageLoader = require('../../../loader/nstorage-loader');
 //var UnitLoader = require('../../../loader/nunit-loader');
 var UnitSenderLoader = require('../../../loader/nunit-loader');
-var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-for-unit-delivery-order-loader');
-var DeliveryOrderLoader= require('../../../loader/garment-delivery-order-by-garment-unit-receipt-note-loader');
+var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-for-unit-delivery-order-loader-job');
+var DeliveryOrderLoader= require('../../../loader/garment-delivery-order-by-garment-unit-receipt-note-loader-job');
 import moment from 'moment';
 
 @containerless()

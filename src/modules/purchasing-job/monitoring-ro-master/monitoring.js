@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework'
 import { Service } from "./service";
-const PurchaseRequestLoader = require('../../../loader/garment-purchase-request-loader');
+const PurchaseRequestLoader = require('../../../loader/garment-purchase-request-loader-job');
 
 @inject(Service)
 export class Monitoring {

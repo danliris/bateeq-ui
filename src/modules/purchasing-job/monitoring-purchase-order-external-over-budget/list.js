@@ -3,9 +3,9 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-var Unit = require('../../../loader/unit-loader');
+var Unit = require('../../../loader/nunit-loader');
 var Supplier = require('../../../loader/nsupplier-loader');
-var POEksternal = require('../../../loader/garment-purchase-order-external-loader');
+var POEksternal = require('../../../loader/garment-purchase-order-external-loader-job');
 
 @inject(Router, Service)
 export class List {

@@ -3,7 +3,7 @@ import { Service } from "./service";
 import { Router } from 'aurelia-router';
 import moment from 'moment';
 
-var PurchasePriceCorrectionLoader = require('../../../loader/garment-purchase-correction-loader');
+var PurchasePriceCorrectionLoader = require('../../../loader/garment-purchase-correction-loader-job');
 var SupplierLoader = require('../../../loader/nsupplier-loader');
 
 @inject(Router, Service)

@@ -8,7 +8,7 @@ const serviceUri = 'purchase-requests/monitoring/all-user';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "garment-purchasing");
+        super(http, aggregator, config, "purchasing-job");
     }
 
     search(unitId, categoryId, buyerId, PRNo, dateFrom, dateTo, state) { 

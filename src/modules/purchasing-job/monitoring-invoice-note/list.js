@@ -4,7 +4,7 @@ import { Router } from 'aurelia-router';
 import moment from 'moment';
 
 var SupplierLoader = require('../../../loader/nsupplier-loader');
-var InvoiceLoader = require('../../../loader/garment-invoice-note-loader');
+var InvoiceLoader = require('../../../loader/garment-invoice-note-job-loader');
 
 @inject(Router, Service)
 export class List {

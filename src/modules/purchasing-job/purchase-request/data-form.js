@@ -1,7 +1,7 @@
 import {inject, bindable, computedFrom} from 'aurelia-framework'
-var UnitLoader = require('../../../loader/unit-loader');
-var BudgetLoader = require('../../../loader/budget-loader');
-var CategoryLoader = require('../../../loader/garment-category-loader');
+var UnitLoader = require('../../../loader/nunit-loader');
+var BudgetLoader = require('../../../loader/nbudget-loader');
+var CategoryLoader = require('../../../loader/ngarment-category-loader');
 
 export class DataForm {
     @bindable readOnly = false;

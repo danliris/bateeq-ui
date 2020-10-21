@@ -1,6 +1,6 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
-var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-loader');
+var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-job-loader');
 var moment = require('moment');
 
 @inject(Service)
