@@ -41,6 +41,8 @@ export async function configure(aurelia) {
       var md ="https://com-bateeq-service-merchandiser.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api.azurewebsites.net/v1/sales/";
       var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
+      var purchasingJob = "http://localhost:65116/v1/"
+      var production = "http://localhost:5005/";
       var purchasingAzure = "https://com-bateeq-service-purchasing.azurewebsites.net/v1/";
       var finance = "https://com-bateeq-service-finance-accounting.azurewebsites.net/v1/";
       var nmasterplan ="https://com-bateeq-service-sales.azurewebsites.net/v1/";
@@ -54,10 +56,12 @@ export async function configure(aurelia) {
       config.registerEndpoint("inventory", inventory);
       config.registerEndpoint("inventory-azure", inventoryAzure);
       config.registerEndpoint("merchandiser", merchandiser);
+      config.registerEndpoint("garment-production", production);
       config.registerEndpoint("md", md);
       config.registerEndpoint("sales", sales);
       config.registerEndpoint("purchasing", purchasing);
       config.registerEndpoint("purchasing-azure", purchasingAzure, defaultConfig);
+      config.registerEndpoint("purchasing-job", purchasingJob, defaultConfig);
       config.registerEndpoint('finance', finance, defaultConfig);
       //config.registerEndpoint("masterplan", masterplan);
       config.registerEndpoint("nmasterplan", nmasterplan);

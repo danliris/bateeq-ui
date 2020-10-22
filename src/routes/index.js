@@ -17,4 +17,6 @@ var npurchaseRoutes = require("./npurchasing");
 var nmasterplan = require("./nmasterplan");
 var expeditionRoutes = require('./expedition');
 var accountingRoutes = require('./accounting');
-export default [].concat(masterRoutes, nmasterRoutes, publicRoutes, tokoRoutes, gudangPusatRoutes, inventoryRoutes, laporanRoutes, reportRoutes, designerRoutes, merchandiserRoutes, finishingRoutes, generalInventoryRoutes, authRoutes, purchaseRoutes, npurchaseRoutes, nmasterplan, expeditionRoutes, accountingRoutes);
+var productionRoutes = require('./production');
+var purchasingjobRoutes = require('./purchasing-job');
+export default [].concat(masterRoutes, nmasterRoutes, publicRoutes, tokoRoutes, gudangPusatRoutes, inventoryRoutes, laporanRoutes, reportRoutes, designerRoutes, merchandiserRoutes,  productionRoutes, finishingRoutes, generalInventoryRoutes, authRoutes, purchaseRoutes, npurchaseRoutes, nmasterplan, expeditionRoutes, accountingRoutes, purchasingjobRoutes);
