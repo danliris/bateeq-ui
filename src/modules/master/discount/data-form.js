@@ -8,6 +8,7 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     @bindable title;
+    
 
     storeCategoryOptions = ["- categories -", "ALL", "DEPT STORE", "STAND ALONE", "FACTORY OUTLET", "MARKET PLACE"];
     storeNameOptions = ["- stores -"];
@@ -37,15 +38,20 @@ export class DataForm {
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
-        if (this.data.stores) {
-            if (this.data.stores.length > 0) {
-                this.storeNameOptions = [];
-                this.storeNameOptions.push("ALL");
-            } else {
-                this.storeNameOptions = [];
-                this.storeNameOptions.push(this.data.stores.name);
-            }
+        this.error = this.context.error;
+        console.log(this.context);
+        if (this.data.store) {
+            // if (this.data.stores.length > 0) {
+            //     this.storeNameOptions = [];
+            //     this.storeNameOptions.push("ALL");
+            // } else {
+            //     this.storeNameOptions = [];
+            //     this.storeNameOptions.push(this.data.stores.name);
+            // }
+
+            this.storeNameOptions.push(this.data.store.name)
         }
+        
         this.detailOptions = {};
         this.detailOptions.innerData = this.data;
     }
@@ -62,23 +68,39 @@ export class DataForm {
             this.data.storeCategory = this.selectedStoreCategory;
         }
 
-        this.storeNameOptions = await this.changeStore(selectedStoreCategory);
+        if(selectedStoreCategory == "ALL"){
+            selectedStoreCategory = "";
+        }
+
+        this.service.getStorebyCategory(selectedStoreCategory)
+        .then(result => {
+            for(var datas of result){
+                this.storeNameOptions.push(datas.Name);
+            }
+            this.storeNameOptions.splice(0, 0, "ALL")
+            //console.log(result);
+            
+        });
     }
 
-    changeStore(storeCategory) {
-        var getStore = StoreLoader(storeCategory);
-        var storeName = [];
-        return Promise.all(getStore)
-            .then(result => {
-                if (storeCategory !== "ALL") {
-                    storeName = result.map(store => {
-                        return store.name;
-                    });
-                    storeName.splice(0, 0, "ALL");
-                } else {
-                    storeName.push("ALL");
-                }
-                return Promise.resolve(storeName);
-            });
-    }
+    // changeStore(storeCategory) {
+    //     this.service.getStorebyCategory(storeCategory).then(result => {
+    //         var storeName = [];
+
+    //     })
+        // var getStore = getStorebyCategory(storeCategory);
+        // var storeName = [];
+        // return Promise.all(getStore)
+        //     .then(result => {
+        //         if (storeCategory !== "ALL") {
+        //             storeName = result.map(store => {
+        //                 return store.name;
+        //             });
+        //             storeName.splice(0, 0, "ALL");
+        //         } else {
+        //             storeName.push("ALL");
+        //         }
+        //         return Promise.resolve(storeName);
+        //     });
+    
 }

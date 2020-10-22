@@ -7,7 +7,13 @@ var tranferOutLoader = require('../../loader/transfer-out-loader');
 @inject(Router, Service)
 export class Pending {
     data = [];
-    info = { page: 1, keyword: '' };
+    info = {
+      page: 1,
+      keyword: '',
+      filter: JSON.stringify ({
+        "IsReceived": false
+      })
+    };
     keyword = '';
     constructor(router, service) {
         this.router = router;
@@ -24,13 +30,14 @@ export class Pending {
     async activate() {
         this.info.keyword = '';
         var result = await this.service.listPending(this.info);
+        console.log(result.data);
         var resultWithReference = await result.data.map(item => {
 
             item["sourceReference"] = "";
             item["destinationReference"] = "";
-
-            if (item.reference) {
-                var referenceData = tranferOutLoader(item.reference);
+            //console.log(item.reference);
+            if (item.reference) { //r R
+                var referenceData = tranferOutLoader(item.reference); //r R
 
                 Promise.all([referenceData]).then(dataResult => {
                     var data = dataResult[0];
@@ -50,13 +57,14 @@ export class Pending {
         var keyword = this.info.keyword;
         this.service.listPending(this.info)
             .then(result => {
+                console.log(result.data);
                 var resultWithReference = result.data.map(item => {
 
                     item["sourceReference"] = "";
                     item["destinationReference"] = "";
 
-                    if (item.reference) {
-                        var referenceData = tranferOutLoader(item.reference);
+                    if (item.reference) { //r R
+                        var referenceData = tranferOutLoader(item.reference); //r R
 
                         Promise.all([referenceData]).then(dataResult => {
                             var data = dataResult[0];

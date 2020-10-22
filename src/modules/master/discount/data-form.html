@@ -11,7 +11,7 @@
         <numeric 
             label="Diskon 1 (%)" 
             value.bind="data.discountOne" 
-            error.bind="error.discountOne" 
+            error.bind="error.Discount" 
             format="0"
             placeholder ="discount"
             read-only.bind="readOnlyDiscount"
@@ -21,7 +21,7 @@
         <numeric 
             label="Diskon 2 (%)" 
             value.bind="data.discountTwo" 
-            error.bind="error.discountTwo" 
+            error.bind="error.Discount" 
             format="0"
             placeholder ="discount"
             read-only.bind="readOnlyDiscount"
@@ -31,7 +31,7 @@
         <au-datepicker 
             label="Mulai Berlaku" 
             value.bind="data.startDate" 
-            error.bind="error.startDate" 
+            error.bind="error.StartDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
@@ -39,7 +39,7 @@
         <au-datepicker 
             label="Berlaku Hingga" 
             value.bind="data.endDate" 
-            error.bind="error.endDate" 
+            error.bind="error.EndDate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         </au-datepicker>
@@ -47,7 +47,7 @@
         <au-dropdown 
             label="Kategori Toko" 
             value.bind="data.storeCategory" 
-            error.bind="error.storeCategory" 
+            error.bind="error.StoreCategory" 
             read-only.bind="readOnly"
             items.bind="storeCategoryOptions" 
             change.delegate="storeCategoryChanged($event)" 
@@ -56,13 +56,16 @@
 
         <au-dropdown 
             label="Toko" 
-            value.bind="data.stores.name" 
-            error.bind="error.storeName" 
+            value.bind="data.store.name" 
+            error.bind="error.store" 
             read-only.bind="readOnly" 
             items.bind="storeNameOptions"
             options.bind="controlOptions">
         </au-dropdown>
         <multiline label="Keterangan" value.bind="data.information" error.bind="error.information" read-only.bind="readOnly" ></multiline>
+
+        
+
 
         <au-collection 
               items.bind="data.items" 

@@ -57,7 +57,7 @@ export class List {
         var data = arg.data;
         switch (arg.name) {
             case "Detail":
-                this.router.navigateToRoute('view', { id: data._id });
+                this.router.navigateToRoute('view', { id: data.Id });
                 break;
         }
     }

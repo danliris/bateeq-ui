@@ -15,7 +15,8 @@ export class Service extends RestService{
   getAllInventory(storageId, keyword)
   {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+ '/inventories?keyword=' + keyword; 
+    //var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+ '/inventories?keyword=' + keyword; 
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'inventories/monitoring/by-user?storageId=' +storageId+ '&inventories=' + keyword; 
     return super.get(endpoint);
   }
   
@@ -25,11 +26,12 @@ export class Service extends RestService{
     return super.getXls(endpoint);
 }
   
-  getAllMovement(storageId, itemId, info)
+  getAllMovement(storageId, itemCode)
   {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+"/inventories/"+itemId+"/movements";  
-    return super.list(endpoint, info);
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'inventories/monitoring/by-movements?storageId=' + storageId+'&itemCode='+itemCode;  
+
+    return super.get(endpoint);
   }
 
   movementExcel(storageId, itemId) {

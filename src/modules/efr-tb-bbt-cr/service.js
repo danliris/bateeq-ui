@@ -2,8 +2,9 @@ import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../utils/rest-service';
 
-const serviceUri = '/docs/efr-tb-bbt';
-const serviceOutUri = '/docs/efr-pk-ba';
+//const serviceUri = '/docs/efr-tb-bbt';
+const serviceUri = 'stores/efr-tb-bbt';
+const serviceSpkUri = 'pkpbj/by-user';
 const serviceUriStorages = '/storages';
 
 export class Service extends RestService {
@@ -33,7 +34,7 @@ export class Service extends RestService {
     }
 
     getPendingSPKById(id) {
-        var endpoint = `${serviceUri}/pending/${id}`;
+        var endpoint = `${serviceSpkUri}/${id}`;
         return super.get(endpoint);
     }
 

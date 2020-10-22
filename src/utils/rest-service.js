@@ -123,10 +123,10 @@ export class RestService {
   }
 
   getPdf(endpoint, header) {
-    
+    var offset = new Date().getTimezoneOffset() / 60 * -1;
     var request = {
       method: 'GET',
-      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf" }))
+      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf", "x-timezone-offset": offset }))
     };
     var getRequest = this.endpoint.client.fetch(endpoint, request)
     this.publish(getRequest);

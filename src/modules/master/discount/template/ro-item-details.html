@@ -2,26 +2,26 @@
     <tr>
         <td  class="col-sm-3">
             <au-autocomplete 
-                    value.bind="data.code" 
-                    error.bind="error.code"
+                    value.bind="dataDestination" 
+                    error.bind="error.item"
                     loader.bind="itemLoader"
                     placeholder="barcode"
                     read-only.bind="readOnly"
                     options.bind="controlOptions"
-                    change.delegate="codeChanged($event)"
+                    
                     text = "code">
             </au-autocomplete>
         </td>
         <td style="text-align:center;" class="col-sm-2">
             <au-textbox
-                value.bind="data.article.realizationOrder" 
+                value.bind="data.dataDestination.ArticleRealizationOrder" 
                 read-only.bind="true"
                 options.bind="controlOptions">
             </au-textbox>
         </td>
         <td class="col-sm-2">
                 <au-textbox 
-                    value.bind="data.name" 
+                    value.bind="data.dataDestination.name" 
                     error.bind="error.name"
                     read-only.bind="true"
                     options.bind="controlOptions">
@@ -29,7 +29,7 @@
         </td>
         <td class="col-sm-2">
             <au-textbox 
-                value.bind="data.remark" 
+                value.bind="data.dataDestination.Remark" 
                 error.bind="error.remark"
                 read-only.bind="readOnly" 
                 placeholder="keterangan" 

@@ -1,7 +1,8 @@
 <template>
     <tr>
         <td class="col-md-3">
-            <au-autocomplete value.bind="data.packingList" error.bind="error.code" loader.bind="packingListLoader" text="packingList" change.delegate="packingListChangeCallback($event)"
+            <au-autocomplete value.bind="data.spkDocsViewModel" error.bind="error.code" loader.bind="packingListLoader"
+              text="packingList" change.delegate="packingListChangeCallback($event)"
                 read-only.bind="packingListReadOnly || options.readOnly">
             </au-autocomplete>
         </td>
@@ -14,7 +15,7 @@
             </au-textbox>
         </td>
         <td class="col-sm-3">
-            <au-textbox value.bind="data.notes" read-only.bind="options.readOnly" placeholder="catatan">
+            <au-textbox value.bind="data.remark" read-only.bind="options.readOnly" placeholder="catatan">
             </au-textbox>
         </td>
         <td class="col-sm-2" if.bind="!options.readOnly"><button class="btn btn-danger pull-right" click.delegate="onremove(data, $event)">-</button></td>
@@ -36,7 +37,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr repeat.for="item of data.items">
+                    <tr repeat.for="item of data.details">
                         <td>
                             <div class="form-group">
                                 <p class="form-control-static">${item.item.code}</p>

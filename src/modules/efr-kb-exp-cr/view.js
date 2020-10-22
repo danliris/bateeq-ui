@@ -29,20 +29,20 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        this.data.expedition.toString = function () {
+        this.data.expeditionService.toString = function () {
             return this.name;
         }
 
-        this.data.spkDocuments = this.data.spkDocuments.map(spk => {
+        this.data.items = this.data.items.map(spk => {
             spk.toString = function () {
-                return this.code
+                return this.spkDocsViewModel.code
             }
-            spk.quantity = spk.items.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.quantity || 0), 0);
+            spk.quantity = spk.details.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.quantity || 0), 0);
             return spk;
         })
 
-        if (this.data.spkDocuments.length > 0) {
-            this.data.destination = this.data.spkDocuments[0].destination.name;
+        if (this.data.items.length > 0) {
+            this.data.destination = this.data.items[0].spkDocsViewModel.destination.name;
         } else {
             this.data.destination = "";
         }

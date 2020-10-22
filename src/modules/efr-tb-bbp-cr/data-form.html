@@ -10,7 +10,7 @@
         <div class="form-group ${error.password?'has-error':''}">
             <label for="password" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" name="password" value.bind="data.password" placeholder="Password Packing List"
+                <input type="password" class="form-control" name="password" value.bind="data.Password" placeholder="Password Packing List"
                 />
                 <span class="help-block">${error.password}</span>
             </div>
@@ -50,8 +50,8 @@
                 </td>
                 <td>
                     <div class="form-group ${error.items[$index].sendQuantity?'has-error':''}">
-                        <input class="form-control" type="number" name="sendQuantity" value.bind="item.sendQuantity" />
-                        <span class="help-block">${error.items[$index].sendQuantity}</span>
+                        <input class="form-control" type="number" name="sendQuantity" value.bind="item.sendquantity" />
+                        <span class="help-block">${error.items[$index].sendquantity}</span>
                     </div>
                 </td>
                 <td>
