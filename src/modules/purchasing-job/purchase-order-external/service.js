@@ -11,7 +11,7 @@ const serviceUri = 'garment-external-purchase-orders';
 export class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing-azure");
+        super(http, aggregator, config, "purchasing-job");
     }
 
     search(info) {

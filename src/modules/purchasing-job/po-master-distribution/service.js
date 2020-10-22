@@ -3,7 +3,7 @@ import { RestService } from '../../../utils/rest-service';
 const serviceUri = 'garment-po-master-distributions';
 class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing-azure");
+        super(http, aggregator, config, "purchasing-job");
     }
 
     search(info) {
@@ -40,7 +40,7 @@ class Service extends RestService {
 const servicePRUri = 'garment-purchase-requests';
 class PurchaseRequestService extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing-azure");
+        super(http, aggregator, config, "purchasing-job");
     }
 
     search(info) {
@@ -52,7 +52,7 @@ class PurchaseRequestService extends RestService {
 const serviceDOUri = 'garment-delivery-orders';
 class DeliveryOrderService extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing-azure");
+        super(http, aggregator, config, "purchasing-job");
     }
 
     search(info) {

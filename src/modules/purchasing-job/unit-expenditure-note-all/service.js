@@ -14,7 +14,7 @@ const unitDOServiceUri= 'garment-unit-delivery-orders';
 class Service extends RestService {
 
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing-azure");
+        super(http, aggregator, config, "purchasing-job");
     }
 
     search(info) {

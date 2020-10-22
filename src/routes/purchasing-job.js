@@ -217,7 +217,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "purchasing job",
-            permission: { "C.01": 1, "PBL.01": 1 },
+            //permission: { "C.01": 1, "PBL.01": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },

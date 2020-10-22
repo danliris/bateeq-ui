@@ -56,7 +56,7 @@ export class PurchaseOrderItem {
     // if(this.data.Id){
     //   if(this.data.POId){
     //     var config = Container.instance.get(Config);
-    //     var endpoint = config.getEndpoint("purchasing-azure");
+    //     var endpoint = config.getEndpoint("purchasing-job");
     //     var pOUri=`${POresource}/${this.data.POId}`;
     //     await endpoint.find(pOUri)
     //         .then((result) => {

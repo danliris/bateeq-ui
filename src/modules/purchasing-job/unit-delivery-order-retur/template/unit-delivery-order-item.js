@@ -28,7 +28,7 @@ export class UnitDeliveryOrderItem {
     if(this.isEdit){
       if(this.data.URNId){
         var config = Container.instance.get(Config);
-        var endpoint = config.getEndpoint("purchasing-azure");
+        var endpoint = config.getEndpoint("purchasing-job");
         var URNUri=`garment-unit-receipt-notes/${this.data.URNId}`;
         await endpoint.find(URNUri)
             .then((result) => {
