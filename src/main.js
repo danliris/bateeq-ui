@@ -30,21 +30,26 @@ export async function configure(aurelia) {
         }
       }
 
-      var auth = "https://com-bateeq-service-auth-dev.azurewebsites.net/v1/";
-      var core = "https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
-      var ncore = "https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
-      var master = "https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
-      var manufacture ="https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
-      var inventory = "https://com-bateeq-service-warehouse-dev.azurewebsites.net/v1/";
-      var inventoryAzure = "https://com-bateeq-service-inventory-dev.azurewebsites.net/v1/"
-      var merchandiser = "https://com-bateeq-service-warehouse-dev.azurewebsites.net/v1/";
-      var md ="https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
-      var sales ="https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
-      var purchasing ="https://com-bateeq-service-warehouser-dev.azurewebsites.net/v1/";
-      var purchasingAzure ="https://com-bateeq-service-purchasing-dev.azurewebsites.net/v1/";
-      var finance = "https://com-bateeq-service-finance-accounting-dev.azurewebsites.net/v1/";
-      var nmasterplan ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
+
+
+      var auth = "https://bateeq-auth-api.azurewebsites.net/v1/";
+      var core = "https://bateeq-core-api.azurewebsites.net/v1/core/";
+      var ncore ="https://com-bateeq-service-core.azurewebsites.net/v1/";
+      var master = "https://bateeq-core-api.azurewebsites.net/v1/master/";
+      var manufacture ="https://bateeq-core-api.azurewebsites.net/v1/manufacture/";
+      var inventory ="https://bateeq-inventory-api.azurewebsites.net/v1/inventory/";
+      var inventoryAzure = "https://com-bateeq-service-inventory.azurewebsites.net/v1/"
+      var merchandiser ="https://bateeq-inventory-api.azurewebsites.net/v1/merchandiser/";
+      var md ="https://com-bateeq-service-merchandiser.azurewebsites.net/v1/";
+      var sales = "https://bateeq-pos-api.azurewebsites.net/v1/sales/";
+      var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
+      var purchasingJob = "http://localhost:65116/v1/"
+      var production = "http://localhost:5005/";
+      var purchasingAzure = "https://com-bateeq-service-purchasing.azurewebsites.net/v1/";
+      var finance = "https://com-bateeq-service-finance-accounting.azurewebsites.net/v1/";
+      var nmasterplan ="https://com-bateeq-service-sales.azurewebsites.net/v1/";
       var pos = "https://com-bateeq-service-pos-dev.azurewebsites.net/v1/";
+
 
       //Config API
       config.registerEndpoint("auth", auth);
@@ -55,10 +60,12 @@ export async function configure(aurelia) {
       config.registerEndpoint("inventory", inventory);
       config.registerEndpoint("inventory-azure", inventoryAzure);
       config.registerEndpoint("merchandiser", merchandiser);
+      config.registerEndpoint("garment-production", production);
       config.registerEndpoint("md", md);
       config.registerEndpoint("sales", sales);
       config.registerEndpoint("purchasing", purchasing);
       config.registerEndpoint("purchasing-azure", purchasingAzure, defaultConfig);
+      config.registerEndpoint("purchasing-job", purchasingJob, defaultConfig);
       config.registerEndpoint('finance', finance, defaultConfig);
       //config.registerEndpoint("masterplan", masterplan);
       config.registerEndpoint("nmasterplan", nmasterplan);
