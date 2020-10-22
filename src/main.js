@@ -43,7 +43,7 @@ export async function configure(aurelia) {
       var md ="https://com-bateeq-service-merchandiser.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api.azurewebsites.net/v1/sales/";
       var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
-      var purchasingJob = "https://com-bateeq-service-purchasingjob-dev.azurewebsites.net/v1/"
+      var purchasingJob = "https://com-bateeq-service-purchasingjob-dev.azurewebsites.net/v1/";
       var production = "https://com-bateeq-service-production-dev.azurewebsites.net/";
       var purchasingAzure = "https://com-bateeq-service-purchasing.azurewebsites.net/v1/";
       var finance = "https://com-bateeq-service-finance-accounting.azurewebsites.net/v1/";
