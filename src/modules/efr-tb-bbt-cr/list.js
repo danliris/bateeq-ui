@@ -8,7 +8,14 @@ var locale = 'id-ID';
 export class List {
     context = ['detail'];
     data = [];
-    info = { page: 1, keyword: '' };
+    info = {
+      page: 1,
+      keyword: '',
+      filter: JSON.stringify({
+        "IsReceived": true,
+        "IsDistributed": true
+      })
+    };
     keyword = '';
 
     constructor(router, service) {
@@ -21,10 +28,19 @@ export class List {
     }
 
     columns = [
-       { field: 'code', title: 'Nomor Dokumen'},
+       {
+         field: 'code',
+         title: 'Nomor Dokumen'
+       },
         { field: 'reference', title: 'Nomor Referensi'},
-        { field: 'source.name', title: 'Sumber Penyimpanan'},
-        { field: 'destination.name', title: 'Tujuan Penyimpanan'},
+        {
+          field: 'source.name',
+          title: 'Sumber Penyimpanan'
+        },
+        {
+          field: 'destination.name',
+          title: 'Tujuan Penyimpanan'
+        },
         { field: '_createdDate', title: 'Tanggal',
         formatter: (value, data) => {
             return moment(value).locale(locale).format("DD MMMM YYYY");

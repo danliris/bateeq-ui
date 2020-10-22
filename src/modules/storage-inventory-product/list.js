@@ -3,7 +3,7 @@ import { Router } from 'aurelia-router';
 import { Service } from './service';
 
 
-var Itemloader = require('../../loader/finished-goods-loader')
+var ItemLoader = require('../../loader/finished-goods-loader')
 @inject(Router, Service)
 export class List { 
     total;
@@ -13,13 +13,13 @@ export class List {
         this.filter = "";  
     }
 
-get itemLoader()
+get itemloader()
 {
-    return Itemloader;
+    return ItemLoader;
 }
 
 itemView =(items) =>{
-    return `${items.code}`-`${items.name}`
+    return `${items.name}`
 }
 
 
@@ -28,13 +28,13 @@ itemView =(items) =>{
 
     reloadItem() { 
         this.total=0;
-        this.itemId= this.item ? this.item._id :"";
-        this.service.getAllInventorybyItemId(this.itemId)
+        this.itemCode= this.item ? this.item.code :"";
+        this.service.getAllInventorybyItemId(this.itemCode)
             .then(data => {
                 this.data = data;
                 for (var item of this.data)
                 {
-                    this.total=this.total+item.quantity;
+                    this.total=this.total+item.Quantity;
                 }
             })
     }

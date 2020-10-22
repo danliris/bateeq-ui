@@ -2,15 +2,16 @@
   <au-input-form 
         title.bind="title" 
         with.bind="context">
-        <au-dropdown value.bind="data.expedition" label="Expedisi" error.bind="error.expedition" items.bind="expeditionServices"
-            key="code" text="name" read-only.bind="readOnly"></au-dropdown>
+        <au-dropdown value.bind="data.expeditionService" label="Expedisi" error.bind="error.expeditionService"
+          items.bind="expeditionServices"
+            key="Code" text="name" read-only.bind="readOnly"></au-dropdown>
         <div class="form-group">
             <label class="col-sm-3 control-label"><strong>Berat(kg)</strong></label>
             <span class="col-sm-9"><p class="form-control-static">${sumWeight}</p></span>
         </div>
         <au-collection 
-            items.bind="data.spkDocuments" 
-            errors.bind="error.spkDocuments"
+            items.bind="data.items" 
+            errors.bind="error.items"
             columns.bind="spkDocumentsInfo.columns" 
             add.bind="spkDocumentsInfo.onAdd" 
             remove.bind="spkDocumentsInfo.onRemove"

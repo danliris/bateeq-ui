@@ -11,6 +11,7 @@ export class Create {
         this.router = router;
         this.service = service;
         this.data = {};
+        this.data.isEdit = false;
     }
 
     bind() {
@@ -27,50 +28,67 @@ export class Create {
 
     save(event) {
         this.error = {};
-        this.validateUI(this.data);
-
-        if (Object.getOwnPropertyNames(this.error).length < 1) {
-            this.service.create(this.data)
-                .then(result => {
-                    this.list();
-                })
-                .catch(e => {
-                    this.error = e;
-                });
-        }
+        //this.validateUI(this.data);
+        console.log(this.data)
+        this.service.create(this.data)
+            .then(result => {
+                this.list();
+            })
+            .catch(e => {
+                this.error = e;
+            })
+        // if (Object.getOwnPropertyNames(this.error).length < 1) {
+        //     this.service.create(this.data)
+        //         .then(result => {
+        //             this.list();
+        //         })
+        //         .catch(e => {
+        //             this.error = e;
+        //         });
+        // }
     }
 
-    validateUI(data) {
-        if (data.startDate === undefined) {
-            this.error.startDate = "Masukkan Tanggal Mulai Berlaku Diskon"
-        }
+    // save() { 
+    //     this.service.create(this.data)
+    //         .then(result => {
+    //             this.list();
+    //         })
+    //         .catch(e => {
+    //             this.error = e;
+    //         })
+    // }
 
-        if (data.endDate === undefined) {
-            this.error.endDate = "Masukkan Tanggal Selesai Berlaku Diskon"
-        }
+    // validateUI(data) {
+    //     if (data.startDate === undefined) {
+    //         this.error.startDate = "Masukkan Tanggal Mulai Berlaku Diskon"
+    //     }
 
-        if (data.discountMapping === "- discount -") {
-            this.error.discountMapping = "Pilih tipe Diskon";
-        }
+    //     if (data.endDate === undefined) {
+    //         this.error.endDate = "Masukkan Tanggal Selesai Berlaku Diskon"
+    //     }
 
-        if (data.storeCategory === "- categories -") {
-            this.error.storeCategory = "Pilih Kategori Toko";
-        }
+    //     if (data.discountMapping === "- discount -") {
+    //         this.error.discountMapping = "Pilih tipe Diskon";
+    //     }
 
-        if (data.stores.name === "- stores -") {
-            this.error.storeName = "Pilih Toko";
-        }
+    //     if (data.storeCategory === "- categories -") {
+    //         this.error.storeCategory = "Pilih Kategori Toko";
+    //     }
 
-        //Check endDate Field for input date less than startDate
-        if (data.endDate < data.startDate) {
-            this.error.endDate = "Tidak Boleh Kurang Dari Mulai Berlaku Diskon";
-        }
+    //     if (data.stores.name === "- stores -") {
+    //         this.error.storeName = "Pilih Toko";
+    //     }
+
+    //     //Check endDate Field for input date less than startDate
+    //     if (data.endDate < data.startDate) {
+    //         this.error.endDate = "Tidak Boleh Kurang Dari Mulai Berlaku Diskon";
+    //     }
         
-        //Check if item inside items not have realization Order
-        data.items.forEach(item => {
-            if (!item.realizationOrder) {
-                item['realizationOrder'] = { 'realizationOrder': 'NO' };
-            }
-        });
-    }
+    //     //Check if item inside items not have realization Order
+    //     data.items.forEach(item => {
+    //         if (!item.realizationOrder) {
+    //             item['realizationOrder'] = { 'realizationOrder': 'NO' };
+    //         }
+    //     });
+    // }
 }

@@ -19,9 +19,9 @@ export class Service extends RestService {
   //   return super.get(endpoint);
   // }
 
-  getAllInventorybyItemId(itemId) {
+  getAllInventorybyItemId(itemCode) {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + "/items/" + itemId;
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'inventories/monitoring/by-search?itemCode='+itemCode;
     return super.get(endpoint);
   }
   getAllMovement(storageId, itemId) {

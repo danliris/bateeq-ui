@@ -31,7 +31,7 @@ export class List {
 
     columns = [
         { field: "code", title: "Nomor Dokumen" },
-        { field: "expedition.name", title: "Ekspedisi" },
+        { field: "name", title: "Ekspedisi" },
         { field: "weight", title: "Berat (Kg)" },
         {
             field: "date", title: "Tanggal",
@@ -41,12 +41,12 @@ export class List {
             }
         },
         {
-            field: "spkDocuments", title: "Tujuan",
+            field: "destination", title: "Tujuan",
             formatter: function (value, data, index) {
                 return value;
             }
         },
-        { field: "_createdBy", title: "Dibuat Oleh" }
+        { field: "CreatedBy", title: "Dibuat Oleh" }
     ];
 
     loader = (info) => {

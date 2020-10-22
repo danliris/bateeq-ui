@@ -25,8 +25,8 @@
             <tr repeat.for="item of data" click.delegate="view(item)">
                 <td>${item.packingList}</td>
                 <td>${item.password}</td>
-                <td>${item.source.code} - ${item.source.name}</td>
-                <td>${item.destination.code} - ${item.destination.name}</td>
+                <td>${item.SourceCode} - ${item.SourceName}</td>
+                <td>${item.DestinationCode} - ${item.DestinationName}</td>
                 <td>${item.date}</td>
                 <td>
                     <dv if.bind="item.isReceived==true">Sudah Diterima</dv>

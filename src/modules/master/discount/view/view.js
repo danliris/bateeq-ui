@@ -21,11 +21,11 @@ export class View {
         var id = params.id;
         this.prId = id;
         this.data = await this.service.getById(id);
-        if (this.data.items) {
-            if (this.data.stores.length > 1) {
-                this.data.stores.name = "ALL";
-            }
-        }
+        // if (this.data.items) {
+        //     if (this.data.store.length > 1) {
+        //         this.data.store.name = "ALL";
+        //     }
+        // }
 
         this.isShowing = true;
     }
@@ -35,7 +35,7 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', { id: this.data._id });
+        this.router.navigateToRoute('edit', { id: this.data.Id });
     }
 
     delete(event) {

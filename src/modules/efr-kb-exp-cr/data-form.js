@@ -13,6 +13,7 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        console.log(this.data);
     }
 
     constructor(router, service, bindingEngine) {
@@ -44,9 +45,11 @@ export class DataForm {
     }
 
     get sumWeight() {
+      //console.log(this.data)
         var weight = 0;
-        if (this.data) {
-            for (var item of this.data.spkDocuments) {
+        if (this.data.items) {
+            for (var item of this.data.items) {
+              //console.log(item);
                 weight += parseFloat(item.weight || 0);
             }
         }
@@ -55,13 +58,13 @@ export class DataForm {
 
     spkDocumentsInfo = {
         columns: [
-            { header: "Packing List", value: "code" },
+            { header: "Packing List", value: "packingList" },
             { header: "Berat (Kg)", value: "weight" },
             { header: "Total Barang", value: "quantity" },
-            { header: "Catatan", value: "notes" }
+            { header: "Catatan", value: "remark" }
         ],
         onAdd: function () {
-            this.data.spkDocuments.push({});
+            this.data.items.push({});
         }.bind(this),
         onRemove: function (e) { console.log(e) }.bind(this)
     }

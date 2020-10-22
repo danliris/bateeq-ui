@@ -2,11 +2,16 @@
     <form class="form-horizontal">
         <textbox label="Nomor Referensi" value.bind="data.reference" error.bind="error.reference" read-only.bind="readOnly" aria-placeholder="Packing List SPK">
         </textbox>
-        <dropdown label="Sumber Penyimpanan" value.bind="source" items.bind="sources" key="code" text="name"></dropdown>
+        <dropdown label="Sumber Penyimpanan" value.bind="data.source" items.bind="sources" key="code" text="name">
+        </dropdown>
         <dropdown label="Tujuan Penyimpanan" value.bind="data.destination" items.bind="destinations"></dropdown>
         <p class="col-md-1">Barcode</p>
         <input type="text" focus.bind="hasFocus" value.bind="barcode" class="col-md-3" aria-placeholder="Barcode" input.delegate="barcodeChoose($event)"></input>
-        <finishedgoods-auto-suggest label="Nama Barang" value.bind="item" class="col-md-5" read-only.bind="readOnly" change.delegate="nameChoose($event)"></finishedgoods-auto-suggest>
+        <!-- <finishedgoods-auto-suggest label="Nama Barang" value.bind="item" class="col-md-5" read-only.bind="readOnly" change.delegate="nameChoose($event)"></finishedgoods-auto-suggest> -->
+        <au-autocomplete value.bind="item" class="col-md-5" error.bind="error.supplier" label="Nama Barang"
+          loader.bind="itemLoader" text.bind="itemView" placeholder="cari Barang" key="Name"
+          read-only.bind="readOnly || isEdit" options.bind="controlOptions">
+        </au-autocomplete>
         <numeric label="Total Kuantitas:" read-only.bind="true" value.bind="sumTotalQty" class="col-md-5"></numeric>
         <numeric label="Total Harga:" read-only.bind="true" value.bind="sumPrice" class="col-md-3"></numeric>
     </form>
@@ -33,27 +38,29 @@
                 <td>
                     <div class="row">
                         <div class="col-md-2">
-                            <p class="form-control-static">${item.code}</p>
+                            <p class="form-control-static">${item.item.code}</p>
                         </div>
                         <div class="col-md-2">
-                            <p class="form-control-static">${item.name}</p>
+                            <p class="form-control-static">${item.item.name}</p>
                         </div>
                         <div class="col-md-2">
-                            <div class="form-group ${error.items[$index].availableQuantity?'has-error':''}">
+                            <div class="form-group ${error.items[$index].availablequantity?'has-error':''}">
                                 <center>
-                                    <p class="form-control-static">${item.availableQuantity}</p>
+                                    <p class="form-control-static">${item.availablequantity}</p>
                                 </center>
                             </div>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group ${error.items[$index].quantity?'has-error':''}">
-                                <input class="form-control" type="number" name="quantity" value.bind="item.quantity" max.bind="item.availableQuantity" min="0"
+                                <input class="form-control" type="number" name="quantity" value.bind="item.quantity"
+                                  max.bind="item.availablequantity" min="0"
                                     change.delegate="qtyChange(item.code, item.quantity)" />
                                 <span class="help-block">${error.items[$index].quantity}</span>
                             </div>
                         </div>
                         <div class="col-md-1">
-                            <numeric label="" read-only.bind="true" value.bind="item.price" class="col-md-1"></numeric>
+                            <numeric label="" read-only.bind="true" value.bind="item.item.domesticSale"
+                              class="col-md-1"></numeric>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group ${error.items[$index].remark?'has-error':''}">
