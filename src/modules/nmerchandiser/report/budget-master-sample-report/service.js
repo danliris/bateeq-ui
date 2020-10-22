@@ -5,7 +5,7 @@ const serviceUri = 'display/budget-master-sample';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasing-azure");
+        super(http, aggregator, config, "purchasingJob");
     }
 
     search(info) {
