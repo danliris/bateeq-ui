@@ -32,24 +32,26 @@ export async function configure(aurelia) {
 
 
 
-      var auth = "https://bateeq-auth-api-dev.azurewebsites.net/v1/";
-      var core = "https://bateeq-core-api-dev.azurewebsites.net/v1/core/";
-      var ncore ="https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
-      var master = "https://bateeq-core-api.azurewebsites-dev.net/v1/master/";
-      var manufacture ="https://bateeq-core-api.azurewebsites-dev.net/v1/manufacture/";
-      var inventory ="https://bateeq-inventory-api.azurewebsites-dev.net/v1/inventory/";
-      var inventoryAzure = "https://com-bateeq-service-inventory-dev.azurewebsites.net/v1/"
-      var merchandiser ="https://bateeq-inventory-api.azurewebsites-dev.net/v1/merchandiser/";
-      var md ="https://com-bateeq-service-merchandiser.azurewebsites-dev.net/v1/";
-      var sales = "https://bateeq-pos-api-dev.azurewebsites.net/v1/sales/";
-      var purchasing ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/purchasing/";
-      var purchasingJob = "http://localhost:65116/v1/"
-      var production = "http://localhost:5005/";
-      var purchasingAzure = "https://com-bateeq-service-purchasing-dev.azurewebsites.net/v1/";
-      var finance = "https://com-bateeq-service-finance-accounting-dev.azurewebsites.net/v1/";
-      var nmasterplan ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
-      var nmerchandiser ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
+
+
+      var auth = "https://bateeq-auth-api.azurewebsites.net/v1/";
+      var core = "https://bateeq-core-api.azurewebsites.net/v1/core/";
+      var ncore ="https://com-bateeq-service-core.azurewebsites.net/v1/";
+      var master = "https://bateeq-core-api.azurewebsites.net/v1/master/";
+      var manufacture ="https://bateeq-core-api.azurewebsites.net/v1/manufacture/";
+      var inventory ="https://bateeq-inventory-api.azurewebsites.net/v1/inventory/";
+      var inventoryAzure = "https://com-bateeq-service-inventory.azurewebsites.net/v1/"
+      var merchandiser ="https://bateeq-inventory-api.azurewebsites.net/v1/merchandiser/";
+      var md ="https://com-bateeq-service-merchandiser.azurewebsites.net/v1/";
+      var sales = "https://bateeq-pos-api.azurewebsites.net/v1/sales/";
+      var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
+      var purchasingJob = "https://com-bateeq-service-purchasingjob-dev.azurewebsites.net/v1/";
+      var production = "https://com-bateeq-service-production-dev.azurewebsites.net/";
+      var purchasingAzure = "https://com-bateeq-service-purchasing.azurewebsites.net/v1/";
+      var finance = "https://com-bateeq-service-finance-accounting.azurewebsites.net/v1/";
+      var nmasterplan ="https://com-bateeq-service-sales.azurewebsites.net/v1/";
       var pos = "https://com-bateeq-service-pos-dev.azurewebsites.net/v1/";
+      var nmerchandiser ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
 
 
       //Config API
