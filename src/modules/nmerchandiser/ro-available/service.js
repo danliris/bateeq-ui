@@ -32,7 +32,7 @@ class Service extends RestService {
 
 // class PurchaseRequestService extends RestService {
 //     constructor(http, aggregator, config) {
-//         super(http, aggregator, config, "purchasingJob");
+//         super(http, aggregator, config, "purchasing-job");
 //     }
 
 //     getProducts(info) {

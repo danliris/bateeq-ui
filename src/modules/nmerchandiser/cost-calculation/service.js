@@ -162,7 +162,7 @@ const serviceUriPurchaseRequest = 'garment-purchase-requests';
 
 class PurchasingService extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "purchasingJob");
+        super(http, aggregator, config, "purchasing-job");
     }
 
     search(info) {

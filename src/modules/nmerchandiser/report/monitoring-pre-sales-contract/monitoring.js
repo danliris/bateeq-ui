@@ -3,7 +3,7 @@ import { Service } from "./service";
 
 const SectionLoader = require("../../../../loader/garment-sections-loader");
 const PreSalesContractLoader = require('../../../../loader/ngarment-pre-sales-contracts-loader');
-const GarmentPurchaseRequestLoader = require('../../../../loader/garment-purchase-request-loader');
+const GarmentPurchaseRequestLoader = require('../../../../loader/garment-purchase-request-loader-job');
 const CostCalculationGarmentLoader = require('../../../../loader/ncost-calculation-garment-loader');
 const UnitLoader = require('../../../../loader/garment-units-loader');
 const GarmentBuyerLoader = require("../../../../loader/garment-buyers-loader");
