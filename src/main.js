@@ -32,6 +32,8 @@ export async function configure(aurelia) {
 
 
 
+
+
       var auth = "https://bateeq-auth-api.azurewebsites.net/v1/";
       var core = "https://bateeq-core-api.azurewebsites.net/v1/core/";
       var ncore ="https://com-bateeq-service-core.azurewebsites.net/v1/";
@@ -49,6 +51,7 @@ export async function configure(aurelia) {
       var finance = "https://com-bateeq-service-finance-accounting.azurewebsites.net/v1/";
       var nmasterplan ="https://com-bateeq-service-sales.azurewebsites.net/v1/";
       var pos = "https://com-bateeq-service-pos-dev.azurewebsites.net/v1/";
+      var nmerchandiser ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
 
 
       //Config API
@@ -69,6 +72,7 @@ export async function configure(aurelia) {
       config.registerEndpoint('finance', finance, defaultConfig);
       //config.registerEndpoint("masterplan", masterplan);
       config.registerEndpoint("nmasterplan", nmasterplan);
+      config.registerEndpoint("nmerchandiser", nmerchandiser);
       config.registerEndpoint("pos",pos);
     })
     .plugin("aurelia-authentication", baseConfig => {
