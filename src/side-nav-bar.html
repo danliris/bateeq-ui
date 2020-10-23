@@ -53,5 +53,19 @@
                 </li>
             </ul>
         </aside>
+
+        <aside class="secondary-sidebar">
+            <div class="sidebar-header">
+                <span>${activeTitle.toUpperCase()}</span>
+            </div>
+            <ul class="sidebar-menu">
+                <li repeat.for="subMenu of activeMenu" click.delegate="selectSubMenu(subMenu)" class.bind="activeSubMenu == subMenu ? 'active' : ''">
+                    <a data-toggle="collapse" data-target="#skeleton-navigation-navbar-collapse.in" href.bind="subMenu.href" title.bind="subMenu.title">
+                        <!--<i class="${subMenu.settings.iconClass}"></i>&nbsp;-->
+                        <span>${subMenu.title}</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
     </div>
 </template>
