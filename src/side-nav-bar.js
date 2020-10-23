@@ -75,7 +75,7 @@ export class SideNavBar {
                 groupedRoutes.push(route);
                 this.group.set(key, groupedRoutes);
 
-                console.log(this.group)
+                //console.log(this.group)
             }
         };
     }
