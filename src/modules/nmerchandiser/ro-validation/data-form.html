@@ -74,17 +74,17 @@
       </div>
       <div class="col-md-10">
         <div class="row" show.bind="hasCCG_M_Fabric">
-          <au-collection title="Fabric" items.bind="CCG_M_Fabric" columns.bind="CCG_M_FabricInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
+          <au-collection title="Fabric" items.bind="CCG_M_Fabric" columns.bind="CCG_M_FabricInfo.columns" item-template="modules/nmerchandiser/ro-garment/template/ro-garment-material"
             read-only.bind="readOnly">
           </au-collection>
         </div>
         <div class="row" show.bind="hasCCG_M_Accessories">
-          <au-collection title="Accessories Dan Lain-Lain" items.bind="CCG_M_Accessories" columns.bind="CCG_M_AccessoriesInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
+          <au-collection title="Accessories Dan Lain-Lain" items.bind="CCG_M_Accessories" columns.bind="CCG_M_AccessoriesInfo.columns" item-template="modules/nmerchandiser/ro-garment/template/ro-garment-material"
             read-only.bind="readOnly">
           </au-collection>
         </div>
         <!-- <div class="row" show.bind="hasCCG_M_Rate">
-          <au-collection title="Ongkos" items.bind="CCG_M_Rate" columns.bind="CCG_M_RateInfo.columns" item-template="modules/merchandiser/ro-garment/template/ro-garment-material"
+          <au-collection title="Ongkos" items.bind="CCG_M_Rate" columns.bind="CCG_M_RateInfo.columns" item-template="modules/nmerchandiser/ro-garment/template/ro-garment-material"
             read-only.bind="readOnly">
           </au-collection>
         </div> -->
@@ -101,8 +101,8 @@
             errors.bind="error.SizeBreakdownItems"
             items.bind="data.RO_Garment_SizeBreakdowns" columns.bind="RO_Garment_SizeBreakdownsInfo.columns"
             options.bind="RO_Garment_SizeBreakdownsInfo.options" add.bind="RO_Garment_SizeBreakdownsInfo.onAdd" 
-            item-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown"
-            footer-template="modules/merchandiser/ro-garment/template/ro-garment-sizebreakdown-footer" 
+            item-template="modules/nmerchandiser/ro-garment/template/ro-garment-sizebreakdown"
+            footer-template="modules/nmerchandiser/ro-garment/template/ro-garment-sizebreakdown-footer" 
             read-only.bind="readOnly">
           </au-collection>
           <span show.bind="shown">${total}</span>

@@ -3,7 +3,7 @@ import {bindable} from 'aurelia-framework'
 import {CoreService} from '../service';
 import numeral from 'numeral';
 let CategoryLoader = require('../../../../loader/garment-category-loader');
-let UomLoader = require('../../../../loader/uom-loader');
+let UomLoader = require('../../../../loader/nuom-loader');
 
 @inject(CoreService)
 export class Item {

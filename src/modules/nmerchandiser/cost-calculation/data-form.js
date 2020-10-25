@@ -11,7 +11,7 @@ const rateNumberFormat = "0,0.000";
 var PreSalesContractLoader = require('../../../loader/ngarment-pre-sales-contracts-loader');
 var SizeRangeLoader = require('../../../loader/size-range-loader');
 var ComodityLoader = require('../../../loader/garment-comodities-loader');
-var UOMLoader = require('../../../loader/uom-loader');
+var UOMLoader = require('../../../loader/nuom-loader');
 var UnitLoader = require('../../../loader/garment-units-loader');
 @inject(Router, BindingEngine, ServiceEffeciency, RateService, Element, ServiceCore)
 export class DataForm {
@@ -237,10 +237,10 @@ export class DataForm {
     return`${comodity.Code} - ${comodity.Name}`
   }
 
-  get comodityQuery(){
-    var result = { "_CreatedBy" : "dev217" }
-    return result;   
-  }
+  // get comodityQuery(){
+  //   var result = { "_CreatedBy" : "dev217" }
+  //   return result;   
+  // }
 
   get uomLoader() {
     return UOMLoader;

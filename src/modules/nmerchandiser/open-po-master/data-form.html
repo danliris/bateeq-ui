@@ -110,8 +110,8 @@
                         if.bind="data.Items && data.Items.length > 0"
                         repeat.for="item of data.Items"
                         as-element="compose"
-                        view="modules/merchandiser/open-po-master/template/item.html"
-                        view-model="modules/merchandiser/open-po-master/template/item"
+                        view="modules/nmerchandiser/open-po-master/template/item.html"
+                        view-model="modules/nmerchandiser/open-po-master/template/item"
                         model.bind="{ data: item, error: error.Items[$index], context: { columns: itemsColumns, options: itemsOptions, items: data.Items }, headerContext: context }"
                         containerless>
                     </tr>
