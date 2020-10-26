@@ -1,0 +1,82 @@
+<template>
+  <au-input-form title="Customer Detail" with.bind="context">
+    <div class="box-detail">
+      <div class="box-header">
+        <label class="title-header">Info</label>
+      </div>
+
+      <div class="content-detail">
+        <table>
+          <tr>
+            <th>First name</th>
+            <td>: ${customerInfo[0].firstName}</td>
+          </tr>
+          <tr>
+            <th>Last name</th>
+            <td>: ${customerInfo[0].lastName}</td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>: ${customerInfo[0].email}</td>
+          </tr>
+          <tr>
+            <th>Phone number</th>
+            <td>: ${customerInfo[0].phoneNumber}</td>
+          </tr>
+          <tr>
+            <th>Gender</th>
+            <td>: ${customerInfo[0].gender}</td>
+          </tr>
+          <tr>
+            <th>Date of birth</th>
+            <td>: ${customerInfo[0].dbo}</td>
+          </tr>
+          <tr>
+            <th>Membership tier</th>
+            <td>: ${customerInfo[0].userMemberships}</td>
+          </tr>
+          <tr>
+            <th>Total Points</th>
+            <td>: ${customerInfo[0].totalPoint}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="box-detail">
+      <div class="box-header">
+        <label class="title-header">Order</label>
+      </div>
+
+      <div class="content-detail">
+        <au-table
+          view-model.ref="table"
+          data.bind="customerOrders"
+          options.bind="options"
+          columns.bind="orderColumns"
+          sortable.bind="true"
+          page-size="2"
+        >
+        </au-table>
+      </div>
+    </div>
+
+    <div class="box-detail">
+      <div class="box-header">
+        <label class="title-header">Address</label>
+      </div>
+
+      <div class="content-detail">
+        <au-table
+          view-model.ref="table"
+          data.bind="customerAddress"
+          options.bind="options"
+          columns.bind="addressColumns"
+          sortable.bind="true"
+          page-size="2"
+        >
+        </au-table>
+      </div>
+    </div>
+  </au-input-form>
+</template>
