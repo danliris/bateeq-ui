@@ -386,7 +386,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-           // permission: { "C.01": 1 },
+            permission: { "C.01": 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -399,7 +399,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: {"C.01": 1, "PRD.01" : 1 },
+            permission: {"C.01": 1, "PRD.01" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -412,7 +412,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: {"C.01": 1, "PRD.01" : 1 },
+            permission: {"C.01": 1, "PRD.01" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -425,7 +425,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: {"C.01": 1, "PRD.01" : 1 },
+            permission: {"C.01": 1, "PRD.01" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -438,7 +438,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: {"C.01": 1, "PRD.01" : 1 },
+            permission: {"C.01": 1, "PRD.01" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -452,7 +452,7 @@ module.exports = [
         settings: {
             group: "production",
 
-            //permission: {"C.01": 1, "PRD.01" : 1 },
+            permission: {"C.01": 1, "PRD.01" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -465,7 +465,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: {"C.01": 1, "PRD.01" : 1 },
+            permission: {"C.01": 1, "PRD.01" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -612,7 +612,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-           // permission: {"C.01": 1, "PRD.01" : 1 },
+           permission: {"C.01": 1, "PRD.01" : 1 },
             // permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -626,7 +626,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: {"C.01": 1, "PRD.01" : 1 },
+            permission: {"C.01": 1, "PRD.01" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -639,7 +639,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            //permission: {"C.01": 1, "PRD.01" : 1 },
+            permission: {"C.01": 1, "PRD.01" : 1 },
             // permission: { "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
@@ -653,7 +653,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-           // permission: {"C.01": 1, "PRD.01" : 1 },
+           permission: {"C.01": 1, "PRD.01" : 1 },
             iconClass: 'fa fa-dashboard'
         }
     },
@@ -799,7 +799,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-           //  permission: {"C.01": 1, "PRD.01" : 1 },
+            permission: {"C.01": 1, "PRD.01" : 1 },
            
             iconClass: 'fa fa-dashboard'
         }
@@ -813,7 +813,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "production",
-            // permission: {"C9": 1, "B1":1},
+            permission: {"C9": 1, "B1":1},
             iconClass: 'fa fa-dashboard'
         }
     },
