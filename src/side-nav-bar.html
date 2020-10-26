@@ -28,6 +28,10 @@
                         <i class="fa fa-credit-card" if.bind="key.toUpperCase() == 'PURCHASING'"></i>
                         <i class="fa fa-credit-card" if.bind="key.toUpperCase() == 'NPURCHASING'"></i>
                         <i class="fa fa-book" if.bind="key.toUpperCase() == 'NMASTERPLAN'"></i>
+                        <i class="fa fa-users" if.bind="key.toUpperCase() == 'CUSTOMERS'"></i>
+                        <i class="fa fa-table" if.bind="key.toUpperCase() == 'BATEEQSHOP REPORT'"></i>
+                        <i class="fa fa-cogs" if.bind="key.toUpperCase() == 'GENERAL SETTING'"></i>
+                        <i class="fa fa-bank" if.bind="key.toUpperCase() == 'PROMOTION'"></i>
                         <!-- <i class="fa fa-book" if.bind="key.toUpperCase() == 'MASTERPLAN'"></i> -->
                         <span if.bind="!minimized">${key.toUpperCase()}</span>
                         <div class="pull-right" if.bind="value.length > 0 && !minimized">
