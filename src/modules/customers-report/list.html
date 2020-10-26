@@ -1,0 +1,87 @@
+<template>
+  <au-input-form title="Customer Report by Orders" with.bind="context">
+    <div class="form-container">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="totalOrder" class="col-sm-3 control-label"
+            >Order Period</label
+          >
+          <div class="col-sm-4">
+            <au-datepicker
+              value.bind="data.FromDate"
+              error.bind="error.FromDate"
+              read-only.bind="readOnly"
+              options.bind="controlOptionsDate"
+            >
+            </au-datepicker>
+          </div>
+          <div class="col-sm-4">
+            <au-datepicker
+              value.bind="data.ToDate"
+              error.bind="error.ToDate"
+              read-only.bind="readOnly"
+              options.bind="controlOptionsDate"
+            >
+            </au-datepicker>
+          </div>
+        </div>
+  
+        <au-dropdown
+          label="Order Status"
+          value.bind="data.orderStatus"
+          items.bind="orderStatusSources"
+          options.bind="controlOptions"
+        >
+        </au-dropdown>
+  
+        <div class="form-group">
+          <label for="totalOrder" class="col-sm-3 control-label"
+            >Total Order</label
+          >
+          <div class="col-sm-4">
+            <input
+              type="number"
+              class="form-control"
+              name="From"
+              value.bind="data.From"
+              placeholder="From"
+            />
+          </div>
+          <div class="col-sm-4">
+            <input
+              type="number"
+              class="form-control"
+              name="To"
+              value.bind="data.To"
+              placeholder="To"
+            />
+          </div>
+        </div>      
+      </div>
+      <div class="col-md-8">
+        <button class="btn btn-success right">
+          <strong>Search</strong>
+        </button>
+      </div>
+    </div>
+  </au-input-form>
+
+  <div class="au-table">
+    <au-table
+      view-model.ref="table"
+      data.bind="loader"
+      options.bind="options"
+      columns.bind="columns"
+      sortable.bind="true"
+      page-size="25"
+      context.bind="context"
+      context-click.delegate="contextClickCallback($event)"
+    >
+      <div slot="toolbar">
+        <div class="btn-group pull-right">
+          <button class="btn btn-primary">Export Excel</button>
+        </div>
+      </div>
+    </au-table>
+  </div>
+</template>
