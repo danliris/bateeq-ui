@@ -7,7 +7,7 @@ module.exports = [
 		title: "Customer Report by Orders",
 		auth: true,
 		settings: {
-			group: "Bateeqshop Report",
+			group: "Report",
 			//permission: { "*": 1 },
 			permission: { "C.01": 1, "MRD.01": 1 },
 			iconClass: "fa fa-dashboard",
