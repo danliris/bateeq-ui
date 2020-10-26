@@ -1,0 +1,10 @@
+.au-table {
+  margin-top: 300px;
+}
+
+.center {
+  margin-top: 30px;
+  position: absolute;
+  left: 45%;
+  width: 10%;
+}
