@@ -9,7 +9,7 @@ const serviceUriStorages = '/storages';
 export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "master");
+    super(http, aggregator, config, "");
   }
 
   // getAllInventory(storageId, keyword)
