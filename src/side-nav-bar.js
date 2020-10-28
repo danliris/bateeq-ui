@@ -14,6 +14,7 @@ export class SideNavBar {
         this.activeSubMenu = {};
         this.authService = authService;
         this.group = new Map();
+        //console.log(this.group);
         this.isShown = true;
     }
 
@@ -66,12 +67,15 @@ export class SideNavBar {
         for (var route of routes) {
             if (route.settings && ((route.settings.group || "").trim().length > 0)) {
                 var key = (route.settings.group || "").trim();
+                //console.log(key);
                 if (!this.group.has(key))
                     this.group.set(key, []);
 
                 var groupedRoutes = this.group.get(key);
                 groupedRoutes.push(route);
                 this.group.set(key, groupedRoutes);
+
+                //console.log(this.group)
             }
         };
     }
