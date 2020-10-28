@@ -129,7 +129,8 @@ export class DataForm {
         this.data.Uom=newValue.UOM;
         this.data.UomId=newValue.UOM.Id;
         this.data.UomUnit=newValue.UOM.Unit;
-        this.data.Price=newValue.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
+        //this.data.Price=newValue.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
+        this.data.Price=newValue.ConfirmPrice.toFixed(4);
         this.data.DeliveryDate=newValue.DeliveryDate;
         if(this.data.Items.length==0){
           this.data.Amount=parseFloat(this.data.Quantity*parseFloat(this.data.Price)).toLocaleString('en-EN', { minimumFractionDigits: 2});
@@ -232,8 +233,10 @@ export class DataForm {
       if(this.data.Items.length==0){
         this.hasItems=false;
         var price= await this.service.getCostCalById(this.data.CostCalculationId);
-        this.data.Price=price.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
-        this.data.Amount=parseFloat(this.data.Quantity*parseFloat(this.data.Price)).toLocaleString('en-EN', { minimumFractionDigits: 2});
+        // this.data.Price=price.ConfirmPrice.toLocaleString('en-EN', { minimumFractionDigits: 4});
+        // this.data.Amount=parseFloat(this.data.Quantity*parseFloat(this.data.Price)).toLocaleString('en-EN', { minimumFractionDigits: 2});
+        this.data.Price=parseFloat(e.srcElement.value).toFixed(4);
+        this.data.Amount=parseFloat(this.data.Quantity*this.data.Price).toLocaleString('en-EN', { minimumFractionDigits: 2});
       }
     }
 

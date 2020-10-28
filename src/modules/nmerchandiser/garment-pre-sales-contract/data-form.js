@@ -88,8 +88,7 @@ export class DataForm {
             this.data.BuyerBrandName = selectedBuyerBrand.Name;
         }
     }
-
-
+    
     sectionView = (section) => { 
         return `${section.Code}`
     }

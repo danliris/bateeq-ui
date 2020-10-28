@@ -27,7 +27,7 @@ export class List {
         { field: "IsApprovedPurchasing", title: "Approval Purchasing" },
         { field: "IsApprovedKadivMD", title: "Approval Kadiv Md" },
     ];
-
+    
     rowFormatter(data, index) {
         if (data.ApprovalMD.IsApproved && data.ApprovalPurchasing.IsApproved && data.ApprovalIE.IsApproved && data.ApprovalKadivMD.IsApproved)
             return { classes: "success" }
@@ -51,13 +51,14 @@ export class List {
 
         return this.service.search(arg)
             .then(result => {
-                result.data.map(data => {
+                console.log(result)
+                result.data.map(data => {                    
                     data.byUser = this.byUser;
                     data.isPosting = data.IsPosted;
                     data.IsApprovedMD = data.ApprovalMD.IsApproved ? "SUDAH" : "BELUM";
                     data.IsApprovedIE = data.ApprovalIE.IsApproved ? "SUDAH" : "BELUM";
                     data.IsApprovedPurchasing = data.ApprovalPurchasing.IsApproved ? "SUDAH" : "BELUM";
-                    data.IsApprovedKadivMD = data.ApprovalKadivMD.IsApproved ? "SUDAH" : "BELUM";
+                    data.IsApprovedKadivMD = data.ApprovalKadivMD.IsApproved ? "SUDAH" : "BELUM";                    
                     return data;
                 });
                 return {
@@ -83,6 +84,7 @@ export class List {
         const instruction = navigationInstruction.getAllInstructions()[0];
         const parentInstruction = instruction.parentInstruction;
         this.byUser = parentInstruction.config.settings.byUser;
+        
 
         let username = null;
         if (this.authService.authenticated) {

@@ -27,10 +27,12 @@ export class DataForm {
   @bindable error = {};
   @bindable SelectedRounding;
   @bindable isCopy = false;
+  @bindable SizeRange;
  
   leadTimeList = ["", "25 hari", "35 hari"];
 
-  
+  rateList = ["", "IDR", "USD"];
+
   defaultRate = { Id: 0, Value: 0, CalculatedValue: 0 };
   length0 = {
     label: {
@@ -132,7 +134,7 @@ export class DataForm {
     this.fabricAllowance = this.data.FabricAllowance ? this.data.FabricAllowance : 0;
     this.accessoriesAllowance = this.data.AccessoriesAllowance ? this.data.AccessoriesAllowance : 0;
     this.data.Risk = this.data.Risk ? this.data.Risk : 5;
-    this.imageSrc = this.data.ImageFile = this.isEdit || this.isCopy ? (this.data.ImageFile || "#") : "#";
+    this.imageSrc = this.data.ImageFile = this.isEdit || this.isCopy ? (this.data.ImageFile || "#") : "";
     this.selectedLeadTime = this.data.LeadTime ? `${this.data.LeadTime} hari` : "";
     this.selectedUnit = this.data.Unit?this.data.Unit:"";
     this.data.OTL1 = this.data.OTL1 ? this.data.OTL1 : Object.assign({}, this.defaultRate);
@@ -185,7 +187,7 @@ export class DataForm {
     }
     else {
       this.data.Rate = this.defaultRate;
-      rate = this.rateService.search({ filter: "{Name:\"USD\"}" })
+      rate = this.rateService.search({ filter: "{Name:\"\"}" })
         .then(results => {
           let result = results.data[0] ? results.data[0] : this.defaultRate;
           result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
@@ -199,6 +201,8 @@ export class DataForm {
     this.data.Wage.Value=this.data.Wage.Value.toLocaleString('en-EN', { minimumFractionDigits: 2 }) ;
     this.data.THR = all[1];
     this.data.Rate = all[2];
+    this.RateDollar = all[2];
+    this.selectedRate = this.data.Rate ? this.data.Rate : ""; //option selector
 
     // this.selectedRate = this.data.Rate ? this.data.Rate.Name : "";
     if (this.data.CostCalculationGarment_Materials) {
@@ -258,6 +262,10 @@ export class DataForm {
     return uom?`${uom.Unit}` : '';
   }
 
+  sizerangeView = (sizerange)=>{
+    return sizerange?`${sizerange.Name}` : '';
+  }
+
   get dataSection() {
     return (this.data.Section || this.data.SectionName) ? `${this.data.Section} - ${this.data.SectionName}` : "-";
   } 
@@ -288,6 +296,7 @@ export class DataForm {
         Code: newValue.BuyerBrandCode,
         Name: newValue.BuyerBrandName
       };
+      console.log(this.data);
     } else {
       this.data.PreSCId = 0;
       this.data.PreSCNo = null;
@@ -323,6 +332,15 @@ export class DataForm {
     }
   }
 
+  //@bindable selectedSizeRange = "";
+  SizeRangeChanged(newVal){
+    this.data.SizeRange = newVal.Name;
+    console.log(newVal)
+    if(newVal){
+      this.data.SizeRange = newVal.Name;
+    }
+  }
+
   @bindable selectedLeadTime = "";
   selectedLeadTimeChanged(newVal) {
  
@@ -352,15 +370,21 @@ export class DataForm {
     reader.readAsDataURL(imageInput.files[0]);
   }
 
-  @bindable selectedRate;
-  // selectedRateChanged(newValue, oldValue) {
-  //   if (newValue && newValue.toUpperCase() === "RUPIAH") {
-  //     this.data.Rate = { Id: 0, Value: 1, CalculatedValue: 1 };
-  //   }
-  //   else {
-  //     this.data.Rate = this.RateDollar;
-  //   }
-  // }
+  @bindable selectedRate = ""; 
+  selectedRateChanged(newValue, oldValue) { //condition rule option changed
+ 		this.rateService.search({ filter: "{Name:\""+newValue+"\"}"}) // get USD rate value from master.rate
+        .then(results => {
+          let result = results.data[0] ? results.data[0] : this.defaultRate;
+          result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
+          this.data.Rate = result;
+
+          if (this.data.CostCalculationGarment_Materials){
+          	this.data.CostCalculationGarment_Materials.forEach(item =>{
+          		item.Rate = this.data.Rate;
+          	})
+          }
+        });  
+    }
 
   @computedFrom("data.Id")
   get isEdit() {

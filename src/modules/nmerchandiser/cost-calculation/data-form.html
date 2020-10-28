@@ -88,13 +88,16 @@
                     options.bind="length4"
                     keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
-                <au-textbox
-                    placeholder="Size Range"
+                <au-autocomplete
                     label="Size Range"
-                    value.bind="data.SizeRange"
+                    placeholder="Size Range"
+                    value.bind="SizeRange"
                     error.bind="error.SizeRange"
-                    options.bind="length4">
-                </au-textbox>
+                    text.bind="sizerangeView"
+                    loader.bind="sizeRangeLoader"
+                    options.bind="length4"
+                    keypress.delegate="enterDelegate($event)">
+                </au-autocomplete>
                 <au-datepicker
                     label="Delivery Date"
                     value.bind="data.DeliveryDate"
@@ -206,23 +209,21 @@
                     options.bind="length4">
                 </au-numeric>
                 <div class="row">
-                    <div class="col-md-6">
-                        <au-textbox
-                            label="Rate"
-                            value.bind="selectedRate"
-                            error.bind="error.Rate"
-                            options.bind="length4"
-                            read-only.bind="true"
-                            options.bind="length4">
-                        </au-textbox>
+                    <div class="col-md-8">
+                        <au-dropdown
+                        label="Rate"
+                        value.bind="selectedRate"
+                        error.bind="error.Rate"
+                        items.bind="rateList"
+                        options.bind="length6">
+                        </au-dropdown>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <au-numeric
-                            value.bind="data.Rate.Value"
-                            options.bind="length4"
-                            read-only="true">
-                        </au-numeric>
-                    </div>
+                        value.bind="data.Rate.Value"
+                        options.bind="length6"
+                        read-only="true">
+                    </au-numeric>
                 </div>
             </div>
         </div>
