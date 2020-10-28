@@ -9,7 +9,7 @@ const serviceUriStorages = '/storages';
 export class Service extends RestService{
   
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "master");
+    super(http, aggregator, config, "ncore");
   }  
   
   getAllInventory(storageId, keyword)
@@ -22,7 +22,7 @@ export class Service extends RestService{
   
   generateExcel(storageId, keyword) {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+ '/inventories?keyword=' + keyword; 
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'inventories/monitoring/by-user/download?storageId=' +storageId+ '&inventories=' + keyword;
     return super.getXls(endpoint);
 }
   
@@ -34,9 +34,9 @@ export class Service extends RestService{
     return super.get(endpoint);
   }
 
-  movementExcel(storageId, itemId) {
+  movementExcel(storageId, itemCode) {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId+"/inventories/"+itemId+"/movements";  
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'inventories/monitoring/by-movements/download?storageId=' + storageId+'&itemCode='+itemCode;   
     return super.getXls(endpoint);
 }
    

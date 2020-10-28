@@ -20,7 +20,7 @@ export class View {
         var storageId = params.storageId;
         var itemCode = params.itemCode; 
         var result = await this.service.getAllMovement(storageId, itemCode);
-        this.data = result.data;
+        this.data = result;
         this.info = result.info;
         var moment = require('moment');
         for (var obj of this.data) {
@@ -35,7 +35,7 @@ export class View {
         var itemCode = params.itemCode; 
         this.service.getAllMovement(storageId, itemCode)
             .then(result => {
-                this.data = result.data;
+                this.data = result;
                 this.info = result.info;
                 var moment = require('moment');
                 for (var obj of this.data) {
@@ -46,10 +46,10 @@ export class View {
 
     moveexcel(params) {
         var params = this.params;
-        var keyword = this.info.keyword;
+       // var keyword = this.info.keyword;
         var storageId = params.storageId;
-        var itemId = params.itemId; 
-        this.service.movementExcel(storageId, itemId);
+        var itemCode = params.itemCode; 
+        this.service.movementExcel(storageId, itemCode);
     }
 
     changePage(e) {
