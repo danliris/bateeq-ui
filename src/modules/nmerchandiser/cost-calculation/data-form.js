@@ -230,10 +230,6 @@ export class DataForm {
     return PreSalesContractLoader;
   }
 
-  get sizeRangeLoader() {
-    return SizeRangeLoader;
-  }
-
   get comodityLoader() {
     return ComodityLoader;
   }
@@ -260,10 +256,6 @@ export class DataForm {
 
   uomView =(uom)=>{
     return uom?`${uom.Unit}` : '';
-  }
-
-  sizerangeView = (sizerange)=>{
-    return sizerange?`${sizerange.Name}` : '';
   }
 
   get dataSection() {
@@ -333,13 +325,6 @@ export class DataForm {
   }
 
   //@bindable selectedSizeRange = "";
-  SizeRangeChanged(newVal){
-    this.data.SizeRange = newVal.Name;
-    console.log(newVal)
-    if(newVal){
-      this.data.SizeRange = newVal.Name;
-    }
-  }
 
   @bindable selectedLeadTime = "";
   selectedLeadTimeChanged(newVal) {

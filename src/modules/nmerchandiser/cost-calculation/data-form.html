@@ -88,16 +88,13 @@
                     options.bind="length4"
                     keypress.delegate="enterDelegate($event)">
                 </au-autocomplete>
-                <au-autocomplete
-                    label="Size Range"
+                <au-textbox
                     placeholder="Size Range"
-                    value.bind="SizeRange"
+                    label="Size Range"
+                    value.bind="data.SizeRange"
                     error.bind="error.SizeRange"
-                    text.bind="sizerangeView"
-                    loader.bind="sizeRangeLoader"
-                    options.bind="length4"
-                    keypress.delegate="enterDelegate($event)">
-                </au-autocomplete>
+                    options.bind="length4">
+                </au-textbox>
                 <au-datepicker
                     label="Delivery Date"
                     value.bind="data.DeliveryDate"
