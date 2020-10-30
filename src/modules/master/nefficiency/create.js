@@ -1,4 +1,4 @@
-import { inject, bindable, Lazy } from 'aurelia-framework';
+import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
 
@@ -7,8 +7,7 @@ export class Create {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.data = {};
-        this.error = {};
+        this.data = {}; 
     }
 
     list() {
@@ -16,22 +15,16 @@ export class Create {
     }
 
     cancelCallback(event) {
-        this.list();
+      this.list();
     }
 
     saveCallback() {
-        console.log(this.data)
         this.service.create(this.data)
             .then(result => {
-                alert("Data berhasil dibuat");
                 this.list();
             })
             .catch(e => {
-                if (e.statusCode === 500) {
-                    alert("Gagal menyimpan, silakan coba lagi!");
-                } else {
-                    this.error = e;
-                }
+                this.error = e;
             })
     }
 }

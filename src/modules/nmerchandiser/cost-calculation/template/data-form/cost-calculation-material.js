@@ -11,7 +11,7 @@ import { PRMasterDialog } from './pr-master-dialog';
 const rateNumberFormat = "0,0.000";
 
 // const materialLoader = require('../../../../../loader/material-md-loader');
-const UomLoader = require('../../../../../loader/uom-loader');
+const UomLoader = require('../../../../../loader/nuom-loader');
 
 @inject(Dialog, Service, ServiceCore)
 export class CostCalculationMaterial {

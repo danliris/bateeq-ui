@@ -299,7 +299,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "nmerchandiser",
-    //        permission: { "P": 1, "C9": 1 },
+            permission: { "P": 1, "C9": 1, "C.01": 1 },
             iconClass: 'fa fa-calculator'
         }
     },

@@ -1,7 +1,7 @@
 import { inject, bindable, computedFrom } from 'aurelia-framework';
 import { SalesService } from "../service";
 var CostCalculationLoader = require("../../../../loader/ncost-calculation-garment-loader");
-var UomLoader = require("../../../../loader/uom-loader");
+var UomLoader = require("../../../../loader/nuom-loader");
 
 @inject(SalesService)
 export class Item {
