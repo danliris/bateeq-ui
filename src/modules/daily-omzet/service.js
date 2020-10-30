@@ -4,7 +4,8 @@ import { RestService } from '../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-const serviceUri = "docs/sales"
+//const serviceUri = "docs/sales"
+const serviceUri = "omzet-per-day"
 
 export class Service extends RestService {
 
@@ -12,8 +13,12 @@ export class Service extends RestService {
         super(http, aggregator, config, "sales");
     }
 
+    // getSalesSummary(dateFrom, dateTo){
+    //     var endpoint = `${serviceUri}/${dateFrom}/${dateTo}/all`;
+    //     return super.get(endpoint);
+    // }
     getSalesSummary(dateFrom, dateTo){
-        var endpoint = `${serviceUri}/${dateFrom}/${dateTo}/all`;
+        var endpoint = `${serviceUri}?dateFrom=${dateFrom}&dateTo=${dateTo}`;
         return super.get(endpoint);
     }
 }
