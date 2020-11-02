@@ -247,5 +247,33 @@ module.exports = [
             //permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
             iconClass: 'fa fa-dashboard'
         }
+    },
+    {
+        route: '/smv-garment-by-unit',
+        name: 'smv-garment-by-unit-report',
+        moduleId: './modules/nmerchandiser/report/smv-garment-by-unit-report/index',
+        nav: true,
+        title: 'Display SMV Garment Per Unit',
+        auth: true,
+        settings: {
+            group: "nmasterplan",
+            //permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            permission: { "MRD.01": 1, "PIC.01": 1, "ENG.01": 1,"C.01": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
+    {
+        route: '/detail-cm-garment-by-unit',
+        name: 'detail-cm-garment-by-unit-report',
+        moduleId: './modules/nmerchandiser/report/detail-cm-garment-by-unit-report/index',
+        nav: true,
+        title: 'Display Detail CM Garment Per Unit',
+        auth: true,
+        settings: {
+            group: "nmasterplan",
+            //permission: { "PGA": 1,"B7": 1, "IE": 1, "C9": 1 },
+            permission: { "MRD.01": 1, "PIC.01": 1, "ENG.01": 1,"C.01": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
     }
 ];
