@@ -1,54 +1,19 @@
 import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
-import moment from "moment";
-import "./list.css";
+var moment = require("moment");
 
 @inject(Router, Service)
 export class List {
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-  }
-
-  attached() {
-    this.options.height =
-      $(window).height() -
-      $("nav.navbar").height() -
-      $("h1.page-header").height();
-  }
-
-  loader = (info) => {
-    var order = {};
-        if (info.sort)
-            order[info.sort] = info.order;
-        var arg = {
-            page: parseInt(info.offset / info.limit, 10) + 1,
-            size: info.limit,
-            keyword: info.search,
-            order: order,
-        }
-
-        return this.service.getCustomers(arg)
-            .then(result => {
-              result.map(customer => {
-                let fullName = `${customer.firstName} ${customer.lastName}`;
-                customer.fullName = fullName;
-              })          
-              return {
-                  total: result.length,
-                  data: result
-              }
-            });
-  }
-
-  context = ["detail"];
-
-  options = {
-    search: false,
-    showToggle: false,
+  info = { page: 1, size: 25 };
+  form = {
+    email: "",
+    phoneNumber: "",
+    dobFrom: "",
+    dobTo: "",
+    membershipTier: "",
+    name: "",
   };
-
   controlOptions = {
     label: {
       length: 3,
@@ -58,52 +23,89 @@ export class List {
     },
   };
 
-  controlOptionsDate = {
-    label: {
-      length: 0,
-    },
-    control: {
-      length: 12,
-    },
-  };
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+  }
+  attached() {}
 
-  membershipSources = ["Classic", "Gold", "Premium"];
+  activate() {
+    this.searching();
+  }
 
-  columns = [
-    {
-      field: "isSelected",
-      checkbox: true,
-      sortable: false,
-    },
-    {
-      field: "email",
-      title: "Email",
-      sortable: false,
-    },
-    {
-      field: "phoneNumber",
-      title: "Phone Number",
-      sortable: false,
-    },
-    {
-      field: "fullName",
-      title: "Full Name",
-      sortable: false,
-    },
-    {
-      field: "userMemberships",
-      title: "Membership Tier",
-      sortable: false,
-    },
-  ];
+  search() {
+    this.info.page = 1;
+    this.info.total = 0;
 
-  contextClickCallback(event) {
-    var arg = event.detail;
-    var data = arg.data;
-    switch (arg.name) {
-      case "detail":
-        this.router.navigateToRoute("view", { id: data.id });
-        break;
+    if (
+      this.form.email == "" &&
+      this.form.name == "" &&
+      this.form.phoneNumber == "" &&
+      this.form.dobFrom == "" &&
+      this.form.dobTo == "" &&
+      this.form.membershipTier == ""
+    ) {
+      this.searching();
+    } else {
+      this.searching("SEARCH");
     }
+  }
+
+  async searching(type) {
+    let args = {
+      page: this.info.page,
+      pageSize: this.info.size,
+      email: this.form.email ? this.form.email : "",
+      name: this.form.name ? this.form.name : "",
+      phoneNumber: this.form.phoneNumber ? this.form.phoneNumber : "",
+      dobFrom: this.form.dobFrom
+        ? moment(this.form.dobFrom).format("YYYY-MM-DD")
+        : "",
+      dobTo: this.form.dobTo
+        ? moment(this.form.dobTo).format("YYYY-MM-DD")
+        : "",
+      membershipTier: this.form.membershipTier ? this.form.membershipTier : "",
+    };
+
+    this.service.search(args).then((result) => {
+      this.data = this.formatData(result.data.result);
+      if (type == "SEARCH") {
+        this.info.total = this.data.length;
+      } else {
+        this.info.total = result.total;
+      }
+    });
+  }
+
+  formatData(response) {
+    let result = response.map((customer) => {
+      let fullName = `${customer.firstName} ${customer.lastName}`;
+      customer.fullName = fullName;
+      customer.isSelected = false;
+      return customer;
+    });
+
+    return result;
+  }
+
+  exportToXls() {
+    let args = {
+      page: this.info.page,
+      size: this.info.size,
+      dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+      dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+    };
+
+    this.service.generateExcel(args.dateFrom, args.dateTo);
+  }
+
+  changePage(e) {
+    var page = e.detail;
+    this.info.page = page;
+    this.searching();
+  }
+
+  view(id) {
+    this.router.navigateToRoute("view", { id: id });
   }
 }
