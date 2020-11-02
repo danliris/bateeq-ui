@@ -2,103 +2,25 @@ import { inject } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import "./list.css";
 
 @inject(Router, Service)
 export class List {
-  constructor(router, service) {
-    this.service = service;
-    this.router = router;
-  }
-  
-  attached() {
-    this.options.height =
-      $(window).height() -
-      $("nav.navbar").height() -
-      $("h1.page-header").height();
-  }
-
-  rowFormatter(data, index) {
-    if (data.status == 'NonActive'){
-        return { css: { "background-color": "lightgray" } }
-    }
-    else
-      return {}
-  }
-  
-  discountName="";
-  discountCode="";
+  info = { page: 1, size: 25 };
+  form = {
+    startDate: "",
+    endDate: "",
+    voucherType: "",
+    discountCode: "",
+    discountName: "",
+  };
   voucherTypeSources = [
     "",
-    "Percentage", 
-    "Buy n free m", 
-    "Buy n discount m%", 
+    "Percentage",
+    "Buy n free m",
+    "Buy n discount m%",
     "Buy n discount m% product (n)th",
-    "Pay nominal Rp.xx, Free 1 product"
+    "Pay nominal Rp.xx, Free 1 product",
   ];
-
-  context = ["detail"];
-  
-  loader = (info) => {
-    return {
-      total: 4,
-      data: [
-        {
-          id: 1,
-          discountName: 'Batik Day',
-          discountType: 'Percetage',
-          startDate: '03-10-2020',
-          endDate: '03-11-2020',
-          totalUse: 30,
-          status: 'Active'
-        },
-        {
-          id: 2,
-          discountName: 'Independence Day',
-          discountType: 'Norminal',
-          startDate: '03-10-2019',
-          endDate: '03-11-2019',
-          totalUse: 30,
-          status: 'NonActive'
-        },
-        {
-          id: 3,
-          discountName: 'Batik Day',
-          discountType: 'Percetage',
-          startDate: '03-10-2020',
-          endDate: '03-11-2020',
-          totalUse: 30,
-          status: 'Active'
-        },
-        {
-          id: 4,
-          discountName: 'Batik Day',
-          discountType: 'Percetage',
-          startDate: '03-10-2020',
-          endDate: '03-11-2020',
-          totalUse: 30,
-          status: 'Active'
-        }
-      ]
-    }
-    // return this.service.getCustomers()
-    //     .then(result => {
-    //       result.map(customer => {
-    //         let fullName = `${customer.firstName} ${customer.lastName}`;
-    //         customer.fullName = fullName;
-    //       })          
-    //       return {
-    //           total: result.length,
-    //           data: result
-    //       }
-    //     });
-  }
-
-  options = {
-    search: false,
-    showToggle: false,
-  };
-
   controlOptions = {
     label: {
       length: 3,
@@ -108,50 +30,129 @@ export class List {
     },
   };
 
-  columns = [
-    {
-      field: "discountName",
-      title: "Discount Name",
-      sortable: false,
-    },
-    {
-      field: "discountType",
-      title: "Discount Type",
-      sortable: false,
-    },
-    {
-      field: "startDate",
-      title: "Start Date",
-      sortable: false,
-    },
-    {
-      field: "endDate",
-      title: "End Date",
-      sortable: false,
-    },
-    {
-      field: "totalUse",
-      title: "Total Use",
-      sortable: false,
-    },
-    {
-      field: "status",
-      title: "Status",
-      sortable: true,
-    },
-  ];
+  constructor(router, service) {
+    this.service = service;
+    this.router = router;
+  }
 
-  contextClickCallback(event) {
-    var arg = event.detail;
-    var data = arg.data;
-    switch (arg.name) {
-      case "detail":
-        this.router.navigateToRoute("view", { id: data.id });
-        break;
-    }
+  rowFormatter(data, index) {
+    if (data.status == "NonActive") {
+      return { css: { "background-color": "lightgray" } };
+    } else return {};
+  }
+
+  attached() {
+    this.options.height =
+      $(window).height() -
+      $("nav.navbar").height() -
+      $("h1.page-header").height();
+  }
+
+  activate() {
+    // this.searching();
+    this.data = [
+      {
+        id: 1,
+        discountName: "Batik Day",
+        discountType: "Percetage",
+        startDate: "03-10-2020",
+        endDate: "03-11-2020",
+        totalUse: 30,
+        status: "Active",
+      },
+      {
+        id: 2,
+        discountName: "Independence Day",
+        discountType: "Norminal",
+        startDate: "03-10-2019",
+        endDate: "03-11-2019",
+        totalUse: 30,
+        status: "NonActive",
+      },
+      {
+        id: 3,
+        discountName: "Batik Day",
+        discountType: "Percetage",
+        startDate: "03-10-2020",
+        endDate: "03-11-2020",
+        totalUse: 30,
+        status: "Active",
+      },
+      {
+        id: 4,
+        discountName: "Batik Day",
+        discountType: "Percetage",
+        startDate: "03-10-2020",
+        endDate: "03-11-2020",
+        totalUse: 30,
+        status: "Active",
+      },
+    ];
+  }
+
+  search() {
+    // this.info.page = 1;
+    // this.info.total = 0;
+    // if (
+    //   this.form.startDate == "" &&
+    //   this.form.endDate == "" &&
+    //   this.form.voucherType == "" &&
+    //   this.form.discountCode == "" &&
+    //   this.form.discountName == ""
+    // ) {
+    //   this.searching();
+    // } else {
+    //   this.searching("SEARCH");
+    // }
+  }
+
+  async searching(type) {
+    let args = {
+      page: this.info.page,
+      pageSize: this.info.size,
+      startDate: this.form.startDate
+        ? moment(this.form.startDate).format("YYYY-MM-DD")
+        : "",
+      endDate: this.form.endDate
+        ? moment(this.form.endDate).format("YYYY-MM-DD")
+        : "",
+      voucherType: this.form.voucherType ? this.form.voucherType : "",
+      discountCode: this.form.discountCode ? this.form.discountCode : "",
+      discountName: this.form.discountName ? this.form.discountName : "",
+    };
+
+    this.service.search(args).then((result) => {
+      this.data = result.data;
+      if (type == "SEARCH") {
+        this.info.total = this.data.length;
+      } else {
+        this.info.total = result.total;
+      }
+    });
+  }
+
+  exportToXls() {
+    let args = {
+      page: this.info.page,
+      size: this.info.size,
+      dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
+      dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
+    };
+
+    this.service.generateExcel(args.dateFrom, args.dateTo);
+  }
+
+  changePage(e) {
+    var page = e.detail;
+    this.info.page = page;
+    this.searching();
   }
 
   create() {
-    this.router.navigateToRoute('create');
-  } 
+    this.router.navigateToRoute("create");
+  }
+
+  view(id) {
+    this.router.navigateToRoute("view", { id: id });
+  }
 }
