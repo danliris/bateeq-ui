@@ -371,7 +371,7 @@ module.exports = [
     {
         route: 'nmerchandiser/monitoring-ro-job-order',
         name: 'nmerchandiser-monitoring-ro-job-order',
-        moduleId: './modules/garment-purchasing/monitoring-ro-job-order/index',
+        moduleId: './modules/purchasing-job/monitoring-ro-job-order/index',
         nav: true,
         title: 'Monitoring RO Job Order',
         auth: true,
@@ -705,7 +705,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "nmerchandiser",
-            permission: { "C.01" : 1 },
+            //permission: { "C.01" : 1 },
             iconClass: 'fa fa-calculator'
         }
     },
@@ -718,7 +718,7 @@ module.exports = [
         auth: true,
         settings: {
             group: "nmerchandiser",
-            permission: { "C.01" : 1 },
+            //permission: { "C.01" : 1 },
             iconClass: 'fa fa-calculator'
         }
     }

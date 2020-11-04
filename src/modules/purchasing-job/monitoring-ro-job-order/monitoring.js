@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework'
 import { Service } from "./service";
-const CostCalculationGarmentLoader = require('../../../loader/cost-calculation-garment-loader');
+const CostCalculationGarmentLoader = require('../../../loader/ncost-calculation-garment-loader');
 
 @inject(Service)
 export class Monitoring {

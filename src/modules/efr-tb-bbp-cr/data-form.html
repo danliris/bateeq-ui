@@ -35,6 +35,7 @@
             <tr>
                 <th>No.</th>
                 <th>Produk</th>
+                <th>Barcode</th>
                 <th>Kuantitas Diterima</th>
                 <th>Catatan</th>
             </tr>
@@ -49,8 +50,14 @@
                     </div>
                 </td>
                 <td>
+                    <div class="form-group ${error.items[$index].code?'has-error':''}">
+                        <input class="form-control" type="text" name="code" value.bind="item.item.code" />
+                        <span class="help-block">${error.items[$index].code}</span>
+                    </div>
+                </td>
+                <td>
                     <div class="form-group ${error.items[$index].sendQuantity?'has-error':''}">
-                        <input class="form-control" type="number" name="sendQuantity" value.bind="item.sendquantity" />
+                        <input class="form-control" type="number" name="sendQuantity" value.bind="item.quantity" />
                         <span class="help-block">${error.items[$index].sendquantity}</span>
                     </div>
                 </td>
