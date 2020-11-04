@@ -22,7 +22,7 @@
         </thead>
         <tbody>
             <tr repeat.for="item of data">
-                <td if.bind="item.reference != ''">${item.reference}</td>
+                <td if.bind="item.reference != ''">${item.Reference}</td>
                 <td if.bind = "item.reference == ''"> - </td>
                 <td>${item.packingList}</td>
                 <td if.bind = "item.reference != ''">${item.sourceReference}</td>

@@ -27,7 +27,7 @@
                 <td>${item.password}</td>
                 <td>${item.SourceCode} - ${item.SourceName}</td>
                 <td>${item.DestinationCode} - ${item.DestinationName}</td>
-                <td>${item.date}</td>
+                <td>${item.date | dateFormat:'DD MMMM YYYY'}</td>
                 <td>
                     <dv if.bind="item.isReceived==true">Sudah Diterima</dv>
                     <dv if.bind="item.isReceived==false">Belum Diterima</dv>

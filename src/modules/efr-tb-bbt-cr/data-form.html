@@ -49,6 +49,12 @@
                     </div>
                 </td>
                 <td>
+                    <div class="form-group ${error.items[$index].code?'has-error':''}">
+                        <input class="form-control" type="text" name="code" value.bind="item.item.code" />
+                        <span class="help-block">${error.items[$index].code}</span>
+                    </div>
+                </td>
+                <td>
                     <div class="form-group ${error.items[$index].quantity?'has-error':''}">
                         <input class="form-control" type="number" name="quantity" value.bind="item.quantity" />
                         <span class="help-block">${error.items[$index].quantity}</span>

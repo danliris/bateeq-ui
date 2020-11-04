@@ -275,5 +275,19 @@ module.exports = [
             permission: { "MRD.01": 1, "PIC.01": 1, "ENG.01": 1,"C.01": 1 },
             iconClass: 'fa fa-dashboard'
         }
-    }
+    },
+    {
+        route: '/cost-calculation-garment-validation-report',
+        name: 'cost-calculation-garment-validation-report',
+        moduleId: './modules/nmerchandiser/report/cost-calculation-garment-validation-report/index',
+        nav: true,
+        title: 'Display Approval Cost Calculation Garment Per Unit',
+        auth: true,
+        settings: {
+            group: "nmasterplan",
+            //permission: { "B7": 1, "IE": 1, "C9": 1 },
+            permission: { "MRD.01": 1, "PIC.01": 1, "ENG.01": 1,"C.01": 1 },
+            iconClass: 'fa fa-dashboard'
+        }
+    },
 ];

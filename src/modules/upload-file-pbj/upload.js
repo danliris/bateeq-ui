@@ -58,7 +58,7 @@ export class Create {
             return promise
                 .then((result) => {
                     this.service.publish(promise);
-                    if (result.status == 200) {
+                    if (result.status == 200 || result.status == 500) {
                         var getRequest = this.service.endpoint.client.fetch(endpoint, request);
                         this.service._downloadFile(getRequest);
                         this.service.publish(getRequest);
@@ -66,7 +66,7 @@ export class Create {
                         this.list();
                     }
                     else if (result.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format: Packing List, Password, Barcode, Name, Size, Price, UOM, QTY, RO");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format: Packing List, Password, Barcode, Name, Size, Price, UOM, QTY, RO, HPP");
                     }
                     else {
                         alert("Data Berhasil Diupload");
