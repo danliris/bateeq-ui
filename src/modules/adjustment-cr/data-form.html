@@ -3,11 +3,9 @@
         <div class="form-group">
             <label class="col-sm-1 text-right control-label"></label>
         </div>
-            <!--<au-dropdown label="Penyimpanan" class="col-md-8" value.bind="data.source" items.bind="sources" change.delegate="sourceChange($event)"></au-dropdown>-->
-
         <au-autocomplete 
-            value.bind="data.source" 
-            error.bind="error.source"
+            value.bind="data.storage" 
+            error.bind="error.storage"
             label="Sumber Penyimpanan" 
             change.delegate="sourceChange($event)" 
             loader.bind="sourceLoader"
@@ -35,8 +33,8 @@
                         <div class="col-md-2"> Barcode </div>
                         <div class="col-md-2"> Nama Barang</div>
                         <div class="col-md-1"> Kuantitas Stok Akhir</div>
-                        <div class="col-md-1"> In </div>
-                        <div class="col-md-1"> Out </div>
+                        <div class="col-md-1"> Tipe </div>
+                        <div class="col-md-1"> Jumlah </div>
                         <div class="col-md-2"> Perkiraan Setelah Disesuaikan </div>
                         <div class="col-md-3"> Catatan </div>
                     </div>
@@ -51,39 +49,40 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group ${error.items[$index].code?'has-error':''}">
-                                <p class="form-control-static">${item.code}</p>
-                            <span class="help-block">${error.items[$index].code}</span>
+                                <p class="form-control-static">${item.item.code}</p>
+                            <span class="help-block">${error.items[$index].item.code}</span>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <p class="form-control-static">${item.name}</p>
+                            <p class="form-control-static">${item.item.name}</p>
                         </div>
                         <div class="col-md-1">
                             <div class="form-group">
                                 <center>
-                                    <p class="form-control-static">${item.availableQuantity}</p>
+                                    <p class="form-control-static">${item.qtyBeforeAdjustment}</p>
                                 </center>
                             </div>
                         </div>
                         <div class="col-md-1">
-                            <div class="form-group ${error.items[$index].inQty?'has-error':''}">
-                                <numeric value.bind="item.inQty" change.delegate="inQtyChanged(item)"></numeric>
-                            <span class="help-block">${error.items[$index].inQty}</span>
+                            <div class="form-group ${error.items[$index].type?'has-error':''}">
+                                <au-dropdown value.bind="item.type" items.bind="Type" change.delegate="typeChanged(item)"></au-dropdown>
+                                <!-- <numeric value.bind="item.inQty" change.delegate="inQtyChanged(item)"></numeric> -->
+                            <span class="help-block">${error.items[$index].type}</span>
                             </div>
                         </div>
                         <div class="col-md-1">
-                            <div class="form-group ${error.items[$index].outQty?'has-error':''}">
-                                <numeric value.bind="item.outQty" change.delegate="outQtyChanged(item)"></numeric>
-                                <span class="help-block">${error.items[$index].outQty}</span>
+                            <div class="form-group ${error.items[$index].qtyAdjustment?'has-error':''}">
+                                <numeric value.bind="item.qtyAdjustment" change.delegate="QtyChanged(item)"></numeric>
+                                <span class="help-block">${error.items[$index].qtyAdjustment}</span>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <numeric value.bind="item.Qty" read-only="true"></numeric>
                         </div>
                         <div class="col-md-3">
-                            <div class="form-group ${error.items[$index].remarks?'has-error':''}">
-                                <textbox  value.bind="item.remarks" ></textbox>
-                                <span class="help-block">${error.items[$index].remarks}</span>
+                            <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                                <textbox  value.bind="item.remark" ></textbox>
+                                <span class="help-block">${error.items[$index].remark}</span>
                             </div>
                         </div>
                     </div>

@@ -17,23 +17,23 @@ export class View {
     var id = params.id;
     await this.service.getById(id).then((dataById) => {
       if (!dataById.isProcessed) {
-        this.service.getItemInInventory(id).then((itemInInventoryById) => {
+          console.log(dataById)
           this.hasDelete = true;
           for (var a of dataById.items) {
-            for (var b of itemInInventoryById) {
-              if (b && b.item) {
-                if (a.item.code === b.item.code)
-                  a.qtyBeforeSO = b.quantity;
-              }
-            }
+            let args = {
+              itemData: a.item._id,
+              source: dataById.storage._id
+            };
+            console.log(args)
+            this.service.getItemStock(args).then((itemStockById) => {
+                if (itemStockById && itemStockById.item) {
+                  if (a.item.code === itemStockById.item.code)
+                    a.qtyBeforeSO = itemStockById.quantity;
+                  }
+            });
+            a["isView"] = true;
           }
-        });
       }
-
-      for (var a of dataById.items) {
-        a["isView"] = true;
-      }
-
       this.data = dataById;
     });
   }
