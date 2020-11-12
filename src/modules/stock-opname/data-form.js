@@ -46,7 +46,7 @@ export class DataForm {
             var changeElement = this.data.items.map(element => {
                 if (element.isEdit == true) {
                     element.isAdjusted = true;
-                    element.remark = element._createdDate;
+                    element.remark = element.CreatedUtc;
                 }
                 this.checkAll = true;
                 return element;

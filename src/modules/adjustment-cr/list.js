@@ -22,13 +22,13 @@ export class List {
 
     columns = [
         { field: 'code', title: 'Nomor Dokumen'},
-        { field: '_createdDate', title: 'Tanggal Penyesuaian',
+        { field: 'CreatedUtc', title: 'Tanggal Penyesuaian',
         formatter: (value, data) => {
             return moment(value).locale(locale).format("DD MMMM YYYY");
         }
       },
         { field: 'storage.name', title: 'Sumber Penyimpanan' },
-        { field: '_createdBy', title: 'Dibuat Oleh'}
+        { field: 'CreatedBy', title: 'Dibuat Oleh'}
     ];
 
     loader = (info) => {

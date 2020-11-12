@@ -2,19 +2,19 @@
     <div class="form-horizontal">
         <au-datepicker value.bind="dateFrom" label="From"></au-datepicker>
         <au-datepicker value.bind="dateTo" label="To"></au-datepicker>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label class="col-sm-3 text-right control-label">Transaksi</label>
             <div class="col-sm-9 radio">
                 <label repeat.for="option of transactionTypeOptions">
                     <input type="radio" name="transactionType" model.bind="option" checked.bind="transactionType"/> ${option.text}
                 </label>
             </div>
-        </div>
+        </div> -->
         <au-autocomplete label="Tujuan Penyimpanan" value.bind="storage" loader.bind="storageLoader" text="name">
         </au-autocomplete>
         <div class="form-group">
             <label class="col-sm-3 text-right control-label">Status Packing List</label>
-            <div class="col-sm-9 radio">
+             <div class="col-sm-9 radio">
                 <label repeat.for="option of packingListStatusOptions">
                     <input type="radio" name="packingListStatus" model.bind="option" checked.bind="packingListStatus"/> ${option.text}
                 </label>

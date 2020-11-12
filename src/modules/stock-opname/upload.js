@@ -1,7 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-var StorageLoader = require('../../loader/storage-loader');
+var StorageLoader = require('../../loader/nstorage-loader');
 
 
 @inject(Router, Service, Element)
@@ -43,10 +43,9 @@ export class Create {
             e.storage = "Harus diisi";
             this.error = e;
         } else {
-            formData.append("storageId", storage._id);
             formData.append("fileUpload", fileList[0]);
 
-            var endpoint = 'stock-opnames';
+            var endpoint = `warehouse/upload-so/upload?source=${storage.code}`;
             var request = {
                 method: 'POST',
                 headers: {
@@ -58,7 +57,10 @@ export class Create {
             return promise
                 .then((result) => {
                     this.service.publish(promise);
-                    if (result.status == 409) {
+                    if (result.status == 409 || result.status == 200) {
+                        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+                        this.service._downloadFile(getRequest);
+                        this.service.publish(getRequest);
                         alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki");
                     }
                     else if (result.status == 404) {
@@ -66,6 +68,12 @@ export class Create {
                     }
                     else if (result.status == 412) {
                         alert("Dokumen harus csv format");
+                    }
+                    else if(result.status == 500){
+                        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+                        this.service._downloadFile(getRequest);
+                        this.service.publish(getRequest);
+                        alert("Terjadi kesalahan pada sistem");
                     }
                     else {
                         alert("Data Berhasil Diupload");

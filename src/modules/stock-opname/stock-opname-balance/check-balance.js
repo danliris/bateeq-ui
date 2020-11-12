@@ -1,7 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-var StorageLoader = require('../../../loader/storage-loader');
+var StorageLoader = require('../../../loader/nstorage-loader');
 
 
 @inject(Router, Service, Element)

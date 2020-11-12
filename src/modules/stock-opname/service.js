@@ -4,7 +4,7 @@ import { RestService } from '../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-const serviceUri = 'stock-opnames';
+const serviceUri = 'stock-opname';
 
 export class Service extends RestService {
     constructor(http, aggregator, config, api) {
@@ -12,27 +12,27 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var endpoint = `${serviceUri}`;
+        var endpoint = `${serviceUri}/by-user`;
         return super.list(endpoint, info);
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/by-user`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/by-user/${data._id}`;
         return super.delete(endpoint, data);
     }
 
     getById(id) {
-        var endpoint = `${serviceUri}/${id}`;
+        var endpoint = `${serviceUri}/by-user/${id}`;
         return super.get(endpoint);
     }
 
-    getItemInInventory(id){
-        var endpoint = `${serviceUri}/item-inventory/${id}`;
+    getItemStock(args){
+        var endpoint = `inventory/stock?source=${args.source}&itemId=${args.itemData}`;
         return super.get(endpoint);
     }
 }

@@ -19,14 +19,16 @@ export class Edit {
     var id = params.id;
     this.data = await this.service.getById(id);
     if (!this.data.isProcessed) {
-      var inventories = await this.service.getItemInInventory(id);
       for (var a of this.data.items) {
-        for (var b of inventories) {
-          if (b && b.item) {
-            if (a.item.code === b.item.code)
-              a.qtyBeforeSO = b.quantity;
+        let args = {
+          itemData: a.item._id,
+          source: this.data.storage._id
+        };
+        var inventories = await this.service.getItemStock(args);
+          if (inventories && inventories.item) {
+            if (a.item.code === inventories.item.code)
+              a.qtyBeforeSO = inventories.quantity;
           }
-        }
         if ((a.qtyBeforeSO - a.qtySO) === 0)
           a["isView"] = true;
         else

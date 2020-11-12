@@ -1,7 +1,7 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-var StorageLoader = require('../../../loader/storage-loader');
+var StorageLoader = require('../../../loader/nstorage-loader');
 import moment from 'moment';
 
 @inject(Router, Service)
@@ -13,16 +13,16 @@ export class Report {
 
     data = [];
 
-    transactionTypeOptions = [
-        { id: 0, text: 'Pengiriman Barang Baru' },
-        { id: 1, text: 'Pengiriman Barang Retur' }
-    ]
+    // transactionTypeOptions = [
+    //     { id: 0, text: 'Pengiriman Barang Baru' },
+    //     { id: 1, text: 'Pengiriman Barang Retur' }
+    // ]
 
     transactionType = {};
 
     packingListStatusOptions = [
-        { id: 0, text: 'Belum Diterima' },
-        { id: 1, text: 'Sudah Diterima' }
+        { id: 0, text: 'Belum Diterima', isReceived: false },
+        { id: 1, text: 'Sudah Diterima', isReceived: true }
     ]
 
     packingListStatus = {};
@@ -30,7 +30,7 @@ export class Report {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        this.transactionType = this.transactionTypeOptions[0];
+        // this.transactionType = this.transactionTypeOptions[0];
         this.packingListStatus = this.packingListStatusOptions[0];
     }
 
@@ -42,18 +42,19 @@ export class Report {
                 return moment(value).format("DD MMMM YYYY");
             }
         },
-        { field: "source", title: "Sumber Penyimpanan" },
+        { field: "sourceName", title: "Sumber Penyimpanan" },
         {
-            field: "spkDocuments", title: "Tujuan Penyimpanan",
-            formatter: function (value, data, index) {
-                var destination = "";
-                if (value.length > 0) {
-                    destination = value[0].destination.name;
-                }
-                return destination;
-            }
+            field: "destinationName", title: "Tujuan Penyimpanan"
+            // ,
+            // // formatter: function (value, data, index) {
+            // //     var destination = "";
+            // //     if (value.length > 0) {
+            // //         destination = value[0].destination.name;
+            // //     }
+            // //     return destination;
+            // }
         },
-        { field: "transaksi", title: "Transaksi" },
+        // { field: "transaksi", title: "Transaksi" },
         { field: "packingList", title: "packingList" },
         { field: "totalQuantity", title: "Total Kuantitas Barang" },
         { field: "totalPrice", title: "Total Harga Jual" }
@@ -73,9 +74,9 @@ export class Report {
         var filter = {
             dateFrom: this.dateFrom.format('YYYY-MM-DD'),
             dateTo: this.dateTo.format('YYYY-MM-DD'),
-            transaction: this.transactionType.id || 0,
-            packingListStatus: this.packingListStatus.id || 0,
-            storageId: this.storage._id || ''
+            // transaction: this.transactionType.id || 0,
+            status: this.packingListStatus.id || false,
+            destinationCode : this.storage.code || ''
         }
         this.service.generateExcel(filter);
     }
@@ -87,38 +88,67 @@ export class Report {
         var filter = {
             dateFrom: this.dateFrom.format('YYYY-MM-DD'),
             dateTo: this.dateTo.format('YYYY-MM-DD'),
-            transaction: this.transactionType.id || 0,
-            packingListStatus: this.packingListStatus.id || 0,
-            storageId: this.storage._id || ''
+            // transaction: this.transactionType.id || 0,
+            status: this.packingListStatus.id || false,
+            destinationCode : this.storage.code || ''
         }
 
         this.service.search(filter).then(result => {
-            this.data = result.data.map(item => {
-                var details = item.spkDocuments.map(packinglist => {
-                    var sendQuantity = 0;
-                    var price = 0;
+            this.data = result.map(data => {
+                    // var Quantity = 0;
+                    // var price = 0;
 
-                    sendQuantity = packinglist.items.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.sendQuantity || 0), 0);
-                    price = packinglist.items.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.item.domesticCOGS), 0);
+                    // Quantity = data.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.Quantity || 0), 0);
+                    // price = data.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.dataDomesticSale), 0);
                     
                     return {
-                        date: moment(item.date).format("DD-MM-YYYY"),
-                        source: packinglist.source,
-                        destination: packinglist.destination,
-                        packingList: packinglist.packingList,
-                        transaction: (packinglist.packingList.indexOf("EFR-KB/PLB") != -1 ? 0 : 1),
-                        transactionName: (packinglist.packingList.indexOf("EFR-KB/PLB") != -1 ? "Pengiriman Barang Baru" : "Pengiriman Barang Retur"),
-                        status: (packinglist.isReceived ? 1 : 0),
-                        statusName: (packinglist.isReceived ? "Sudah Diterima" : "Belum Diterima"),
-                        sendQuantity: sendQuantity,
-                        totalPrice: price
+                        date: moment(data.date).format("DD-MM-YYYY"),
+                        sourceCode: data.sourceCode,
+                        sourceName: data.sourceName,
+                        destinationCode: data.destinationCode,
+                        destinationName: data.destinationName,
+                        packingList: data.packingList,
+                        barcode: data.itemCode,
+                        name: data.itemName,
+                        // transaction: (packinglist.packingList.indexOf("EFR-KB/PLB") != -1 ? 0 : 1),
+                        // transactionName: (packinglist.packingList.indexOf("EFR-KB/PLB") != -1 ? "Pengiriman Barang Baru" : "Pengiriman Barang Retur"),
+                        status: (data.isReceived ? true : false),
+                        statusName: (data.isReceived ? "Sudah Diterima" : "Belum Diterima"),
+                        totalQuantity: data.Quantity,//Quantity,
+                        price : data.itemDomesticSale,
+                        totalPrice: data.itemDomesticSale * data.Quantity//price
                     }
-                });
-
-                return [].concat.apply([], details);
             })
-
             this.data = [].concat.apply([], this.data);
         })
+
+        // this.service.search(filter).then(result => {
+        //     this.data = result.data.map(item => {
+        //         var details = item.spkDocuments.map(packinglist => {
+        //             var sendQuantity = 0;
+        //             var price = 0;
+
+        //             sendQuantity = packinglist.items.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.sendQuantity || 0), 0);
+        //             price = packinglist.items.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.item.domesticCOGS), 0);
+                    
+        //             return {
+        //                 date: moment(item.date).format("DD-MM-YYYY"),
+        //                 source: packinglist.source,
+        //                 destination: packinglist.destination,
+        //                 packingList: packinglist.packingList,
+        //                 // transaction: (packinglist.packingList.indexOf("EFR-KB/PLB") != -1 ? 0 : 1),
+        //                 // transactionName: (packinglist.packingList.indexOf("EFR-KB/PLB") != -1 ? "Pengiriman Barang Baru" : "Pengiriman Barang Retur"),
+        //                 status: (packinglist.isReceived ? true : false),
+        //                 statusName: (packinglist.isReceived ? "Sudah Diterima" : "Belum Diterima"),
+        //                 sendQuantity: sendQuantity,
+        //                 totalPrice: price
+        //             }
+        //         });
+
+        //         return [].concat.apply([], details);
+        //     })
+
+        //     this.data = [].concat.apply([], this.data);
+        // })
     }
 }

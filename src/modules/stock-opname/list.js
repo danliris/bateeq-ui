@@ -26,11 +26,11 @@ export class List {
             { field: "code", title: "SO Dokumen" },
             { field: "storage.name", title: "Sumber Penyimpanan" },
             {
-                field: "_createdDate", title: "Tanggal", formatter: (value, data) => {
+                field: "date", title: "Tanggal", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "_createdBy", title: "Dibuat Oleh" },
+            { field: "CreatedBy", title: "Dibuat Oleh" },
             { 
                 field: "isProcessed", title: "Status",
                 formatter: function (value, row, index) {

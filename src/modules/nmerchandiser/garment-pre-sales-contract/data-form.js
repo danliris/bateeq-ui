@@ -90,7 +90,7 @@ export class DataForm {
     }
     
     sectionView = (section) => { 
-        return `${section.Code}`
+        return `${section.Code} - ${section.Name}`
     }
     buyerAgentView = (buyerAgent) => {
         return `${buyerAgent.Code} - ${buyerAgent.Name}`
