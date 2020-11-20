@@ -4,25 +4,39 @@ import { RestService } from "../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const serviceUri = "pageSize";
-
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "customers");
+    super(http, aggregator, config, "voucher");
   }
 
-  getCustomers(args) {
-    let endpoint = "getUser";
+
+  getlist(args) {
+    let endpoint = "voucher";
     return super.list(endpoint, args);
   }
 
   search(args) {
-    let endpoint = "searchUser";
+    let endpoint = "voucher/search";
     return super.list(endpoint, args);
   }
 
-  getCustomersById(id) {
-    var endpoint = `getUserDetail/${id}`;
+  create(args){
+    let endpoint = "voucher";
+    return super.post(endpoint,args);
+  }
+
+  edit(args){
+    let endpoint = "voucher";
+    return super.put(endpoint,args);
+  }
+  
+  delete(id){
+    let endpoint = `voucher/${id}`;
+    return super.delete(endpoint);
+  }
+
+  getById(id) {
+    var endpoint = `voucher/${id}`;
     var promise = this.endpoint.find(endpoint);
     this.publish(promise);
     return promise.then((result) => {
@@ -39,10 +53,5 @@ export class Service extends RestService {
       this.publish(promise);
       return Promise.resolve(result);
     });
-  }
-
-  generateExcel(dateFrom, dateTo) {
-    var endpoint = `${serviceUri}/download?dateFrom=${dateFrom}&dateTo=${dateTo}`;
-    return super.getXls(endpoint);
   }
 }
