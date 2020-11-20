@@ -15,12 +15,12 @@ export class Service extends RestService {
     search(info) {
         //var uri = `${reportUri}/${info.dateFrom}/${info.dateTo}/${info.transaction}/${info.storageId}/${info.packingListStatus}`;
         //return super.get(uri);
-        var endpoint = `${reportUri}/by-user?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&destinationCode=${info.destinationCode}&status=${info.status}`;
+        var endpoint = `${reportUri}/by-user?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&destinationCode=${info.destinationCode}&status=${info.status}&transaction=${info.transaction}&packingList=${info.packingList}`;
         return super.get(endpoint);
     }
 
     generateExcel(info) {
-        var endpoint = `${reportUri}/by-user/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&destinationCode=${info.destinationCode}&status=${info.status}`;
+        var endpoint = `${reportUri}/by-user/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&destinationCode=${info.destinationCode}&status=${info.status}&transaction=${info.transaction}&packingList=${info.packingList}`;
         return super.getXls(endpoint);
     }
 }

@@ -9,9 +9,9 @@ export class Report {
 
     options = {
         columns: [
-            { field: 'store.name', title: 'Toko' },
-            { field: 'grandTotal', title: 'Omset' },
-            { field: 'count', title: 'Kuantitas' }
+            { field: 'Store.Name', title: 'Toko' },
+            { field: 'GrandTotal', title: 'Omset' },
+            { field: 'Count', title: 'Kuantitas' }
             
         ],
         search: false,
@@ -21,10 +21,10 @@ export class Report {
     
     options2 = {
         columns: [
-            { field: 'store.name', title: 'Toko' },
-            { field: 'grandTotal', title: 'Omset' },
-            { field: 'count', title: 'Kuantitas' },
-            { field: 'remark', title: 'Keterangan'}            
+            { field: 'Store.Name', title: 'Toko' },
+            { field: 'GrandTotal', title: 'Omset' },
+            { field: 'Count', title: 'Kuantitas' },
+            { field: 'Remark', title: 'Keterangan'}            
             
         ],
         search: false,
@@ -45,27 +45,34 @@ export class Report {
                 return result;
             });
 
-        this.standaloneGrandTotal = this.getGrandTotal(apiResult.category.standalone);
-        this.consignmentGrandTotal = this.getGrandTotal(apiResult.category.consignment);
-        this.onlineGrandTotal = this.getGrandTotal(apiResult.category.online);
-        this.generalSalesGrandTotal = this.getGrandTotal(apiResult.category.generalSales);
-        this.vvipGrandTotal = this.getGrandTotal(apiResult.category.vvip);
-        this.totalOmset = this.standaloneGrandTotal + this.consignmentGrandTotal + this.onlineGrandTotal + this.generalSalesGrandTotal
-            + this.vvipGrandTotal;
+        this.standaloneGrandTotal = this.getGrandTotal(apiResult.CategoryList.StandAlone);
+        this.consignmentGrandTotal = this.getGrandTotal(apiResult.CategoryList.Konsinyasi);
+        this.onlineGrandTotal = this.getGrandTotal(apiResult.CategoryList.Online);
+        this.generalSalesGrandTotal = this.getGrandTotal(apiResult.CategoryList.WholeSale);
+        // this.vvipGrandTotal = this.getGrandTotal(apiResult.category.vvip);
+        //this.totalOmset = this.standaloneGrandTotal + this.consignmentGrandTotal + this.onlineGrandTotal + this.generalSalesGrandTotal + this.vvipGrandTotal;
+        this.totalOmset = this.standaloneGrandTotal + this.consignmentGrandTotal + this.onlineGrandTotal + this.generalSalesGrandTotal;
+    
+        this.standaloneCount = this.getCount(apiResult.CategoryList.StandAlone);
+        this.consignmentCount = this.getCount(apiResult.CategoryList.Konsinyasi);
+        this.onlineCount = this.getCount(apiResult.CategoryList.Online);
+        this.generalSalesCount = this.getCount(apiResult.CategoryList.WholeSale);
+        //this.vvipCount = this.getCount(apiResult.category.vvip);
+        // this.totalQuantity = this.standaloneCount + this.consignmentCount + this.onlineCount + this.generalSalesCount+ this.vvipCount;
+        this.totalQuantity = this.standaloneCount + this.consignmentCount + this.onlineCount + this.generalSalesCount;
+    
+    
+        this.standalone = this.convertToLocaleString(this.getArray(apiResult.DataList.StandAlone));        
+    
+        this.consignment = this.convertToLocaleString(this.getArray(apiResult.DataList.Konsinyasi));
+        this.online = this.convertToLocaleString(this.getArray(apiResult.DataList.Online));
+        var dimGeneralSales = this.convertToLocaleString(this.getArray(apiResult.DataList.WholeSale));
+        //this.standalone = this.convertToLocaleString(this.getArray(apiResult.data.standalone));        
 
-        this.standaloneCount = this.getCount(apiResult.category.standalone);
-        this.consignmentCount = this.getCount(apiResult.category.consignment);
-        this.onlineCount = this.getCount(apiResult.category.online);
-        this.generalSalesCount = this.getCount(apiResult.category.generalSales);
-        this.vvipCount = this.getCount(apiResult.category.vvip);
-        this.totalQuantity = this.standaloneCount + this.consignmentCount + this.onlineCount + this.generalSalesCount
-            + this.vvipCount;
+        //this.consignment = this.convertToLocaleString(this.getArray(apiResult.data.consignment));
+        //this.online = this.convertToLocaleString(this.getArray(apiResult.data.online));
+        //var dimGeneralSales = this.convertToLocaleString(this.getArray(apiResult.data.generalSales));
 
-        this.standalone = this.convertToLocaleString(this.getArray(apiResult.data.standalone));        
-
-        this.consignment = this.convertToLocaleString(this.getArray(apiResult.data.consignment));
-        this.online = this.convertToLocaleString(this.getArray(apiResult.data.online));
-        var dimGeneralSales = this.convertToLocaleString(this.getArray(apiResult.data.generalSales));
         var arrGeneralSales = [];
         for(var item of dimGeneralSales){
             var remark = "";
@@ -81,24 +88,24 @@ export class Report {
 
         //this.vvip = this.convertToLocaleString(this.getArray(apiResult.data.vvip));
         var dimVvip = this.convertToLocaleString(this.getArray(apiResult.data.vvip));
-        var arrVvip = [];
-        for(var item of dimVvip){
-            var remark = "";
-            if(item.remark && item.remark.length > 0){
-                for(var a of item.remark){
-                  remark += `${a.Ket} :Rp.${parseInt( a.Totalrp ).toLocaleString()} ;`;  
-                }
-                item.remark = remark;
-            }
-            arrVvip.push(item);           
-        }
-        this.vvip = arrVvip;
+        // var arrVvip = [];
+        // for(var item of dimVvip){
+        //     var remark = "";
+        //     if(item.remark && item.remark.length > 0){
+        //         for(var a of item.remark){
+        //           remark += `${a.Ket} :Rp.${parseInt( a.Totalrp ).toLocaleString()} ;`;  
+        //         }
+        //         item.remark = remark;
+        //     }
+        //     arrVvip.push(item);           
+        // }
+        // this.vvip = arrVvip;
 
     }
 
     getGrandTotal(object) {
         if (typeof object !== "undefined") {
-            return object.grandTotal;
+            return object.GrandTotal;
         }
         else {
             return 0;
@@ -107,7 +114,7 @@ export class Report {
 
     getCount(object) {
         if (typeof object !== "undefined") {
-            return object.count;
+            return object.Count;
         }
         else {
             return 0;
@@ -125,8 +132,8 @@ export class Report {
 
     convertToLocaleString(array){
         for (var a of array){
-            a.grandTotal = a.grandTotal.toLocaleString();
-            a.count = a.count.toLocaleString();
+            a.GrandTotal = a.GrandTotal.toLocaleString();
+            a.Count = a.Count.toLocaleString();
         }
         return array;
     }

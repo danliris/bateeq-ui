@@ -22,6 +22,8 @@ export class List {
         this.total=0;
         this.totalharga=0;
         this.storageId= this.storages._id;
+        this.filter = this.filter;
+        
         this.service.getAllInventory(this.storageId, this.filter)
             .then(data => {
                 this.data = data;

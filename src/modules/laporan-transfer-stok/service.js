@@ -5,6 +5,7 @@ import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
 const serviceUriStorages = 'storages';
+const reportUri = 'transfer-stock/monitoring';
 
 export class Service extends RestService {
 
@@ -24,9 +25,10 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getAllRttByFilter(dateFrom, dateTo, status) {
-    var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'docs/efr-kb-rtt/' + dateFrom + "/" + dateTo + "/" + status;
+  getAllRttByFilter(dateFrom, dateTo) {
+    //var config = Container.instance.get(Config);
+    //var endpoint = config.getEndpoint("inventory").client.baseUrl + 'docs/efr-kb-rtt/' + dateFrom + "/" + dateTo + "/" + status;
+    var endpoint = `${reportUri}?dateFrom=${dateFrom}&dateTo=${dateTo}`;
     return super.get(endpoint);
   }
 
