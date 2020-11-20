@@ -14,34 +14,34 @@ export class Edit {
     }
 
     async activate(params) {
-        // var id = params.id;
-        // this.data = await this.service.getById(id);
-        this.data = {
-            id: 1,
-            voucherType: 'Percentage',
-            percentage: 10,
-            maxDiscount: 10000,
-            nominal: 10000,
-            minimumPayment: 10000,
-            appliesMultiply: true,
-            qtyItemPruchase: 10,
-            qtyItemGift: 1,
-            productPurchase: 'Baju A',
-            productGift: 'Baju B',
-            assignToCategory: 'Man',
-            categoryPurchase: 'Man',
-            discountPercentage: 10,
-            discountName: 'Batik Day',
-            discountCode: 'BatikDay',
-            discountType: 'Percentage',
-            totalUse: 30,
-            status: 'Active',
-            quantityVoucher: 100,
-            maxUsagePerUser: 2,
-            startDate: '03-10-2020',
-            endDate: '03-11-2020',
-            description: 'description vocher'
-        }
+        var id = params.id;
+        this.data = await this.service.getById(id);
+        // this.data = {
+        //     id: 1,
+        //     voucherType: 'Percentage',
+        //     percentage: 10,
+        //     maxDiscount: 10000,
+        //     nominal: 10000,
+        //     minimumPayment: 10000,
+        //     appliesMultiply: true,
+        //     qtyItemPruchase: 10,
+        //     qtyItemGift: 1,
+        //     productPurchase: 'Baju A',
+        //     productGift: 'Baju B',
+        //     assignToCategory: 'Man',
+        //     categoryPurchase: 'Man',
+        //     discountPercentage: 10,
+        //     discountName: 'Batik Day',
+        //     discountCode: 'BatikDay',
+        //     discountType: 'Percentage',
+        //     totalUse: 30,
+        //     status: 'Active',
+        //     quantityVoucher: 100,
+        //     maxUsagePerUser: 2,
+        //     startDate: '03-10-2020',
+        //     endDate: '03-11-2020',
+        //     description: 'description vocher'
+        // }
     }
 
     cancel(event) {
