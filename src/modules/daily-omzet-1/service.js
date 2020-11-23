@@ -4,7 +4,7 @@ import { RestService } from '../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-const serviceUri = "sales/omzet-per-day-1"
+const serviceUri = "sales/omzet-per-day"
 
 export class Service extends RestService {
 

@@ -10,7 +10,7 @@ const reportUri = 'transfer-stock/monitoring';
 export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "master");
+    super(http, aggregator, config, "inventory");
   }
 
   getAllInventory(storageId, keyword) {
@@ -25,10 +25,10 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getAllRttByFilter(dateFrom, dateTo) {
+  getAllRttByFilter(dateFrom, dateTo, status, code) {
     //var config = Container.instance.get(Config);
     //var endpoint = config.getEndpoint("inventory").client.baseUrl + 'docs/efr-kb-rtt/' + dateFrom + "/" + dateTo + "/" + status;
-    var endpoint = `${reportUri}?dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    var endpoint = `${reportUri}?dateFrom=${dateFrom}&dateTo=${dateTo}&status=${status}&code=${code}`;
     return super.get(endpoint);
   }
 
