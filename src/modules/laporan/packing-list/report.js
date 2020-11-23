@@ -13,10 +13,10 @@ export class Report {
 
     data = [];
 
-    // transactionTypeOptions = [
-    //     { id: 0, text: 'Pengiriman Barang Baru' },
-    //     { id: 1, text: 'Pengiriman Barang Retur' }
-    // ]
+    transactionTypeOptions = [
+         { id: 0, text: 'Pengiriman Barang Baru' },
+         { id: 1, text: 'Pengiriman Barang Retur' }
+    ]
 
     // transactionType = {};
 
@@ -30,8 +30,9 @@ export class Report {
     constructor(router, service) {
         this.router = router;
         this.service = service;
-        // this.transactionType = this.transactionTypeOptions[0];
+        this.transactionType = this.transactionTypeOptions[0];
         this.packingListStatus = this.packingListStatusOptions[0];
+        this.packingListNo = "";
     }
 
     columns = [
@@ -53,7 +54,7 @@ export class Report {
                 return destination;
             }
         },
-        //{ field: "transaksi", title: "Transaksi" },
+        { field: "transaksi", title: "Transaksi" },
         { field: "packingList", title: "packingList" },
         { field: "Quantity", title: "Total Kuantitas Barang" },
         { field: "itemDomesticSale", title: "Total Harga Jual" }
@@ -73,9 +74,10 @@ export class Report {
         var filter = {
             dateFrom: this.dateFrom.format('YYYY-MM-DD'),
             dateTo: this.dateTo.format('YYYY-MM-DD'),
-            // transaction: this.transactionType.id || 0,
+            transaction: this.transactionType.id || 0,
             status: this.packingListStatus.isDistributed || false,
-            destinationCode: this.storage.code || ''
+            destinationCode: this.storage.code || '',
+            packingList: this.packingListNo
         }
         this.service.generateExcel(filter);
     }
@@ -87,9 +89,10 @@ export class Report {
         var filter = {
             dateFrom: this.dateFrom.format('YYYY-MM-DD'),
             dateTo: this.dateTo.format('YYYY-MM-DD'),
-            //transaction: this.transactionType.id || 0,
+            transaction: this.transactionType.id || 0,
             status: this.packingListStatus.isDistributed || false,
-            destinationCode: this.storage.code || ''
+            destinationCode: this.storage.code || '',
+            packingList: this.packingListNo
         }
         console.log(filter)
         this.service.search(filter).then(spkDocs => {
@@ -99,7 +102,7 @@ export class Report {
             if (spkDocs != undefined) {
                 var tanggalRowSpan = 0;
                 //result.items = [];
-                console.log(spkDocs)
+                //console.log(spkDocs)
                 for (var data of spkDocs) {
                     var result = {};
                     var itemRowSpan = 0;
@@ -138,7 +141,7 @@ export class Report {
                     // itemData.source = data.source;
                     // itemData.destination = data.destination;
                     // itemData.destination = data.destination;
-                    //itemData.transaction = this.transactionType.id == 0 ? "Pengiriman Barang Baru" : "Pengiriman Barang Baru Return";
+                    result.transaction = this.transactionType.id == 0 ? "Pengiriman Barang Baru" : "Pengiriman Barang Baru Return";
                     result.packingList = data.packingList;
                     //itemData.packingList = data.packingList;
                     //itemData.status = this.packingListStatus.id == 0 ? "Belum Masuk Ekspedisi" : "Sudah Masuk Ekspedisi";
@@ -166,14 +169,14 @@ export class Report {
         this.reportHTML += "                <th>Tanggal</th>";
         this.reportHTML += "                <th>Sumber Penyimpanan</th>";
         this.reportHTML += "                <th>Tujuan Penyimpanan</th>";
-        // this.reportHTML += "                <th>Transaksi</th>";
+        this.reportHTML += "                <th>Transaksi</th>";
         this.reportHTML += "                <th>Packing List</th>";
         this.reportHTML += "                <th>Barcode</th>";
         this.reportHTML += "                <th>Nama Produk</th>";
-        this.reportHTML += "                <th>Status</th>";
         this.reportHTML += "                <th>Kuantitas Barang</th>";
         this.reportHTML += "                <th>Harga Jual Barang</th>";
-        this.reportHTML += "                <th>Total Harga</th>";
+        // this.reportHTML += "                <th>Total Harga</th>";
+        this.reportHTML += "                <th>Status</th>";
         this.reportHTML += "            </tr>";
         this.reportHTML += "        </thead>";
         this.reportHTML += "        <tbody>";
@@ -190,14 +193,14 @@ export class Report {
                         this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + data.tanggal.getDate() + " " + months[data.tanggal.getMonth()] + " " + data.tanggal.getFullYear() + "</td>";
                         this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + data.sourceName + "</td>";
                         this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + data.destinationName + "</td>";
-                        // this.reportHTML += "        <td width='300px' rowspan='" + item.itemRowSpan + "'>" + item.transaction + "</td>";
+                        this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + data.transaction + "</td>";
                         this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + data.packingList + "</td>";
                         this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + data.barcode + "</td>";
                         this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + data.namaProduk + "</td>";
-                        this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + data.isDistributed + "</td>";
                         this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + (data.totalQty).toLocaleString() + "</td>";
                         this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + (data.price).toLocaleString() + "</td>";
-                        this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + (data.totalPrice).toLocaleString() + "</td>";
+                        this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + data.isDistributed + "</td>";
+                        //this.reportHTML += "        <td width='300px' rowspan='" + data.itemRowSpan + "'>" + (data.totalPrice).toLocaleString() + "</td>";
                     }
                     this.reportHTML += "        </tr>";
                     isTanggalRowSpan = true;

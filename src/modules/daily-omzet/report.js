@@ -49,13 +49,16 @@ export class Report {
         this.consignmentGrandTotal = this.getGrandTotal(apiResult.CategoryList.Konsinyasi);
         this.onlineGrandTotal = this.getGrandTotal(apiResult.CategoryList.Online);
         this.generalSalesGrandTotal = this.getGrandTotal(apiResult.CategoryList.WholeSale);
+
         this.vvipGrandTotal = this.getGrandTotal(apiResult.CategoryList.vvip);
         this.totalOmset = this.standaloneGrandTotal + this.consignmentGrandTotal + this.onlineGrandTotal + this.generalSalesGrandTotal+this.vvipGrandTotal;
         console.log(this.totalOmset);
+
         this.standaloneCount = this.getCount(apiResult.CategoryList.StandAlone);
         this.consignmentCount = this.getCount(apiResult.CategoryList.Konsinyasi);
         this.onlineCount = this.getCount(apiResult.CategoryList.Online);
         this.generalSalesCount = this.getCount(apiResult.CategoryList.WholeSale);
+
         this.vvipCount = this.getCount(apiResult.CategoryList.vvip);
         this.totalQuantity = this.standaloneCount + this.consignmentCount + this.onlineCount + this.generalSalesCount + this.vvipCount;
         console.log(this.totalQuantity);
@@ -64,6 +67,7 @@ export class Report {
         this.consignment = this.convertToLocaleString(this.getArray(apiResult.DataList.Konsinyasi));
         this.online = this.convertToLocaleString(this.getArray(apiResult.DataList.Online));
         var dimGeneralSales = this.convertToLocaleString(this.getArray(apiResult.DataList.WholeSale));
+
         var arrGeneralSales = [];
         for(var item of dimGeneralSales){
             var remark = "";
@@ -91,6 +95,7 @@ export class Report {
             arrVvip.push(item);           
         }
         this.vvip = arrVvip;
+
 
     }
 

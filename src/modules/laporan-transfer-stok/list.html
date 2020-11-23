@@ -3,6 +3,7 @@
     <form class="form-horizontal">
         <datepicker label="From" value.bind="data.filter.dateFrom" error.bind="error.filter.dateFrom" read-only.bind="(readOnly)"></datepicker>
         <datepicker label="To" value.bind="data.filter.dateTo" error.bind="error.filter.dateTo" read-only.bind="(readOnly)"></datepicker>
+        <textbox label="No. Transferstock" value.bind="transferNo" placeholder="No. Transferstock"></textbox>
         <dropdown label="Status" error.bind="error.filter.status" value.bind="status" items.bind="statuses" change.delegate="setStatus($event)"></dropdown>
         <div class="form-group">
             <label for="contact" class="col-sm-6 control-label"></label>
