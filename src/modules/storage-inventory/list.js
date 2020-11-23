@@ -21,6 +21,7 @@ export class List {
     reloadItem() { 
         this.total=0;
         this.totalharga=0;
+
         this.storageId= this.storages._id;
         this.filter = this.filter;
         
@@ -37,7 +38,7 @@ export class List {
     }
 
     excel() {
-        this.storageId = this.storages._id; //soon
+        this.storageId = this.storages.code; //soon
         this.service.generateExcel(this.storageId, this.filter)
             // .then(data => {
             //     this.data = data;
@@ -45,7 +46,7 @@ export class List {
     }
 
     view(data) { 
-        this.router.navigateToRoute('view', { storageId: data.StorageId, itemCode: data.itemCode });
+        this.router.navigateToRoute('view', { storageId: data.StorageId, itemCode: data.ItemCode });
     } 
 
     get storage() {
