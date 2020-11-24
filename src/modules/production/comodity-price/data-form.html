@@ -43,7 +43,7 @@
             columns.bind="itemsInfo.columns"
             read-only.bind="readOnly"
             options.bind="itemOptions"
-            item-template="modules/garment-production/comodity-price/template/item"
+            item-template="modules/production/comodity-price/template/item"
             add.bind="addItems" 
             if.bind="selectedUnit && isCreate">
         </au-collection>
@@ -54,7 +54,7 @@
             columns.bind="itemsInfoEdit.columns"
             read-only.bind="readOnly"
             options.bind="itemOptions"
-            item-template="modules/garment-production/comodity-price/template/item-edit"
+            item-template="modules/production/comodity-price/template/item-edit"
             
             if.bind="selectedUnit && isEdit">
         </au-collection>

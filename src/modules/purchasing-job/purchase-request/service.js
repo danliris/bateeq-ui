@@ -33,7 +33,7 @@ class Service extends RestService {
 
 class SalesService extends RestService {
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "sales");
+        super(http, aggregator, config, "nmerchandiser");
     }
 
     getCostCalculationByRONo(info) {

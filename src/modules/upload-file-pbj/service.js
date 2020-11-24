@@ -12,7 +12,7 @@ export class Service extends RestService {
   }
 
   search(info) {
-    var endpoint = 'warehousee/upload-pkbj';
+    var endpoint = 'warehouse/upload-pkbj';
     return super.list(endpoint, info);
   }
 

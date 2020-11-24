@@ -1,6 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var SupplierLoader = require('../../../loader/nsupplier-loader');
+var SupplierLoader = require('../../../loader/ngarment-supplier-loader');
 
 @containerless()
 @inject(BindingEngine, Element)
@@ -108,9 +108,9 @@ export class DataForm {
         var selectedSupplier = newValue;
         console.log(selectedSupplier);
         if (selectedSupplier) {
-            if (selectedSupplier._id) {
+            if (selectedSupplier.Id) {
                 this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier._id;
+                this.data.supplierId = selectedSupplier.Id;
             }
         } else {
             this.data.supplier = {};
