@@ -1,6 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var SupplierLoader = require('../../../loader/nsupplier-loader');
+var SupplierLoader = require('../../../loader/ngarment-supplier-loader');
 var CurrencyLoader = require('../../../loader/ngarment-currencies-by-date-loader');
 var IncomeTaxLoader = require('../../../loader/nincome-tax-loader');
 import moment from 'moment';

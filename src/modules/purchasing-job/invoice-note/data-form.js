@@ -1,6 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var SupplierLoader = require('../../../loader/nsupplier-loader');
+var SupplierLoader = require('../../../loader/ngarment-supplier-loader');
 //var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
 var CurrencyLoader = require('../../../loader/ngarment-currencies-by-date-loader');
 var VatLoader = require('../../../loader/vat-loader');
@@ -280,10 +280,10 @@ export class DataForm {
     async supplierChanged(newValue, oldValue) {
         var selectedSupplier = newValue;
         if (selectedSupplier) {
-            if (selectedSupplier._id) {
+            if (selectedSupplier.Id) {
                 this.data.supplier = selectedSupplier;
-                this.data.supplierId = selectedSupplier._id;
-                this.options.supplierId = selectedSupplier._id;
+                this.data.supplierId = selectedSupplier.Id;
+                this.options.supplierId = selectedSupplier.Id;
                 this.options.useVat=false;
                 this.options.useIncomeTax=false;
             }
