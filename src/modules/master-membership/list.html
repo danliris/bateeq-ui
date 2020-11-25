@@ -1,0 +1,20 @@
+<template>
+  <h1 class="page-header">Master Membership</h1>
+  <au-table
+    view-model.ref="table"
+    data.bind="loader"
+    options.bind="options"
+    columns.bind="columns"
+    sortable.bind="false"
+    page-size="25"
+    context.bind="context"
+    context-click.delegate="contextClickCallback($event)"
+    row-formatter.bind="rowFormatter"
+  >
+    <div slot="toolbar" class="btn-group">
+      <button class="btn btn-success" click.delegate="create()">
+        Add Tier
+      </button>
+    </div>
+  </au-table>
+</template>
