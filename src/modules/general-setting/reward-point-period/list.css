@@ -1,0 +1,22 @@
+.save {
+  position: absolute;
+  left: 90%;
+  width: 10%;
+}
+
+.text-left {
+  height: 50px;
+  padding-top: 5px;
+}
+
+.text-right {
+  height: 50px;
+  padding-top: 5px;
+  text-align: right;
+}
+
+.text-center {
+  height: 50px;
+  padding-top: 5px;
+  text-align: center;
+}
