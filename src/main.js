@@ -30,7 +30,7 @@ export async function configure(aurelia) {
         }
       }
 
-      var auth = "https://bateeq-auth-api-dev.azurewebsites.net/v1/";
+      var auth = "https://bateeq-auth-api-dev.azurewebsites.net/v1";
       var core = "https://bateeq-core-api-dev.azurewebsites.net/v1/core/";
       var ncore ="https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
       var master = "https://bateeq-core-api-dev.azurewebsites.net/v1/master/";
@@ -46,7 +46,8 @@ export async function configure(aurelia) {
       //var masterplan ="https://com-bateeq-service-masterplan-dev.azurewebsites.net/v1/";
       var nmasterplan ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
       var customers = "https://bateeq-api-auth.azurewebsites.net/v1/api/";
-      var rewardPoints = "https://bateeq-service-voucher-dev.azurewebsites.net/v1/api/"
+      var rewardPoints = "https://bateeq-service-voucher-dev.azurewebsites.net/v1/api/";
+      var voucher= "https://bateeq-service-voucher-dev.azurewebsites.net/v1/api/";
 
       //Config API
       config.registerEndpoint("auth", auth);
@@ -66,6 +67,7 @@ export async function configure(aurelia) {
       config.registerEndpoint("nmasterplan", nmasterplan);
       config.registerEndpoint("customers", customers);
       config.registerEndpoint("rewardPoints", rewardPoints);
+      config.registerEndpoint("voucher",voucher);
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);

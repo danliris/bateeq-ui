@@ -14,7 +14,7 @@
     <au-dropdown
       label="Voucher Type*"
       value.bind="data.voucherType"
-      items.bind="voucherTypeSources"
+      items.bind="voucherTypeList"
       options.bind="controlOptions"
       read-only.bind="readOnly"
     >
@@ -26,7 +26,7 @@
       <au-dropdown
         label="AssignTo*"
         value.bind="data.assignToCategory"
-        items.bind="categorySources"
+        items.bind="categorySourcesList"
         options.bind="controlOptions"
         read-only.bind="readOnly"
         placeholder="Product Category"
@@ -85,9 +85,10 @@
     </div>
 
     <div
-      css="display: ${data.voucherType === 'Buy n free m' || 
+      css="display: ${(data.voucherType === 'Buy n free m' || 
         data.voucherType === 'Buy n discount m%' || 
-        data.voucherType === 'Buy n discount m% product (n)th'
+        data.voucherType === 'Buy n discount m% product (n)th') 
+        && data.assignToCategory=== 'Product'
          ? '': 'none'}"
     >
       <au-autocomplete
@@ -122,7 +123,7 @@
     </div>
 
     <div
-      css="display: ${data.voucherType === 'Buy n discount m%' ? '': 'none'}"
+      css="display: ${(data.voucherType === 'Buy n discount m%')&& data.assignToCategory=== 'Category' ? '': 'none'}"
     >
       <au-autocomplete
         value.bind="data.categoryPurchase"

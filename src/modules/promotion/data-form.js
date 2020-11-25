@@ -10,7 +10,7 @@ export class DataForm {
     @bindable data = {};
     @bindable error = {};
     @bindable title;
-
+    @bindable voucherTypeList=[];
     controlOptions = {
         label: {
             length: 4
@@ -43,25 +43,9 @@ export class DataForm {
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
+        // this.data.combo.voucherType = voucherTypeSources;
+        this.voucherTypeList = this.context.voucherTypeList;
         this.error = this.context.error;
-
-        // if (!this.data.BookingOrderDate) {
-        //     this.data.BookingOrderDate = new Date();
-        // }
-        // if(this.data.CanceledQuantity > 0 || this.data.ExpiredBookingQuantity > 0){
-        //   this.beginingOrderQuantity = this.data.OrderQuantity + this.data.ExpiredBookingQuantity + this.data.CanceledQuantity;
-        // }
-
-        // var arg = {
-        //     page:  1,
-        //     size: 1,
-        // }
-
-        // this.data.maxWH= await this.service.searchWHConfirm(arg)
-        //     .then(result => {
-        //         return result.data[0].UnitMaxValue + result.data[0].SKMaxValue;
-                
-        //     });
     }
 
     @computedFrom("data.Id")
@@ -69,8 +53,10 @@ export class DataForm {
         return (this.data.Id || '').toString() != '';
     }
 
+    // delete(data){
+    //     console.log(data);
+    // }
     get productLoader() {
         return []
-        // return ProductLoader
     }
 } 
