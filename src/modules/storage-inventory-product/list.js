@@ -28,9 +28,12 @@ itemView =(items) =>{
 
     reloadItem() { 
         this.total=0;
+        //console.log(this.item);
         this.itemCode= this.item ? this.item.code :"";
+        //console.log(this.itemCode)
         this.service.getAllInventorybyItemId(this.itemCode)
             .then(data => {
+                //console.log(data);
                 this.data = data;
                 for (var item of this.data)
                 {
