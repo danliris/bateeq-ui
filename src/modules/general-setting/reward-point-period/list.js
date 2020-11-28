@@ -15,17 +15,11 @@ export class List {
   pointsEarned = 0;
 
   attached() {
-    this.options.height =
-      $(window).height() -
-      $("nav.navbar").height() -
-      $("h1.page-header").height();
   }
 
   async activate(params) {
-    this.rewardPoint = await this.service.getRewardPoint();
-    this.id = this.rewardPoint[0].id;
-    this.shoppingTotal = this.rewardPoint[0].shoppingTotal;
-    this.pointsEarned = this.rewardPoint[0].pointsEarned;
+    this.data = await this.service.getRewardPointExipred();
+    this.masaBerlakuPoin = this.data.value;
   }
 
   controlOptions = {
@@ -38,14 +32,12 @@ export class List {
   };
 
   onSave() {
-    // this.service.update({
-    //   id: this.id,
-    //   shoppingTotal: this.shoppingTotal,
-    //   pointsEarned: this.pointsEarned,
-    //   active: true
-    // })
-    // .then(res => {
-    //   alert('Updated')
-    // })
+    this.service.update({
+      id: 1,
+      value: this.masaBerlakuPoin
+    })
+    .then(res => {
+      alert('Updated')
+    })
   }
 }
