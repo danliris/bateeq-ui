@@ -73,6 +73,10 @@ export class Create {
             .catch(e=>{
                 if (e.statusCode == 500) {
                     alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                }
+                else if (e.statusCode == 400) {
+                    console.log(e.data);
+                        alert("Lengkapi kembali Form dengan tanda bintang");
                 } else {
                     this.error = e;
                 }
