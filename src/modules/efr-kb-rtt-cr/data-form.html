@@ -7,6 +7,7 @@
         <dropdown label="Tujuan Penyimpanan" value.bind="data.destination" items.bind="destinations"></dropdown>
         <p class="col-md-1">Barcode</p>
         <input type="text" focus.bind="hasFocus" value.bind="barcode" class="col-md-3" aria-placeholder="Barcode" input.delegate="barcodeChoose($event)"></input>
+        <!-- <input type="text" focus.bind="hasFocus" value.bind="barcode" class="col-md-3" aria-placeholder="Barcode" ></input> -->
         <!-- <finishedgoods-auto-suggest label="Nama Barang" value.bind="item" class="col-md-5" read-only.bind="readOnly" change.delegate="nameChoose($event)"></finishedgoods-auto-suggest> -->
         <au-autocomplete value.bind="item" class="col-md-5" error.bind="error.supplier" label="Nama Barang"
           loader.bind="itemLoader" text.bind="itemView" placeholder="cari Barang" key="Name"
@@ -54,7 +55,7 @@
                             <div class="form-group ${error.items[$index].quantity?'has-error':''}">
                                 <input class="form-control" type="number" name="quantity" value.bind="item.quantity"
                                   max.bind="item.availablequantity" min="0"
-                                    change.delegate="qtyChange(item.code, item.quantity)" />
+                                    change.delegate="qtyChange(item.item.code, item.quantity)" />
                                 <span class="help-block">${error.items[$index].quantity}</span>
                             </div>
                         </div>

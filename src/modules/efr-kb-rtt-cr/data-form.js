@@ -9,7 +9,7 @@ export class DataForm {
     @bindable error = {};
     @bindable source;
     @bindable item;
-    @bindable barcode
+    // @bindable barcode
     dataSource = {};
     sources = [];
     destinations = [];
@@ -176,47 +176,48 @@ export class DataForm {
         //    this.expeditionServices = result;
         //  })
     }
-    barcodeChanged(newValue, oldValue) {
-      if (newValue) {
-        var _data = this.data.items.find((item) => item.code === selectedSupplier.code);
-        if (!_data) {
-          let args = {
-            itemData: newValue,
-            source: this.data.source._id,
-          };
-          this.service.getByCode(args).then(result => {
-            //var datas = result;
-            this.sumTotalQty = 0;
-            this.sumPrice = 0;
-            if (result.length > 0) {
-              for (var datas of result) {
-                this.data.items.push({
-                  item: datas.item,
-                  itemInternationalCOGS: datas.itemInternationalCOGS,
-                  itemInternationalRetail: datas.itemInternationalRetail,
-                  itemInternationalSale: datas.itemInternationalSale,
-                  itemInternationalWholeSale: datas.itemInternationalWholeSale,
-                  quantity: datas.quantity,
-                  availablequantity: datas.quantity
+    // barcodeChanged(newValue, oldValue) {
+    //   var selectedSupplier = newValue;
+    //   if (newValue) {
+    //     var _data = this.data.items.find((item) => item.code === selectedSupplier.code);
+    //     if (!_data) {
+    //       let args = {
+    //         itemData: newValue,
+    //         source: this.data.source._id,
+    //       };
+    //       this.service.getByCode(args).then(result => {
+    //         //var datas = result;
+    //         this.sumTotalQty = 0;
+    //         this.sumPrice = 0;
+    //         if (result.length > 0) {
+    //           for (var datas of result) {
+    //             this.data.items.push({
+    //               item: datas.item,
+    //               itemInternationalCOGS: datas.itemInternationalCOGS,
+    //               itemInternationalRetail: datas.itemInternationalRetail,
+    //               itemInternationalSale: datas.itemInternationalSale,
+    //               itemInternationalWholeSale: datas.itemInternationalWholeSale,
+    //               quantity: datas.quantity,
+    //               availablequantity: datas.quantity
 
-                })
-                this.sumTotalQty = this.sumTotalQty + parseInt(datas.quantity);
-                this.sumPrice += datas.item.domesticSale * datas.quantity;
-              }
+    //             })
+    //             this.sumTotalQty = this.sumTotalQty + parseInt(datas.quantity);
+    //             this.sumPrice += datas.item.domesticSale * datas.quantity;
+    //           }
 
-            } else {
-              alert("Stock Inventory Kosong")
-            }
-          })
-        }
+    //         } else {
+    //           alert("Stock Inventory Kosong")
+    //         }
+    //       })
+    //     }
 
-      } else {
-        //this.data.supplier = {};
-        //this.data.items = [];
-        //this.data.supplierId = undefined;
-      }
-      this.makeTotal(this.data.items);
-    }
+    //   } else {
+    //     //this.data.supplier = {};
+    //     //this.data.items = [];
+    //     //this.data.supplierId = undefined;
+    //   }
+    //   this.makeTotal(this.data.items);
+    // }
     // async barcodeChoose(e) {
     //     var itemData = e.target.value;
     //     this.price = 0;
@@ -232,7 +233,7 @@ export class DataForm {
     //                     if (!_data) {
     //                         this.qtyFg = 0;
     //                         this.price = 0;
-    //                         newItem.itemId = fg._id;
+    //                         newItem.item = fg._id;
     //                         newItem.availableQuantity = 0;
     //                         var result = await this.service.getDataInventory(this.dataSource._id, newItem.itemId);
     //                         if (result != undefined) {
@@ -260,6 +261,50 @@ export class DataForm {
     //     }
 
     // }
+
+    async barcodeChoose(e) {
+      var newValue = e.target.value;
+      if (newValue && newValue.length >= 13) {
+        let args = {
+                  itemData: newValue,
+                  source: this.data.source._id,
+                };
+        //var _data = this.data.items.find((item) => item.code === selectedSupplier.code);
+        this.service.getByCode(args).then(result => {
+                  //var datas = result;
+                  if (result.length > 0) {
+                    for (var datas of result) {
+                      //var newItem = {};
+                      var _data = this.data.items.find((item) => item.item.code === datas.code);
+                      if(!_data){
+      
+                      this.data.items.push({
+                        item: datas.item,
+                        itemInternationalCOGS: datas.itemInternationalCOGS,
+                        itemInternationalRetail: datas.itemInternationalRetail,
+                        itemInternationalSale: datas.itemInternationalSale,
+                        itemInternationalWholeSale: datas.itemInternationalWholeSale,
+                        quantity: datas.quantity,
+                        availablequantity: datas.quantity,
+                        price: datas.item.domesticSale * datas.quantity
+                      })
+                      this.sumTotalQty = this.sumTotalQty + parseInt(datas.quantity);
+                      this.sumPrice += datas.item.domesticSale * datas.quantity;
+                    }else{
+                      this.firstPrice = 0;
+                      this.qtyFg = parseInt(_data.quantity) + 1;
+                      this.firstPrice = this.qtyFg * datas.item.domesticSale
+                       _data.price = parseFloat(this.firstPrice)
+                       _data.quantity = this.qtyFg;
+                    }
+                  }
+                  console.log(this.data);
+                  } else {
+                  alert("Stock Inventory Kosong")
+                  }
+                })
+      }
+    }
 
     // async nameChoose(e) {
     //     this.hasFocus = false;
@@ -317,9 +362,10 @@ export class DataForm {
           // var fg = fgTemp[0];
           // this.price = fg.domesticSale;
           // var newItem = {};
-          var _data = this.data.items.find((item) => item.item.Code === barcode);
+          var _data = this.data.items.find((item) => item.item.code === barcode);
           if (_data) {
             _data.quantity = parseFloat(quantity);
+            _data.price = _data.item.domesticSale * quantity;
           }
 
         }
