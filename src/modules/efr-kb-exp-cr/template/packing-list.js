@@ -54,8 +54,8 @@ export class PackingList {
 
             var stock = [];
             for (var item of this.data.details) {
-                qty += item.quantity
-                item.sendQuantity = item.quantity;
+                qty += item.sendquantity
+                item.sendQuantity = item.sendquantity;
                 var a = await this.service.getStock(this.data.spkDocsViewModel.source._id, item.item._id);
                 console.log(a);
                 if (a) {

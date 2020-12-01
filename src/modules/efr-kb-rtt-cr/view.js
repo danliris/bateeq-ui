@@ -57,10 +57,10 @@ export class View {
                 this.printStruk = "";
                 this.printStruk += "<table style='width:100%;'>";
                 this.printStruk += "    <tr>";
-                this.printStruk += "        <td colspan='3' class='text-left'><b>PT. MAJOR MINOR KREASI NUSANTARA </b> </td>";
+                this.printStruk += "        <td colspan='3' class='text-left'><b> PT EFRATA RETAILINDO </b> </td>";
                 this.printStruk += "    </tr>";
                 this.printStruk += "    <tr>";
-                this.printStruk += "        <td colspan='3' class='text-left'><b> Equity Tower 15th Floor Suite C, SCBD Lot 9, Jl. Jenderal Sudirman Kav 52-53 Jakarta 12190  </b></td>";
+                this.printStruk += "        <td colspan='3' class='text-left'><b> Kel. Banaran, Kec. Grogol, Kab.Sukoharjo 57193 Jawa Tengah </b></td>";
                 this.printStruk += "    </tr>";
                 this.printStruk += "    <tr>";
                 this.printStruk += "        <td colspan='3' class='text-left'><b>Indonesia </b> </td>";
