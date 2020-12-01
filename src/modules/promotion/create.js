@@ -67,8 +67,14 @@ export class Create {
 
         this.service.create(this.data)
             .then(result=> {
+
+                if (e.statusCode == 400) {
+                    console.log(e.data);
+                        alert("Lengkapi kembali Form dengan tanda bintang");
+                }else{
                 console.log(result);
                 alert("Data Saved");
+                }
             })
             .catch(e=>{
                 if (e.statusCode == 500) {
