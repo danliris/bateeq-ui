@@ -17,7 +17,7 @@ export class View {
         columns: [
             { header: "Packing List", value: "code" },
             { header: "Berat (Kg)", value: "weight" },
-            { header: "Total Barang", value: "quantity" },
+            { header: "Total Barang", value: "sendquantity" },
             { header: "Catatan", value: "notes" }
         ],
         onAdd: function () {
@@ -37,7 +37,7 @@ export class View {
             spk.toString = function () {
                 return this.spkDocsViewModel.code
             }
-            spk.quantity = spk.details.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.quantity || 0), 0);
+            spk.quantity = spk.details.reduce((sum, curr) => parseInt(sum || 0) + parseInt(curr.sendQuantity || 0), 0);
             return spk;
         })
 

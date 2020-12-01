@@ -394,7 +394,7 @@ export class DataForm {
             // var newItem = {};
             var _data = this.data.items.find((item) => item.item.Code === barcode);
             if (_data) {
-                this.price = parseInt(_data.quantity) * this.price
+                this.price = parseInt(_data.sendquantity) * this.price
                 _data.price = parseFloat(this.price);
             }
         }
@@ -407,7 +407,7 @@ export class DataForm {
         if (Object.getOwnPropertyNames(items).length > 0) {
             for (var i = 0; i < items.length; i++) {
                 console.log(items[i].item.domesticCOGS);
-                this.sumTotalQty = this.sumTotalQty + parseInt(items[i].quantity);
+                this.sumTotalQty = this.sumTotalQty + parseInt(items[i].sendquantity);
                 this.sumPrice += items[i].item.domesticCOGS;
             }
         } 

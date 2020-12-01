@@ -60,7 +60,7 @@ export class DataForm {
         columns: [
             { header: "Packing List", value: "packingList" },
             { header: "Berat (Kg)", value: "weight" },
-            { header: "Total Barang", value: "quantity" },
+            { header: "Total Barang", value: "sendquantity" },
             { header: "Catatan", value: "remark" }
         ],
         onAdd: function () {
