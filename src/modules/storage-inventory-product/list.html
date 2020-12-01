@@ -1,11 +1,23 @@
 <template>
     <h1 class="page-header">Cari Barang</h1>
     <form class="form-horizontal">     
-        <finishedgoods-auto-suggest label="Nama Barang" value.bind="item" class="col-md-7" read-only.bind="readOnly" ></finishedgoods-auto-suggest>
+        <!-- <finishedgoods-auto-suggest label="Nama Barang" value.bind="item" class="col-md-7" read-only.bind="readOnly" ></finishedgoods-auto-suggest> -->
+        <au-autocomplete 
+                value.bind="item" 
+                label="Nama Barang" 
+                loader.bind="itemloader"
+                placeholder="Cari Nama Barang" 
+                read-only.bind="readOnly" 
+                class="col-md-7"
+                key="_id" 
+                text="name"
+                options.bind="controlOptions">
+            </au-autocomplete>
         <!--<textbox                label="Barcode"          value.bind="filter"  read-only.bind="readOnly"></textbox> -->
         <div class="form-group">
             <label for="contact" class="col-sm-1 control-label"></label>
             <div class="col-sm-3">
+                
                 <button click.delegate="reloadItem()" class="btn btn-success btn-sm pull-right">Cari</button> 
             </div>
         </div>
