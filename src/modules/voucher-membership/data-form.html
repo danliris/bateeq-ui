@@ -116,8 +116,8 @@
       <div class="form-group">
         <label for="qtyItemGift" class="col-sm-4 control-label">Assign to member</label>
         <div class="col-sm-5">
-            <label repeat.for="option of voucherTypeSelection">
-                <input type="checkbox" model.bind="option" checked.bind="selectedOptions"> ${option.label}</input> &nbsp;
+            <label repeat.for="option of assignToMembership">
+                <input type="checkbox" model.bind="option" checked.bind="option.checked"> ${option.label}</input> &nbsp;
             </label>
         </div>
       </div>
