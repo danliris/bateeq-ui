@@ -51,7 +51,7 @@ export class Edit {
     save(event) {
         this.service.create(this.data)
             .then(result => {
-                alert("Data berhasil dibuat");
+                alert("Voucher berhasil di update");
                 this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
             })
             .catch(e => {

@@ -1,10 +1,11 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
+import { ServiceMembership } from "./service-membership";
 
 const ProductLoader = require('../../loader/account-loader');
 
 @containerless()
-@inject(Service, BindingEngine)
+@inject(Service, BindingEngine,ServiceMembership)
 export class DataForm {
     @bindable readOnly;
     @bindable data = {};
@@ -34,16 +35,30 @@ export class DataForm {
         { label: "Nominal", value: "nominal" },
         { label: "Voucher", value: "voucher" }
     ];
+    
+    assignToMembership = [];
 
-    constructor(service, bindingEngine) {
+    constructor(service, bindingEngine,serviceMembership) {
         this.service = service;
         this.bindingEngine = bindingEngine;
+        this.serviceMembership = serviceMembership;
     }
 
     async bind(context) {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+        this.serviceMembership.getListMembership({})
+            .then(result =>{
+                console.log("list membership "+result);
+                this.assignToMembership = result.map(s=>{
+                    return {
+                        label : s.name,
+                        value : s.id,
+                        checked : false
+                    }
+                });
+            });
     }
 
     @bindable voucherType

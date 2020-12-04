@@ -51,6 +51,13 @@ export class Create {
         return data;
       }
 
+    isEmpty(obj) {
+        for(var key in obj) {
+            if(obj.hasOwnProperty(key))
+                return false;
+        }
+        return true;
+    }
     save(event) {
         
         console.log(this.storage);
@@ -67,20 +74,23 @@ export class Create {
 
         this.service.create(this.data)
             .then(result=> {
-
-                if (e.statusCode == 400) {
-                    console.log(e.data);
+                console.log("masuk then")
+                if (this.isEmpty(result)) {
+                    console.log(result.data);
                         alert("Lengkapi kembali Form dengan tanda bintang");
                 }else{
                 console.log(result);
-                alert("Data Saved");
+                alert("Voucher berhasil di update");
                 }
             })
             .catch(e=>{
+                console.log("masuk catch");
+                console.log(e);
                 if (e.statusCode == 500) {
                     alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
                 }
                 else if (e.statusCode == 400) {
+                    console.log("masuk 400");
                     console.log(e.data);
                         alert("Lengkapi kembali Form dengan tanda bintang");
                 } else {

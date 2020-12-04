@@ -17,7 +17,8 @@ export class Create {
     }
     
     bind() {
-        this.data = ["test 1","test 2"];
+        // this.data = ["test 1","test 2"];
+        this.data ={};
         this.error = {};
         this.voucherTypeList=[
             "Percentage", 
