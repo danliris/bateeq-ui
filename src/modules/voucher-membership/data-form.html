@@ -1,0 +1,125 @@
+<template>
+  <au-input-form 
+      title.bind="title" 
+      with.bind="context">
+
+      <div slot="actions" class="btn-group">
+          <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
+          <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
+          <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
+          <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+          <button class="btn btn-primary" click.delegate="context.unpostPO($event)"     if.one-way="context.hasUnpost">Unpost</button>
+      </div>
+
+      <au-dropdown
+          label="Voucher Type*"
+          value.bind="voucherType"
+          error.bind="error.voucherType"
+          read-only.bind="readOnly"
+          items.bind="voucherTypeSelection"
+          options.bind="controlOptions"
+          key="value"
+          text="label">
+      </au-dropdown>
+
+      <numeric 
+          label="Nominal*" 
+          value.bind="data.nominal" 
+          error.bind="error.nominal" 
+          format="#.###0,#0"
+          read-only.bind="readOnly"
+          if.bind="isVoucher || false">
+      </numeric>
+
+      <au-textbox 
+          label="Voucher Name*" 
+          placeholder="Voucher Name" 
+          value.bind="data.voucherName" 
+          error.bind="error.voucherName" 
+          read-only.bind="readOnly"
+          if.bind="true"
+          options.bind="controlOptions">
+      </au-textbox>
+
+      <numeric 
+          label="Minimum Purchases*" 
+          value.bind="data.minimumPurchases" 
+          error.bind="error.minimumPurchases" 
+          format="#.###0,#0"
+          read-only.bind="readOnly">
+      </numeric>
+
+      <au-autocomplete 
+          value.bind="selecdtedProductGift" 
+          error.bind="error.productGift"
+          label="Product Gift*" 
+          loader.bind="productLoader"
+          text.bind = "productView"
+          change.delegate="productChange($event)"
+          placeholder="Cari product gift" 
+          key="name" 
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+          if.bind="!isVoucher || false">
+      </au-autocomplete>
+
+      <div repeat.for="item of productGift">
+      <input
+            type="text"
+            class="form-control"
+            value.bind="productGift[item]"
+            handle-remove-button.call="removeEntry(item)"
+            read-only.bind="true"
+            if.bind="!isVoucher"/>
+      </div>
+
+      <!-- <au-textbox 
+          label="" 
+          value.bind="productGift" 
+          error.bind="productGift" 
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+      </au-textbox> -->
+
+      <numeric 
+          label="Validity Period*" 
+          value.bind="data.validityPeriode" 
+          error.bind="error.validityPeriode" 
+          format="#.###0,#0"
+          read-only.bind="readOnly">
+      </numeric>
+
+      <au-datepicker 
+          label="Start Date" 
+          value.bind="data.startDate" 
+          error.bind="error.startDate" 
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+      </au-datepicker>
+
+      <au-datepicker 
+          label="End Date" 
+          value.bind="data.endDate" 
+          error.bind="error.endDate" 
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+      </au-datepicker>
+              
+      <au-multiline 
+          label="Description*" 
+          value.bind="data.description"
+          placeholder="Description" 
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+      </au-multiline>
+
+      <div class="form-group">
+        <label for="qtyItemGift" class="col-sm-4 control-label">Assign to member</label>
+        <div class="col-sm-5">
+            <label repeat.for="option of voucherTypeSelection">
+                <input type="checkbox" model.bind="option" checked.bind="selectedOptions"> ${option.label}</input> &nbsp;
+            </label>
+        </div>
+      </div>
+</au-input-form>
+</template>
