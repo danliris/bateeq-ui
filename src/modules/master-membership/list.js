@@ -27,12 +27,12 @@ export class List {
 
   columns = [
     {
-      field: "tierName",
+      field: "name",
       title: "Tier Name",
       align: "center",
     },
     {
-      field: "minimumShoppingAccumulation",
+      field: "minAccumulation",
       title: "Minimum Shopping Accumulation",
       align: "center",
       formatter: function (value, data, index) {
@@ -40,7 +40,7 @@ export class List {
       },
     },
     {
-      field: "discountPrivilege",
+      field: "percentageDiscValue",
       title: "Discount Privilege",
       align: "center",
       formatter: function (value, data, index) {
@@ -52,8 +52,9 @@ export class List {
       field: "termAndConditions",
       title: "Term and Conditions",
       formatter: function (value, data, index) {
-        let arr = value.split("\n");
-        return arr.map((t) => `<label>${t}</label>`);
+        // let arr = value.split("\n");
+        // return arr.map((t) => `<label>${t}</label>`);
+        return "";
       },
     },
   ];
@@ -68,24 +69,24 @@ export class List {
     }
   }
 
-  dummyData = [
-    {
-      id: 1,
-      tierName: "Silver",
-      minimumShoppingAccumulation: 1000000,
-      discountPrivilege: 0,
-      termAndConditions:
-        "1.Status Silver member akan langsung diperoleh\n2.Status Silver member akan langsung diperoleh\n3.Status Silver member akan langsung diperoleh",
-    },
-    {
-      id: 2,
-      tierName: "Gold",
-      minimumShoppingAccumulation: 2000000,
-      discountPrivilege: 99,
-      termAndConditions:
-        "1.Status Silver member akan langsung diperoleh\n2.Status Silver member akan langsung diperoleh\n3.Status Silver member akan langsung diperoleh",
-    },
-  ];
+  // dummyData = [
+  //   {
+  //     id: 1,
+  //     tierName: "Silver",
+  //     minimumShoppingAccumulation: 1000000,
+  //     discountPrivilege: 0,
+  //     termAndConditions:
+  //       "1.Status Silver member akan langsung diperoleh\n2.Status Silver member akan langsung diperoleh\n3.Status Silver member akan langsung diperoleh",
+  //   },
+  //   {
+  //     id: 2,
+  //     tierName: "Gold",
+  //     minimumShoppingAccumulation: 2000000,
+  //     discountPrivilege: 99,
+  //     termAndConditions:
+  //       "1.Status Silver member akan langsung diperoleh\n2.Status Silver member akan langsung diperoleh\n3.Status Silver member akan langsung diperoleh",
+  //   },
+  // ];
 
   loader = (info) => {
     // var order = {};
@@ -97,21 +98,18 @@ export class List {
     //   order: order,
     // };
 
-    // return this.service.search(arg).then((result) => {
-    //   console.log(result);
-    //   var data = {};
-    //   console.log(data);
-    //   data.total = result.info.total;
-    //   data.data = result.data;
-    //   return {
-    //     total: result.info.total,
-    //     data: result.data,
-    //   };
-    // });
-    return {
-      total: 3,
-      data: this.dummyData,
-    };
+    return this.service.search({})
+      .then((res) => {
+        console.log(res);
+        return {
+          total: res.length,
+          data: res,
+        };
+      });
+    // return {
+    //   total: 3,
+    //   data: this.dummyData,
+    // };
   };
 
   create() {
