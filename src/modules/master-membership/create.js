@@ -12,6 +12,7 @@ export class Create {
         this.router = router;
         this.service = service;
     }
+    
     activate(params) {
 
     }
@@ -33,18 +34,18 @@ export class Create {
 
     save(event) {
         
-        console.log(this.storage)
-        // this.service.create(this.data)
-        //     .then(result => {
-        //         alert("Data berhasil dibuat");
-        //         this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
-        //     })
-        //     .catch(e => {
-        //         if (e.statusCode == 500) {
-        //             alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-        //         } else {
-        //             this.error = e;
-        //         }
-        //     })
+        // console.log(this.storage)
+        this.service.create(this.data)
+            .then(result => {
+                alert("Data berhasil dibuat");
+                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+            })
+            .catch(e => {
+                if (e.statusCode == 500) {
+                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
+                } else {
+                    this.error = e;
+                }
+            })
     }
 }

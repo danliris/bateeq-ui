@@ -18,16 +18,8 @@ export class View {
 
   async activate(params) {
     console.log("params", params);
-    // var id = params.id;
-    // this.data = await this.service.getById(id);
-    this.data = {
-      id: 1,
-      tierName: "Gold",
-      minimumShoppingAccumulation: 1000000,
-      discountPrivilege: 0,
-      termAndConditions:
-        "1.Status Silver member akan langsung diperoleh\n2.Status Silver member akan langsung diperoleh\n3.Status Silver member akan langsung diperoleh",
-    };
+    var id = params.id;
+    this.data = await this.service.getMembershipById(id);
   }
 
   cancel(event) {
@@ -43,24 +35,12 @@ export class View {
       .prompt("Are you sure want to delete this data?", "Delete this data")
       .then((response) => {
         if (response.ok) {
-          // this.service.delete(this.data)
-          //     .then(result => {
-          //         this.list();
-          //     });
+          this.service.delete(this.data)
+              .then(result => {
+                  this.list();
+              });
           this.router.navigateToRoute("list");
         }
       });
   }
-
-  // editCallback(event) {
-  //     // this.router.navigateToRoute('edit', { id: this.data.Id });
-  //     this.router.navigateToRoute('edit');
-  // }
-
-  // deleteCallback(event) {
-  //     this.service.delete(this.data)
-  //         .then(result => {
-  //             this.list();
-  //         });
-  // }
 }

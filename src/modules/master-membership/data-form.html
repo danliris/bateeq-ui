@@ -17,7 +17,7 @@
   <au-input-form title.bind="title" with.bind="context">
     <au-dropdown
       label="Tier Name*"
-      value.bind="data.tierName"
+      value.bind="data.name"
       items.bind="membershipTierSources"
       options.bind="controlOptions"
       read-only.bind="readOnly"
@@ -32,8 +32,7 @@
         <input
           type="number"
           class="form-control"
-          name="minimumShoppingAccumulation"
-          value.bind="data.minimumShoppingAccumulation"
+          value.bind="data.minAccumulation"
           placeholder="0.0000"
           read-only.bind="readOnly"
         />
@@ -48,8 +47,7 @@
         <input
           type="number"
           class="form-control"
-          name="discountPrivilege"
-          value.bind="data.discountPrivilege"
+          value.bind="data.percentageDiscValue"
           placeholder="0.0000"
           read-only.bind="readOnly"
         />

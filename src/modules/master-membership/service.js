@@ -4,7 +4,8 @@ import { RestService } from "../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-const serviceUri = "pageSize";
+// const serviceUri = "pageSize";
+const serviceUri = 'membership';
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
@@ -12,17 +13,17 @@ export class Service extends RestService {
   }
 
   getCustomers(args) {
-    let endpoint = "getUser";
+    let endpoint = `${serviceUri}`;
     return super.list(endpoint, args);
   }
 
   search(args) {
-    let endpoint = "searchUser";
+    let endpoint = `${serviceUri}`;
     return super.list(endpoint, args);
   }
 
-  getCustomersById(id) {
-    var endpoint = `getUserDetail/${id}`;
+  getMembershipById(id) {
+    var endpoint = `${serviceUri}/FindMembership/${id}`;
     var promise = this.endpoint.find(endpoint);
     this.publish(promise);
     return promise.then((result) => {
@@ -31,18 +32,18 @@ export class Service extends RestService {
     });
   }
 
-  getAddressBookById(id) {
-    var endpoint = `getAddressBook/${id}`;
-    var promise = this.endpoint.find(endpoint);
-    this.publish(promise);
-    return promise.then((result) => {
-      this.publish(promise);
-      return Promise.resolve(result);
-    });
+  create(data) {
+    var endpoint = `${serviceUri}/AddMembership`;
+    return super.post(endpoint, data);
   }
 
-  generateExcel(dateFrom, dateTo) {
-    var endpoint = `${serviceUri}/download?dateFrom=${dateFrom}&dateTo=${dateTo}`;
-    return super.getXls(endpoint);
+  update(data) {
+    var endpoint = `${serviceUri}/EditMembership`;
+    return super.put(endpoint, data);
+  }
+
+  delete(data) {
+    var endpoint = `${serviceUri}/DeleteMembership/${data.id}`;
+    return super.delete(endpoint, data);
   }
 }
