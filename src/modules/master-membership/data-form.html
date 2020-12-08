@@ -20,7 +20,7 @@
       value.bind="data.name"
       items.bind="membershipTierSources"
       options.bind="controlOptions"
-      read-only.bind="readOnly"
+      read-only.bind="readOnly || isEdit"
     >
     </au-dropdown>
 
@@ -63,7 +63,7 @@
         <textarea
           class="form-control valid"
           rows="10"
-          value.bind="data.termAndConditions"
+          value.bind="data.description"
           placeholder="Term and conditions"
           read-only.bind="readOnly"
         ></textarea>
