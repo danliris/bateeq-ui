@@ -49,12 +49,11 @@ export class List {
       },
     },
     {
-      field: "termAndConditions",
+      field: "description",
       title: "Term and Conditions",
       formatter: function (value, data, index) {
-        // let arr = value.split("\n");
-        // return arr.map((t) => `<label>${t}</label>`);
-        return "";
+        let arr = value.split("\n");
+        return arr.map((t) => `<label>${t}</label>`);
       },
     },
   ];
@@ -68,25 +67,6 @@ export class List {
         break;
     }
   }
-
-  // dummyData = [
-  //   {
-  //     id: 1,
-  //     tierName: "Silver",
-  //     minimumShoppingAccumulation: 1000000,
-  //     discountPrivilege: 0,
-  //     termAndConditions:
-  //       "1.Status Silver member akan langsung diperoleh\n2.Status Silver member akan langsung diperoleh\n3.Status Silver member akan langsung diperoleh",
-  //   },
-  //   {
-  //     id: 2,
-  //     tierName: "Gold",
-  //     minimumShoppingAccumulation: 2000000,
-  //     discountPrivilege: 99,
-  //     termAndConditions:
-  //       "1.Status Silver member akan langsung diperoleh\n2.Status Silver member akan langsung diperoleh\n3.Status Silver member akan langsung diperoleh",
-  //   },
-  // ];
 
   loader = (info) => {
     // var order = {};
