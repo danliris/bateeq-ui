@@ -17,7 +17,6 @@ export class View {
   }
 
   async activate(params) {
-    console.log("params", params);
     var id = params.id;
     this.data = await this.service.getMembershipById(id);
   }
