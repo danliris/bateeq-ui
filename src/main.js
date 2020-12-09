@@ -48,10 +48,10 @@ export async function configure(aurelia) {
       var customers = "https://bateeq-api-auth.azurewebsites.net/v1/";
       var rewardPoints = "https://bateeq-service-voucher-dev.azurewebsites.net/v1/api/";
       var productBateeqshop= "https://bateeq-service-product-dev.azurewebsites.net/v1/";
-      // var voucher= "https://bateeq-service-voucher-dev.azurewebsites.net/v1/";
+      var voucher= "https://bateeq-service-voucher-dev.azurewebsites.net/v1/";
       var generalSetting = "https://bateeq-service-general-dev.azurewebsites.net/v1/generalSetting/";
       var authBateeqshop = "http://bateeq-api-auth.azurewebsites.net/v1/";
-      var voucher= "https://localhost:44328/v1/";
+      
 
       //Config API
       config.registerEndpoint("auth", auth);
