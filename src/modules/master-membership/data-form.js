@@ -14,6 +14,7 @@ export class DataForm {
   @bindable data = {};
   @bindable error = {};
   @bindable title;
+  @bindable membershipTierSources = [];
 
   controlOptions = {
     label: {
@@ -29,7 +30,7 @@ export class DataForm {
     this.bindingEngine = bindingEngine;
   }
 
-  membershipTierSources = ["Silver", "Gold", "Platinum"];
+  // membershipTierSources = ["Silver", "Gold", "Platinum"];
 
   async bind(context) {
     this.context = context;

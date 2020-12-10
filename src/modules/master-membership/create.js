@@ -1,7 +1,7 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
 
 @inject(Router, Service)
 export class Create {
@@ -12,11 +12,14 @@ export class Create {
         this.router = router;
         this.service = service;
     }
-    
-    activate(params) {
 
+    async activate(params) {
+        this.membershipTierSources = await this.service.getAvailableMembership();
+
+        if (this.membershipTierSources.length === 0)
+            this.hasSave = false;
     }
-    
+
     bind() {
         this.data = {};
         this.error = {};
@@ -33,12 +36,12 @@ export class Create {
     }
 
     save(event) {
-        
+
         // console.log(this.storage)
         this.service.create(this.data)
             .then(result => {
                 alert("Data berhasil dibuat");
-                this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
+                this.router.navigateToRoute('create', {}, { replace: true, trigger: true });
             })
             .catch(e => {
                 if (e.statusCode == 500) {
