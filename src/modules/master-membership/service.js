@@ -22,6 +22,11 @@ export class Service extends RestService {
     return super.list(endpoint, args);
   }
 
+  getAvailableMembership(args){
+    let endpoint = `${serviceUri}/available`;
+    return super.list(endpoint, args);
+  }
+
   getMembershipById(id) {
     var endpoint = `${serviceUri}/FindMembership/${id}`;
     var promise = this.endpoint.find(endpoint);
