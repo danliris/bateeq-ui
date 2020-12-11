@@ -7,9 +7,10 @@ var StorageLoader = require('../../loader/nstorage-loader');
 @inject(Router, Service, Element)
 export class Create {
 
-    constructor(router, service) {
+    constructor(router, service, element) {
         this.router = router;
         this.service = service;
+        this.element = element;
         this.data = { items: [] };
     }
 
@@ -65,6 +66,7 @@ export class Create {
                     }
                     else if (result.status == 404) {
                         alert("Urutan format kolom CSV tidak sesuai.\n Format: Barcode, Nama Barang, Kuantitas Stock");
+                        this.list();
                     }
                     else if (result.status == 412) {
                         alert("Dokumen harus csv format");
