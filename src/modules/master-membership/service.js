@@ -18,7 +18,7 @@ export class Service extends RestService {
   }
 
   search(args) {
-    let endpoint = `${serviceUri}`;
+    let endpoint = `${serviceUri}/FindAllMembership`;
     return super.list(endpoint, args);
   }
 
