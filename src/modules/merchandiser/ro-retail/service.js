@@ -58,14 +58,14 @@ export class Service extends RestService {
         return promise
             .then(result => {
                 this.publish(promise);
-                return Promise.resolve(result.data.data);
+                return Promise.resolve(result.data);
             });
     }
 
     fetchStores(info) {
         var config = Container.instance.get(Config);
         var endpoint = config.getEndpoint("master");
-        var uri = `stores`;
+        var uri = `master/stores`;
         let promise = endpoint.find(uri, info);
         this.publish(promise);
         return promise
@@ -74,6 +74,10 @@ export class Service extends RestService {
                 result.data.sort((a,b) => {
                     if (a.code < b.code) return -1;
                     if (a.code > b.code) return 1;
+                });
+
+                result.data.forEach(i => {
+                    i._id = i.Id;
                 });
                 return Promise.resolve(result.data);
             });
