@@ -80,16 +80,12 @@ export class List {
 
     return this.service.search({})
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         return {
           total: res.length,
           data: res,
         };
       });
-    // return {
-    //   total: 3,
-    //   data: this.dummyData,
-    // };
   };
 
   create() {
