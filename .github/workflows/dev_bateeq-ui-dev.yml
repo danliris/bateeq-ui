@@ -23,8 +23,7 @@ jobs:
     - name: npm install, build, and test
       run: |
         npm install
-        npm run build --if-present
-        npm run test --if-present
+        npm run build:prod --if-present
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
@@ -32,4 +31,4 @@ jobs:
         app-name: 'bateeq-ui-dev'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_8e930398003041218445e858de90dcdf }}
-        package: .
+        package: ./dist
