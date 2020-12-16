@@ -32,4 +32,4 @@ jobs:
         app-name: 'bateeq-ui-dev'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_e3a1f7d5318f418dbe03a11cec396ce9 }}
-        package: .
+        package: ./dist
