@@ -2,6 +2,7 @@ import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
 import {activationStrategy} from 'aurelia-router';
+import{moment} from 'moment';
 
 @inject(Router, Service)
 export class Create {
@@ -54,8 +55,13 @@ export class Create {
     isEmpty(obj) {
         for(var key in obj) {
             if(obj.hasOwnProperty(key))
+            {   
                 return false;
+            }
         }
+        if(obj == undefined)
+            return false;
+
         return true;
     }
     save(event) {
@@ -64,23 +70,29 @@ export class Create {
         console.log(this.data);
         console.log(this);
 
-        var startDateDate = new Date(this.data.startDate);
-        this.data.startDate =startDateDate.getDate().toString().padStart(2,'0')+'/'+startDateDate.getMonth().toString().padStart(2,'0')+'/'+startDateDate.getFullYear()
+        var startDateDate = this.data.startDate;
+        console.log(startDateDate.toString());
+        this.data.startDate =startDateDate.getDate().toString().padStart(2,'0')+'/'+(startDateDate.getMonth()+1).toString().padStart(2,'0')+'/'+startDateDate.getFullYear()
 
         var endDateDate = new Date(this.data.endDate);
-        this.data.endDate = endDateDate.getDate().toString().padStart(2,'0')+'/'+endDateDate.getMonth().toString().padStart(2,'0')+'/'+endDateDate.getFullYear()
+        // console.log(startDateDate);
+        this.data.endDate = endDateDate.getDate().toString().padStart(2,'0')+'/'+(endDateDate.getMonth()+1).toString().padStart(2,'0')+'/'+endDateDate.getFullYear()
 
         this.data.description = this.description;
 
         this.service.create(this.data)
             .then(result=> {
                 console.log("masuk then")
-                if (this.isEmpty(result)) {
-                    console.log(result.data);
+                console.log(result);
+                var isempty = this.isEmpty(result);
+                console.log(isempty);   
+                if (isempty) {
+                    // console.log(result.data);
                         alert("Lengkapi kembali Form dengan tanda bintang");
                 }else{
-                console.log(result);
+                // console.log(result);
                 alert("Voucher berhasil di update");
+                this.router.navigateToRoute('list',{}, { replace: true, trigger: true });
                 }
             })
             .catch(e=>{
