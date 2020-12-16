@@ -27,6 +27,7 @@ jobs:
 
     - name: 'Deploy to Azure Web App'
       uses: azure/webapps-deploy@v2
+      if: ${{ always() }}
       with:
         app-name: 'bateeq-ui-dev'
         slot-name: 'production'
