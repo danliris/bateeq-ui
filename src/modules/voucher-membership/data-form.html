@@ -1,4 +1,7 @@
 <template>
+    <style>
+
+    </style>
   <au-input-form 
       title.bind="title" 
       with.bind="context">
@@ -28,14 +31,14 @@
           error.bind="error.nominal" 
           format="#.###0,#0"
           read-only.bind="readOnly"
-          if.bind="isVoucher || false">
+          if.bind="!isProduct || false">
       </numeric>
 
       <au-textbox 
           label="Voucher Name*" 
           placeholder="Voucher Name" 
-          value.bind="data.voucherName" 
-          error.bind="error.voucherName" 
+          value.bind="data.discountName"
+          error.bind="error.discountName"
           read-only.bind="readOnly"
           if.bind="true"
           options.bind="controlOptions">
@@ -43,43 +46,38 @@
 
       <numeric 
           label="Minimum Purchases*" 
-          value.bind="data.minimumPurchases" 
-          error.bind="error.minimumPurchases" 
+          value.bind="data.minimumPayment" 
+          error.bind="error.minimumPayment" 
           format="#.###0,#0"
           read-only.bind="readOnly">
       </numeric>
 
       <au-autocomplete 
-          value.bind="selecdtedProductGift" 
+          value.bind="selectedProductGift" 
           error.bind="error.productGift"
           label="Product Gift*" 
           loader.bind="productLoader"
           text.bind = "productView"
-          change.delegate="productChange($event)"
           placeholder="Cari product gift" 
           key="name" 
           read-only.bind="readOnly"
           options.bind="controlOptions"
-          if.bind="!isVoucher || false">
+          if.bind="isProduct">
       </au-autocomplete>
 
-      <div repeat.for="item of productGift">
-      <input
+      <div repeat.for="item of productGift" class="form-group">
+        <label class="col-sm-4 control-label"></label>
+        <div class="col-sm-5">
+            <input
             type="text"
             class="form-control"
-            value.bind="productGift[item]"
-            handle-remove-button.call="removeEntry(item)"
+            style="width: 92% !important; display: inline !important;"
+            value.bind="item"
             read-only.bind="true"
-            if.bind="!isVoucher"/>
+            if.bind="isProduct"/>
+            <button class="btn btn-danger" click.delegate="removeProductGift($index)">X</button>
+        </div>
       </div>
-
-      <!-- <au-textbox 
-          label="" 
-          value.bind="productGift" 
-          error.bind="productGift" 
-          read-only.bind="readOnly"
-          options.bind="controlOptions">
-      </au-textbox> -->
 
       <numeric 
           label="Validity Period*" 
