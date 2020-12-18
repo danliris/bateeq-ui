@@ -1,0 +1,128 @@
+<template>
+  <style>
+    .btn-center {
+      position: relative;
+      height: 70px;
+    }
+
+    .btn-search {
+      position: absolute;
+      left: 45%;
+      width: 10%;
+    }
+  </style>
+
+  <h1 class="page-header">Voucher</h1>
+  <hr />
+  <br />
+  <form class="form-horizontal">
+    <div class="form-group">
+      <div class="col-md-6">
+        <au-datepicker
+          label="Start Date"
+          value.bind="form.startDate"
+          error.bind="error.startDate"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+        >
+        </au-datepicker>
+
+        <au-datepicker
+          label="End Date"
+          value.bind="form.endDate"
+          error.bind="error.endDate"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+        >
+        </au-datepicker>
+
+        
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <au-dropdown
+            label="Voucher Type"
+            value.bind="form.voucherType"
+            items.bind="voucherTypeSources"
+            options.bind="controlOptions"
+          >
+          </au-dropdown>
+          
+          <au-dropdown
+            label="Tier Membership"
+            value.bind="form.tierMembership"
+            items.bind="tierMembershipSources"
+            options.bind="controlOptions"
+          >
+          </au-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="btn-center">
+      <button click.delegate="search()" class="btn btn-success btn-search">
+        <strong>Search</strong>
+      </button>
+    </div>
+    <div>
+      <a click.delegate="create()" class="btn btn-primary">Create Voucher</a>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover" id="voucherList">
+        <thead>
+          <tr>
+            <!-- <th style="width: 5%">
+              <input
+                type="checkbox"
+                value.bind="selectAll"
+                change.delegate="selectAllClicked($event)"
+              />
+            </th> -->
+            <th>Nominal</th>
+            <th>Voucher Type</th>
+            <th>Point Exchange</th>
+            <th>Total Claimed</th>
+            <th>Total Used</th>
+            <th>Member</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr show.bind="data.length == 0">
+            <td colspan="8">
+              <div class="alert alert-info">There are no data</div>
+            </td>
+          </tr>
+          <tr
+            repeat.for="item of data"
+            css="background-color: ${item.status === 'NonActive' ? 'lightgray': ''}"
+          >
+            <!-- <td align="center" style="width: 5%">
+              <input
+                type="checkbox"
+                value.bind="data.isSelected"
+                change.delegate="selectedRowClicked($event, transaction.header.Id)"
+              />
+            </td> -->
+            <td>${item.nominal}</td>
+            <td>${item.discountType}</td>
+            <td>${item.exchangePoint}</td>
+            <td>${item.nominal}</td>
+            <td>${item.totalUse}</td>
+            <td>${item.membership}</td>
+            <!-- <td align="center" style="width: 10%">
+              <button click.delegate="view(item.id)" class="btn btn-warning">
+                view
+              </button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <pagination
+      if.bind="info.total>info.size"
+      info.bind="info"
+      change.delegate="changePage($event)"
+      id="pager"
+    ></pagination>
+    <hr />
+  </form>
+</template>

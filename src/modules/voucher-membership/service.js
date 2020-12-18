@@ -4,19 +4,15 @@ import { RestService } from "../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
+const serviceUri = `voucher/membership`;
+
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "voucher");
   }
 
-
-  getlist(args) {
-    let endpoint = "voucher";
-    return super.list(endpoint, args);
-  }
-
   search(args) {
-    let endpoint = "voucher/membership";
+    let endpoint = `${serviceUri}`;
     return super.list(endpoint, args);
   }
 
@@ -36,22 +32,13 @@ export class Service extends RestService {
   }
 
   getById(id) {
-    var endpoint = `voucher/${id}`;
-    var promise = this.endpoint.find(endpoint);
-    this.publish(promise);
-    return promise.then((result) => {
-      this.publish(promise);
-      return Promise.resolve(result);
-    });
-  }
-
-  getAddressBookById(id) {
-    var endpoint = `getAddressBook/${id}`;
-    var promise = this.endpoint.find(endpoint);
-    this.publish(promise);
-    return promise.then((result) => {
-      this.publish(promise);
-      return Promise.resolve(result);
-    });
+    var endpoint = `${serviceUri}/${id}`;
+    return super.get(endpoint);
+    // var promise = this.endpoint.find(endpoint);
+    // this.publish(promise);
+    // return promise.then((result) => {
+    //   this.publish(promise);
+    //   return Promise.resolve(result);
+    // });
   }
 }

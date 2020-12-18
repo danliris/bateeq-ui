@@ -12,15 +12,15 @@
     }
   </style>
 
-  <h1 class="page-header">Voucher</h1>
+  <h1 class="page-header">Voucher Membership / List Voucher</h1>
   <hr />
   <br />
-  <form class="form-horizontal">
+  <au-input-form class="form-horizontal">
     <div class="form-group">
       <div class="col-md-6">
         <au-datepicker
           label="Start Date"
-          value.bind="form.startDate"
+          value.bind="info.startDate"
           error.bind="error.startDate"
           read-only.bind="readOnly"
           options.bind="controlOptions"
@@ -29,100 +29,53 @@
 
         <au-datepicker
           label="End Date"
-          value.bind="form.endDate"
+          value.bind="info.endDate"
           error.bind="error.endDate"
           read-only.bind="readOnly"
           options.bind="controlOptions"
         >
         </au-datepicker>
+      </div>
 
-        
-      </div>
       <div class="col-md-6">
-        <div class="form-group">
-          <au-dropdown
-            label="Voucher Type"
-            value.bind="form.voucherType"
-            items.bind="voucherTypeSources"
-            options.bind="controlOptions"
-          >
-          </au-dropdown>
-          
-          <au-dropdown
-            label="Tier Membership"
-            value.bind="form.tierMembership"
-            items.bind="tierMembershipSources"
-            options.bind="controlOptions"
-          >
-          </au-dropdown>
-        </div>
+        <au-dropdown
+          label="Voucher Type"
+          value.bind="info.voucherType"
+          items.bind="voucherType"
+          options.bind="controlOptions"
+        >
+        </au-dropdown>
+
+        <au-dropdown
+          label="Tier Member"
+          value.bind="info.tierMembership"
+          items.bind="tierMembershipType"
+          options.bind="controlOptions"
+        >
+        </au-dropdown>
       </div>
     </div>
-    <div class="btn-center">
-      <button click.delegate="search()" class="btn btn-success btn-search">
-        <strong>Search</strong>
-      </button>
+
+    <div class="form-group">
+      <label for="contact" class="col-sm-5 control-label"></label>
+      <div class="col-sm-3">
+        <button click.delegate="search()" class="btn btn-success">Cari</button>
+        <button click.delegate="reset()" class="btn btn-warning">Reset</button>
+      </div>
     </div>
-    <div>
-      <a click.delegate="create()" class="btn btn-primary">Create Voucher</a>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover" id="voucherList">
-        <thead>
-          <tr>
-            <!-- <th style="width: 5%">
-              <input
-                type="checkbox"
-                value.bind="selectAll"
-                change.delegate="selectAllClicked($event)"
-              />
-            </th> -->
-            <th>Nominal</th>
-            <th>Voucher Type</th>
-            <th>Point Exchange</th>
-            <th>Total Claimed</th>
-            <th>Total Used</th>
-            <th>Member</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr show.bind="data.length == 0">
-            <td colspan="8">
-              <div class="alert alert-info">There are no data</div>
-            </td>
-          </tr>
-          <tr
-            repeat.for="item of data"
-            css="background-color: ${item.status === 'NonActive' ? 'lightgray': ''}"
-          >
-            <!-- <td align="center" style="width: 5%">
-              <input
-                type="checkbox"
-                value.bind="data.isSelected"
-                change.delegate="selectedRowClicked($event, transaction.header.Id)"
-              />
-            </td> -->
-            <td>${item.nominal}</td>
-            <td>${item.discountType}</td>
-            <td>${item.exchangePoint}</td>
-            <td>${item.nominal}</td>
-            <td>${item.totalUse}</td>
-            <td>${item.membership}</td>
-            <!-- <td align="center" style="width: 10%">
-              <button click.delegate="view(item.id)" class="btn btn-warning">
-                view
-              </button>
-            </td> -->
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <pagination
-      if.bind="info.total>info.size"
-      info.bind="info"
-      change.delegate="changePage($event)"
-      id="pager"
-    ></pagination>
-    <hr />
-  </form>
+
+    <au-table
+    view-model.ref="tableList"
+    data.bind="loader"
+    columns.bind="columns"
+    sortable.bind="true"
+    page-size="25"
+    context.bind="context"
+    context-click.delegate="contextClickCallback($event)">
+
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-primary" click.delegate="create()">Buat</button>
+        </div>
+    </au-table>
+  </au-input-form>
 </template>

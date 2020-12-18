@@ -1,30 +1,30 @@
-import { inject } from "aurelia-framework";
+import { inject, bindable } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
+import { resolve } from "bluebird";
 
 @inject(Router, Service)
 export class List {
-  info = { page: 1, size: 25 };
-  form = {
-    startDate: "",
-    endDate: "",
-    voucherType: "",
-    tierMembership: "",
-    discountCode: "",
-    discountName: "",
-  };
-  voucherTypeSources = [
-    "",
-    "Nominal",
-    "Product"
+  @bindable flag = false;
+
+  // info = { page: 1, size: 25 };
+
+  context = ["Detail"];
+
+  columns = [
+    { title: "Nominal", field: "nominal" },
+    { title: "Voucher Type", field: "discountType" },
+    { title: "Point Exchanged", field: "exchangePoint" },
+    { title: "Total Claimed", field: "totalClaimed" },
+    { title: "Total Used", field: "nominal" },
+    { title: "Member", field: "membership" }
   ];
-  tierMembershipSources = [
-    "",
-    "Silver",
-    "Gold",
-    "Platinum"
-  ];
+
+  voucherType = ["", "Nominal", "Product"];
+
+  tierMembershipType = ["", "Silver", "Gold", "Platinum"];
+
   controlOptions = {
     label: {
       length: 3,
@@ -39,152 +39,97 @@ export class List {
     this.router = router;
   }
 
-  rowFormatter(data, index) {
-    if (data.status == "NonActive") {
-      return { css: { "background-color": "lightgray" } };
-    } else return {};
-  }
-
-  attached() {
-    this.options.height =
-      $(window).height() -
-      $("nav.navbar").height() -
-      $("h1.page-header").height();
-  }
   activate() {
-    this.searching();
-    // this.data = [
-    //   {
-    //     id: 1,
-    //     discountName: "Batik Day",
-    //     discountType: "Percetage",
-    //     startDate: "03-10-2020",
-    //     endDate: "03-11-2020",
-    //     totalUse: 30,
-    //     status: "Active",
-    //   },
-    //   {
-    //     id: 2,
-    //     discountName: "Independence Day",
-    //     discountType: "Norminal",
-    //     startDate: "03-10-2019",
-    //     endDate: "03-11-2019",
-    //     totalUse: 30,
-    //     status: "NonActive",
-    //   },
-    //   {
-    //     id: 3,
-    //     discountName: "Batik Day",
-    //     discountType: "Percetage",
-    //     startDate: "03-10-2020",
-    //     endDate: "03-11-2020",
-    //     totalUse: 30,
-    //     status: "Active",
-    //   },
-    //   {
-    //     id: 4,
-    //     discountName: "Batik Day",
-    //     discountType: "Percetage",
-    //     startDate: "03-10-2020",
-    //     endDate: "03-11-2020",
-    //     totalUse: 30,
-    //     status: "Active",
-    //   },
-    // ];
+    // this.searching();
   }
 
   search() {
-    this.info.page = 1;
-    this.info.total = 0;
-    if (
-      this.form.startDate == "" &&
-      this.form.endDate == "" &&
-      this.form.voucherType == "" &&
-      this.form.discountCode == "" &&
-      this.form.discountName == ""
-    ) {
-      this.searching();
-    } else {
-      this.searching("SEARCH");
-    }
+    this.flag = true;
+    this.tableList.refresh();
   }
 
-  async searching(type) {
-    var voucherTypeStr ="";
-    switch(this.form.voucherType.toLowerCase())
-    {
-        case "product":
-        voucherTypeStr= "2";
-        break;
-        case "nominal":
-        voucherTypeStr= "9";
-        break;
-        default:
-        voucherTypeStr= "8";
-        
-        break;
-    }
-
-    var tierMembershipId=0;
-    switch(this.form.tierMembership.toLowerCase())
-    {
-      case "silver":
-      tierMembershipId = 2;
-      break;
-      case "gold":
-      tierMembershipId = 1;
-      case "platinum":
-      tierMembershipId = 4;
-    }
+  loader = (info) => {
+    // if (info.sort) order[info.sort] = info.order;
 
     let args = {
-      // page: this.info.page,
-      // pageSize: this.info.size,
-      startDate: this.form.startDate
-        ? moment(this.form.startDate).format("YYYY-MM-DD")
-        : "01/01/0001",
-      endDate: this.form.endDate
-        ? moment(this.form.endDate).format("YYYY-MM-DD")
-        : "01/01/0001",
-      // voucherType: this.form.voucherType ? this.form.voucherType : "0",
-      voucherType: voucherTypeStr,
-      discountCode: this.form.discountCode ? this.form.discountCode : "",
-      discountName: this.form.discountName ? this.form.discountName : "",
-      membershipId: tierMembershipId
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      limit: info.limit
     };
 
-    this.service.search(args).then((result) => {
-      this.data = result.data;
-      // if (type == "SEARCH") {
-      //   this.info.total = this.data.length;
-      // } else {
-      //   this.info.total = result.total;
-      // }
-    });
+    if (this.flag) {
+      if (this.info.startDate)
+        args.startDate = moment(this.info.startDate).format("YYYY/MM/DD");
+
+      if (this.info.endDate)
+        args.endDate = moment(this.info.endDate).format("YYYY/MM/DD");
+
+      if (this.info.voucherType) {
+        switch (this.info.voucherType.toLowerCase()) {
+          case "product":
+            args.voucherType = "2";
+            break;
+          case "nominal":
+            args.voucherType = "9";
+            break;
+          default:
+            args.voucherType = "8";
+            break;
+        }
+      }
+
+      if (this.info.tierMembership) {
+        switch (this.info.voucherType.toLowerCase()) {
+          case "silver":
+            args.membershipId = 2;
+            break;
+          case "gold":
+            args.membershipId = 1;
+            break;
+          case "platinum":
+            args.membershipId = 4;
+            break;
+          default:
+            args.membershipId = '';
+            break;
+        }
+      }
+    }
+
+    // return { total: this.data.length, data: this.data };
+    return this.flag ? this.service.search(args).then((result) => {
+      return {
+        total: result.info.Count,
+        data: result.data,
+      };
+    })
+      : { total: 0, data: [] };
+  };
+
+  contextClickCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "Detail":
+        this.router.navigateToRoute('view', { id: data.id });
+        break;
+    }
   }
 
-  exportToXls() {
-    let args = {
-      page: this.info.page,
-      size: this.info.size,
-      dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-      dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-    };
-
-    this.service.generateExcel(args.dateFrom, args.dateTo);
-  }
-
-  changePage(e) {
-    var page = e.detail;
-    this.info.page = page;
-    this.searching();
+  reset() {
+    this.flag = false;
+    this.error = {};
+    this.info.startDate = undefined;
+    this.info.endDate = undefined;
+    this.info.voucherType = "";
+    this.info.tierMembership = "";
+    this.tableList.refresh();
   }
 
   create() {
     this.router.navigateToRoute("create");
   }
 
-  view(id) {
-    this.router.navigateToRoute("view", { id: id });
-  }
+  // view(id) {
+  //   this.router.navigateToRoute("view", { id: id });
+  // }
 }

@@ -18,15 +18,14 @@ export class View {
     async activate(params) {
         var id = params.id;
         // this.data = await this.service.getById(id);
-        this.data = {
-            id: "1",
-            nominal: "nominal",
-            voucher: "voucher",
-            pointExchanged: "pointExchanged",
-            totalClaimed: "totalClaimed",
-            totalUsed: "totalUsed",
-            member: "member"
+        this.data = await this.service.getById(id);
+        if (this.data) {
+            // this.voucherType = { label: this.data};
         }
+
+        // this.unit = this.data.unit;
+        // this.supplier = this.data.supplier;
+        // this.deliveryOrder = this.data.deliveryOrder;
     }
 
     cancel(event) {
