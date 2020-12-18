@@ -43,8 +43,6 @@
           value.bind="info.voucherType"
           items.bind="voucherType"
           options.bind="controlOptions"
-          key="value"
-          text="label"
         >
         </au-dropdown>
 
@@ -53,8 +51,6 @@
           value.bind="info.tierMembership"
           items.bind="tierMembershipType"
           options.bind="controlOptions"
-          key="value"
-          text="label"
         >
         </au-dropdown>
       </div>
@@ -78,7 +74,7 @@
     context-click.delegate="contextClickCallback($event)">
 
         <div slot="toolbar" class="btn-group">
-            <button class="btn btn-info" click.delegate="create()">Buat</button>
+            <button class="btn btn-primary" click.delegate="create()">Buat</button>
         </div>
     </au-table>
   </au-input-form>

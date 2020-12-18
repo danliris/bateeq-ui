@@ -18,6 +18,7 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+        this.description = this.data.description;
         // this.data = {
         //     id: 1,
         //     voucherType: 'Percentage',

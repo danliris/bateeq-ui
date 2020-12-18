@@ -2,16 +2,16 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 import { ServiceMembership } from "./service-membership";
 
-const ProductLoader = require('../../loader/account-loader');
+const ProductLoader = require('../../loader/product-list-bateeqshop-loader');
 
 @containerless()
-@inject(Service, BindingEngine,ServiceMembership)
+@inject(Service, BindingEngine, ServiceMembership)
 export class DataForm {
     @bindable readOnly;
     @bindable data = {};
     @bindable error = {};
     @bindable title;
-    @bindable isVoucher = false;
+    @bindable isProduct = false;
 
     formOptions = {
         cancelText: "Kembali",
@@ -31,14 +31,11 @@ export class DataForm {
 
     productGift = [];
 
-    voucherTypeSelection = [
-        { label: "Nominal", value: "nominal" },
-        { label: "Voucher", value: "voucher" }
-    ];
-    
+    voucherTypeSelection = ["Nominal", "Product"];
+
     assignToMembership = [];
 
-    constructor(service, bindingEngine,serviceMembership) {
+    constructor(service, bindingEngine, serviceMembership) {
         this.service = service;
         this.bindingEngine = bindingEngine;
         this.serviceMembership = serviceMembership;
@@ -48,14 +45,15 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
+
         this.serviceMembership.getListMembership({})
-            .then(result =>{
-                console.log("list membership "+result);
-                this.assignToMembership = result.map(s=>{
+            .then(result => {
+                console.log("list membership " + result);
+                this.assignToMembership = result.map(s => {
                     return {
-                        label : s.name,
-                        value : s.id,
-                        checked : false
+                        label: s.name,
+                        value: s.id,
+                        checked: false
                     }
                 });
             });
@@ -63,18 +61,22 @@ export class DataForm {
 
     @bindable voucherType
     voucherTypeChanged(newVal, oldVal) {
-        this.data.voucherType = newVal.value;
-        if (newVal.value == "voucher")
-            this.isVoucher = true;
+        this.data.voucherType = newVal;
+        if (newVal.toLowerCase() == "product")
+            this.isProduct = true;
         else
-            this.isVoucher = false;
+            this.isProduct = false;
     }
 
-    productChange(e) {
-        console.log(selecdtedProductGift);
+    @bindable selectedProductGift;
+    selectedProductGiftChanged(newVal, oldVal) {
+        if (newVal) {
+            this.productGift.push(newVal.roNumber);
+            this.selectedProductGift = "";
+        }
     }
 
-    deleteProductGift(index) {
+    removeProductGift(index) {
         this.productGift.splice(index, 1);
     }
 
@@ -83,7 +85,7 @@ export class DataForm {
     }
 
     productView(data) {
-        return data.testA + data.testB;
+        return data.name;
     }
 
     addProductInput(data) {
