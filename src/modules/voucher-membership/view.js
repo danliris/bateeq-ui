@@ -8,6 +8,8 @@ export class View {
     hasCancel = true;
     hasEdit = true;
     hasDelete = true;
+    isProduct = false;
+    productGift = [];
 
     constructor(router, dialog, service) {
         this.router = router;
@@ -17,12 +19,16 @@ export class View {
 
     async activate(params) {
         var id = params.id;
-        // this.data = await this.service.getById(id);
-        this.data = await this.service.getById(id);
-        if (this.data) {
-            // this.voucherType = { label: this.data};
-        }
 
+        this.data = await this.service.getById(id);
+        console.log(this.data)
+
+        this.voucherType = this.data.voucherType;
+        if(this.data.voucherType.toLowerCase() == 'product'){
+            this.isProduct = true;
+            this.productGift = this.data.productGift;
+        }
+            
         // this.unit = this.data.unit;
         // this.supplier = this.data.supplier;
         // this.deliveryOrder = this.data.deliveryOrder;

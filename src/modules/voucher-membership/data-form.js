@@ -13,13 +13,6 @@ export class DataForm {
     @bindable title;
     @bindable isProduct = false;
 
-    formOptions = {
-        cancelText: "Kembali",
-        saveText: "Simpan",
-        deleteText: "Hapus",
-        editText: "Ubah",
-    }
-
     controlOptions = {
         label: {
             length: 4
@@ -29,11 +22,11 @@ export class DataForm {
         }
     }
 
-    productGift = [];
-
     voucherTypeSelection = ["Nominal", "Product"];
 
     assignToMembership = [];
+    
+    productGift = [];
 
     constructor(service, bindingEngine, serviceMembership) {
         this.service = service;
@@ -48,7 +41,6 @@ export class DataForm {
 
         this.serviceMembership.getListMembership({})
             .then(result => {
-                console.log("list membership " + result);
                 this.assignToMembership = result.map(s => {
                     return {
                         label: s.name,
@@ -56,6 +48,8 @@ export class DataForm {
                         checked: false
                     }
                 });
+
+                this.data.assignToMembershipIds = this.assignToMembership;
             });
     }
 
@@ -71,7 +65,8 @@ export class DataForm {
     @bindable selectedProductGift;
     selectedProductGiftChanged(newVal, oldVal) {
         if (newVal) {
-            this.productGift.push(newVal.roNumber);
+            this.productGift.push({id: newVal.id, name: newVal.name});
+            this.data.productGift = this.productGift;
             this.selectedProductGift = "";
         }
     }
@@ -86,9 +81,5 @@ export class DataForm {
 
     productView(data) {
         return data.name;
-    }
-
-    addProductInput(data) {
-        this.productGift.push(data);
     }
 } 
