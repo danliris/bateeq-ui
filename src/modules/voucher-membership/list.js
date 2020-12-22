@@ -39,10 +39,6 @@ export class List {
     this.router = router;
   }
 
-  activate() {
-    // this.searching();
-  }
-
   search() {
     this.flag = true;
     this.tableList.refresh();
@@ -95,13 +91,12 @@ export class List {
       }
     }
 
-    return this.flag ? this.service.search(args).then((result) => {
+    return this.service.search(args).then((result) => {
       return {
         total: result.total,
         data: result.data,
       };
-    })
-      : { total: 0, data: [] };
+    });
   };
 
   contextClickCallback(event) {
@@ -117,18 +112,11 @@ export class List {
   reset() {
     this.flag = false;
     this.error = {};
-    this.info.startDate = undefined;
-    this.info.endDate = undefined;
-    this.info.voucherType = "";
-    this.info.tierMembership = "";
+    this.info = {};
     this.tableList.refresh();
   }
 
   create() {
     this.router.navigateToRoute("create");
   }
-
-  // view(id) {
-  //   this.router.navigateToRoute("view", { id: id });
-  // }
 }
