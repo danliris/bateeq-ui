@@ -1,7 +1,9 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
-import {activationStrategy} from 'aurelia-router';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service } from './service';
+import { activationStrategy } from 'aurelia-router';
+import moment from "moment";
+// import { AlertView } from './custom-dialog-view/alert-view';
 
 @inject(Router, Service)
 export class Create {
@@ -12,111 +14,36 @@ export class Create {
         this.router = router;
         this.service = service;
     }
+
     activate(params) {
-
     }
-    
-    bind() {
-        // this.data = ["test 1","test 2"];
-        this.data ={};
-        this.error = {};
-        this.voucherTypeList=[
-            "Percentage", 
-            "Nominal",
-            "Buy n free m", 
-            "Buy n discount m%", 
-            "Buy n discount m% product (n)th",
-            "Pay nominal Rp.xx, Free 1 product"
-        ];
 
-        this.categorySourcesList = [
-            "Product",
-            "Category"
-        ];
+    bind() {
+        this.data = {};
+        this.error = {};
     }
 
     cancel(event) {
         this.router.navigateToRoute('list');
     }
 
-    determineActivationStrategy() {
-        return activationStrategy.replace; //replace the viewmodel with a new instance
-        // or activationStrategy.invokeLifecycle to invoke router lifecycle methods on the existing VM
-        // or activationStrategy.noChange to explicitly use the default behavior
-    }
-
-    checkZero(data){
-        if(data.length == 1){
-          data = "0" + data;
-        }
-        return data;
-      }
-
     save(event) {
-        
-        console.log(this.storage);
-        console.log(this.data);
-        console.log(this);
+        this.data.assignToMembershipIds = this.data.assignToMembershipIds.filter(x => x.checked).map(x => x.value).join(',');
+        this.data.startDate = moment(this.data.startDate).format("DD/MM/YYYY");
+        this.data.endDate = moment(this.data.endDate).format("DD/MM/YYYY");
 
-        var startDateDate = new Date(this.data.startDate);
-        this.data.startDate =startDateDate.getDate().toString().padStart(2,'0')+'/'+startDateDate.getMonth().toString().padStart(2,'0')+'/'+startDateDate.getFullYear()
-
-        var endDateDate = new Date(this.data.endDate);
-        this.data.endDate = endDateDate.getDate().toString().padStart(2,'0')+'/'+endDateDate.getMonth().toString().padStart(2,'0')+'/'+endDateDate.getFullYear()
-
-        this.data.description = this.description;
+        if (this.data.voucherType.toLowerCase() == "product") {
+            this.data.productGift = this.data.productGift.map(x => x.id).join(',');
+            delete this.data.nominal;
+        }
 
         this.service.create(this.data)
-            .then(result=> {
+            .then(result => {
                 console.log(result);
                 alert("Data Saved");
             })
-            .catch(e=>{
-                if (e.statusCode == 500) {
-                    alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-                } else {
-                    this.error = e;
-                }
+            .catch(e => {
+                this.error = e.message;
             });
-
-        // this.service.create(this.ata)
-        // this.service.create(this.data)
-        //     .then(result => {
-        //         alert("Data berhasil dibuat");
-        //         this.router.navigateToRoute('create',{}, { replace: true, trigger: true });
-        //     })
-        //     .catch(e => {
-        //         if (e.statusCode == 500) {
-        //             alert("Terjadi Kesalahan Pada Sistem!\nHarap Simpan Kembali!");
-        //         } else {
-        //             this.error = e;
-        //         }
-        //     })
-    }
-
-    delete(event){
-        console.log(event);
-    }
-
-    parseToReq(args){
-        var result={};
-        var typeVoucher = args.voucherType? args.voucherType.toLowerCase(): "";
-        switch(typeVoucher)
-        {
-            case "percentage":
-            break;
-            case "nominal":
-            break;
-            case "buy n free m":
-            break;
-            case "buy n discount m%":
-            break;
-            case "buy n discount m% product (n)th":
-            break;
-            case "pay nominal rp.xx, free 1 product":
-            break;
-            default:
-            break;
-        }
     }
 }

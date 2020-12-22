@@ -17,7 +17,7 @@ export class List {
     { title: "Voucher Type", field: "discountType" },
     { title: "Point Exchanged", field: "exchangePoint" },
     { title: "Total Claimed", field: "totalClaimed" },
-    { title: "Total Used", field: "nominal" },
+    { title: "Total Used", field: "totalUse" },
     { title: "Member", field: "membership" }
   ];
 
@@ -78,7 +78,7 @@ export class List {
       }
 
       if (this.info.tierMembership) {
-        switch (this.info.voucherType.toLowerCase()) {
+        switch (this.info.tierMembership.toLowerCase()) {
           case "silver":
             args.membershipId = 2;
             break;
@@ -89,16 +89,15 @@ export class List {
             args.membershipId = 4;
             break;
           default:
-            args.membershipId = '';
+            args.membershipId = 0;
             break;
         }
       }
     }
 
-    // return { total: this.data.length, data: this.data };
     return this.flag ? this.service.search(args).then((result) => {
       return {
-        total: result.info.Count,
+        total: result.total,
         data: result.data,
       };
     })

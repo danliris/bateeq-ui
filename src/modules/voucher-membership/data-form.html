@@ -72,9 +72,9 @@
             type="text"
             class="form-control"
             style="width: 92% !important; display: inline !important;"
-            value.bind="item"
+            value.bind="item.name"
             read-only.bind="true"
-            if.bind="isProduct"/>
+            if.bind="isProduct" />
             <button class="btn btn-danger" click.delegate="removeProductGift($index)">X</button>
         </div>
       </div>
