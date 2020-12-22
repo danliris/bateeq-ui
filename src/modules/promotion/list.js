@@ -1,26 +1,51 @@
-import { inject } from "aurelia-framework";
+import { inject, bindable } from "aurelia-framework";
 import { Service } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
 
 @inject(Router, Service)
 export class List {
-  info = { page: 1, size: 25 };
-  form = {
-    startDate: "",
-    endDate: "",
-    voucherType: "",
-    discountCode: "",
-    discountName: "",
-  };
+  @bindable flag = false;
+
+  context = ["Detail"];
+
+  columns = [
+    {
+      field: "isSelected",
+      title: "isSelected Checkbox",
+      checkbox: true,
+      sortable: false,
+      formatter: function(value, data, index) {
+          this.checkboxEnabled = (data.status.toLowerCase() == 'active');
+          return ""
+      }
+    },
+    { title: "Discount Name", field: "discountName" },
+    { title: "Discount Type", field: "discountType" },
+    {
+      title: "Start Date", field: "startDate", formatter: function (value, data, index) {
+        return moment(value).format('DD/MM/YYYY')
+      }
+    },
+    {
+      title: "End Date", field: "endDate", formatter: function (value, data, index) {
+        return moment(value).format('DD/MM/YYYY')
+      }
+    },
+    { title: "Total Used", field: "totalUse" },
+    { title: "Status", field: "status" }
+  ];
+
   voucherTypeSources = [
     "",
     "Percentage",
+    "Nominal",
     "Buy n free m",
     "Buy n discount m%",
     "Buy n discount m% product (n)th",
     "Pay nominal Rp.xx, Free 1 product",
   ];
+
   controlOptions = {
     label: {
       length: 3,
@@ -35,151 +60,77 @@ export class List {
     this.router = router;
   }
 
-  rowFormatter(data, index) {
-    if (data.status == "NonActive") {
-      return { css: { "background-color": "lightgray" } };
-    } else return {};
-  }
-
-  attached() {
-    this.options.height =
-      $(window).height() -
-      $("nav.navbar").height() -
-      $("h1.page-header").height();
-  }
-  activate() {
-    this.searching();
-    // this.data = [
-    //   {
-    //     id: 1,
-    //     discountName: "Batik Day",
-    //     discountType: "Percetage",
-    //     startDate: "03-10-2020",
-    //     endDate: "03-11-2020",
-    //     totalUse: 30,
-    //     status: "Active",
-    //   },
-    //   {
-    //     id: 2,
-    //     discountName: "Independence Day",
-    //     discountType: "Norminal",
-    //     startDate: "03-10-2019",
-    //     endDate: "03-11-2019",
-    //     totalUse: 30,
-    //     status: "NonActive",
-    //   },
-    //   {
-    //     id: 3,
-    //     discountName: "Batik Day",
-    //     discountType: "Percetage",
-    //     startDate: "03-10-2020",
-    //     endDate: "03-11-2020",
-    //     totalUse: 30,
-    //     status: "Active",
-    //   },
-    //   {
-    //     id: 4,
-    //     discountName: "Batik Day",
-    //     discountType: "Percetage",
-    //     startDate: "03-10-2020",
-    //     endDate: "03-11-2020",
-    //     totalUse: 30,
-    //     status: "Active",
-    //   },
-    // ];
-  }
-
-  search() {
-    this.info.page = 1;
-    this.info.total = 0;
-    if (
-      this.form.startDate == "" &&
-      this.form.endDate == "" &&
-      this.form.voucherType == "" &&
-      this.form.discountCode == "" &&
-      this.form.discountName == ""
-    ) {
-      this.searching();
-    } else {
-      this.searching("SEARCH");
-    }
-  }
-
-  async searching(type) {
-    var voucherTypeStr ="";
-    switch(this.form.voucherType.toLowerCase())
-    {
-        case "percentage":
-        voucherTypeStr= "1";
-        break;
-        case "nominal":
-        voucherTypeStr= "0";
-        break;
-        case "buy n free m":
-        voucherTypeStr= "3";
-        break;
-        case "buy n discount m%":
-        voucherTypeStr= "5";
-        break;
-        case "buy n discount m% product (n)th":
-        voucherTypeStr= "6";
-        break;
-        case "pay nominal rp.xx, free 1 product":
-        voucherTypeStr= "7";
-        break;
-        default:
-        voucherTypeStr= "0";
-        
-        break;
-    }
-
+  loader = (info) => {
     let args = {
-      // page: this.info.page,
-      // pageSize: this.info.size,
-      startDate: this.form.startDate
-        ? moment(this.form.startDate).format("YYYY-MM-DD")
-        : "01/01/0001",
-      endDate: this.form.endDate
-        ? moment(this.form.endDate).format("YYYY-MM-DD")
-        : "01/01/0001",
-      // voucherType: this.form.voucherType ? this.form.voucherType : "0",
-      voucherType: voucherTypeStr,
-      discountCode: this.form.discountCode ? this.form.discountCode : "",
-      discountName: this.form.discountName ? this.form.discountName : "",
-    };
+      page: parseInt(info.offset / info.limit, 10) + 1,
+      pageSize: info.limit,
+      discountName: info.search ? info.search : ''
+    }
 
-    this.service.search(args).then((result) => {
-      this.data = result;
-      // if (type == "SEARCH") {
-      //   this.info.total = this.data.length;
-      // } else {
-      //   this.info.total = result.total;
-      // }
+    if (this.flag) {
+      if (this.info.voucherType) {
+        switch (this.info.voucherType.toLowerCase()) {
+          case "percentage":
+            args.voucherType = "1";
+            break;
+          case "nominal":
+            args.voucherType = "0";
+            break;
+          case "buy n free m":
+            args.voucherType = "3";
+            break;
+          case "buy n discount m%":
+            args.voucherType = "5";
+            break;
+          case "buy n discount m% product (n)th":
+            args.voucherType = "6";
+            break;
+          case "pay nominal rp.xx, free 1 product":
+            args.voucherType = "7";
+            break;
+          default:
+            args.voucherType = "0";
+            break;
+        }
+      }
+
+      args.startDate = this.info.startDate ? moment(this.info.startDate).format("DD-MM-YYYY") : "01/01/0001"
+      args.endDate = this.info.endDate ? moment(this.info.endDate).format("DD-MM-YYYY") : "01/01/0001"
+      args.discountCode = this.info.discountCode ? this.info.discountCode : ""
+      args.discountName = this.info.discountName ? this.info.discountName : ""
+    }
+
+    return this.service.search(args).then((result) => {
+      return {
+        total: result.length,
+        data: result,
+      };
     });
   }
 
-  exportToXls() {
-    let args = {
-      page: this.info.page,
-      size: this.info.size,
-      dateFrom: this.dateFrom ? moment(this.dateFrom).format("YYYY-MM-DD") : "",
-      dateTo: this.dateTo ? moment(this.dateTo).format("YYYY-MM-DD") : "",
-    };
-
-    this.service.generateExcel(args.dateFrom, args.dateTo);
+  search() {
+    this.flag = true;
+    this.tableList.refresh();
   }
 
-  changePage(e) {
-    var page = e.detail;
-    this.info.page = page;
-    this.searching();
+  reset() {
+    this.flag = false;
+    this.error = {};
+    this.info = {};
+    this.tableList.refresh();
   }
 
   create() {
     this.router.navigateToRoute("create");
   }
 
-  view(id) {
-    this.router.navigateToRoute("view", { id: id });
+  contextClickCallback(event) {
+    var arg = event.detail;
+    var data = arg.data;
+    switch (arg.name) {
+      case "Detail":
+        this.router.navigateToRoute('view', { id: data.id });
+        break;
+    }
   }
 }

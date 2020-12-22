@@ -52,10 +52,7 @@ export class DataForm {
     get isEdit() {
         return (this.data.Id || '').toString() != '';
     }
-
-    // delete(data){
-    //     console.log(data);
-    // }
+    
     get productLoader() {
         return ProductBateeqShopLoader;
     }
