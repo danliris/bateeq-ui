@@ -52,6 +52,15 @@
           read-only.bind="readOnly">
       </numeric>
 
+      <numeric 
+          label="Point Exchange*" 
+          value.bind="data.exchangePoint" 
+          error.bind="error.exchangePoint" 
+          placeholder=".Pts" 
+          format="#.###0,#0"
+          read-only.bind="readOnly">
+      </numeric>
+
       <au-autocomplete 
           value.bind="selectedProductGift" 
           error.bind="error.productGift"

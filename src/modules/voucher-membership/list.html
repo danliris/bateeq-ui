@@ -3,12 +3,7 @@
     .btn-center {
       position: relative;
       height: 70px;
-    }
-
-    .btn-search {
-      position: absolute;
-      left: 45%;
-      width: 10%;
+      text-align: center;
     }
   </style>
 
@@ -57,8 +52,7 @@
     </div>
 
     <div class="form-group">
-      <label for="contact" class="col-sm-5 control-label"></label>
-      <div class="col-sm-3">
+      <div class="btn-center">
         <button click.delegate="search()" class="btn btn-success">Cari</button>
         <button click.delegate="reset()" class="btn btn-warning">Reset</button>
       </div>
@@ -72,7 +66,6 @@
     page-size="25"
     context.bind="context"
     context-click.delegate="contextClickCallback($event)">
-
         <div slot="toolbar" class="btn-group">
             <button class="btn btn-primary" click.delegate="create()">Buat</button>
         </div>

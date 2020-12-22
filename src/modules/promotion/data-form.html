@@ -16,7 +16,7 @@
       value.bind="data.voucherType"
       items.bind="voucherTypeList"
       options.bind="controlOptions"
-      read-only.bind="readOnly"
+      read-only.bind="readOnly || isEdit"
     >
     </au-dropdown>
 
@@ -312,7 +312,7 @@
         <textarea
           class="form-control valid"
           rows="4"
-          value.bind="description"
+          value.bind="data.description"
           placeholder="Description"
           read-only.bind="readOnly"
           required
