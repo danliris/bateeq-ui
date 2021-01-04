@@ -9,7 +9,10 @@ export class View {
     hasEdit = true;
     hasDelete = true;
     isProduct = false;
+
     productGift = [];
+
+    assignToMembership = [];
 
     constructor(router, dialog, service) {
         this.router = router;
@@ -24,11 +27,23 @@ export class View {
         console.log(this.data)
 
         this.voucherType = this.data.voucherType;
-        if(this.data.voucherType.toLowerCase() == 'product'){
+        if (this.data.voucherType.toLowerCase() == 'product' && this.data.productGift.length > 0) {
             this.isProduct = true;
-            this.productGift = this.data.productGift;
+            this.productGift = this.data.productGift[0].split(',').map(x => {
+                console.log(x)
+                return {
+                    id: x,
+                    name: x
+                }
+            });
         }
-            
+
+        if (this.data.assignToMembership && this.data.assignToMember.length > 0)
+            this.assignToMembership = this.data.assignToMembership.map(x => {
+                if (this.data.assignToMember[0].split(',').find(value => value.id == x.value))
+                    x.checked = true
+                return x
+            })
         // this.unit = this.data.unit;
         // this.supplier = this.data.supplier;
         // this.deliveryOrder = this.data.deliveryOrder;

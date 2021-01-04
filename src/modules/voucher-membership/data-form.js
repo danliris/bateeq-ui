@@ -12,6 +12,7 @@ export class DataForm {
     @bindable error = {};
     @bindable title;
     @bindable isProduct = false;
+    @bindable assignToMembership = [];
 
     controlOptions = {
         label: {
@@ -23,8 +24,6 @@ export class DataForm {
     }
 
     voucherTypeSelection = ["Nominal", "Product"];
-
-    assignToMembership = [];
     
     productGift = [];
 
@@ -39,7 +38,7 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        this.serviceMembership.getListMembership({})
+        await this.serviceMembership.getListMembership({})
             .then(result => {
                 this.assignToMembership = result.map(s => {
                     return {
@@ -49,7 +48,7 @@ export class DataForm {
                     }
                 });
 
-                this.data.assignToMembershipIds = this.assignToMembership;
+                this.data.assignToMembership = this.assignToMembership;
             });
     }
 

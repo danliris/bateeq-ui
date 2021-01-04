@@ -40,6 +40,7 @@ export class Create {
         this.service.create(this.data)
             .then(result => {
                 console.log(result);
+                this.router.navigateToRoute('list');
                 alert("Data Saved");
             })
             .catch(e => {
