@@ -1,0 +1,142 @@
+<template>
+  <style>
+    .btn-container {
+      position: relative;
+      height: 70px;
+    }
+
+    .btn-search {
+      position: absolute;
+      left: 80%;
+      width: 10%;
+    }
+
+    .form-container {
+      padding-left: 15%;
+    }
+  </style>
+
+  <h1 class="page-header">Customer Report by Orders</h1>
+  <hr />
+  <br />
+
+  <form class="form-horizontal">
+    <div class="form-group form-container">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="totalOrder" class="col-sm-3 control-label"
+            >Order Period</label
+          >
+          <div class="col-sm-4">
+            <au-datepicker
+              value.bind="form.fromDate"
+              error.bind="error.fromDate"
+              read-only.bind="readOnly"
+              options.bind="controlOptionsDate"
+            >
+            </au-datepicker>
+          </div>
+          <div class="col-sm-4">
+            <au-datepicker
+              value.bind="form.toDate"
+              error.bind="error.toDate"
+              read-only.bind="readOnly"
+              options.bind="controlOptionsDate"
+            >
+            </au-datepicker>
+          </div>
+        </div>
+
+        <au-dropdown
+          label="Order Status"
+          value.bind="form.orderStatus"
+          items.bind="orderStatusSources"
+          options.bind="controlOptions"
+        >
+        </au-dropdown>
+
+        <div class="form-group">
+          <label for="totalOrder" class="col-sm-3 control-label"
+            >Total Order</label
+          >
+          <div class="col-sm-4">
+            <input
+              type="number"
+              class="form-control"
+              name="From"
+              value.bind="form.fromTotalOrder"
+              placeholder="From"
+            />
+          </div>
+          <div class="col-sm-4">
+            <input
+              type="number"
+              class="form-control"
+              name="To"
+              value.bind="form.toTotalOrder"
+              placeholder="To"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 btn-container">
+        <button click.delegate="search()" class="btn btn-success btn-search">
+          <strong>Search</strong>
+        </button>
+      </div>
+    </div>
+    <div>
+      <a click.delegate="exportToXls()" class="btn btn-primary"
+        >Convert To Excel</a
+      >
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover" id="customerList">
+        <thead>
+          <tr>
+            <th style="width: 5%">
+              <input
+                type="checkbox"
+                value.bind="selectAll"
+                change.delegate="selectAllClicked($event)"
+              />
+            </th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Order Total</th>
+            <th>Number of Orders</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr show.bind="data.length == 0">
+            <td colspan="6">
+              <div class="alert alert-info">There are no data</div>
+            </td>
+          </tr>
+          <tr repeat.for="item of data">
+            <td align="center" style="width: 5%">
+              <input
+                type="checkbox"
+                value.bind="data.isSelected"
+                change.delegate="selectedRowClicked($event, transaction.header.Id)"
+              />
+            </td>
+            <td>${item.name}</td>
+            <td>${item.email}</td>
+            <td>${item.phoneNumber}</td>
+            <td>${item.orderTotal}</td>
+            <td>${item.numberOfOrders}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <pagination
+      if.bind="info.total>info.size"
+      info.bind="info"
+      change.delegate="changePage($event)"
+      id="pager"
+    ></pagination>
+    <hr />
+  </form>
+</template>
