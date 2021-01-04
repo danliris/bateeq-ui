@@ -1,0 +1,38 @@
+<template>
+  <style>
+    .ml-70 {
+      margin-left: -70px;
+    }
+  </style>
+  <au-input-form title="Reward Point Period" with.bind="context">
+    <div class="col-md-12 margin-top-57">
+      <div class="form-group">
+        <label class="col-md-2 text-center">
+          <strong>Validity Period of Points</strong>
+        </label>
+        <div class="col-md-1">
+          <input
+            type="number"
+            class="form-control"
+            name="email"
+            value.bind="masaBerlakuPoin"
+            placeholder="Order Price (Rp)"
+          />
+        </div>
+        <label class="col-md-1 text-left" style="width: 125px">Months</label>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-4 ml-70">
+        <button
+          type="button"
+          style="width: 80px"
+          click.delegate="onSave()"
+          class="btn btn-success save"
+        >
+          <strong>Save</strong>
+        </button>
+      </div>
+    </div>
+  </au-input-form>
+</template>

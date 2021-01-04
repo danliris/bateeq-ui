@@ -80,8 +80,8 @@
     "aurelia-fetch-client": "^1.0.1",
     "aurelia-framework": "^1.0.7",
     "aurelia-history-browser": "^1.0.0",
-    "aurelia-loader-webpack": "^1.0.3",
     "aurelia-loader": "1.0.0",
+    "aurelia-loader-webpack": "^1.0.3",
     "aurelia-logging-console": "^1.0.0",
     "aurelia-pal-browser": "^1.0.0",
     "aurelia-polyfills": "^1.1.1",
@@ -107,6 +107,7 @@
     "react": "15.4.1",
     "react-autosuggest": "7.0.2",
     "react-bootstrap": "0.30.7",
+    "react-bootstrap-typeahead": "^5.1.2",
     "react-dom": "15.4.1",
     "react-dynamic-number": "1.4.5",
     "xlsx": "^0.13.0"

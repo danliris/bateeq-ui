@@ -1,0 +1,148 @@
+<template>
+  <style>
+    .btn-center {
+      position: relative;
+      height: 70px;
+    }
+
+    .btn-search {
+      position: absolute;
+      left: 45%;
+      width: 10%;
+    }
+  </style>
+
+  <h1 class="page-header">Voucher</h1>
+  <hr />
+  <br />
+  <form class="form-horizontal">
+    <div class="form-group">
+      <div class="col-md-6">
+        <au-datepicker
+          label="Start Date"
+          value.bind="form.startDate"
+          error.bind="error.startDate"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+        >
+        </au-datepicker>
+
+        <au-datepicker
+          label="End Date"
+          value.bind="form.endDate"
+          error.bind="error.endDate"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+        >
+        </au-datepicker>
+
+        <au-dropdown
+          label="Voucher Type"
+          value.bind="form.voucherType"
+          items.bind="voucherTypeSources"
+          options.bind="controlOptions"
+        >
+        </au-dropdown>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="phoneNumber" class="col-sm-3 control-label"
+            >Discount Code</label
+          >
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control"
+              name="discountCode"
+              value.bind="form.discountCode"
+              placeholder="Discount Code"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phoneNumber" class="col-sm-3 control-label"
+            >Discount Name</label
+          >
+          <div class="col-sm-8">
+            <input
+              type="text"
+              class="form-control"
+              name="discountName"
+              value.bind="form.discountName"
+              placeholder="Discount Name"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-center">
+      <button click.delegate="search()" class="btn btn-success btn-search">
+        <strong>Search</strong>
+      </button>
+    </div>
+    <div>
+      <a click.delegate="create()" class="btn btn-primary">Create Voucher</a>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover" id="voucherList">
+        <thead>
+          <tr>
+            <th style="width: 5%">
+              <input
+                type="checkbox"
+                value.bind="selectAll"
+                change.delegate="selectAllClicked($event)"
+              />
+            </th>
+            <th>Discount Name</th>
+            <th>Discount Type</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Total Use</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr show.bind="data.length == 0">
+            <td colspan="8">
+              <div class="alert alert-info">There are no data</div>
+            </td>
+          </tr>
+          <tr
+            repeat.for="item of data"
+            css="background-color: ${item.status === 'NonActive' ? 'lightgray': ''}"
+          >
+            <td align="center" style="width: 5%">
+              <input
+                type="checkbox"
+                value.bind="data.isSelected"
+                change.delegate="selectedRowClicked($event, transaction.header.Id)"
+              />
+            </td>
+            <td>${item.discountName}</td>
+            <td>${item.discountType}</td>
+            <td>${item.startDate}</td>
+            <td>${item.endDate}</td>
+            <td>${item.totalUse}</td>
+            <td>${item.status}</td>
+            <td align="center" style="width: 10%">
+              <button click.delegate="view(item.id)" class="btn btn-warning">
+                view
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <pagination
+      if.bind="info.total>info.size"
+      info.bind="info"
+      change.delegate="changePage($event)"
+      id="pager"
+    ></pagination>
+    <hr />
+  </form>
+</template>
