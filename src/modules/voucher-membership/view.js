@@ -1,37 +1,59 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service, ServiceMembership } from './service';
 import { Dialog } from '../../au-components/dialog/dialog';
 
-@inject(Router, Dialog, Service)
+@inject(Router, Dialog, Service, ServiceMembership)
 export class View {
     hasCancel = true;
     hasEdit = true;
     hasDelete = true;
     isProduct = false;
+
     productGift = [];
 
-    constructor(router, dialog, service) {
+    assignToMembership = [];
+
+    constructor(router, dialog, service, serviceMembership) {
         this.router = router;
         this.dialog = dialog;
         this.service = service;
+        this.serviceMembership = serviceMembership;
     }
 
     async activate(params) {
-        var id = params.id;
+        let id = params.id;
 
         this.data = await this.service.getById(id);
-        console.log(this.data)
-
         this.voucherType = this.data.voucherType;
-        if(this.data.voucherType.toLowerCase() == 'product'){
+
+        await this.serviceMembership.getListMembership({})
+            .then(result => {
+                this.assignToMembership = result.map(s => {
+                    return {
+                        label: s.name,
+                        value: s.id,
+                        checked: false
+                    }
+                });
+            });
+
+        if (this.data.voucherType.toLowerCase() == 'product' && this.data.productGift.length > 0) {
             this.isProduct = true;
-            this.productGift = this.data.productGift;
+            this.productGift = this.data.productGift[0].split(',').map(x => {
+                return {
+                    id: x,
+                    name: x
+                }
+            });
         }
-            
-        // this.unit = this.data.unit;
-        // this.supplier = this.data.supplier;
-        // this.deliveryOrder = this.data.deliveryOrder;
+
+        if (this.data.assignToMember && this.data.assignToMember.length > 0)
+            this.assignToMembership = this.assignToMembership.map(x => {
+                if (this.data.assignToMember[0].split(',').find(y => y == x.value))
+                    x.checked = true
+                return x
+            })
     }
 
     cancel(event) {

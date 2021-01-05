@@ -5,8 +5,9 @@ import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
 const serviceUri = `voucher/membership`;
+const serviceMembershipUri = `membership`;
 
-export class Service extends RestService {
+class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "voucher");
   }
@@ -42,3 +43,19 @@ export class Service extends RestService {
     });
   }
 }
+
+class ServiceMembership extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "authBateeqshop");
+  }
+
+  getListMembership(args) {
+    let endpoint = `${serviceMembershipUri}/FindAllMembership`;
+    return super.list(endpoint, args);
+  }
+}
+
+export {
+  Service,
+  ServiceMembership,
+};

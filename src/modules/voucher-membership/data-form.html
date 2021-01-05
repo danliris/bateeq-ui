@@ -37,8 +37,8 @@
       <au-textbox 
           label="Voucher Name*" 
           placeholder="Voucher Name" 
-          value.bind="data.discountName"
-          error.bind="error.discountName"
+          value.bind="data.voucherName"
+          error.bind="error.voucherName"
           read-only.bind="readOnly"
           if.bind="true"
           options.bind="controlOptions">
@@ -124,7 +124,7 @@
         <label for="qtyItemGift" class="col-sm-4 control-label">Assign to member</label>
         <div class="col-sm-5">
             <label repeat.for="option of assignToMembership">
-                <input type="checkbox" model.bind="option" checked.bind="option.checked"> ${option.label}</input> &nbsp;
+                <input type="checkbox" model.bind="option" checked.bind="option.checked" disabled.bind="readOnly"> ${option.label}</input> &nbsp;
             </label>
         </div>
       </div>
