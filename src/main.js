@@ -45,7 +45,7 @@ export async function configure(aurelia) {
       var finance = "https://com-bateeq-service-finance-accounting-dev.azurewebsites.net/v1/";
       //var masterplan ="https://com-bateeq-service-masterplan-dev.azurewebsites.net/v1/";
       var nmasterplan ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
-      var customers = "https://bateeq-api-auth.azurewebsites.net/v1/";
+      var customers = "https://bateeq-api-auth.azurewebsites.net/v1/api/";
       var rewardPoints = "https://bateeq-service-voucher-dev.azurewebsites.net/v1/api/";
       var productBateeqshop= "https://bateeq-service-product-dev.azurewebsites.net/v1/";
       var voucher= "https://bateeq-service-voucher-dev.azurewebsites.net/v1/";

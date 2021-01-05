@@ -9,7 +9,7 @@ const serviceUri = 'membership';
 
 export class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
-    super(http, aggregator, config, "customers");
+    super(http, aggregator, config, "authBateeqshop");
   }
 
   getCustomers(args) {
