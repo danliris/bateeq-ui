@@ -21,7 +21,7 @@ export class View {
   async activate(params) {
     var id = params.id;
     this.customerInfo = await this.service.getCustomersById(id);
-    this.customerInfo[0].dbo = moment(this.customerInfo[0].dbo).format("DD MMM YYYY");
+    this.customerInfo.dbo = moment(this.customerInfo.dbo).format("DD MMM YYYY");
     this.customerAddress = await this.service.getAddressBookById(id);
     this.setFullName(this.customerAddress);
     this.customerOrders = [];

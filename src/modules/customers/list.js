@@ -68,7 +68,7 @@ export class List {
     };
 
     this.service.search(args).then((result) => {
-      this.data = this.formatData(result.data.result);
+      this.data = this.formatData(result.data);
       if (type == "SEARCH") {
         this.info.total = this.data.length;
       } else {
