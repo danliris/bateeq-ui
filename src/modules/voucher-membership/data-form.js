@@ -1,18 +1,16 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-import { ServiceMembership } from "./service-membership";
 
 const ProductLoader = require('../../loader/product-list-bateeqshop-loader');
 
 @containerless()
-@inject(Service, BindingEngine, ServiceMembership)
+@inject(Service, BindingEngine)
 export class DataForm {
     @bindable readOnly;
     @bindable data = {};
     @bindable error = {};
     @bindable title;
     @bindable isProduct = false;
-    @bindable assignToMembership = [];
 
     controlOptions = {
         label: {
@@ -24,13 +22,12 @@ export class DataForm {
     }
 
     voucherTypeSelection = ["Nominal", "Product"];
-    
-    productGift = [];
 
-    constructor(service, bindingEngine, serviceMembership) {
+    // productGift = [];
+
+    constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
-        this.serviceMembership = serviceMembership;
     }
 
     async bind(context) {
@@ -38,18 +35,18 @@ export class DataForm {
         this.data = this.context.data;
         this.error = this.context.error;
 
-        await this.serviceMembership.getListMembership({})
-            .then(result => {
-                this.assignToMembership = result.map(s => {
-                    return {
-                        label: s.name,
-                        value: s.id,
-                        checked: false
-                    }
-                });
+        // await this.serviceMembership.getListMembership({})
+        //     .then(result => {
+        //         this.assignToMembership = result.map(s => {
+        //             return {
+        //                 label: s.name,
+        //                 value: s.id,
+        //                 checked: false
+        //             }
+        //         });
 
-                this.data.assignToMembership = this.assignToMembership;
-            });
+        //         this.data.assignToMembership = this.assignToMembership;
+        //     });
     }
 
     @bindable voucherType
@@ -63,9 +60,12 @@ export class DataForm {
 
     @bindable selectedProductGift;
     selectedProductGiftChanged(newVal, oldVal) {
+        console.log(this)
         if (newVal) {
-            this.productGift.push({id: newVal.id, name: newVal.name});
-            this.data.productGift = this.productGift;
+            // this.productGift.push({ id: newVal.id, name: newVal.name });
+            // this.data.productGift = this.productGift;
+            if (this.context)
+                this.context.productGift.push({ id: newVal.id, name: newVal.name })
             this.selectedProductGift = "";
         }
     }

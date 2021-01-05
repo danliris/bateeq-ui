@@ -1,6 +1,5 @@
 import { inject, bindable } from "aurelia-framework";
-import { Service } from "./service";
-import { ServiceMembership } from "./service-membership";
+import { Service, ServiceMembership } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
 import { resolve } from "bluebird";
