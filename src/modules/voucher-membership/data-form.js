@@ -23,8 +23,6 @@ export class DataForm {
 
     voucherTypeSelection = ["Nominal", "Product"];
 
-    // productGift = [];
-
     constructor(service, bindingEngine) {
         this.service = service;
         this.bindingEngine = bindingEngine;
@@ -34,19 +32,6 @@ export class DataForm {
         this.context = context;
         this.data = this.context.data;
         this.error = this.context.error;
-
-        // await this.serviceMembership.getListMembership({})
-        //     .then(result => {
-        //         this.assignToMembership = result.map(s => {
-        //             return {
-        //                 label: s.name,
-        //                 value: s.id,
-        //                 checked: false
-        //             }
-        //         });
-
-        //         this.data.assignToMembership = this.assignToMembership;
-        //     });
     }
 
     @bindable voucherType
@@ -60,10 +45,7 @@ export class DataForm {
 
     @bindable selectedProductGift;
     selectedProductGiftChanged(newVal, oldVal) {
-        console.log(this)
         if (newVal) {
-            // this.productGift.push({ id: newVal.id, name: newVal.name });
-            // this.data.productGift = this.productGift;
             if (this.context)
                 this.context.productGift.push({ id: newVal.id, name: newVal.name })
             this.selectedProductGift = "";
@@ -71,7 +53,8 @@ export class DataForm {
     }
 
     removeProductGift(index) {
-        this.productGift.splice(index, 1);
+        if (this.context)
+            this.context.productGift.splice(index, 1);
     }
 
     get productLoader() {

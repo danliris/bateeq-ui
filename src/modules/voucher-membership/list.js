@@ -2,7 +2,7 @@ import { inject, bindable } from "aurelia-framework";
 import { Service, ServiceMembership } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import { resolve } from "bluebird";
+import numeral from 'numeral';
 
 @inject(Router, Service, ServiceMembership)
 export class List {
@@ -13,9 +13,18 @@ export class List {
   context = ["Detail"];
 
   columns = [
-    { title: "Nominal", field: "nominal" },
+    { title: "Voucher Name", field: "discountName" },
+    {
+      title: "Nominal", field: "nominal", formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      }
+    },
     { title: "Voucher Type", field: "discountType" },
-    { title: "Point Exchanged", field: "exchangePoint" },
+    {
+      title: "Point Exchanged", field: "exchangePoint", formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      }
+    },
     { title: "Total Claimed", field: "totalClaimed" },
     { title: "Total Used", field: "totalUse" },
     { title: "Member", field: "membership" }
@@ -81,24 +90,8 @@ export class List {
         }
       }
 
-      if (this.info.tierMembership) {
-        args.voucherType = this.membershipResult.find(x => x.name.toLowerCase() == this.info.tierMembership.toLowerCase()).id;
-
-        // switch (this.info.tierMembership.toLowerCase()) {
-        //   case "silver":
-        //     args.membershipId = 2;
-        //     break;
-        //   case "gold":
-        //     args.membershipId = 1;
-        //     break;
-        //   case "platinum":
-        //     args.membershipId = 4;
-        //     break;
-        //   default:
-        //     args.membershipId = 0;
-        //     break;
-        // }
-      }
+      if (this.info.tierMembership)
+        args.membershipId = this.membershipResult.find(x => x.name.toLowerCase() == this.info.tierMembership.toLowerCase()).id;
     }
 
     return this.service.search(args)
