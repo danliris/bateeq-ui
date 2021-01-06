@@ -44,7 +44,6 @@ export class Edit {
                         }
                     })
                 });
-            delete this.data.productGift;
         }
 
         if (this.data.assignToMember && this.data.assignToMember.length > 0) {
@@ -53,8 +52,10 @@ export class Edit {
                     x.checked = true
                 return x
             })
-            delete this.data.assignToMember;
         }
+
+        delete this.data.productGift;
+        delete this.data.assignToMember;
     }
 
     cancel(event) {
