@@ -1,9 +1,9 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service, ServiceMembership } from './service';
+import { Service, ServiceMembership, ServiceProduct } from './service';
 import { Dialog } from '../../au-components/dialog/dialog';
 
-@inject(Router, Dialog, Service, ServiceMembership)
+@inject(Router, Dialog, Service, ServiceMembership, ServiceProduct)
 export class View {
     hasCancel = true;
     hasEdit = true;
@@ -14,11 +14,12 @@ export class View {
 
     assignToMembership = [];
 
-    constructor(router, dialog, service, serviceMembership) {
+    constructor(router, dialog, service, serviceMembership, serviceProduct) {
         this.router = router;
         this.dialog = dialog;
         this.service = service;
         this.serviceMembership = serviceMembership;
+        this.serviceProduct = serviceProduct;
     }
 
     async activate(params) {
@@ -40,12 +41,15 @@ export class View {
 
         if (this.data.voucherType.toLowerCase() == 'product' && this.data.productGift.length > 0) {
             this.isProduct = true;
-            this.productGift = this.data.productGift[0].split(',').map(x => {
-                return {
-                    id: x,
-                    name: x
-                }
-            });
+            this.productGift = await this.serviceProduct.getProductByIds(this.data.productGift[0].split(","))
+                .then(result => {
+                    return result.map(x => {
+                        return {
+                            id: x.id,
+                            name: x.name
+                        }
+                    })
+                });
         }
 
         if (this.data.assignToMember && this.data.assignToMember.length > 0)
@@ -68,7 +72,6 @@ export class View {
         this.dialog.prompt('Are you sure want to delete this voucher?', 'Delete this voucher')
             .then(response => {
                 if (response.ok) {
-                    console.log(event)
                     this.service.delete(this.data.id)
                         .then(result => {
                             this.list();
@@ -77,16 +80,4 @@ export class View {
                 }
             });
     }
-
-    // editCallback(event) {
-    //     // this.router.navigateToRoute('edit', { id: this.data.Id });
-    //     this.router.navigateToRoute('edit');
-    // }
-
-    // deleteCallback(event) {
-    //     this.service.delete(this.data)
-    //         .then(result => {
-    //             this.list();
-    //         });
-    // }
 }

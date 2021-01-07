@@ -21,7 +21,6 @@ export class Create {
     }
 
     async activate(params) {
-        console.log(this)
         await this.serviceMembership.getListMembership({})
             .then(result => {
                 this.assignToMembership = result.map(s => {
@@ -55,7 +54,6 @@ export class Create {
 
         this.service.create(this.data)
             .then(result => {
-                console.log(result);
                 this.router.navigateToRoute('list');
                 alert("Data Saved");
             })
