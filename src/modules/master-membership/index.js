@@ -8,13 +8,13 @@ export class Index {
         nav: false,
         title: "List: Membership",
       },
-      {
-        route: "create",
-        moduleId: "./create",
-        name: "create",
-        nav: false,
-        title: "Create: Membership",
-      },
+      // {
+      //   route: "create",
+      //   moduleId: "./create",
+      //   name: "create",
+      //   nav: false,
+      //   title: "Create: Membership",
+      // },
       {
         route: "view/:id",
         moduleId: "./view",

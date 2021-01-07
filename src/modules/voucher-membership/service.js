@@ -43,7 +43,7 @@ class Service extends RestService {
       if (result.error)
         return Promise.reject(result.error);
       else
-        return Promise.resolve(result)
+        return Promise.resolve(result);
     });
   }
 }
