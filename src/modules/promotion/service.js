@@ -22,6 +22,11 @@ export class Service extends RestService {
 
   create(args){
     let endpoint = "voucher";
+    var request = args;
+    var productPurchaseId = args.productPurchase.id;
+    var productGiftId = args.productGift.id;
+    request.productPurchase = productPurchaseId;
+    request.productGift = productGiftId;
     return super.post(endpoint,args);
   }
 
