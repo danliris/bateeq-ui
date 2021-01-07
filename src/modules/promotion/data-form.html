@@ -40,14 +40,15 @@
           >Percentage*</label
         >
         <div class="col-sm-5">
-          <input
+          <numeric
             type="number"
-            class="form-control"
             name="percentage"
             value.bind="data.percentage"
             placeholder="Percentage"
             read-only.bind="readOnly"
-          />
+            format="#.###0,#0"
+          >
+          </numeric>
         </div>
       </div>
 
@@ -56,14 +57,14 @@
           >Max Discount</label
         >
         <div class="col-sm-5">
-          <input
+          <numeric
             type="number"
-            class="form-control"
             name="maxDiscount"
             value.bind="data.maxDiscount"
             placeholder="0.0000"
             read-only.bind="readOnly"
-          />
+            format="#.###0,#0"
+          ></numeric>
         </div>
       </div>
     </div>
@@ -72,14 +73,15 @@
       <div class="form-group">
         <label for="nominal" class="col-sm-4 control-label">Nominal*</label>
         <div class="col-sm-5">
-          <input
+          <numeric
             type="number"
-            class="form-control"
             name="nominal"
             value.bind="data.nominal"
             placeholder="0.0000"
             read-only.bind="readOnly"
-          />
+            format="#.###0,#0"
+          >
+          </numeric>
         </div>
       </div>
     </div>
@@ -119,6 +121,7 @@
         text="name"
         options.bind="controlOptions"
         read-only.bind="readOnly"
+        text.bind = "productView"
       >
       </au-autocomplete>
     </div>
@@ -149,14 +152,15 @@
           >Qty Item Purchase (n)*</label
         >
         <div class="col-sm-5">
-          <input
+          <numeric
             type="number"
-            class="form-control"
             name="qtyItemPruchase"
             value.bind="data.qtyItemPruchase"
             placeholder="0"
             read-only.bind="readOnly"
-          />
+            format="#.###0,#0"
+          >
+          </numeric>
         </div>
       </div>
     </div>
@@ -167,14 +171,14 @@
           >Qty Item Gift*</label
         >
         <div class="col-sm-5">
-          <input
+          <numeric
             type="number"
-            class="form-control"
             name="qtyItemGift"
             value.bind="data.qtyItemGift"
             placeholder="0"
             read-only.bind="readOnly"
-          />
+            format="#.###0,#0"
+          ></numeric>
         </div>
       </div>
     </div>
@@ -188,14 +192,14 @@
           >Discount Percentage*</label
         >
         <div class="col-sm-5">
-          <input
+          <numeric
             type="number"
-            class="form-control"
             name="discountPercentage"
             value.bind="data.discountPercentage"
             placeholder="Discount Percentage"
             read-only.bind="readOnly"
-          />
+            format="#.###0,#0"
+          ></numeric>
         </div>
       </div>
     </div>
@@ -210,14 +214,14 @@
           >Minimum Payment*</label
         >
         <div class="col-sm-5">
-          <input
+          <numeric
             type="number"
-            class="form-control"
             name="minimumPayment"
             value.bind="data.minimumPayment"
             placeholder="0.0000"
             read-only.bind="readOnly"
-          />
+            format="#.###0,#0"
+          ></numeric>
         </div>
       </div>
     </div>
@@ -259,14 +263,14 @@
         >Quantity Voucher</label
       >
       <div class="col-sm-5">
-        <input
+        <numeric
           type="number"
-          class="form-control"
           name="quantityVoucher"
           value.bind="data.quantityVoucher"
           placeholder="100"
           read-only.bind="readOnly"
-        />
+          format="#.###0,#0"
+        ></numeric>
       </div>
     </div>
 
@@ -275,14 +279,14 @@
         >Max Usage / User</label
       >
       <div class="col-sm-5">
-        <input
+        <numeric
           type="number"
-          class="form-control"
           name="maxUsagePerUser"
           value.bind="data.maxUsagePerUser"
           placeholder="2"
           read-only.bind="readOnly"
-        />
+          format="#.###0,#0"
+        ></numeric>
       </div>
     </div>
 

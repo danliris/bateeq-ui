@@ -1,7 +1,8 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
 const ProductBateeqShopLoader = require('../../loader/product-bateeqshop-loader');
-const ProductLoader = require('../../loader/process-loader');
+// const ProductLoader = require('../../loader/process-loader');
+const ProductLoader = require('../../loader/product-list-bateeqshop-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -54,6 +55,10 @@ export class DataForm {
     }
     
     get productLoader() {
-        return ProductBateeqShopLoader;
+        return ProductLoader;
+    }
+    
+    productView(data) {
+        return data.name;
     }
 } 
