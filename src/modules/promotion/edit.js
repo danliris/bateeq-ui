@@ -1,7 +1,7 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {Router} from 'aurelia-router';
 import {Service} from './service';
-
+import { moment } from 'moment';
 
 @inject(Router, Service)
 export class Edit {
@@ -24,7 +24,7 @@ export class Edit {
     }
 
     save(event) {
-        var startDateDate = this.data.startDate;
+        var startDateDate = new Date(this.data.startDate);
         this.data.startDate =startDateDate.getDate().toString().padStart(2,'0')+'/'+(startDateDate.getMonth()+1).toString().padStart(2,'0')+'/'+startDateDate.getFullYear()
 
         var endDateDate = new Date(this.data.endDate);
@@ -32,19 +32,19 @@ export class Edit {
 
         // this.data.description = this.description;
 
-        this.service.put(this.data)
+        this.service.edit(this.data)
             .then(result=> {
                 console.log("masuk then")
                 console.log(result);
                 var isempty = this.isEmpty(result);
-                console.log(isempty);   
+                console.log(isempty);
                 if (isempty) {
                     // console.log(result.data);
-                        alert("Lengkapi kembali Form dengan tanda bintang");
-                }else{
-                // console.log(result);
-                alert("Voucher berhasil di update");
-                this.router.navigateToRoute('list',{}, { replace: true, trigger: true });
+                    alert("Lengkapi kembali Form dengan tanda bintang");
+                } else {
+                    // console.log(result);
+                    alert("Voucher berhasil di update");
+                    this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
                 }
             })
             .catch(e=>{
@@ -56,11 +56,22 @@ export class Edit {
                 else if (e.statusCode == 400) {
                     console.log("masuk 400");
                     console.log(e.data);
-                        alert("Lengkapi kembali Form dengan tanda bintang");
+                    alert("Lengkapi kembali Form dengan tanda bintang");
                 } else {
                     this.error = e;
                 }
             });
+    }
+    isEmpty(obj) {
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                return false;
+            }
+        }
+        if (obj == undefined)
+            return false;
+
+        return true;
     }
     // cancelCallback(event) {
     //     this.router.navigateToRoute('view', { id: this.data.Id });
