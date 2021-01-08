@@ -38,7 +38,7 @@ export class List {
     }
 
     excel() {
-        this.storageId = this.storages.code; //soon
+        this.storageId = this.storages._id; //soon
         this.service.generateExcel(this.storageId, this.filter)
             // .then(data => {
             //     this.data = data;

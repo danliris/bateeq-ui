@@ -30,6 +30,18 @@ export class Create {
         return StorageLoader;
     }
 
+    download() {
+        var storage = this.data.storage;
+        var endpoint = `stock-opname/by-user/download?source=${storage.code}`;
+        var request = {
+          method: 'GET'
+        };
+    
+        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+        this.service._downloadFile(getRequest);
+        this.service.publish(getRequest);
+    }
+
     upload() {
         var e = {};
         var formData = new FormData();
