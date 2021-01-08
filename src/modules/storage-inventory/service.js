@@ -24,7 +24,7 @@ export class Service extends RestService{
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("inventory").client.baseUrl + 'inventories/monitoring/by-user/download?storageId=' +storageId+ '&filter=' + keyword;
     return super.getXls(endpoint);
-}
+  }
   
   getAllMovement(storageId, itemCode)
   {
@@ -38,6 +38,6 @@ export class Service extends RestService{
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("inventory").client.baseUrl + 'inventories/monitoring/by-movements/download?storageId=' + storageId+'&itemCode='+itemCode;   
     return super.getXls(endpoint);
-}
+  }
    
 }
