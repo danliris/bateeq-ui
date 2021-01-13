@@ -29,17 +29,17 @@ export class View {
     this.router.navigateToRoute("edit", { id: this.data.id });
   }
 
-  delete(event) {
-    this.dialog
-      .prompt("Are you sure want to delete this data?", "Delete this data")
-      .then((response) => {
-        if (response.ok) {
-          this.service.delete(this.data)
-              .then(result => {
-                  this.list();
-              });
-          this.router.navigateToRoute("list");
-        }
-      });
-  }
+  // delete(event) {
+  //   this.dialog
+  //     .prompt("Are you sure want to delete this data?", "Delete this data")
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         this.service.delete(this.data)
+  //             .then(result => {
+  //                 this.list();
+  //             });
+  //         this.router.navigateToRoute("list");
+  //       }
+  //     });
+  // }
 }
