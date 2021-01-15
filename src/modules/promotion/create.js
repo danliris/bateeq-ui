@@ -92,6 +92,8 @@ export class Create {
                 } else {
                     // console.log(result);
                     alert("Voucher berhasil di update");
+                    this.data.startDate = startDateDate;
+                    this.data.endDate = endDateDate;
                     this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
                 }
             })

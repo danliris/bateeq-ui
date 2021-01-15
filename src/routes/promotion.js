@@ -4,7 +4,7 @@ module.exports = [
     name: "voucher",
     moduleId: "./modules/promotion/index",
     nav: true,
-    title: "Voucher",
+    title: "Voucher General",
     auth: true,
     settings: {
       group: "Promotion",

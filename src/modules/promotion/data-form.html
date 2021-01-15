@@ -135,6 +135,7 @@
         label="Category Purchase*"
         loader.one-time="categoryLoader"
         placeholder="Search By Category Name"
+        text.bind = "categoryView"
         text="name"
         options.bind="controlOptions"
         read-only.bind="readOnly"
@@ -148,14 +149,14 @@
         data.voucherType === 'Buy n discount m% product (n)th'? '': 'none'}"
     >
       <div class="form-group">
-        <label for="qtyItemPruchase" class="col-sm-4 control-label"
+        <label for="qtyItemPurchase" class="col-sm-4 control-label"
           >Qty Item Purchase (n)*</label
         >
         <div class="col-sm-5">
           <numeric
             type="number"
-            name="qtyItemPruchase"
-            value.bind="data.qtyItemPruchase"
+            name="qtyItemPurchase"
+            value.bind="data.qtyItemPurchase"
             placeholder="0"
             read-only.bind="readOnly"
             format="#.###0,#0"
@@ -260,7 +261,7 @@
 
     <div class="form-group">
       <label for="quantityVoucher" class="col-sm-4 control-label"
-        >Quantity Voucher</label
+        >Quantity Voucher*</label
       >
       <div class="col-sm-5">
         <numeric
@@ -276,7 +277,7 @@
 
     <div class="form-group">
       <label for="maxUsagePerUser" class="col-sm-4 control-label"
-        >Max Usage / User</label
+        >Max Usage / User*</label
       >
       <div class="col-sm-5">
         <numeric
