@@ -3,6 +3,7 @@ import { Service } from "./service";
 const ProductBateeqShopLoader = require('../../loader/product-bateeqshop-loader');
 // const ProductLoader = require('../../loader/process-loader');
 const ProductLoader = require('../../loader/product-list-bateeqshop-loader');
+const CategoryLoader = require('../../loader/category-list-bateeqshop-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -56,6 +57,14 @@ export class DataForm {
     
     get productLoader() {
         return ProductLoader;
+    }
+
+    get categoryLoader(){
+        return CategoryLoader;
+    }
+
+    categoryView(data){
+        return data.name;
     }
     
     productView(data) {
