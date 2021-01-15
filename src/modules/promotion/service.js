@@ -31,17 +31,30 @@ export class Service extends RestService {
       var productGiftId = args.productGift.id;
       request.productGift = productGiftId;
     }
+    if(args.categoryPurchase){
+      var categoryId = args.categoryPurchase.Id;
+      request.categoryPurchase = categoryId
+    }
     return super.post(endpoint,request);
   }
 
   edit(args){
     let endpoint = "voucher";
     var request = args;
-    var productPurchaseId = args.productPurchase.id;
-    var productGiftId = args.productGift.id;
-    request.productPurchase = productPurchaseId;
-    request.productGift = productGiftId;
+    if(args.productPurchase){
+      var productPurchaseId = args.productPurchase.id;
+      request.productPurchase = productPurchaseId;
+    }
+    if(args.productGift){
+      var productGiftId = args.productGift.id;
+      request.productGift = productGiftId;
+    }
+    if(args.categoryPurchase){
+      var categoryId = args.categoryPurchase.Id;
+      request.categoryPurchase = categoryId
+    }
     return super.put(endpoint,request);
+    // return 0;
   }
   
   delete(id){
