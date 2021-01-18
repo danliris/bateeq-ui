@@ -1,22 +1,33 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service, ServiceProduct } from './service';
 import { moment } from 'moment';
 
-@inject(Router, Service)
+@inject(Router, Service, ServiceProduct)
 export class Edit {
     hasCancel = true;
     hasSave = true;
     isEdit = true;
 
-    constructor(router, service) {
+    constructor(router, service, serviceProduct) {
         this.router = router;
         this.service = service;
+        this.serviceProduct = serviceProduct;
     }
 
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
+
+        if (this.data) {
+            let productIds = []
+            if (this.data.productGift) productIds.push(this.data.productGift)
+            if (this.data.productPurchase) productIds.push(this.data.productPurchase)
+            let product = await this.serviceProduct.getProductByIds(productIds)
+
+            this.data.productGift = product.find(x => x.id == this.data.productGift)
+            this.data.productPurchase = product.find(x => x.id == this.data.productPurchase)
+        }
     }
     bind() {
         // this.data = {};
@@ -51,7 +62,7 @@ export class Edit {
 
         console.log(endDateDate);
         this.service.edit(this.data)
-            .then(result=> {
+            .then(result => {
                 console.log("masuk then")
                 console.log(result);
                 // console.log(result.message);
@@ -69,7 +80,7 @@ export class Edit {
                     this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
                 }
             })
-            .catch(e=>{
+            .catch(e => {
                 console.log("masuk catch");
                 console.log(e);
                 if (e.statusCode == 500) {

@@ -91,7 +91,7 @@ export class Create {
                     alert("Lengkapi kembali Form dengan tanda bintang");
                 } else {
                     // console.log(result);
-                    alert("Voucher berhasil di update");
+                    alert("Voucher berhasil dibuat");
                     this.data.startDate = startDateDate;
                     this.data.endDate = endDateDate;
                     this.router.navigateToRoute('list', {}, { replace: true, trigger: true });

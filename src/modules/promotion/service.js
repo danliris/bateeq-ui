@@ -4,7 +4,9 @@ import { RestService } from "../../utils/rest-service";
 import { Container } from "aurelia-dependency-injection";
 import { Config } from "aurelia-api";
 
-export class Service extends RestService {
+const serviceProductUri = `product`;
+
+ class Service extends RestService {
   constructor(http, aggregator, config, endpoint) {
     super(http, aggregator, config, "voucher");
   }
@@ -82,3 +84,35 @@ export class Service extends RestService {
     });
   }
 }
+
+class ServiceProduct extends RestService {
+  constructor(http, aggregator, config, endpoint) {
+    super(http, aggregator, config, "productBateeqshop");
+  }
+
+  getProductByIds(ids) {
+    let endpoint = `${serviceProductUri}/find-by-ids`;
+    let queryString = "?";
+
+    if (ids.length > 0)
+      ids.map(x => {
+        queryString += `productIds=${x}&`
+      });
+
+    // return super.list(endpoint, args);
+    let promise = this.endpoint.find(endpoint + queryString);
+    this.publish(promise);
+    return promise.then((result) => {
+      this.publish(promise);
+      if (result.error)
+        return Promise.reject(result.error);
+      else
+        return Promise.resolve(result)
+    });
+  }
+}
+
+export {
+  Service,
+  ServiceProduct,
+};
