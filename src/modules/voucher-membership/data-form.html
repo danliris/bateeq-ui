@@ -28,7 +28,7 @@
       <numeric 
           label="Nominal*" 
           value.bind="data.nominal" 
-          error.bind="error.nominal" 
+          error.bind="errors.nominal[0]" 
           format="#.###0,#0"
           read-only.bind="readOnly"
           if.bind="!isProduct || false">
