@@ -19,15 +19,15 @@ export class Edit {
         var id = params.id;
         this.data = await this.service.getById(id);
 
-        if (this.data) {
-            let productIds = []
-            if (this.data.productGift) productIds.push(this.data.productGift)
-            if (this.data.productPurchase) productIds.push(this.data.productPurchase)
-            let product = await this.serviceProduct.getProductByIds(productIds)
+        // if (this.data) {
+        //     let productIds = []
+        //     if (this.data.productGift) productIds.push(this.data.productGift)
+        //     if (this.data.productPurchase) productIds.push(this.data.productPurchase)
+        //     let product = await this.serviceProduct.getProductByIds(productIds)
 
-            this.data.productGift = product.find(x => x.id == this.data.productGift)
-            this.data.productPurchase = product.find(x => x.id == this.data.productPurchase)
-        }
+        //     this.data.productGift = product.find(x => x.id == this.data.productGift)
+        //     this.data.productPurchase = product.find(x => x.id == this.data.productPurchase)
+        // }
     }
     bind() {
         // this.data = {};
