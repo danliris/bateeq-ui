@@ -99,7 +99,7 @@ export class Create {
         if(request.voucherType == 'Pay nominal Rp.xx, Free 1 product')
             request.productGift = request.productGiftMultiple.map(function(data){return data.id}).join(',');
 
-        // console.log(request);
+        console.log(request);
         this.service.create(request)
             .then(result => {
                 console.log("masuk then")
