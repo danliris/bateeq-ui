@@ -96,7 +96,7 @@ export class Edit {
                     alert("Voucher berhasil di update");
                     this.data.startDate = startDateDate.getFullYear()+ '-' +  (startDateDate.getMonth() + 1).toString().padStart(2, '0') + '-'+startDateDate.getDate().toString().padStart(2, '0') ;
                     this.data.endDate = endDateDate.getFullYear()+'-'+ (endDateDate.getMonth() + 1).toString().padStart(2, '0')+'-' +endDateDate.getDate().toString().padStart(2, '0');
-                    this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
+                    this.router.navigateToRoute('view', { id: this.data.id });
                 }
             })
             .catch(e => {
