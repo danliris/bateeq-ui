@@ -65,7 +65,6 @@ export class Create {
     }
 
     save(event) {
-
         // console.log(this.storage);
         // console.log(this.data);
         // console.log(this);

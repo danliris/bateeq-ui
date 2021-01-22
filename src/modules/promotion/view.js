@@ -8,6 +8,7 @@ export class View {
     hasCancel = true;
     hasEdit = true;
     hasDelete = true;
+    isType7 = false;
 
     constructor(router, dialog, service, serviceProduct) {
         this.router = router;
@@ -19,7 +20,10 @@ export class View {
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        console.log(this.data);
+      
+        if (this.data.voucherTypeEnum && this.data.voucherTypeEnum == 7)
+            this.isType7 = true
+      
         // if (this.data) {
         //     let productIds = []
         //     if (this.data.productGift) productIds.push(this.data.productGift)

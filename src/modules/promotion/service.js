@@ -25,18 +25,18 @@ const serviceProductUri = `product`;
   create(args){
     let endpoint = "voucher";
     var request = args;
-    // if(args.productPurchase){
-    //   var productPurchaseId = args.productPurchase.id;
-    //   request.productPurchase = productPurchaseId;
-    // }
-    // if(args.productGift){
-    //   var productGiftId = args.productGift.id;
-    //   request.productGift = productGiftId;
-    // }
-    // if(args.categoryPurchase){
-    //   var categoryId = args.categoryPurchase.Id;
-    //   request.categoryPurchase = categoryId
-    // }
+    if(args.productPurchase){
+      var productPurchaseId = args.productPurchase.id;
+      request.productPurchase = productPurchaseId;
+    }
+    if(args.productGift){
+      var productGiftId = args.productGift.id;
+      request.productGift = productGiftId;
+    }
+    if(args.categoryPurchase){
+      var categoryId = args.categoryPurchase.id;
+      request.categoryPurchase = categoryId
+    }
     return super.post(endpoint,request);
   }
 
