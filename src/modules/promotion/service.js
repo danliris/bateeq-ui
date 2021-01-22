@@ -43,18 +43,18 @@ const serviceProductUri = `product`;
   edit(args){
     let endpoint = "voucher";
     var request = args;
-    if(args.productPurchase){
-      var productPurchaseId = args.productPurchase.id;
-      request.productPurchase = productPurchaseId;
-    }
-    if(args.productGift){
-      var productGiftId = args.productGift.id;
-      request.productGift = productGiftId;
-    }
-    if(args.categoryPurchase){
-      var categoryId = args.categoryPurchase.Id;
-      request.categoryPurchase = categoryId
-    }
+    // if(args.productPurchase){
+    //   var productPurchaseId = args.productPurchase.id;
+    //   request.productPurchase = productPurchaseId;
+    // }
+    // if(args.productGift){
+    //   var productGiftId = args.productGift.id;
+    //   request.productGift = productGiftId;
+    // }
+    // if(args.categoryPurchase){
+    //   var categoryId = args.categoryPurchase.Id;
+    //   request.categoryPurchase = categoryId
+    // }
     return super.put(endpoint,request);
     // return 0;
   }
@@ -70,6 +70,8 @@ const serviceProductUri = `product`;
     this.publish(promise);
     return promise.then((result) => {
       this.publish(promise);
+      console.log("promose %o% :", promise);
+      console.log("resutl %o% :", result);
       return Promise.resolve(result);
     });
   }

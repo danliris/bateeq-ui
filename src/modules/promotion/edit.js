@@ -59,9 +59,28 @@ export class Edit {
         this.data.endDate = endDateDate.getDate().toString().padStart(2, '0') + '/' + (endDateDate.getMonth() + 1).toString().padStart(2, '0') + '/' + endDateDate.getFullYear()
 
         // this.data.description = this.description;
+        var request = this.data;
 
-        console.log(endDateDate);
-        this.service.edit(this.data)
+        if(request.productPurchase)
+            request.productPurchase = request.productPurchase.id;
+
+        if(request.productGift)
+            request.productGift = request.productGift.id;
+
+        if(request.categoryPurchase)
+            request.categoryPurchase = request.categoryPurchase.Id;
+
+        if(request.voucherType == 'Buy n discount m%' && request.assignToCategory == 'Product')
+            request.productPurchase = request.productPurchaseMultiple.map(function(data){ return data.id}).join(',');
+
+        if(request.voucherType == 'Buy n discount m%' && request.assignToCategory == 'Category')
+            request.categoryPurchase = request.categoryPurchaseMultiple.map(function(data){ return data.id}).join(',');
+
+        if(request.voucherType == 'Pay nominal Rp.xx, Free 1 product')
+            request.productGift = request.productGiftMultiple.map(function(data){return data.id}).join(',');
+
+        // console.log(endDateDate);
+        this.service.edit(request)
             .then(result => {
                 console.log("masuk then")
                 console.log(result);
@@ -75,8 +94,8 @@ export class Edit {
                 } else {
                     // console.log(result);
                     alert("Voucher berhasil di update");
-                    this.data.startDate = startDateDate;
-                    this.data.endDate = endDateDate;
+                    this.data.startDate = startDateDate.getFullYear()+ '-' +  (startDateDate.getMonth() + 1).toString().padStart(2, '0') + '-'+startDateDate.getDate().toString().padStart(2, '0') ;
+                    this.data.endDate = endDateDate.getFullYear()+'-'+ (endDateDate.getMonth() + 1).toString().padStart(2, '0')+'-' +endDateDate.getDate().toString().padStart(2, '0');
                     this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
                 }
             })

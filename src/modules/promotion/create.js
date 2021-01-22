@@ -65,21 +65,42 @@ export class Create {
     }
 
     save(event) {
-        console.log(this.storage);
-        console.log(this.data);
-        console.log(this);
+        // console.log(this.storage);
+        // console.log(this.data);
+        // console.log(this);
 
         var startDateDate = this.data.startDate;
-        console.log(startDateDate.toString());
+        // console.log(startDateDate.toString());
         this.data.startDate = startDateDate.getDate().toString().padStart(2, '0') + '/' + (startDateDate.getMonth() + 1).toString().padStart(2, '0') + '/' + startDateDate.getFullYear()
 
         var endDateDate = new Date(this.data.endDate);
         // console.log(startDateDate);
         this.data.endDate = endDateDate.getDate().toString().padStart(2, '0') + '/' + (endDateDate.getMonth() + 1).toString().padStart(2, '0') + '/' + endDateDate.getFullYear()
-
         // this.data.description = this.description;
+        
 
-        this.service.create(this.data)
+        var request = this.data;
+
+        if(request.productPurchase)
+            request.productPurchase = request.productPurchase.id;
+
+        if(request.productGift)
+            request.productGift = request.productGift.id;
+
+        if(request.categoryPurchase)
+            request.categoryPurchase = request.categoryPurchase.Id;
+
+        if(request.voucherType == 'Buy n discount m%' && request.assignToCategory == 'Product')
+            request.productPurchase = request.productPurchaseMultiple.map(function(data){ return data.id}).join(',');
+
+        if(request.voucherType == 'Buy n discount m%' && request.assignToCategory == 'Category')
+            request.categoryPurchase = request.categoryPurchaseMultiple.map(function(data){ return data.id}).join(',');
+
+        if(request.voucherType == 'Pay nominal Rp.xx, Free 1 product')
+            request.productGift = request.productGiftMultiple.map(function(data){return data.id}).join(',');
+
+        // console.log(request);
+        this.service.create(request)
             .then(result => {
                 console.log("masuk then")
                 console.log(result);
@@ -90,9 +111,9 @@ export class Create {
                     alert("Lengkapi kembali Form dengan tanda bintang");
                 } else {
                     // console.log(result);
-                    alert("Voucher berhasil dibuat");
-                    this.data.startDate = startDateDate;
-                    this.data.endDate = endDateDate;
+                    alert("Voucher berhasil di update");
+                    this.data.startDate = startDateDate.getFullYear()+ '-' +  (startDateDate.getMonth() + 1).toString().padStart(2, '0') + '-'+startDateDate.getDate().toString().padStart(2, '0') ;
+                    this.data.endDate = endDateDate.getFullYear()+'-'+ (endDateDate.getMonth() + 1).toString().padStart(2, '0')+'-' +endDateDate.getDate().toString().padStart(2, '0');
                     this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
                 }
             })
