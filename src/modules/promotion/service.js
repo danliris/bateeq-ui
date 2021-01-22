@@ -34,7 +34,7 @@ const serviceProductUri = `product`;
       request.productGift = productGiftId;
     }
     if(args.categoryPurchase){
-      var categoryId = args.categoryPurchase.Id;
+      var categoryId = args.categoryPurchase.id;
       request.categoryPurchase = categoryId
     }
     return super.post(endpoint,request);

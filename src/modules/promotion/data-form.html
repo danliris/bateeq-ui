@@ -324,7 +324,14 @@
       </div>
     </div>
 
-    <div
+    <checkbox
+      label="Applies Multiply"
+      value.bind="data.appliesMultiply"
+      error.bind="error.appliesMultiply"
+      read-only.bind="readOnly"
+      if.bind="isType7">
+    </checkbox>
+    <!-- <div
       css="display: ${data.voucherType === 'Pay nominal Rp.xx, Free 1 product' ? '': 'none'}"
     >
       <div class="form-group">
@@ -337,7 +344,7 @@
           />
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="a col-md-9" style="margin-bottom: 100px">
       <div class="btn-group b">

@@ -65,7 +65,6 @@ export class Create {
     }
 
     save(event) {
-
         console.log(this.storage);
         console.log(this.data);
         console.log(this);
@@ -78,7 +77,7 @@ export class Create {
         // console.log(startDateDate);
         this.data.endDate = endDateDate.getDate().toString().padStart(2, '0') + '/' + (endDateDate.getMonth() + 1).toString().padStart(2, '0') + '/' + endDateDate.getFullYear()
 
-        // this.data.description = this.description;
+        this.data.description = this.description;
 
         this.service.create(this.data)
             .then(result => {
