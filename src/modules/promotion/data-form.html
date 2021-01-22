@@ -147,7 +147,7 @@
       <label for="productGiftMultiple" class="col-sm-4 control-label" css="display : ${readOnly?'':'none'}">Product Gift *</label>
       <div repeat.for="item of data.productGiftMultiple" 
       css="display: ${
-        data.voucherType === 'Pay nominal Rp.xx, Free 1 product' ? '': 'none'}" class="form-group">
+        data.voucherType === 'Pay nominal rp.xx, free 1 product' ? '': 'none'}" class="form-group">
         <label class="col-sm-4 control-label"></label>
         <div class="col-sm-5" css="display:inline">
             <input
@@ -182,7 +182,7 @@
     </div>
     <div>
       <div class="form-group">
-        <label for="productPurchaseMultiple" class="col-sm-4 control-label" css="display : ${readOnly?'':'none'}">Product Purchase*</label>
+        <label for="productPurchaseMultiple" class="col-sm-4 control-label" css="display : ${data.voucherType === 'Buy n discount m%' && data.assignToCategory === 'Product' && readOnly?'':'none'}">Product Purchase*</label>
         <div repeat.for="item of data.productPurchaseMultiple" 
         css="display: ${data.voucherType === 'Buy n discount m%' && data.assignToCategory === 'Product' ? '': 'none'}" class="form-group">
           <label class="col-sm-4 control-label"></label>
