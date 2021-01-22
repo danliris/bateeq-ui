@@ -77,7 +77,7 @@ export class Edit {
                     alert("Voucher berhasil di update");
                     this.data.startDate = startDateDate;
                     this.data.endDate = endDateDate;
-                    this.router.navigateToRoute('list', {}, { replace: true, trigger: true });
+                    this.router.navigateToRoute('view', { id: this.data.id });
                 }
             })
             .catch(e => {
