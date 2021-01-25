@@ -120,7 +120,7 @@ export class DataForm {
     }
     removeCategoryPurchase(index) {
         if (this.data)
-            this.data.categoryPurchase.splice(index, 1);
+            this.data.categoryPurchaseMultiple.splice(index, 1);
     }
     removeProductPurchase(index){
         if(this.data)
