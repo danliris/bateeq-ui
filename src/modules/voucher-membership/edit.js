@@ -8,6 +8,7 @@ export class Edit {
     hasCancel = true;
     hasSave = true;
     isEdit = true;
+    isProduct = false;
 
     constructor(router, service, serviceMembership, serviceProduct) {
         this.router = router;
