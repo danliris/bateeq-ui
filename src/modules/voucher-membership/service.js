@@ -20,13 +20,56 @@ class Service extends RestService {
 
   create(args) {
     let endpoint = `${serviceUri}`;
-    return super.post(endpoint, args);
+    let promise = this.endpoint.post(endpoint, args);
+    this.publish(promise);
+    return promise
+      .catch(e => {
+        return e.json().then(result => {
+          if (result.errors)
+            return Promise.resolve(result);
+        });
+      })
+      .then(result => {
+        this.publish(promise);
+        console.log(result)
+        if (result)
+          if (result.errors)
+            return Promise.reject(result.errors)
+          else
+            return Promise.resolve(result.data)
+        else
+          return Promise.resolve({});
+      })
   }
 
-  edit(args) {
-    let endpoint = `${serviceUri}`;
-    return super.put(endpoint, args);
+  edit(endpoint, data, header) {
+    var promise = this.endpoint.update(endpoint, null, data);
+    this.publish(promise);
+    return promise
+      .catch(e => {
+        return e.json().then(result => {
+          if (result.error)
+            return Promise.resolve(result);
+        });
+      })
+      .then(result => {
+        this.publish(promise);
+        if (result)
+          return this.parseResult(result);
+        else
+          return Promise.resolve({});
+      })
   }
+
+  // create(args) {
+  //   let endpoint = `${serviceUri}`;
+  //   return super.post(endpoint, args);
+  // }
+
+  // edit(args) {
+  //   let endpoint = `${serviceUri}`;
+  //   return super.put(endpoint, args);
+  // }
 
   delete(id) {
     let endpoint = `voucher/${id}`;

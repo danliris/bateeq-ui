@@ -28,7 +28,7 @@
       <numeric 
           label="Nominal*" 
           value.bind="data.nominal" 
-          error.bind="error.nominal" 
+          error.bind="errors.nominal[0]" 
           format="#.###0,#0"
           read-only.bind="readOnly"
           if.bind="!isProduct || false">
@@ -52,14 +52,18 @@
           read-only.bind="readOnly">
       </numeric>
 
-      <numeric 
-          label="Point Exchange*" 
-          value.bind="data.pointExchange" 
-          error.bind="error.pointExchange" 
-          placeholder=".Pts" 
-          format="#.###0,#0"
-          read-only.bind="readOnly">
-      </numeric>
+      <div class="form-group">
+        <label for="pointExchange" class="col-sm-4 control-label">Point Exchange*</label>
+        <div class="col-sm-2">
+            <numeric 
+                value.bind="data.pointExchange" 
+                error.bind="error.pointExchange" 
+                format="#.###0,#0"
+                read-only.bind="readOnly">
+            </numeric>
+        </div>
+        <div class="col-sm-3 control-label" style="text-align: left !important; padding-left: 0px !important;">Pts</div>
+      </div>
 
       <au-autocomplete 
           value.bind="selectedProductGift" 
@@ -90,13 +94,18 @@
         </div>
       </div>
 
-      <numeric 
-          label="Validity Period*" 
-          value.bind="data.validityPeriod" 
-          error.bind="error.validityPeriod" 
-          format="#.###0,#0"
-          read-only.bind="readOnly">
-      </numeric>
+      <div class="form-group">
+        <label for="pointExchange" class="col-sm-4 control-label">Validity Period*</label>
+        <div class="col-sm-2">
+            <numeric 
+                value.bind="data.validityPeriod" 
+                error.bind="error.validityPeriod" 
+                format="#.###0,#0"
+                read-only.bind="readOnly">
+            </numeric>
+        </div>
+        <div class="col-sm-3 control-label" style="text-align: left !important; padding-left: 0px !important;"><b>Month</b> Since Redeemed</div>
+      </div>
 
       <au-datepicker 
           label="Start Date" 
