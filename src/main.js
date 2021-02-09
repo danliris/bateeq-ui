@@ -29,8 +29,11 @@ export async function configure(aurelia) {
           'x-timezone-offset': offset
         }
       }
-
-      var auth = "https://bateeq-auth-api-dev.azurewebsites.net/v1";
+      
+      //var auth = "https://bateeq-auth-api.azurewebsites.net/v1/";
+      //var auth = "https://bateeq-auth-api-dev.azurewebsites.net/v1";
+      // dipakai
+      var auth = "https://com-bateeq-service-auth-dev.azurewebsites.net/v1/";
       var core = "https://bateeq-core-api-dev.azurewebsites.net/v1/core/";
       var ncore ="https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
       var master = "https://bateeq-core-api-dev.azurewebsites.net/v1/master/";
@@ -38,6 +41,7 @@ export async function configure(aurelia) {
       var inventory ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/inventory/";
       var inventoryAzure = "https://com-bateeq-service-inventory-dev.azurewebsites.net/v1/";
       var merchandiser ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/merchandiser/";
+      //var md ="http://localhost:61542/v1/";
       var md ="https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
       var sales = "https://bateeq-pos-api-dev.azurewebsites.net/v1/sales/";
       var purchasing ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/purchasing/";
@@ -51,6 +55,10 @@ export async function configure(aurelia) {
       var voucher= "https://bateeq-service-voucher-dev.azurewebsites.net/v1/";
       var generalSetting = "https://bateeq-service-general-dev.azurewebsites.net/v1/generalSetting/";
       var authBateeqshop = "https://bateeq-api-auth.azurewebsites.net/v1/";
+      var nmerchandiser = "http://localhost:63614/v1/";
+      var nsales = "http://localhost:63614/v1/";
+      //purchasingJob
+      var purchasingJob = "http://localhost:63834/v1/";
 
       //Config API
       config.registerEndpoint("auth", auth);
@@ -61,6 +69,10 @@ export async function configure(aurelia) {
       config.registerEndpoint("inventory", inventory);
       config.registerEndpoint("inventory-azure", inventoryAzure);
       config.registerEndpoint("merchandiser", merchandiser);
+      //new
+      config.registerEndpoint("nmerchandiser", nmerchandiser);
+      config.registerEndpoint("nsales", nsales);
+      //endnew
       config.registerEndpoint("md", md);
       config.registerEndpoint("sales", sales);
       config.registerEndpoint("purchasing", purchasing);
@@ -74,6 +86,9 @@ export async function configure(aurelia) {
       config.registerEndpoint("productBateeqshop",productBateeqshop);
       config.registerEndpoint("generalSetting",generalSetting);
       config.registerEndpoint("authBateeqshop",authBateeqshop);
+      //purchasingJob
+      config.registerEndpoint("purchasingJob",purchasingJob);
+      
     })
     .plugin("aurelia-authentication", baseConfig => {
       baseConfig.configure(authConfig);

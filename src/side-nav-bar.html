@@ -96,6 +96,14 @@
               class="fa fa-bank"
               if.bind="key.toUpperCase() == 'PROMOTION'"
             ></i>
+            <i
+              class="fa fa-adjust"
+              if.bind="key.toUpperCase() == 'NMERCHANDISER'"
+            ></i>
+            <i
+              class="fa fa-tag"
+              if.bind="key.toUpperCase() == 'NSALES'"
+            ></i>
             <!-- <i class="fa fa-book" if.bind="key.toUpperCase() == 'MASTERPLAN'"></i> -->
             <span if.bind="!minimized">${key.toUpperCase()}</span>
             <div class="pull-right" if.bind="value.length > 0 && !minimized">

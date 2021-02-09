@@ -122,17 +122,49 @@ export class RestService {
     return this._downloadFile(getRequest);
   }
 
-  getPdf(endpoint, header) {
+  // getPdf(endpoint, header) {
     
+  //   var request = {
+  //     method: 'GET',
+  //     headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf" }))
+  //   };
+  //   var getRequest = this.endpoint.client.fetch(endpoint, request)
+  //   this.publish(getRequest);
+  //   return this._downloadFile(getRequest);
+
+  // }
+
+  getPdf(endpoint, header) {
+    var offset = new Date().getTimezoneOffset() / 60 * -1;
     var request = {
       method: 'GET',
-      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf" }))
+      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf", "x-timezone-offset": offset }))
     };
     var getRequest = this.endpoint.client.fetch(endpoint, request)
     this.publish(getRequest);
     return this._downloadFile(getRequest);
 
   }
+
+  patch(endpoint, data, info, header) {
+    var promise = this.endpoint.patch(endpoint, info, data);
+    this.publish(promise);
+    return promise
+      .catch(e => {
+        return e.json().then(result => {
+          if (result.error)
+            return Promise.resolve(result);
+        });
+      })
+      .then(result => {
+        this.publish(promise);
+        if (result)
+          return this.parseResult(result);
+        else
+          return Promise.resolve({});
+      })
+  }
+
 
   ngetXls(endpoint, header) {
     var request = {
@@ -167,13 +199,46 @@ export class RestService {
 
   }
 
+  // _downloadFile(request) {
+  //   return request
+  //     .then(response => {
+  //       if (response.status == 200)
+  //         return Promise.resolve(response);
+  //       else
+  //         return Promise.reject(new Error('Error downloading file'));
+  //     })
+  //     .then(response => {
+  //       return new Promise((resolve, reject) => {
+  //         response.blob()
+  //           .then(blob => {
+  //             var filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(response.headers.get("Content-Disposition"))[1];
+  //             filename = filename.replace(/"/g, '');
+  //             var fileSaver = require('file-saver');
+  //             fileSaver.saveAs(blob, filename);
+  //             this.publish(request);
+  //             resolve(true);
+  //           })
+  //           .catch(e => reject(e));
+  //       })
+  //     });
+  // }
+
   _downloadFile(request) {
     return request
       .then(response => {
         if (response.status == 200)
           return Promise.resolve(response);
-        else
-          return Promise.reject(new Error('Error downloading file'));
+        else {
+          return response.json()
+            .then(result => {
+              this.publish(request);
+              if (typeof result.error === 'string' || result.error instanceof String) {
+                return Promise.reject(new Error(result.error));
+              } else {
+                return Promise.reject(result.error);
+              }
+            });
+        }
       })
       .then(response => {
         return new Promise((resolve, reject) => {
