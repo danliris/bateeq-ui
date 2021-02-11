@@ -1,10 +1,10 @@
 import { inject, bindable } from "aurelia-framework";
-import { Service } from "./service";
+import { Service, ServiceMembership } from "./service";
 import { Router } from "aurelia-router";
 import moment from "moment";
-import { resolve } from "bluebird";
+import numeral from 'numeral';
 
-@inject(Router, Service)
+@inject(Router, Service, ServiceMembership)
 export class List {
   @bindable flag = false;
 
@@ -13,9 +13,18 @@ export class List {
   context = ["Detail"];
 
   columns = [
-    { title: "Nominal", field: "nominal" },
+    { title: "Voucher Name", field: "discountName" },
+    {
+      title: "Nominal", field: "nominal", formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      }
+    },
     { title: "Voucher Type", field: "discountType" },
-    { title: "Point Exchanged", field: "exchangePoint" },
+    {
+      title: "Point Exchanged", field: "exchangePoint", formatter: function (value, data, index) {
+        return numeral(value).format('0,000.00');
+      }
+    },
     { title: "Total Claimed", field: "totalClaimed" },
     { title: "Total Used", field: "totalUse" },
     { title: "Member", field: "membership" }
@@ -34,9 +43,17 @@ export class List {
     },
   };
 
-  constructor(router, service) {
+  constructor(router, service, serviceMembership) {
     this.service = service;
     this.router = router;
+    this.serviceMembership = serviceMembership;
+  }
+
+  async activate() {
+    this.membershipResult = await this.serviceMembership.getListMembership({})
+      .then(result => {
+        return result
+      });
   }
 
   search() {
@@ -73,30 +90,24 @@ export class List {
         }
       }
 
-      if (this.info.tierMembership) {
-        switch (this.info.tierMembership.toLowerCase()) {
-          case "silver":
-            args.membershipId = 2;
-            break;
-          case "gold":
-            args.membershipId = 1;
-            break;
-          case "platinum":
-            args.membershipId = 4;
-            break;
-          default:
-            args.membershipId = 0;
-            break;
-        }
-      }
+      if (this.info.tierMembership)
+        args.membershipId = this.membershipResult.find(x => x.name.toLowerCase() == this.info.tierMembership.toLowerCase()).id;
     }
 
-    return this.service.search(args).then((result) => {
-      return {
-        total: result.total,
-        data: result.data,
-      };
-    });
+    return this.service.search(args)
+      .then((result) => {
+        let data = result.data.map((val) => {
+          val.membership = val.membership.split(',')
+            .map((id) => {
+              return this.membershipResult.find(x => x.id == id).name
+            })
+          return val
+        })
+        return {
+          total: result.total,
+          data: data,
+        };
+      });
   };
 
   contextClickCallback(event) {

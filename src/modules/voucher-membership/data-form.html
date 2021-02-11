@@ -18,7 +18,7 @@
           label="Voucher Type*"
           value.bind="voucherType"
           error.bind="error.voucherType"
-          read-only.bind="readOnly"
+          read-only.bind="readOnly || isEdit"
           items.bind="voucherTypeSelection"
           options.bind="controlOptions"
           key="value"
@@ -37,8 +37,8 @@
       <au-textbox 
           label="Voucher Name*" 
           placeholder="Voucher Name" 
-          value.bind="data.discountName"
-          error.bind="error.discountName"
+          value.bind="data.voucherName"
+          error.bind="error.voucherName"
           read-only.bind="readOnly"
           if.bind="true"
           options.bind="controlOptions">
@@ -46,16 +46,16 @@
 
       <numeric 
           label="Minimum Purchases*" 
-          value.bind="data.minimumPayment" 
-          error.bind="error.minimumPayment" 
+          value.bind="data.minimumPurchase" 
+          error.bind="error.minimumPurchase" 
           format="#.###0,#0"
           read-only.bind="readOnly">
       </numeric>
 
       <numeric 
           label="Point Exchange*" 
-          value.bind="data.exchangePoint" 
-          error.bind="error.exchangePoint" 
+          value.bind="data.pointExchange" 
+          error.bind="error.pointExchange" 
           placeholder=".Pts" 
           format="#.###0,#0"
           read-only.bind="readOnly">
@@ -84,14 +84,16 @@
             value.bind="item.name"
             read-only.bind="true"
             if.bind="isProduct" />
-            <button class="btn btn-danger" click.delegate="removeProductGift($index)">X</button>
+            <button class="btn btn-danger"
+            click.delegate="removeProductGift($index)"
+            if.one-way="context.hasSave">X</button>
         </div>
       </div>
 
       <numeric 
           label="Validity Period*" 
-          value.bind="data.validityPeriode" 
-          error.bind="error.validityPeriode" 
+          value.bind="data.validityPeriod" 
+          error.bind="error.validityPeriod" 
           format="#.###0,#0"
           read-only.bind="readOnly">
       </numeric>
@@ -124,7 +126,7 @@
         <label for="qtyItemGift" class="col-sm-4 control-label">Assign to member</label>
         <div class="col-sm-5">
             <label repeat.for="option of assignToMembership">
-                <input type="checkbox" model.bind="option" checked.bind="option.checked"> ${option.label}</input> &nbsp;
+                <input type="checkbox" model.bind="option" checked.bind="option.checked" disabled.bind="readOnly"> ${option.label}</input> &nbsp;
             </label>
         </div>
       </div>

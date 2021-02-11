@@ -1,37 +1,63 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
-import { Service } from './service';
+import { Service, ServiceMembership, ServiceProduct } from './service';
 import { Dialog } from '../../au-components/dialog/dialog';
 
-@inject(Router, Dialog, Service)
+@inject(Router, Dialog, Service, ServiceMembership, ServiceProduct)
 export class View {
     hasCancel = true;
     hasEdit = true;
     hasDelete = true;
     isProduct = false;
+
     productGift = [];
 
-    constructor(router, dialog, service) {
+    assignToMembership = [];
+
+    constructor(router, dialog, service, serviceMembership, serviceProduct) {
         this.router = router;
         this.dialog = dialog;
         this.service = service;
+        this.serviceMembership = serviceMembership;
+        this.serviceProduct = serviceProduct;
     }
 
     async activate(params) {
-        var id = params.id;
+        let id = params.id;
 
         this.data = await this.service.getById(id);
-        console.log(this.data)
-
         this.voucherType = this.data.voucherType;
-        if(this.data.voucherType.toLowerCase() == 'product'){
+
+        await this.serviceMembership.getListMembership({})
+            .then(result => {
+                this.assignToMembership = result.map(s => {
+                    return {
+                        label: s.name,
+                        value: s.id,
+                        checked: false
+                    }
+                });
+            });
+
+        if (this.data.voucherType.toLowerCase() == 'product' && this.data.productGift.length > 0) {
             this.isProduct = true;
-            this.productGift = this.data.productGift;
+            this.productGift = await this.serviceProduct.getProductByIds(this.data.productGift[0].split(","))
+                .then(result => {
+                    return result.map(x => {
+                        return {
+                            id: x.id,
+                            name: x.name
+                        }
+                    })
+                });
         }
-            
-        // this.unit = this.data.unit;
-        // this.supplier = this.data.supplier;
-        // this.deliveryOrder = this.data.deliveryOrder;
+
+        if (this.data.assignToMember && this.data.assignToMember.length > 0)
+            this.assignToMembership = this.assignToMembership.map(x => {
+                if (this.data.assignToMember[0].split(',').find(y => y == x.value))
+                    x.checked = true
+                return x
+            })
     }
 
     cancel(event) {
@@ -46,7 +72,6 @@ export class View {
         this.dialog.prompt('Are you sure want to delete this voucher?', 'Delete this voucher')
             .then(response => {
                 if (response.ok) {
-                    console.log(event)
                     this.service.delete(this.data.id)
                         .then(result => {
                             this.list();
@@ -55,16 +80,4 @@ export class View {
                 }
             });
     }
-
-    // editCallback(event) {
-    //     // this.router.navigateToRoute('edit', { id: this.data.Id });
-    //     this.router.navigateToRoute('edit');
-    // }
-
-    // deleteCallback(event) {
-    //     this.service.delete(this.data)
-    //         .then(result => {
-    //             this.list();
-    //         });
-    // }
 }
