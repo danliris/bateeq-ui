@@ -283,7 +283,7 @@ module.exports = [
     //     moduleId: './modules/merchandiser/ro-validation-ppic/index',
     //     nav: true,
     //     title: 'Validasi RO - PPIC',
-    //     auth: true,
+    //     auth: true,s
     //     settings: {
     //         group: "merchandiser",
     //         permission: { "PGA": 1, "C9": 1 },
