@@ -4,7 +4,7 @@ import { Service, PurchasingService } from '../../service';
 import { ServiceCore } from '../../service-core';
 
 @inject(DialogController, Service, PurchasingService, ServiceCore)
-@useView("modules/merchandiser/cost-calculation/template/data-form/pr-master-dialog.html")
+@useView("modules/nmerchandiser/cost-calculation/template/data-form/pr-master-dialog.html")
 export class PRMasterDialog {
     data = {};
     error = {};

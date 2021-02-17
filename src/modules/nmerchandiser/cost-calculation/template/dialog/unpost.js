@@ -2,7 +2,7 @@ import { inject, useView } from 'aurelia-framework';
 import { DialogController } from 'aurelia-dialog';
 
 @inject(DialogController)
-@useView("modules/merchandiser/cost-calculation/template/dialog/unpost.html")
+@useView("modules/nmerchandiser/cost-calculation/template/dialog/unpost.html")
 export class UnpostDialog {
     constructor(controller) {
         this.controller = controller;
