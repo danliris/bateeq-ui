@@ -61,7 +61,7 @@ export async function configure(aurelia) {
       var nmerchandiser = "http://localhost:51011/v1/";
       var nsales = "http://localhost:51011/v1/";
       //purchasingJob
-      var purchasingJob = "http://localhost:51806/v1/";
+      var purchasingJob = "http://localhost:57157/v1/";
 
       //Config API
       config.registerEndpoint("auth", auth);
