@@ -6,7 +6,7 @@ const resource = 'master/garment-suppliers';
 module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("core");
+    var endpoint = config.getEndpoint("ncore");
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
         .then(results => {

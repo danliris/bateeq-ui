@@ -1,5 +1,5 @@
 import { bindable } from 'aurelia-framework'
-var ProductLoader = require('../../../../loader/product-loader');
+var ProductLoader = require('../../../../loader/nproduct-loader');
 var UomLoader = require('../../../../loader/uom-loader');
 
 export class DeliveryOrderItem {

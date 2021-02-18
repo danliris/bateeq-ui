@@ -1,8 +1,8 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
-var UnitLoader = require('../../../loader/unit-loader');
+var UnitLoader = require('../../../loader/nunit-loader');
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
-var StorageLoader = require('../../../loader/storage-loader');
+var StorageLoader = require('../../../loader/nstorage-loader');
 var DeliveryOrderLoader = require('../../../loader/garment-delivery-order-for-unit-receipt-note-loader');
 var DeliveryReturnLoader = require('../../../loader/garment-delivery-retur-loader');
 var moment = require('moment');
