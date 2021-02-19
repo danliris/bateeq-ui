@@ -2,7 +2,7 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
-var VatLoader = require('../../../loader/vat-loader');
+var VatLoader = require('../../../loader/nvat-loader');
 
 @inject(BindingEngine, Element, Service)
 export class DataForm {

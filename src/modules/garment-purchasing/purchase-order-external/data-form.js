@@ -1,8 +1,8 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var SupplierLoader = require('../../../loader/garment-supplier-loader');
+var SupplierLoader = require('../../../loader/ngarment-supplier-loader');
 var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
-var IncomeTaxLoader = require('../../../loader/income-tax-loader');
+var IncomeTaxLoader = require('../../../loader/nincome-tax-loader');
 import moment from 'moment';
 
 @containerless()
@@ -156,9 +156,11 @@ export class DataForm {
             this.data.SupplierId = _selectedSupplier.Id ? _selectedSupplier.Id : "";
             this.data.IsUseVat = _selectedSupplier.usevat;
             this.data.IsIncomeTax = _selectedSupplier.usetax;
-            this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
-            this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
-            this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate;
+            if(_selectedSupplier.usetax == true){
+                this.data.IncomeTax=_selectedSupplier.IncomeTaxes;
+                this.data.IncomeTax.Name=_selectedSupplier.IncomeTaxes.name;
+                this.data.IncomeTax.Rate=_selectedSupplier.IncomeTaxes.rate == null ? _selectedSupplier.IncomeTaxes.rate : 0;
+            }
         }
     }
 
