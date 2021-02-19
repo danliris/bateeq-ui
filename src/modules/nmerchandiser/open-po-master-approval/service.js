@@ -27,7 +27,7 @@ const serviceMasterGarmentProductUri = 'master/garmentProducts';
 
 class CoreService extends RestService {
     constructor(http, aggregator, config) {
-        super(http, aggregator, config, "core");
+        super(http, aggregator, config, "ncore");
     }
 
     getGarmentProductsByIds(info) {
@@ -41,7 +41,7 @@ const costCalculationServiceUri = 'cost-calculation-garments';
 
 class CostCalculationService extends RestService {
     constructor(http, aggregator, config, endpoint) {
-        super(http, aggregator, config, "sales");
+        super(http, aggregator, config, "nsales");
     }
 
     getMaterials(info) {

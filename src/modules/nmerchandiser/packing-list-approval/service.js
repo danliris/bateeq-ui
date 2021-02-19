@@ -44,7 +44,7 @@ class Service extends RestService {
 }
 
 const costCalculationServiceUri = 'cost-calculation-garments';
-const SalesContractserviceUri = "merchandiser/garment-sales-contracts";
+const SalesContractserviceUri = "nmerchandiser/garment-sales-contracts";
 class SalesService extends RestService {
     constructor(http, aggregator, config, api) {
         super(http, aggregator, config, "nsales");

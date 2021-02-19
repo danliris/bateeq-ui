@@ -456,14 +456,14 @@ export class DataForm {
       let UnitCode = newVal.Code;
 
       let promises = [];
-      let OTL1 = this.rateService.search({ filter: JSON.stringify({ Name: "OTL 1", UnitCode: UnitCode }) }).then((results) => {
+      let OTL1 = this.rateService.search({ filter: JSON.stringify({ Name: "OTL 1" }) }).then((results) => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
         return result;
       });
       promises.push(OTL1);
 
-      let OTL2 = this.rateService.search({ filter: JSON.stringify({ Name: "OTL 2", UnitCode: UnitCode }) }).then((results) => {
+      let OTL2 = this.rateService.search({ filter: JSON.stringify({ Name: "OTL 2" }) }).then((results) => {
         let result = results.data[0] ? results.data[0] : this.defaultRate;
         result.Value = numeral(numeral(result.Value).format(rateNumberFormat)).value();
         return result;

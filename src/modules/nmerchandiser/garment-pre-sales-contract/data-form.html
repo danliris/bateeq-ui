@@ -4,10 +4,22 @@
         with.bind="context">
 
         <div slot="actions" class="btn-group">
-            <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
-            <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
-            <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
-            <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+            <button class="btn btn-default" click.delegate="context.cancel($event)" 
+              if.one-way="context.hasCancel">
+              Kembali
+            </button>
+            <button class="btn btn-primary" click.delegate="context.edit($event)"       
+              if.one-way="context.hasEdit">
+              Ubah
+            </button>
+            <button class="btn btn-success" click.delegate="context.save($event)"       
+              if.one-way="context.hasSave">
+              Simpan
+            </button>
+            <button class="btn btn-danger"  click.delegate="context.delete($event)"     
+              if.one-way="context.hasDelete">
+              Hapus
+            </button>
         </div>
 
         <au-textbox
@@ -26,7 +38,7 @@
             text.bind = "sectionView"
             key="SectionCode"
             aria-placeholder="Cari Seksi"
-            read-only.bind="data.SCNo"
+            readonly.bind="data.SCNo"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -34,7 +46,7 @@
             label="Tgl. Sales Contract"
             value.bind="data.SCDate"
             error.bind="error.SCDate"
-            read-only.bind="data.SCNo"
+            readonly.bind="data.SCNo"
             options.bind="controlOptions">
         </au-datepicker>
 
@@ -42,7 +54,7 @@
             label="Jenis Sales Contract"
             value.bind="data.SCType"
             error.bind="error.SCType"
-            read-only.bind="data.SCNo"
+            readonly.bind="data.SCNo"
             items.bind="scTypes"
             options.bind="controlOptions">
         </au-dropdown>
@@ -55,7 +67,7 @@
             text.bind = "buyerAgentView"
             key="Code"
             aria-placeholder="Cari Buyer Agent"
-            read-only.bind="data.SCNo"
+            readonly.bind="data.SCNo"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -68,7 +80,7 @@
             key="Code"
             aria-placeholder="Cari Buyer Brand"
             query.bind="filterBuyerBrand"
-            read-only.bind="data.SCNo"
+            readonly.bind="data.SCNo"
             options.bind="controlOptions">
         </au-autocomplete>
 
@@ -77,7 +89,7 @@
             value.bind="data.OrderQuantity" 
             error.bind="error.OrderQuantity"
             format="0"
-            read-only.bind="readOnly" 
+            readonly.bind="readOnly" 
             options.bind="controlOptions">
         </au-numeric>
 
@@ -85,7 +97,7 @@
             label="Keterangan" 
             value.bind="data.Remark"
             placeholder="tambah keterangan" 
-            read-only.bind="readOnly"
+            readonly.bind="readOnly"
             options.bind="controlOptions">
         </au-multiline>
         

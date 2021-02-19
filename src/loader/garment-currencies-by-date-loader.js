@@ -6,7 +6,7 @@ const resource = 'master/garment-currencies';
 module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("core");
+    var endpoint = config.getEndpoint("ncore");
     var order = {
         "Date": "desc"
     };

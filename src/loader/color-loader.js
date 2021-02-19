@@ -6,7 +6,7 @@ const resource = 'articles/colors';
 module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("core");
+    var endpoint = config.getEndpoint("ncore");
 
     return endpoint.find(resource, { keyword: keyword })
         .then(results => {

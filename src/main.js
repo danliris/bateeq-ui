@@ -41,11 +41,14 @@ export async function configure(aurelia) {
       var inventory ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/inventory/";
       var inventoryAzure = "https://com-bateeq-service-inventory-dev.azurewebsites.net/v1/";
       var merchandiser ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/merchandiser/";
+      //var merchandiser = "http://localhost:51011/v1/";
       //var md ="http://localhost:61542/v1/";
       var md ="https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
-      var sales = "https://bateeq-pos-api-dev.azurewebsites.net/v1/sales/";
+      // var md = "http://localhost:51011/v1/";
+      var sales = "http://localhost:52504/v1/";
       var purchasing ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/purchasing/";
-      var purchasingAzure = "https://com-bateeq-service-purchasing-dev.azurewebsites.net/v1/";
+      //var purchasingAzure = "https://com-bateeq-service-purchasing-dev.azurewebsites.net/v1/";
+      var purchasingAzure = "http://localhost:52483/v1/";
       var finance = "https://com-bateeq-service-finance-accounting-dev.azurewebsites.net/v1/";
       //var masterplan ="https://com-bateeq-service-masterplan-dev.azurewebsites.net/v1/";
       var nmasterplan ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
@@ -55,10 +58,10 @@ export async function configure(aurelia) {
       var voucher= "https://bateeq-service-voucher-dev.azurewebsites.net/v1/";
       var generalSetting = "https://bateeq-service-general-dev.azurewebsites.net/v1/generalSetting/";
       var authBateeqshop = "https://bateeq-api-auth.azurewebsites.net/v1/";
-      var nmerchandiser = "http://localhost:63614/v1/";
-      var nsales = "http://localhost:63614/v1/";
+      var nmerchandiser = "http://localhost:52504/v1/";
+      var nsales = "http://localhost:52504/v1/";
       //purchasingJob
-      var purchasingJob = "http://localhost:57157/v1/";
+      var purchasingJob = "http://localhost:52483/v1/";
 
       //Config API
       config.registerEndpoint("auth", auth);
@@ -87,7 +90,7 @@ export async function configure(aurelia) {
       config.registerEndpoint("generalSetting",generalSetting);
       config.registerEndpoint("authBateeqshop",authBateeqshop);
       //purchasingJob
-      config.registerEndpoint("purchasingJob",purchasingJob);
+      config.registerEndpoint("purchasingJob",purchasingJob, defaultConfig);
       
     })
     .plugin("aurelia-authentication", baseConfig => {
