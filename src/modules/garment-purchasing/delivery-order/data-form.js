@@ -1,6 +1,6 @@
 import { inject, bindable, containerless, computedFrom, BindingEngine } from 'aurelia-framework'
 import { Service } from "./service";
-var SupplierLoader = require('../../../loader/garment-supplier-loader');
+var SupplierLoader = require('../../../loader/ngarment-supplier-loader');
 
 @containerless()
 @inject(BindingEngine, Element)

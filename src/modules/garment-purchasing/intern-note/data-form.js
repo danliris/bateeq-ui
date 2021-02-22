@@ -1,7 +1,7 @@
 import { inject, bindable, BindingEngine, observable, computedFrom } from 'aurelia-framework'
 import { Service } from "./service";
-var CurrencyLoader = require('../../../loader/garment-currencies-by-date-loader');
-var SupplierLoader = require('../../../loader/garment-supplier-loader');
+var CurrencyLoader = require('../../../loader/ngarment-currencies-by-date-loader');
+var SupplierLoader = require('../../../loader/ngarment-supplier-loader');
 var moment = require('moment');
 
 @inject(BindingEngine, Element, Service)

@@ -6,7 +6,7 @@ const resource = 'garment-unit-delivery-orders/unit-expenditure-note';
 module.exports = function (keyword, filter) {
 
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("purchasing-azure");
+    var endpoint = config.getEndpoint("purchasingJob");
 
     return endpoint.find(resource, { keyword: keyword, filter: JSON.stringify(filter), size: 10 })
         .then(results => {
