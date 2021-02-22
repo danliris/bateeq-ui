@@ -54,11 +54,15 @@ export class Create {
 
         this.service.create(this.data)
             .then(result => {
-                this.router.navigateToRoute('list');
-                alert("Data Saved");
+                console.log(result)
+                if (!result.errors) {
+                    this.router.navigateToRoute('list');
+                    alert("Data Saved");
+                }
             })
             .catch(e => {
-                this.error = e.message;
+                console.log(e)
+                this.error = e.errors;
             });
     }
 }

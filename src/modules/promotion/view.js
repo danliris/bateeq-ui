@@ -1,49 +1,34 @@
-import {inject, Lazy} from 'aurelia-framework';
-import {Router} from 'aurelia-router';
-import {Service} from './service';
+import { inject, Lazy } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { Service, ServiceProduct } from './service';
 import { Dialog } from '../../au-components/dialog/dialog';
 
-@inject(Router, Dialog, Service)
+@inject(Router, Dialog, Service, ServiceProduct)
 export class View {
     hasCancel = true;
     hasEdit = true;
     hasDelete = true;
-    
-    constructor(router, dialog, service) {
+
+    constructor(router, dialog, service, serviceProduct) {
         this.router = router;
         this.dialog = dialog;
         this.service = service;
+        this.serviceProduct = serviceProduct;
     }
 
     async activate(params) {
         var id = params.id;
         this.data = await this.service.getById(id);
-        // this.description = this.data.description;
-        // this.data = {
-        //     id: 1,
-        //     voucherType: 'Percentage',
-        //     percentage: 10,
-        //     maxDiscount: 10000,
-        //     nominal: 10000,
-        //     minimumPayment: 10000,
-        //     appliesMultiply: true,
-        //     qtyItemPruchase: 10,
-        //     qtyItemGift: 1,
-        //     productPurchase: 'Baju A',
-        //     productGift: 'Baju B',
-        //     assignToCategory: 'Man',
-        //     categoryPurchase: 'Man',
-        //     discountPercentage: 10,
-        //     discountName: 'Batik Day',
-        //     discountCode: 'BatikDay',
-        //     discountType: 'Percentage',
-        //     totalUse: 30,
-        //     status: 'Active',
-        //     quantityVoucher: 100,
-        //     maxUsagePerUser: 2,
-        //     startDate: '03-10-2020',
-        //     endDate: '03-11-2020',
-        //     description: 'description vocher'
+      
+        // if (this.data) {
+        //     let productIds = []
+        //     if (this.data.productGift) productIds.push(this.data.productGift)
+        //     if (this.data.productPurchase) productIds.push(this.data.productPurchase)
+            
+        //     let product = await this.serviceProduct.getProductByIds(productIds)
+
+        //     this.data.productGift = product.find(x => x.id == this.data.productGift)
+        //     this.data.productPurchase = product.find(x => x.id == this.data.productPurchase)
         // }
     }
 
@@ -52,7 +37,7 @@ export class View {
     }
 
     edit(event) {
-        this.router.navigateToRoute('edit', {id: this.data.id});
+        this.router.navigateToRoute('edit', { id: this.data.id });
     }
 
     delete(event) {
@@ -68,16 +53,4 @@ export class View {
                 }
             });
     }
-
-    // editCallback(event) {
-    //     // this.router.navigateToRoute('edit', { id: this.data.Id });
-    //     this.router.navigateToRoute('edit');
-    // }
-
-    // deleteCallback(event) {
-    //     this.service.delete(this.data)
-    //         .then(result => {
-    //             this.list();
-    //         });
-    // }
 }
