@@ -54,8 +54,7 @@ export class Create {
 
         this.service.create(this.data)
             .then(result => {
-                console.log(result)
-                if (!result.errors) {
+                if (!result) {
                     this.router.navigateToRoute('list');
                     alert("Data Saved");
                 }

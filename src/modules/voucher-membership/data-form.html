@@ -31,7 +31,7 @@
           error.bind="errors.nominal[0]" 
           format="#.###0,#0"
           read-only.bind="readOnly"
-          if.bind="!isProduct || false">
+          if.bind="!isProduct">
       </numeric>
 
       <au-textbox 
@@ -48,6 +48,7 @@
           label="Minimum Purchases*" 
           value.bind="data.minimumPurchase" 
           error.bind="error.minimumPurchase" 
+          if.bind="!isProduct"
           format="#.###0,#0"
           read-only.bind="readOnly">
       </numeric>

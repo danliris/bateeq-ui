@@ -42,8 +42,9 @@ class Service extends RestService {
       })
   }
 
-  edit(endpoint, data, header) {
-    var promise = this.endpoint.update(endpoint, null, data);
+  edit(data) {
+    let endpoint = `${serviceUri}`;
+    let promise = this.endpoint.update(endpoint, null, data);
     this.publish(promise);
     return promise
       .catch(e => {
