@@ -102,8 +102,8 @@ export class List {
 
     return this.service.search(args).then((result) => {
       return {
-        total: result.length,
-        data: result,
+        total: result.total,
+        data: result.data,
       };
     });
   }

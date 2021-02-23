@@ -8,6 +8,7 @@ export class Edit {
     hasCancel = true;
     hasSave = true;
     isEdit = true;
+    isProduct = false;
 
     constructor(router, service, serviceMembership, serviceProduct) {
         this.router = router;
@@ -21,6 +22,9 @@ export class Edit {
 
         this.data = await this.service.getById(id);
         this.voucherType = this.data.voucherType;
+
+        // this.data.startDate = moment(this.data.startDate).format("yyyy-MM-dd")
+        // this.data.endDate = moment(this.data.endDate).format("yyyy-MM-dd")
 
         await this.serviceMembership.getListMembership({})
             .then(result => {
@@ -74,8 +78,10 @@ export class Edit {
 
         this.service.edit(this.data)
             .then(result => {
-                this.router.navigateToRoute('view', { id: this.data.id });
-                alert("Data Saved");
+                if (!result) {
+                    this.router.navigateToRoute('view', { id: this.data.id });
+                    alert("Data Saved");
+                }
             })
             .catch(e => {
                 this.error = e.message;
