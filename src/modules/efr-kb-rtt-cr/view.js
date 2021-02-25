@@ -155,9 +155,9 @@ export class View {
                 this.printStruk += "<div class='row'>";
                 this.printStruk += "    <div class='col-xs-12'>";
                 this.printStruk += "        <address>";
-                this.printStruk += "            <b>PT EFRATA RETAILINDO </b>";
+                this.printStruk += "            <b>PT BATEEQ RETAILINDO UTAMA </b>";
                
-                this.printStruk += "            </br> <b> Kel. Banaran, Kec. Grogol, Kab. Sukoharjo 57193  </b> ";
+                this.printStruk += "            </br> <b> Jalan Merapi Nomor 23 RT. 000 RW. 000 BANARAN, GROGOL Kab. SUKOHARJO  </b> ";
               
                 this.printStruk += "            </br> <b> Jawa Tengah, Indonesia </b>";
             
