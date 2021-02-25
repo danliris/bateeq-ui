@@ -32,7 +32,7 @@ export class RestService {
           _info.order = JSON.stringify(_info.order);
       else
           delete _info.order;
-
+      // console.log(this.endpoint);
       var promise = this.endpoint.find(endpoint, _info);
       this.publish(promise);
       return promise

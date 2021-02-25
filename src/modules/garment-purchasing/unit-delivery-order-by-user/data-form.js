@@ -2,8 +2,8 @@ import { inject, bindable, containerless, computedFrom, BindingEngine } from 'au
 import { Service } from "./service";
 var StorageLoader = require('../../../loader/nstorage-loader');
 //var UnitLoader = require('../../../loader/garment-units-loader');
-var UnitSenderLoader = require('../../../loader/garment-units-loader');
-var UnitRequestLoader = require('../../../loader/garment-units-loader');
+var UnitSenderLoader = require('../../../loader/ngarment-units-loader');
+var UnitRequestLoader = require('../../../loader/ngarment-units-loader');
 var UnitReceiptNoteLoader = require('../../../loader/garment-unit-receipt-note-for-unit-delivery-order-loader');
 import moment from 'moment';
 
