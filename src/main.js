@@ -45,7 +45,8 @@ export async function configure(aurelia) {
       //var md ="http://localhost:61542/v1/";
       var md ="https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
       // var md = "http://localhost:51011/v1/";
-      var sales = "http://localhost:52504/v1/";
+      //var sales = "https://bateeq-pos-api-dev.azurewebsites.net/v1/sales/";
+      var sales = "http://localhost:63614/v1/";
       var purchasing ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/purchasing/";
       //var purchasingAzure = "https://com-bateeq-service-purchasing-dev.azurewebsites.net/v1/";
       var purchasingAzure = "http://localhost:52483/v1/";
@@ -58,10 +59,10 @@ export async function configure(aurelia) {
       var voucher= "https://bateeq-service-voucher-dev.azurewebsites.net/v1/";
       var generalSetting = "https://bateeq-service-general-dev.azurewebsites.net/v1/generalSetting/";
       var authBateeqshop = "https://bateeq-api-auth.azurewebsites.net/v1/";
-      var nmerchandiser = "http://localhost:52504/v1/";
-      var nsales = "http://localhost:52504/v1/";
+      var nmerchandiser = "http://localhost:63614/v1/";
+      var nsales = "http://localhost:63614/v1/";
       //purchasingJob
-      var purchasingJob = "http://localhost:52483/v1/";
+      var purchasingJob = "http://localhost:57157/v1/";
 
       //Config API
       config.registerEndpoint("auth", auth);

@@ -28,13 +28,13 @@
               read-only.bind="readOnly" key="Id" text.bind="doView" options.bind="controlOptions">
             </au-autocomplete>
 
-            <au-autocomplete value.bind="bill" label="Nomor Bon" loader.bind="dOLoader"
+            <!-- <au-autocomplete value.bind="bill" label="Nomor Bon" loader.bind="dOLoader"
               placeholder="Cari Nomor Bon" read-only.bind="readOnly" key="Id" text.bind="BillNoView" options.bind="controlOptions">
             </au-autocomplete>
 
             <au-autocomplete value.bind="paymentbill" label="Nomor Bon Kecil" loader.bind="dOLoader"
               placeholder="Cari Nomor Bon Kecil" read-only.bind="readOnly" key="Id" text.bind="PaymentBillNoView" options.bind="controlOptions">
-            </au-autocomplete>
+            </au-autocomplete> -->
             <!--<au-textbox
             value.bind="internNote" 
                 label="Nomor Nota Intern" 
@@ -102,65 +102,65 @@
         <!--<hr/>
     </form>
 </template>-->
-         <div >
-            <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" border="1" id="doReport">
-                <thead align="center">
-                    <tr>
-                        <td rowspan="2">NO</td>
-                        <td colspan="2">NOTA INTERN</td>
-                        <td colspan="2">SUPPLIER</td>
-                        <td colspan="2">INVOICE</td>
-                        <td colspan="2">SURAT JALAN</td>
-                        <td rowspan="2">NO BON</td>
-                        <td rowspan="2">NO BON KECIL</td>
-                        <td rowspan="2">MATA UANG</td>
-                        <td rowspan="2">NOMINAL</td>
-                        <td rowspan="2">RATE</td>
-                        <td rowspan="2">TIPE BAYAR</td>
-                    </tr>
-                    <tr>
-                        <!--//>-->
-                        <td>NOMOR</td>
-                        <td>TGL</td>
-                        <td>KODE</td>
-                        <td>NAMA</td>
-                        <td>NOMOR</td>
-                        <td>TGL</td>
-                        <td>NOMOR</td>
-                        <td>TGL</td>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr repeat.for="IN of data">
-                        <td>${$index + 1}</td>
-                        <td>${IN.inNo}</td>
-                        <td>${IN.iNDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td>${IN.supplierCode}</td>
-                        <td>${IN.supplierName}</td>
-                        <td>${IN.invoiceNo}</td>
-                        <td>${IN.invoiceDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td>${IN.doNo}</td>
-                        <td>${IN.doDate | dateFormat:'DD MMMM YYYY'}</td>
-                        <td>${IN.billNo}</td>
-                        <td>${IN.paymentBill}</td>
-                        <td>${IN.currencyCode}</td>
-                        <td>${IN.priceTotal}</td>
-                        <td>${IN.doCurrencyRate}</td>
-                        <td>${IN.paymentType}</td>
-                        <!--<td>${SJ['Satuan Barang']}</td>-->
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div>
+    <a click.delegate="ExportToExcel()" class='btn btn-primary'>Cetak Excel</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" border="1" id="doReport">
+        <thead align="center">
+            <tr>
+                <td rowspan="2">NO</td>
+                <td colspan="2">NOTA INTERN</td>
+                <td colspan="2">SUPPLIER</td>
+                <td colspan="2">INVOICE</td>
+                <td colspan="2">SURAT JALAN</td>
+                <!-- <td rowspan="2">NO BON</td>
+                <td rowspan="2">NO BON KECIL</td> -->
+                <td rowspan="2">MATA UANG</td>
+                <td rowspan="2">NOMINAL</td>
+                <td rowspan="2">RATE</td>
+                <td rowspan="2">TIPE BAYAR</td>
+            </tr>
+            <tr>
+                <!--//>-->
+                <td>NOMOR</td>
+                <td>TGL</td>
+                <td>KODE</td>
+                <td>NAMA</td>
+                <td>NOMOR</td>
+                <td>TGL</td>
+                <td>NOMOR</td>
+                <td>TGL</td>
 
-        <div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
-            Tidak ada data ditemukan.
-        </div>
-        <pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)" id="pager"></pagination>
-        <hr/>
-    </form>
-</template> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="IN of data">
+                <td>${$index + 1}</td>
+                <td>${IN.inNo}</td>
+                <td>${IN.iNDate | dateFormat:'DD MMMM YYYY'}</td>
+                <td>${IN.supplierCode}</td>
+                <td>${IN.supplierName}</td>
+                <td>${IN.invoiceNo}</td>
+                <td>${IN.invoiceDate | dateFormat:'DD MMMM YYYY'}</td>
+                <td>${IN.doNo}</td>
+                <td>${IN.doDate | dateFormat:'DD MMMM YYYY'}</td>
+                <!-- <td>${IN.billNo}</td>
+                <td>${IN.paymentBill}</td> -->
+                <td>${IN.currencyCode}</td>
+                <td>${IN.priceTotal}</td>
+                <td>${IN.doCurrencyRate}</td>
+                <td>${IN.paymentType}</td>
+                <!--<td>${SJ['Satuan Barang']}</td>-->
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="alert alert-info text-center" role="alert" if.bind="data.length == 0">
+    Tidak ada data ditemukan.
+</div>
+<pagination if.bind="info.total>info.size" info.bind="info" change.delegate="changePage($event)" id="pager"></pagination>
+<hr/>
+</form>
+</template>

@@ -5,7 +5,7 @@ import moment from 'moment';
 
 var SupplierLoader = require('../../../loader/garment-supplier-loader');
 var InternLoader = require('../../../loader/garment-intern-note-loader');
-var CurrencyLoader = require('../../../loader/currency-loader');
+var CurrencyLoader = require('../../../loader/ncurrency-loader');
 //var DOLoader = require('../../../loader/garment-delivery-order-loader');
 var InvoiceLoader = require('../../../loader/garment-invoice-note-loader');
 
@@ -204,13 +204,13 @@ export class List {
     return InvoiceLoader;
   }
 
-  BillNoView = (bill) => {
-    return `${bill.billNo}`
-  }
+  // BillNoView = (bill) => {
+  //   return `${bill.billNo}`
+  // }
 
-  PaymentBillNoView = (paymentbill) => {
-    return `${paymentbill.paymentBill}`
-  }
+  // PaymentBillNoView = (paymentbill) => {
+  //   return `${paymentbill.paymentBill}`
+  // }
 
   doView = (deliveryorder) => {
     //console.log(deliveryorder)
