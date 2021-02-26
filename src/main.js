@@ -64,7 +64,7 @@ export async function configure(aurelia) {
 
       //var nmerchandiser = "http://localhost:51011/v1/";
       //var nsales = "http://localhost:59451/v1/";
-      //var production = "http://localhost:5005/";
+      var production = "http://localhost:5005/";
       //purchasingJob
       //var purchasingJob = "http://localhost:57157/v1/";
       // var purchasingJob = "https://com-bateeq-service-purchasingjob-dev.azurewebsites.net/v1/";
