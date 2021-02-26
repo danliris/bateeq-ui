@@ -38,7 +38,7 @@ const serviceMasterUomUri = 'master/uoms';
 
 class CoreService extends RestService {
     constructor(http, aggregator, config) {
-        super(http, aggregator, config, "core");
+        super(http, aggregator, config, "ncore");
     }
 
     search(info) {
