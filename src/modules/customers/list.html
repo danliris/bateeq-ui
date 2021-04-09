@@ -187,7 +187,7 @@
             <td>${item.email}</td>
             <td>${item.phoneNumber}</td>
             <td>${item.fullName}</td>
-            <td>${item.userMemberships}</td>
+            <td>${item.userMemberships.length > 0 ? item.userMemberships[0].membership.name : ''}</td>
             <td align="center" style="width: 10%">
               <button click.delegate="view(item.id)" class="btn btn-warning">
                 view
