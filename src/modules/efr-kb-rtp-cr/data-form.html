@@ -15,7 +15,7 @@
         <thead>
             <tr>
                 <th>No.</th>
-                <th>
+                <!-- <th>
                     <div class="row">
                         <div class="col-md-2"> Barcode </div>
                         <div class="col-md-2"> Nama </div>
@@ -24,14 +24,20 @@
                         <div class="col-md-1"> Harga </div>
                         <div class="col-md-3"> Catatan </div>
                     </div>
-                </th>
+                </th> -->
+                <th><div class="col-md-2"> Barcode </div></th>
+                <th><div class="col-md-2"> Nama </div></th>
+                <th><div class="col-md-2"> Kuantitas Stok </div></th>
+                <th> <div class="col-md-1"> Kuantitas Pengiriman </div></th>
+                <th><div class="col-md-1"> Harga </div></th>
+                <th><div class="col-md-3"> Catatan </div></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr repeat.for="item of data.items">
                 <td>${$index+1}</td>
-                <td>
+                <!-- <td>
                     <div class="row">
                         <div class="col-md-2">
                             <p class="form-control-static">${item.code}</p>
@@ -63,6 +69,36 @@
                             </div>
                         </div>
                     </div>
+                </td> -->
+
+                <td>
+                  <p class="form-control-static">${item.code}</p>
+                </td>
+                <td>
+                  <p class="form-control-static">${item.name}</p>
+                </td>
+                <td>
+                  <div class="form-group ${error.items[$index].availableQuantity?'has-error':''}">
+                    <center>
+                        <p class="form-control-static">${item.availableQuantity}</p>
+                    </center>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-group ${error.items[$index].quantity?'has-error':''}">
+                    <input class="form-control" type="number" name="quantity" value.bind="item.quantity" max.bind="item.availableQuantity" min="0"
+                        change.delegate="qtyChange(item.code, item.quantity)" />
+                    <span class="help-block">${error.items[$index].quantity}</span>
+                  </div>
+                </td>
+                <td>
+                  <numeric label="" read-only.bind="true" value.bind="item.price" class="col-md-1"></numeric>
+                </td>
+                <td>
+                  <div class="form-group ${error.items[$index].remark?'has-error':''}">
+                    <input class="form-control" type="text" name="remark" value.bind="item.remark" />
+                    <span class="help-block">${error.items[$index].remark}</span>
+                  </div>
                 </td>
                 <td><button href="#" class="btn btn-danger btn-sm pull-right" click.delegate="removeItem(item)">Hapus</button></td>
             </tr>
