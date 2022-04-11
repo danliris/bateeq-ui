@@ -10,7 +10,6 @@ export class List {
     // { field: "code", title: "Kode" },
     { field: "Name", title: "Name" },
     { field: "Rate", title: "Rate" },
-    { field: "COACodeCredit", title: "COA" },
     {
       field: "Date",
       title: "Tgl Berlaku",
