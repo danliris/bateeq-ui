@@ -30,28 +30,26 @@ export async function configure(aurelia) {
         }
       }
 
-      var auth = "https://bateeq-auth-api-dev.azurewebsites.net/v1";
-      var core = "https://bateeq-core-api-dev.azurewebsites.net/v1/core/";
-      var ncore ="https://com-bateeq-service-core-dev.azurewebsites.net/v1/";
-      var master = "https://bateeq-core-api-dev.azurewebsites.net/v1/master/";
-      var manufacture ="https://bateeq-core-api-dev.azurewebsites.net/v1/manufacture/";
-      var inventory ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/inventory/";
-      var inventoryAzure = "https://com-bateeq-service-inventory-dev.azurewebsites.net/v1/";
-      var merchandiser ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/merchandiser/";
-      var md ="https://com-bateeq-service-merchandiser-dev.azurewebsites.net/v1/";
-      var sales = "https://bateeq-pos-api-dev.azurewebsites.net/v1/sales/";
-      var purchasing ="https://bateeq-inventory-api-dev.azurewebsites.net/v1/purchasing/";
-      var purchasingAzure = "https://com-bateeq-service-purchasing-dev.azurewebsites.net/v1/";
-      var finance = "https://com-bateeq-service-finance-accounting-dev.azurewebsites.net/v1/";
-      //var masterplan ="https://com-bateeq-service-masterplan-dev.azurewebsites.net/v1/";
-      var nmasterplan ="https://com-bateeq-service-sales-dev.azurewebsites.net/v1/";
-      var customers = "https://bateeq-api-auth.azurewebsites.net/v1/api/";
-      var rewardPoints = "https://bateeq-service-voucher-dev.azurewebsites.net/v1/api/";
-      var productBateeqshop= "https://bateeq-service-product-dev.azurewebsites.net/v1/";
-      var voucher= "https://bateeq-service-voucher-dev.azurewebsites.net/v1/";
-      var generalSetting = "https://bateeq-service-general-dev.azurewebsites.net/v1/generalSetting/";
-      var authBateeqshop = "http://bateeq-api-auth.azurewebsites.net/v1/";
-      
+      var auth = "https://bateeq-auth-api.azurewebsites.net/v1/";
+      var core = "https://bateeq-core-api.azurewebsites.net/v1/core/";
+      var ncore ="https://com-bateeq-service-core.azurewebsites.net/v1/";
+      var master = "https://bateeq-core-api.azurewebsites.net/v1/master/";
+      var manufacture ="https://bateeq-core-api.azurewebsites.net/v1/manufacture/";
+      var inventory ="https://bateeq-inventory-api.azurewebsites.net/v1/inventory/";
+      var inventoryAzure = "https://com-bateeq-service-inventory.azurewebsites.net/v1/"
+      var merchandiser ="https://bateeq-inventory-api.azurewebsites.net/v1/merchandiser/";
+      var md ="https://com-bateeq-service-merchandiser.azurewebsites.net/v1/";
+      var sales = "https://bateeq-pos-api.azurewebsites.net/v1/sales/";
+      var purchasing ="https://bateeq-inventory-api.azurewebsites.net/v1/purchasing/";
+      var purchasingAzure = "https://com-bateeq-service-purchasing.azurewebsites.net/v1/";
+      var finance = "https://com-bateeq-service-finance-accounting.azurewebsites.net/v1/";
+      var nmasterplan ="https://com-bateeq-service-sales.azurewebsites.net/v1/";
+      var customers = "https://com-bateeqshop-service-auth.azurewebsites.net/v1/";
+      var rewardPoints = "https://com-bateeqshop-service-voucher.azurewebsites.net/v1/api/";
+      var productBateeqshop= "https://com-bateeqshop-service-product.azurewebsites.net/v1/";
+      var voucher= "https://com-bateeqshop-service-voucher.azurewebsites.net/v1/";
+      var generalSetting = "https://com-bateeqshop-service-general.azurewebsites.net/v1/generalSetting/";
+      var authBateeqshop = "https://com-bateeqshop-service-auth.azurewebsites.net/v1/";
 
       //Config API
       config.registerEndpoint("auth", auth);

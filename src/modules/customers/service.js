@@ -10,17 +10,17 @@ export class Service extends RestService {
   }
 
   getCustomers(args) {
-    let endpoint = "getUser";
+    let endpoint = "api/getUser";
     return super.list(endpoint, args);
   }
 
   search(args) {
-    let endpoint = "searchUser";
+    let endpoint = "api/searchUser";
     return super.list(endpoint, args);
   }
 
   getCustomersById(id) {
-    var endpoint = `getUserDetail/${id}`;
+    var endpoint = `api/getUserDetail/${id}`;
     var promise = this.endpoint.find(endpoint);
     this.publish(promise);
     return promise.then((result) => {
@@ -30,7 +30,7 @@ export class Service extends RestService {
   }
 
   getAddressBookById(id) {
-    var endpoint = `getAddressBook/${id}`;
+    var endpoint = `api/getAddressBook/${id}`;
     var promise = this.endpoint.find(endpoint);
     this.publish(promise);
     return promise.then((result) => {
