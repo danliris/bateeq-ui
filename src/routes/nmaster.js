@@ -39,6 +39,19 @@ module.exports = [
   }
 },
 {
+  route: "rate",
+  name: "rate",
+  moduleId: "./modules/master/rate/index",
+  nav: true,
+  title: "Ongkos",
+  auth: true,
+  settings: {
+    group: "nmaster",
+    permission: { "C.01" : 1, "MRD.01": 1 },
+    iconClass: "fa fa-adjust"
+  }
+},
+{
   route: 'suppliers/budgeting',
   name: 'suppliers/budgeting',
   moduleId: './modules/master/supplier-budgeting/index',
@@ -88,6 +101,19 @@ module.exports = [
       group: "nmaster",
       permission: { "C.01": 1 },
       iconClass: 'fa fa-adjust'
+  }
+},
+{
+  route: "efficiency",
+  name: "efficiency",
+  moduleId: "./modules/master/nefficiency/index",
+  nav: true,
+  title: "Efficiency",
+  auth: true,
+  settings: {
+    group: "nmaster",
+    permission: { "C.01" : 1, "MRD.01": 1 },
+    iconClass: "fa fa-adjust"
   }
 },
 {

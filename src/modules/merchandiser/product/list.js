@@ -23,7 +23,10 @@ export class List {
     columns = [
             { field: "code", title: "Kode Barang" },
             { field: "name", title: "Nama Barang" },
-            { field: "article.realizationOrder", title: "RO" }
+            {
+              field: "ArticleRealizationOrder",
+              title: "RO"
+            }
         ];
     
 

@@ -2,7 +2,7 @@
     <tr>
         <td class="col-sm-8">
             <div>
-                <au-autocomplete value.bind="realizationOrder" error.bind="error.realizationOrder" loader.one-time="articleRealizationOrderLoader"
+                <au-autocomplete value.bind="realizationOrder" error.bind="error.RO" loader.one-time="articleRealizationOrderLoader"
                     read-only.bind="readOnly" text="realizationOrder" query.bind="options.filter">
                 </au-autocomplete>
             </div>
@@ -15,8 +15,8 @@
     <tr show.bind="isShowing">
         <td colspan="3">
             <au-collection
-                items.bind="data.itemsDetails" 
-                errors.bind="error.itemsDetails"
+                items.bind="data.details" 
+                errors.bind="error.details"
                 columns.bind="columns"
                 read-only.bind="readOnly"
                 remove.bind="onRemove"

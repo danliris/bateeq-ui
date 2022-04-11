@@ -5,13 +5,13 @@
         <hr>
     <!--<block class="display-wrapper" style="display:none">-->
         <!--<data-form title="Detail Distribusi Barang" read-only="true"></data-form>-->
-        <au-textbox label="Ekspedisi" value.bind="data.expedition" read-only.bind="true"></au-textbox>
+        <au-textbox label="Ekspedisi" value.bind="data.expeditionService.name" read-only.bind="true"></au-textbox>
         <au-textbox label="Nomor Dokumen" value.bind="data.code" read-only.bind="true"></au-textbox>
         <au-textbox label="Berat (Kg)" value.bind="data.weight" read-only.bind="true"></au-textbox>
         <au-textbox label="Tujuan" value.bind="data.destination" read-only.bind="true"></au-textbox>
         <au-datetimepicker label="Tanggal" value.bind="data.date" read-only.bind="true"></au-datetimepicker>
         <au-collection 
-            items.bind="data.spkDocuments" 
+            items.bind="data.items" 
             errors.bind="error.spkDocuments"
             columns.bind="spkDocumentsInfo.columns" 
             title="Packing List"

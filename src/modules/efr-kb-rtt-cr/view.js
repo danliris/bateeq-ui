@@ -18,24 +18,24 @@ export class View {
         this.service.getById(id)
             .then(data => {
                 this.data = data;
-                const jobs = [this.service.getSPKByReference(data.code), this.service.getPackingListTransferStock(data.code)];
-                Promise.all(jobs)
-                    .then(result => {
-                        const spk = result[0];
-                        const packingListTransferStock = result[1];
-                        if (spk != undefined && spk.length > 0) {
-                            this.password = spk[0].password;
-                            this.packingList = spk[0].packingList;
-                        }
-                        if (packingListTransferStock) {
-                            if (packingListTransferStock[0].source.code == packingListTransferStock[1].destination.code) {
-                                this.tujuan = packingListTransferStock[0].source;
-                            } else if (packingListTransferStock[0].destination.code == packingListTransferStock[1].source.code) {
-                                this.tujuan = packingListTransferStock[0].destination;
-                            }
-                        }
-                    }).catch(e => {
-                    })
+                // const jobs = [this.service.getSPKByReference(data.code), this.service.getPackingListTransferStock(data.code)];
+                // Promise.all(jobs)
+                //     .then(result => {
+                //         const spk = result[0];
+                //         const packingListTransferStock = result[1];
+                //         if (spk != undefined && spk.length > 0) {
+                //             this.password = spk[0].password;
+                //             this.packingList = spk[0].packingList;
+                //         }
+                //         if (packingListTransferStock) {
+                //             if (packingListTransferStock[0].source.code == packingListTransferStock[1].destination.code) {
+                //                 this.tujuan = packingListTransferStock[0].source;
+                //             } else if (packingListTransferStock[0].destination.code == packingListTransferStock[1].source.code) {
+                //                 this.tujuan = packingListTransferStock[0].destination;
+                //             }
+                //         }
+                //     }).catch(e => {
+                //     })
                 this.generatePrintStrukTable();
             })
     }

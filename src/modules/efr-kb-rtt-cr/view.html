@@ -11,32 +11,32 @@
             <div class="form-group">
                 <label for="reference" class="col-sm-2 control-label">Nomor Referensi</label>
                 <div class="col-sm-10">
-                    <p class="form-control-static">${data.reference}</p>
+                    <p class="form-control-static">${data.referensi}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="sourceName" class="col-sm-2 control-label">Sumber</label>
                 <div class="col-sm-10">
-                    <p class="form-control-static">${data.source.code} - ${data.source.name}</p>
+                    <p class="form-control-static">${data.sourcecode} - ${data.sourcename}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="sourceName" class="col-sm-2 control-label">Tujuan</label>
                 <div class="col-sm-10">
                     <!-- <p class="form-control-static">GDG.01 - GUDANG BARANG JADI 1</p> -->
-                    <p class="form-control-static">${tujuan.code} - ${tujuan.name}</p>
+                    <p class="form-control-static">${data.transfercode} - ${data.transfername}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="password" class="col-sm-2 control-label">Password</label>
                 <div class="col-sm-10">
-                    <p class="form-control-static">${password}</p>
+                    <p class="form-control-static">${data.password}</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="destinationName" class="col-sm-2 control-label">Keterangan</label>
                 <div class="col-sm-10">
-                    <p class="form-control-static">Transfer ke ${data.destination.code} - ${data.destination.name}</p>
+                    <p class="form-control-static">Transfer ke ${data.destinationcode} - ${data.destinationname}</p>
                 </div>
             </div>
         </form>

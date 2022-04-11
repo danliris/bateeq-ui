@@ -41,12 +41,12 @@ export class Create {
             e.dateFrom = "Tanggal Kirim harus diisi";
             this.error = e;
         } else {
-            formData.append("sourceId", source._id);
-            formData.append("destinationId", destination._id);
-            formData.append("date", date);
+            //formData.append("sourceId", source._id);
+            //formData.append("destinationId", destination._id);
+            //formData.append("date", date);
             formData.append("fileUpload", fileList[0]);
 
-            var endpoint = '/upload';;
+            var endpoint = `warehouse/upload-pkbj/upload?source=${source._id}&sourcec=${source.code}&sourcen=${source.name}&destination=${destination._id}&destinationc=${destination.code}&destinationn=${destination.name}&date=${date}`;
             var request = {
                 method: 'POST',
                 headers: {
@@ -58,7 +58,7 @@ export class Create {
             return promise
                 .then((result) => {
                     this.service.publish(promise);
-                    if (result.status == 200) {
+                    if (result.status == 200 || result.status == 500) {
                         var getRequest = this.service.endpoint.client.fetch(endpoint, request);
                         this.service._downloadFile(getRequest);
                         this.service.publish(getRequest);
@@ -66,7 +66,7 @@ export class Create {
                         this.list();
                     }
                     else if (result.status == 404) {
-                        alert("Urutan format kolom CSV tidak sesuai.\n Format: Packing List, Password, Barcode, Name, Size, Price, UOM, QTY, RO");
+                        alert("Urutan format kolom CSV tidak sesuai.\n Format: Packing List, Password, Barcode, Name, Size, Price, UOM, QTY, RO, HPP");
                     }
                     else {
                         alert("Data Berhasil Diupload");

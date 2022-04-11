@@ -18,9 +18,9 @@ export class View {
         this.params = params;
         this.info.keyword = '';
         var storageId = params.storageId;
-        var itemId = params.itemId; 
-        var result = await this.service.getAllMovement(storageId, itemId, this.info);
-        this.data = result.data;
+        var itemCode = params.itemCode; 
+        var result = await this.service.getAllMovement(storageId, itemCode);
+        this.data = result;
         this.info = result.info;
         var moment = require('moment');
         for (var obj of this.data) {
@@ -32,24 +32,24 @@ export class View {
         var params = this.params;
         var keyword = this.info.keyword;
         var storageId = params.storageId;
-        var itemId = params.itemId; 
-        this.service.getAllMovement(storageId, itemId, this.info)
+        var itemCode = params.itemCode; 
+        this.service.getAllMovement(storageId, itemCode)
             .then(result => {
-                this.data = result.data;
+                this.data = result;
                 this.info = result.info;
                 var moment = require('moment');
                 for (var obj of this.data) {
-                    obj.date = moment(obj.date, "YYYY-MM-DDTHH:mm:SSSZ").format("DD MMM YYYY - HH:mm:SS")
+                    obj.Date = moment(obj.Date, "YYYY-MM-DDTHH:mm:SS.FFFFFFFZZZ").format("DD MM YYYY - HH:mm:SS")
                 }
             })
     }
 
     moveexcel(params) {
         var params = this.params;
-        var keyword = this.info.keyword;
+       // var keyword = this.info.keyword;
         var storageId = params.storageId;
-        var itemId = params.itemId; 
-        this.service.movementExcel(storageId, itemId);
+        var itemCode = params.itemCode; 
+        this.service.movementExcel(storageId, itemCode);
     }
 
     changePage(e) {

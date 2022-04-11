@@ -21,19 +21,20 @@ export class Edit {
         var id = params.id;
         this.prId = id;
         this.data = await this.service.getById(id);
+        this.data.isEdit = true;
         this.isShowing = true;
     }
 
     cancel(event) {
-        this.router.navigateToRoute('view', { id: this.data._id });
+        this.router.navigateToRoute('view', { id: this.data.Id });
     }
 
     save(event) {
         this.error = {};
-        this.validateUI(this.data);
-        if (this.data.stores.length > 1) {
-            this.data.stores = {"name":"ALL"};
-        } 
+        //this.validateUI(this.data);
+        // if (this.data.stores.length > 1) {
+        //     this.data.stores = {"name":"ALL"};
+        // } 
         if (Object.getOwnPropertyNames(this.error).length < 1) {
             this.service.update(this.data).then(result => {
                 this.cancel();

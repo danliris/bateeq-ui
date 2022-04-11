@@ -4,7 +4,7 @@ import { RestService } from '../../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-const reportUri = "docs/efr-kb-exp/report"
+const reportUri = "expedition/monitoring"
 
 export class Service extends RestService {
 
@@ -13,12 +13,12 @@ export class Service extends RestService {
     }
 
     search(info) {
-        var uri = `${reportUri}/${info.storageId}/${info.dateFrom}/${info.dateTo}`;
-        return super.get(uri);
+        var endpoint = `${reportUri}/by-user?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&destinationCode=${info.destinationCode}&status=${info.status}&transaction=${info.transaction}&packingList=${info.packingList}`;
+        return super.get(endpoint);
     }
 
     generateExcel(info) {
-        var uri = `${reportUri}/export/${info.storageId}/${info.dateFrom}/${info.dateTo}/${info.transaction}/${info.packingListStatus}`;
+        var uri = `${reportUri}/by-user/download?dateFrom=${info.dateFrom}&dateTo=${info.dateTo}&destinationCode=${info.destinationCode}&status=${info.status}&transaction=${info.transaction}&packingList=${info.packingList}`;
         return super.getXls(uri);
     }
 }

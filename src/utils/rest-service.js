@@ -90,6 +90,25 @@ export class RestService {
       })
   }
 
+  patch(endpoint, data, info, header) {
+    var promise = this.endpoint.patch(endpoint, info, data);
+    this.publish(promise);
+    return promise
+      .catch(e => {
+        return e.json().then(result => {
+          if (result.error)
+            return Promise.resolve(result);
+        });
+      })
+      .then(result => {
+        this.publish(promise);
+        if (result)
+          return this.parseResult(result);
+        else
+          return Promise.resolve({});
+      })
+  }
+  
   delete(endpoint, data, header) {
     var promise = this.endpoint.destroy(endpoint);
     this.publish(promise);
@@ -109,12 +128,11 @@ export class RestService {
       })
   }
 
-
-
   getXls(endpoint, header) {
+    var offset = new Date().getTimezoneOffset() / 60 * -1;
     var request = {
       method: 'GET',
-      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/xls" }))
+      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/xls", "x-timezone-offset": offset  }))
     };
     var getRequest = this.endpoint.client.fetch(endpoint, request)
     this.publish(getRequest);
@@ -123,10 +141,10 @@ export class RestService {
   }
 
   getPdf(endpoint, header) {
-    
+    var offset = new Date().getTimezoneOffset() / 60 * -1;
     var request = {
       method: 'GET',
-      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf" }))
+      headers: new Headers(Object.assign({}, this.header, header, { "Accept": "application/pdf", "x-timezone-offset": offset }))
     };
     var getRequest = this.endpoint.client.fetch(endpoint, request)
     this.publish(getRequest);

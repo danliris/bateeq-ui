@@ -4,7 +4,8 @@ import { RestService } from '../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-const serviceUri = 'docs/efr-kb-rtu';
+//const serviceUri = 'docs/efr-kb-rtu';
+const serviceUri = 'transfer-out';
 const serviceSearch = 'docs/efr-pk-pbj/submitted';
 const servicePrintUri = 'docs/print/efr-kb-rtu';
 
@@ -15,7 +16,7 @@ export class Service extends RestService {
   }
 
   search(info) {
-    var endpoint = `${serviceUri}`;
+    var endpoint = `${serviceUri}/retur`;
     return super.list(endpoint, info);
   }
 
@@ -42,13 +43,13 @@ export class Service extends RestService {
 
   getSPKByReference(reference) {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("merchandiser").client.baseUrl + 'docs/efr-pk/rtp?reference=' + reference;
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'pkpbj/by-user/byreference?reference=' + reference;
     return super.get(endpoint);
   }
 
   getModuleConfig() {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("master").client.baseUrl + 'modules?keyword=EFR-KB/RTU';
+    var endpoint = config.getEndpoint("master").client.baseUrl + 'modules?keyword=EFR-KB/RTP';
     return super.get(endpoint);
   }
 
@@ -77,14 +78,47 @@ export class Service extends RestService {
     });
   }
 
-  getPdfById(id) {
-    var endpoint = `${servicePrintUri}/${id}`;
-    return super.getPdf(endpoint);
-  }
-
   getSource(name) {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("master").client.baseUrl + 'storages?keyword=' + name;
     return super.get(endpoint);
+  }
+  getDestinations() {
+    var module = 'EFR-KB/RTU';
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("core");
+    var uri = `master/storages/destination?keyword=${module}`;
+    return endpoint.find(uri);
+  }
+
+  getSources() {
+    var module = 'EFR-KB/RTU';
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master");
+    var uri = `master/storages/source?keyword=${module}`;
+    return endpoint.find(uri);
+  }
+
+  getByCode(args) {
+    console.log(args);
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + `inventory/code?itemData=${args.itemData}&source=${args.source}`;
+    // return super.list(endpoint, args);
+    //var endpoint = `${serviceUri}?itemData=${args.itemData}&source=${args.source}`
+    return super.get(endpoint);
+
+  }
+
+  getByName(args) {
+    // console.log(args);
+    var config = Container.instance.get(Config);
+    var query = `inventory/name?itemData=${args.itemData}&source=${args.source}`
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + query
+// console.log(endpoint);
+    return super.get(endpoint);
+  }
+  getPdfById(id) {
+    var endpoint = `${serviceUri}/pdf/${id}`;
+    return super.getPdf(endpoint);
   }
 }

@@ -6,7 +6,10 @@ var tranferOutLoader = require('../../loader/transfer-out-loader');
 @inject(Router, Service)
 export class Pending {
     data = [];
-    info = { page: 1, keyword: '' };
+    info = {
+      page: 1,
+      keyword: ''
+    };
     keyword = '';
     constructor(router, service) {
         this.router = router;
@@ -23,25 +26,25 @@ export class Pending {
     async activate() {
         this.info.keyword = '';
         var result = await this.service.listPending(this.info);
-        var resultWithReference = await result.data.map(item => {
+        // var resultWithReference = await result.data.map(item => {
 
-            item["sourceReference"] = "";
-            item["destinationReference"] = "";
+        //     item["sourceReference"] = "";
+        //     item["destinationReference"] = "";
 
-            if (item.reference) {
-                var referenceData = tranferOutLoader(item.reference);
+        //     if (item.reference) {
+        //         var referenceData = tranferOutLoader(item.reference);
 
-                Promise.all([referenceData]).then(dataResult => {
-                    var data = dataResult[0];
-                    data.forEach(element => {
-                        item.sourceReference = element.source.name;
-                        item.destinationReference = element.destination.name;
-                    });
-                });
-            }
-            return item;
-        });
-        this.data = resultWithReference;
+        //         Promise.all([referenceData]).then(dataResult => {
+        //             var data = dataResult[0];
+        //             data.forEach(element => {
+        //                 item.sourceReference = element.source.name;
+        //                 item.destinationReference = element.destination.name;
+        //             });
+        //         });
+        //     }
+        //     return item;
+        // });
+        this.data = result.data;
         this.info = result.info;
     }
 

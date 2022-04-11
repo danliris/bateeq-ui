@@ -1,6 +1,7 @@
 import { inject, Lazy, bindable } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
+import { ServiceLocal } from './serviceLocal';
 var FinishedGoodsLoader = require('../../../loader/finished-goods-loader');
 var CountersLoader = require('../../../loader/counter-loader');
 var MaterialCompositionsLoader = require('../../../loader/material-composition-loader');
@@ -12,7 +13,7 @@ var SubCountersLoader = require('../../../loader/sub-counter-loader');
 var CollectionsLoader = require('../../../loader/collection-loader');
 var CategoriesLoader = require('../../../loader/category-loader');
 
-@inject(Router, Service)
+@inject(Router, Service, ServiceLocal)
 export class Upload {
     motif = {};
     process = {};
@@ -35,6 +36,7 @@ export class Upload {
     article_color = {};
     color = "#FF0000";
     ro = "";
+    ImageFile="";
 
     columns = [
         { header: "", value: "__check" },
@@ -42,16 +44,19 @@ export class Upload {
         { header: "Name", value: "name" }
     ]
 
-    constructor(router, service) {
+    constructor(router, service, serviceLocal) {
         this.router = router;
         this.service = service;
+        this.serviceLocal = serviceLocal;
         this.data = { items: [] };
         this.isNotRO = false;
         this.isNotName = true;
+        console.log(this.data);
 
         this.service.getColors()
             .then(result => {
-                this.article_colors = result.data.data;
+                console.log(result.data)
+                this.article_colors = result.data;
                 if (this.article_colors.length > 0)
                     this.article_color = this.article_colors[0];
                 this.article_colors.forEach((s) => {
@@ -114,8 +119,27 @@ export class Upload {
         if (e.keyCode == 13) {
             this.service.searchByRo(this.ro)
                 .then((result) => {
+                  console.log(result)
+                    var changeresurlt = []
+
+                    result.forEach(element => {
+                       changeresurlt.push({
+                             _id: element.dataDestination[0]._id,
+                             code: element.dataDestination[0].code,
+                              name: element.dataDestination[0].name,
+                                  Description: element.dataDestination[0].Description,
+                                  Uom: element.dataDestination[0].Uom,
+                                  Tags: element.dataDestination[0].Tags,
+                                  Remark: element.dataDestination[0].Remark,
+                                  ArticleRealizationOrder: element.dataDestination[0].ArticleRealizationOrder,
+                                  Size: element.dataDestination[0].Size,
+                                  ImagePath: element.dataDestination[0].ImagePath
+                            })
+                    });
+                    console.log(changeresurlt);
                     this.deleteAll();
-                    this.dataSource = result;
+                    //this.dataSource = result;
+                    this.dataSource = changeresurlt
                     if (result) {
                         var firstResult = result[0];
                         this.data.ro = this.ro;
@@ -165,7 +189,7 @@ export class Upload {
         var filter = this.dataSource.filter(function (item) {
             return item.check
         });
-
+        console.log(filter);
         this.dataDestination = this.dataDestination.concat(filter);
 
         var temp = this.dataSource;
@@ -227,14 +251,40 @@ export class Upload {
         this.router.navigateToRoute('list');
     }
 
-
+     @bindable imageUpload;
+     @bindable imageSrc;
+     imageUploadChanged(newValue) {
+       let imageInput = document.getElementById('imageInput');
+       console.log(imageInput)
+       let reader = new FileReader();
+       reader.onload = event => {
+         console.log(event)
+         let base64Image = event.target.result;
+         //console.log(base64Image)
+         this.imageSrc = base64Image;
+         this.ImageFile = base64Image;
+       }
+       console.log(this.ImageFile);
+       reader.readAsDataURL(imageInput.files[0]);
+     }
 
     async upload() {
-
+      this.data.ImageFile = this.ImageFile
+      this.data.dataDestination = this.dataDestination;
+      // this.dataDestination.forEach(element => {
+      //   this.data.dataDestination.push(element.code, element.name, element.Description, element.Uom, element.Tags, element.Remark, element.ArticleRealizationOrder, element.Size, element.ImagePath)
+      // });
+      //this.data.dataDestination.push
+      console.log(this.dataDestination);
+      console.log(this.data);
         var e = [];
-        var imageUpload = document.getElementById("imageUpload");
+        var upload = [];
+        var imageUpload = document.getElementById("imageInput");
+        let reader = new FileReader();
         var fileList1 = imageUpload.files;
+        var imageFiles;
         var imagePath;
+        //var ImageFile;
         // var motifUpload = document.getElementById("motifUpload");
         // var fileList2 = motifUpload.files;
 
@@ -242,12 +292,17 @@ export class Upload {
             e["imageUpload"] = "Gambar harus dipilih"
         }
         else {
+            // reader.onload = event => {
+            //   let base64Image = event.target.result;
+            //   this.imageSrc = imageFiles = base64Image;
+            // }
             imagePath = await this.service.searchAll(fileList1[0].name);
             if (imagePath.length > 0) {
                 e["imageUpload"] = "Nama file gambar tidak boleh sama"
             }
+            //reader.readAsDataURL(imageUpload.files[0]);
         }
-
+       // console.log(this.ImageFile)
         // if (fileList2[0] == undefined)
         //     e["motifUpload"] = "Gambar motif harus dipilih"
 
@@ -295,55 +350,76 @@ export class Upload {
         if (Object.keys(e).length > 0) {
             this.error = e;
         } else {
-            var formData = new FormData();
-            formData.append("imageUpload", fileList1[0]);
-            var endpoint = 'upload/image';
-            var request = {
-                method: 'POST',
-                headers: {
-                },
-                data: {
-                    "products": this.dataDestination,
-                    "color": this.color,
-                    "article-color": this.article_color
-                },
-                body: formData
-            };
-            var promise = this.service.endpoint.client.fetch(endpoint, request)
-            this.service.publish(promise);
-            return promise.then(response => {
-                this.service.publish(promise);
-                if (response) {
-                    return response.json().then(result => {
-                        var data = {}
-                        data.products = this.dataDestination;
-                        data.colorCode = this.color;
-                        data.articleColor = this.article_color;
-                        data.imagePath = result.data[0];
-                        // data.motifPath = result.data[1];
-                        // data.realizationOrderName = this.data.realizationOrderName;
-                        data.processDoc = this.data.process;
-                        // data.motifDoc = this.data.motif;
-                        data.seasonDoc = this.data.seasons;
-                        data.materialDoc = this.data.materials;
-                        data.materialCompositionDoc = this.data.materialCompositions;
-                        data.collectionDoc = this.data.collections;
-                        data.counterDoc = this.data.counters;
-                        data.styleDoc = this.data.subCounters;
-                        data.categoryDoc = this.data.categories;
-                        data.ro = this.data.ro;
-                        this.service.updateProductImage(data)
-                            .then(result2 => {
-                                this.list();
-                            }).catch(e => {
-                                this.error = e;
-                            });
-                    });
-                } else {
-                    return Promise.resolve({});
-                }
+            for (var data of this.data.dataDestination) {
+              upload.push({
+                dataDestination: data,
+                process : this.data.process,
+                materials : this.data.materials,
+                materialCompositions : this.data.materialCompositions,
+                collections : this.data.collections,
+                counters : this.data.counters,
+                subCounters : this.data.subCounters,
+                seasons : this.data.seasons
 
+              })
+              
+            }
+            console.log(upload);
+            this.service.uploadimage(this.data).then(result => {
+              this.list();
+            }).catch(e => {
+              this.error = e;
             })
+            // var formData = new FormData();
+            // //formData.append("imageUpload", fileList1[0]);
+            // formData.append("imageUpload", this.ImageFile);
+            // var endpoint = 'items/finished-goods/upload/image';
+            // var request = {
+            //     method: 'POST',
+            //     headers: {
+            //     },
+            //     data: {
+            //         "products": this.dataDestination,
+            //         "color": this.color,
+            //         "article-color": this.article_color
+            //     },
+            //     body: formData
+            // };
+            // var promise = this.serviceLocal.endpoint.client.fetch(endpoint, request)
+            // this.serviceLocal.publish(promise);
+            // return promise.then(response => {
+            //     this.serviceLocal.publish(promise);
+            //     if (response) {
+            //         return response.json().then(result => {
+            //             var data = {}
+            //             data.products = this.dataDestination;
+            //             data.colorCode = this.color;
+            //             data.articleColor = this.article_color;
+            //             data.imagePath = result.data[0];
+            //             // data.motifPath = result.data[1];
+            //             // data.realizationOrderName = this.data.realizationOrderName;
+            //             data.processDoc = this.data.process;
+            //             // data.motifDoc = this.data.motif;
+            //             data.seasonDoc = this.data.seasons;
+            //             data.materialDoc = this.data.materials;
+            //             data.materialCompositionDoc = this.data.materialCompositions;
+            //             data.collectionDoc = this.data.collections;
+            //             data.counterDoc = this.data.counters;
+            //             data.styleDoc = this.data.subCounters;
+            //             data.categoryDoc = this.data.categories;
+            //             data.ro = this.data.ro;
+            //             this.serviceLocal.updateProductImage(data)
+            //                 .then(result2 => {
+            //                     this.list();
+            //                 }).catch(e => {
+            //                     this.error = e;
+            //                 });
+            //         });
+            //     } else {
+            //         return Promise.resolve({});
+            //     }
+
+            // })
         }
 
     }

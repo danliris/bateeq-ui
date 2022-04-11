@@ -12,6 +12,11 @@
         </div>
         <au-autocomplete label="Penyimpanan" value.bind="storage" loader.bind="storageLoader" text="name">
         </au-autocomplete>
+        <au-multiline
+            placeholder="No. PackingList"
+            label="No. PackingList"
+            value.bind="packingListNo">
+        </au-multiline>
         <div class="form-group">
             <label class="col-sm-3 text-right control-label">Status Packing List</label>
             <div class="col-sm-9 radio">
@@ -26,30 +31,31 @@
         &nbsp;
         <button style="margin-right:10px;" click.delegate="showReport()" class="btn btn-success btn-sm pull-right">Tampilkan</button>
     </div>
-    <table class="table table-bordered">
+    <!-- <table class="table table-bordered">
         <thead>
             <tr style='background-color:#282828; color:#ffffff;'>
                 <th style="width:10%">Tanggal</th>
                 <th>Sumber Penyimpanan</th>
                 <th>Tujuan Penyimpanan</th>
-                <th>Transaksi</th>
                 <th>Packing List</th>
                 <th>Status</th>
                 <th>Total Kuantitas Barang</th>
-                <th>Total harga Jual</th>
+                <th>Total Harga</th>
             </tr>
         </thead>
         <tbody>
-            <tr repeat.for="item of data" if.bind="item.status == packingListStatus.id && item.transaction == transactionType.id">
+            <tr repeat.for="item of data" if.bind="item.status == packingListStatus.id">
                 <td>${item.date}</td>
-                <td>${item.source.name}</td>
-                <td>${item.destination.name}</td>
-                <td>${item.transactionName}</td>
+                <td>${item.sourceName}</td>
+                <td>${item.destinationName}</td>
                 <td>${item.packingList}</td>
                 <td>${item.statusName}</td>
-                <td>${item.sendQuantity}</td>
+                <td>${item.totalQuantity}</td>                
                 <td>${item.totalPrice.toLocaleString()}</td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
+    <div class="col-sm-12">
+        <div class="pre-scrollable" innerHTML.bind="reportHTML | sanitizeHTML"></div>
+    </div>
 </template>

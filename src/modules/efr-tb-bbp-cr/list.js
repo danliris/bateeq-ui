@@ -25,7 +25,7 @@ export class List {
         { field: 'reference', title: 'Nomor Referensi'},
         { field: 'source.name', title: 'Sumber Penyimpanan'},
         { field: 'destination.name', title: 'Tujuan Penyimpanan'},
-        { field: '_createdDate', title: 'Tanggal',
+        { field: 'CreatedUtc', title: 'Tanggal',
         formatter: (value, data) => {
             return moment(value).locale(locale).format("DD MMMM YYYY");
         }

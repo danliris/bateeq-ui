@@ -36,23 +36,23 @@ export class List {
                 } 
               },
             { 
-                field: "spk.password", title: "Password",
+                field: "password", title: "Password",
                 formatter: function (value, row, index) {
                     return value ? value : "";
                 } 
             },
             { 
-                field: "spk.isReceived", title: "Status",
+                field: "isReceived", title: "Status",
                 formatter: function (value, row, index) {
                     return value ? "Sudah Diterima" : "Belum Diterima";
                 } 
             },
             {
-                field: "_createdDate", title: "Tanggal", formatter: (value, data) => {
+                field: "date", title: "Tanggal", formatter: (value, data) => {
                     return moment(value).locale(locale).format("DD MMMM YYYY");
                 }
             },
-            { field: "_createdBy", title: "Dibuat Oleh" }
+            { field: "createdby", title: "Dibuat Oleh" }
         ];
     }
 
@@ -71,6 +71,10 @@ export class List {
         return this.service.search(arg)
             .then(result => {
                 var dataResult = result.data;
+                return {
+                      total: result.info.total,
+                      data: dataResult
+                  }
                 // for(var a of dataResult){
                 //     this.service.getSPKByReference(a.code).then(
                 //         spk => {
@@ -84,25 +88,25 @@ export class List {
                 //     total: result.info.total,
                 //     data: dataResult
                 // }
-                var dataSPKB = [];
-                for(var a of dataResult){
-                   dataSPKB.push(this.service.getSPKByReference(a.code));
-                }
-                return Promise.all(dataSPKB)
-                .then(data => {
-                    for(var a of dataResult){
-                        function searchItem(params) {
-                            return params ? params.reference === a.code : null;
-                        }
-                        var item = data.find(searchItem);
-                        if(item)
-                            a.spk = item
-                    }
-                    return {
-                        total: result.info.total,
-                        data: dataResult
-                    };
-                });
+                // var dataSPKB = [];
+                // for(var a of dataResult){
+                //    dataSPKB.push(this.service.getSPKByReference(a.code));
+                // }
+                // return Promise.all(dataSPKB)
+                // .then(data => {
+                //     for(var a of dataResult){
+                //         function searchItem(params) {
+                //             return params ? params.reference === a.code : null;
+                //         }
+                //         var item = data.find(searchItem);
+                //         if(item)
+                //             a.spk = item
+                //     }
+                //     return {
+                //         total: result.info.total,
+                //         data: dataResult
+                //     };
+                // });
             });
     }
 

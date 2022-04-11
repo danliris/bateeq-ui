@@ -11,8 +11,8 @@ export class Create {
     }
 
     async bind() {
-        this.data = { spkDocuments: [] };
-        this.error = { spkDocuments: [] };
+        this.data = { items: [] };
+        this.error = { items: [] };
         this.expeditionServices = await this.service.getExpeditionServices();
     }
 

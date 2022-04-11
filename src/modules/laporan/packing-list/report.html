@@ -12,9 +12,15 @@
         </div>
         <au-autocomplete label="Tujuan Penyimpanan" value.bind="storage" loader.bind="storageLoader" text="name">
         </au-autocomplete>
+        <au-multiline
+                placeholder="No. PackingList"
+                label="No. PackingList"
+                value.bind="packingListNo">
+        </au-multiline>
+    </au-multiline>
         <div class="form-group">
             <label class="col-sm-3 text-right control-label">Status Packing List</label>
-            <div class="col-sm-9 radio">
+             <div class="col-sm-9 radio">
                 <label repeat.for="option of packingListStatusOptions">
                     <input type="radio" name="packingListStatus" model.bind="option" checked.bind="packingListStatus"/> ${option.text}
                 </label>

@@ -23,13 +23,15 @@
         <tbody>
             <tr></tr>
             <tr repeat.for="item of data">
-                <td if.bind = "item.reference != ''">${item.reference}</td>
+                <td if.bind = "item.reference != ''">${item.Reference}</td>
                 <td if.bind = "item.reference == ''"> - </td>
                 <td>${item.packingList}</td>
-                <td if.bind = "item.reference != ''">${item.sourceReference}</td>
-                <td if.bind = "item.reference == ''">${item.source.name}</td>
-                <td if.bind = "item.reference != ''">${item.destinationReference}</td>
-                <td if.bind = "item.reference == ''">${item.destination.name}</td>
+                <!-- <td if.bind = "item.reference != null">${item.sourceReference}</td>
+                <td if.bind = "item.reference == null">${item.source.name}</td>
+                <td if.bind = "item.reference != null">${item.destinationReference}</td>
+                <td if.bind = "item.reference == null">${item.destination.name}</td> -->
+                <td>${item.source.name}</td>
+                <td>${item.destination.name}</td>
                 <td><button class="btn btn-primary" click.delegate="accept(item)">Terima</button></td>
             </tr>
         </tbody>

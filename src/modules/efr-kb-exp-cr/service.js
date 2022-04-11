@@ -4,7 +4,8 @@ import { RestService } from '../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api"
 
-const serviceUri = 'docs/efr-kb-exp';
+//const serviceUri = 'docs/efr-kb-exp';
+const serviceUri = 'efr-kb-exp';
 const servicePrintUri = 'docs/print/efr-kb-exp';
 
 export class Service extends RestService {
@@ -53,13 +54,14 @@ export class Service extends RestService {
   }
 
   getPdfById(id){
-    var endpoint = `${servicePrintUri}/${id}`;
+    var endpoint = `${serviceUri}/pdf/${id}`;
     return super.getPdf(endpoint);
   }
 
   getStock(storageId, itemId) {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId + "/inventories/" + itemId;
+    //var endpoint = config.getEndpoint("inventory").client.baseUrl + 'storages/' + storageId + "/inventories/" + itemId;
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + `inventory/stock?source=${storageId}&itemId=${itemId}`;
     return super.get(endpoint);
   }
 

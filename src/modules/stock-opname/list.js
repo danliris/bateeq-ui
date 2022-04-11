@@ -26,11 +26,11 @@ export class List {
             { field: "code", title: "SO Dokumen" },
             { field: "storage.name", title: "Sumber Penyimpanan" },
             {
-                field: "_createdDate", title: "Tanggal", formatter: (value, data) => {
+                field: "date", title: "Tanggal", formatter: (value, data) => {
                     return moment(value).format("DD-MMM-YYYY");
                 }
             },
-            { field: "_createdBy", title: "Dibuat Oleh" },
+            { field: "CreatedBy", title: "Dibuat Oleh" },
             { 
                 field: "isProcessed", title: "Status",
                 formatter: function (value, row, index) {
@@ -117,4 +117,15 @@ export class List {
     upload() {
         this.router.navigateToRoute('upload');
     }
+
+    download() {
+        var endpoint = 'stock-opname/by-user/download';
+        var request = {
+          method: 'GET'
+        };
+    
+        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+        this.service._downloadFile(getRequest);
+        this.service.publish(getRequest);
+      }
 }

@@ -1,13 +1,15 @@
 import {inject, Lazy} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import {RestService} from '../../../utils/rest-service'; 
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api"
 
-const serviceUri = "master-discount";
+const serviceUri = "discount";
 
 export class Service extends RestService {
 
     constructor(http, aggregator, config, api) {
-        super(http, aggregator, config, "inventory");
+        super(http, aggregator, config, "pos");
     }
 
     search(info) {
@@ -25,7 +27,9 @@ export class Service extends RestService {
     }
 
     getItemByCode(code) {
-        var endpoint = `${serviceUri}/filter/item/${code}`;
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core").client.baseUrl + 'items/finished-goods/code-discount/' + code;
+        //var endpoint = `${serviceUri}/filter/item/${code}`;
         return super.get(endpoint);
     }
 
@@ -35,12 +39,24 @@ export class Service extends RestService {
     }
 
     update(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.put(endpoint, data);
     }
 
     delete(data) {
-        var endpoint = `${serviceUri}/${data._id}`;
+        var endpoint = `${serviceUri}/${data.Id}`;
         return super.delete(endpoint, data);
-    } 
+    }
+
+    getStorebyCategory(category) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core").client.baseUrl + 'master/stores/category?category=' + category;
+        return super.get(endpoint);
+    }
+
+    getItemByRo(ro) {
+        var config = Container.instance.get(Config);
+        var endpoint = config.getEndpoint("core").client.baseUrl + 'items/finished-goods/ro-discount/' + ro;
+        return super.get(endpoint);
+    }
 }

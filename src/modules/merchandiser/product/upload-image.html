@@ -34,9 +34,10 @@
         <div class="form-group col-md-4 ${error.imageUpload?'has-error':''}">
             <label class="col-sm-12"><strong>Gambar :</strong></label>
             <div class="col-sm-12">
-                <input type="file" id="imageUpload" name="imageUpload" accept="image/*">
+                <input type="file" id="imageInput" value.bind="imageUpload" accept="image/*">
                 <span class="help-block">${error.imageUpload}</span>
             </div>
+            <img src.bind="imageSrc" class="center-block" height="auto" width="60%" >
         </div>
         <div class="form-group col-md-4">
             <!--<label><strong>Motif : </strong></label><!--<label>${article_motif.name}</label>-->
@@ -63,7 +64,7 @@
             <div class="form-group">
                 <label class="col-sm-2"><strong>Nama</strong></label>
                 <div class="col-sm-10">
-                    <au-dropdown items.bind="article_colors" value.bind="article_color"></au-dropdown>
+                    <au-dropdown items.bind="article_colors" value.bind="data.color"></au-dropdown>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ const serviceUri = "rates";
 export class Service extends RestService {
 
   constructor(http, aggregator, config, api) {
-    super(http, aggregator, config, "md");
+    super(http, aggregator, config, "nmerchandiser");
   }
   
   search(info) {

@@ -17,6 +17,8 @@ export class Create {
         if(params.id!=undefined){
             this.service.getPendingSPKById(params.id)
             .then(data => {
+                    data.password = "";
+                    data._id = undefined;
                     this.data = data;
                     data.reference = data.packingList;
                 })

@@ -1,15 +1,16 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { Service } from './service';
-var StorageLoader = require('../../loader/storage-loader');
+var StorageLoader = require('../../loader/nstorage-loader');
 
 
 @inject(Router, Service, Element)
 export class Create {
 
-    constructor(router, service) {
+    constructor(router, service, element) {
         this.router = router;
         this.service = service;
+        this.element = element;
         this.data = { items: [] };
     }
 
@@ -29,6 +30,18 @@ export class Create {
         return StorageLoader;
     }
 
+    download() {
+        var storage = this.data.storage;
+        var endpoint = `stock-opname/by-user/download?source=${storage.code}`;
+        var request = {
+          method: 'GET'
+        };
+    
+        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+        this.service._downloadFile(getRequest);
+        this.service.publish(getRequest);
+    }
+
     upload() {
         var e = {};
         var formData = new FormData();
@@ -43,10 +56,9 @@ export class Create {
             e.storage = "Harus diisi";
             this.error = e;
         } else {
-            formData.append("storageId", storage._id);
             formData.append("fileUpload", fileList[0]);
 
-            var endpoint = 'stock-opnames';
+            var endpoint = `warehouse/upload-so/upload?source=${storage.code}`;
             var request = {
                 method: 'POST',
                 headers: {
@@ -58,14 +70,30 @@ export class Create {
             return promise
                 .then((result) => {
                     this.service.publish(promise);
-                    if (result.status == 409) {
+                    // if (result.status == 409 || result.status == 200) {
+                    //     var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+                    //     this.service._downloadFile(getRequest);
+                    //     this.service.publish(getRequest);
+                    //     alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki");
+                    // }
+                    if (result.status == 404) {
+                        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+                        this.service._downloadFile(getRequest);
+                        this.service.publish(getRequest);
                         alert("Upload gagal!\n Ada beberapa data yang harus diperbaiki");
                     }
-                    else if (result.status == 404) {
+                    else if (result.status == 400) {
                         alert("Urutan format kolom CSV tidak sesuai.\n Format: Barcode, Nama Barang, Kuantitas Stock");
+                        this.list();
                     }
                     else if (result.status == 412) {
                         alert("Dokumen harus csv format");
+                    }
+                    else if(result.status == 500){
+                        var getRequest = this.service.endpoint.client.fetch(endpoint, request);
+                        this.service._downloadFile(getRequest);
+                        this.service.publish(getRequest);
+                        alert("Terjadi kesalahan pada sistem");
                     }
                     else {
                         alert("Data Berhasil Diupload");

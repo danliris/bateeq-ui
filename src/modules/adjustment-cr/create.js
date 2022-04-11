@@ -20,13 +20,17 @@ export class Create {
     }
 
     save() { 
-        this.data.sourceId= this.data.source._id;
         this.service.create(this.data)
             .then(result => {
+                alert("Data berhasil dibuat");
                 this.list();
             })
             .catch(e => {
-                this.error = e;
+                if (e.statusCode === 500) {
+                    alert("Gagal menyimpan, silakan coba lagi!");
+                } else {
+                    this.error = e;
+                }
             })
     }
 }

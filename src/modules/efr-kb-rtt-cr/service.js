@@ -4,7 +4,8 @@ import { RestService } from '../../utils/rest-service';
 import { Container } from 'aurelia-dependency-injection';
 import { Config } from "aurelia-api";
 
-const serviceUri = 'docs/efr-kb-rtt';
+//const serviceUri = 'docs/efr-kb-rtt';
+const serviceUri = 'stores/efr-kb-rtt'
 // const serviceSearch = 'docs/efr-pk-pbj/submitted';
 
 export class Service extends RestService {
@@ -14,7 +15,7 @@ export class Service extends RestService {
   }
 
   search(info) {
-    var endpoint = `${serviceUri}`;
+    var endpoint = `${serviceUri}/transfer`;
     return super.list(endpoint, info);
   }
 
@@ -42,7 +43,7 @@ export class Service extends RestService {
 
   getSPKByReference(codeRTT) {
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("merchandiser").client.baseUrl + 'docs/efr-pk/pending?reference=' + codeRTT;
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + 'pkpbj/by-user/transfer-stock/byreference?reference=' + codeRTT;
     return super.get(endpoint);
   }
 
@@ -52,9 +53,22 @@ export class Service extends RestService {
     return super.get(endpoint);
   }
 
-  getByCode(code) {
+  getByCode(args) {
+    console.log(args);
     var config = Container.instance.get(Config);
-    var endpoint = config.getEndpoint("master").client.baseUrl + 'items/finished-goods/code/' + code;
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + `inventory/code?itemData=${args.itemData}&source=${args.source}`;
+    // return super.list(endpoint, args);
+    //var endpoint = `${serviceUri}?itemData=${args.itemData}&source=${args.source}`
+    return super.get(endpoint);
+
+  }
+
+  getByName(args) {
+    // console.log(args);
+    var config = Container.instance.get(Config);
+    var query = `inventory/name?itemData=${args.itemData}&source=${args.source}`
+    var endpoint = config.getEndpoint("inventory").client.baseUrl + query
+    // console.log(endpoint);
     return super.get(endpoint);
   }
 
@@ -67,6 +81,22 @@ export class Service extends RestService {
     var config = Container.instance.get(Config);
     var endpoint = config.getEndpoint("master").client.baseUrl + 'storages?keyword=' + name;
     return super.get(endpoint);
+  }
+
+  getDestinations() {
+    var module = 'EFR-KB/RTT';
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("core");
+    var uri = `master/storages/destination?keyword=${module}`;
+    return endpoint.find(uri);
+  }
+
+  getSources() {
+    var module = 'EFR-KB/RTT';
+    var config = Container.instance.get(Config);
+    var endpoint = config.getEndpoint("master");
+    var uri = `master/storages/source?keyword=${module}`;
+    return endpoint.find(uri);
   }
 
 }

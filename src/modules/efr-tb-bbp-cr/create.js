@@ -3,6 +3,7 @@ import {Router} from 'aurelia-router';
 import {Service} from './service';
 
 
+
 @inject(Router, Service)
 export class Create {
     
@@ -19,8 +20,16 @@ export class Create {
             .then(data => {
                     this.data = data;
                     data.reference = data.packingList;
+                    data._id = undefined
+                    for (var i in data.items){
+                      i._id = 0;
+                    }
+                    //data.uid = new ObjectId().toString();
                 })
+            //console.log(this.data)
             .catch()
+            console.log(this.data);
+            
         }
     }
 

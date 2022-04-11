@@ -8,7 +8,7 @@ export class ROItem {
     @bindable realizationOrder;
 
     columns;
-
+    RO;
     constructor(service) {
         this.service = service;
     }
@@ -16,6 +16,7 @@ export class ROItem {
     async activate(context) {
         this.data = context.data;
         this.error = context.error;
+        console.log(context);
         this.options = context.context.options;
         this.readOnly = context.options.readOnly;
         this.isShowing = false;
@@ -40,47 +41,88 @@ export class ROItem {
         };
 
         if (newValue && newValue.realizationOrder != 'NO') {
-            var products = await FinishedItemLoader(newValue.realizationOrder);
+            // var products = await FinishedItemLoader(newValue.realizationOrder);
+            
+            this.service.getItemByRo(newValue.realizationOrder)
+                .then(result => {
+                    //console.log(result);
+                    // if(result.length > 0) {
+                    //     result.forEach(dataItem => {
+                    //         var formStart = moment(innerData.startDate).startOf('day');
+                    //         var formEnd = moment(innerData.endDate).endOf('day');
+                    //         var itemStart = moment(dataItem.startDate).startOf('day');
+                    //         var itemEnd = moment(dataItem.endDate).endOf('day');
+                    //         console.log(itemEnd)
+                    //         if (innerData.discountOne == dataItem.discountOne &&
+                    //             innerData.discountTwo == dataItem.discountTwo) {
 
-            for (let item of products) {
-                var hasItem = await this.service.getItemByCode(item.code);
+                    //             if (formStart >= itemStart &&
+                    //                 formStart <= itemEnd ||
+                    //                 itemStart >= formStart &&
+                    //                 itemStart <= formEnd) {
+                    //                 item["error"] = "Produk sudah digunakan";
+                    //             }
+                    //         } else {
 
-                if (hasItem.length > 0) {
-
-                    hasItem.forEach(dataItem => {
-                        var formStart = moment(innerData.startDate).startOf('day');
-                        var formEnd = moment(innerData.endDate).endOf('day');
-                        var itemStart = moment(dataItem.startDate).startOf('day');
-                        var itemEnd = moment(dataItem.endDate).endOf('day');
-
-                        if (innerData.discountOne == dataItem.discountOne &&
-                            innerData.discountTwo == dataItem.discountTwo) {
-
-                            if (formStart >= itemStart &&
-                                formStart <= itemEnd ||
-                                itemStart >= formStart &&
-                                itemStart <= formEnd) {
-                                item["error"] = "Produk sudah digunakan";
-                            }
-                        } else {
-
-                            if (formStart >= itemStart &&
-                                formStart <= itemEnd ||
-                                itemStart >= formStart &&
-                                itemStart <= formEnd) {
-                                item["error"] = "Produk sudah digunakan";
-                            }
+                    //             if (formStart >= itemStart &&
+                    //                 formStart <= itemEnd ||
+                    //                 itemStart >= formStart &&
+                    //                 itemStart <= formEnd) {
+                    //                 item["error"] = "Produk sudah digunakan";
+                    //             }
+                    //         }
+                    //     });
+                        this.data.realizationOrder = newValue.realizationOrder
+                        this.data.details = []
+                        for(var datas of result){
+                            //console.log(datas);
+                            this.data.details.push(datas)
                         }
-                    });
-                }
+                        //this.readOnly = true;
+                        //this.RO = newValue.realizationOrder
+                        
+                })
 
-                processedData.itemsDetails.push(item);
-            }
+            // for (let item of products) {
+            //     var hasItem = await this.service.getItemByCode(item.code);
 
-            Object.assign(this.data, processedData);
+            //     if (hasItem.length > 0) {
+
+            //         hasItem.forEach(dataItem => {
+            //             var formStart = moment(innerData.startDate).startOf('day');
+            //             var formEnd = moment(innerData.endDate).endOf('day');
+            //             var itemStart = moment(dataItem.startDate).startOf('day');
+            //             var itemEnd = moment(dataItem.endDate).endOf('day');
+
+            //             if (innerData.discountOne == dataItem.discountOne &&
+            //                 innerData.discountTwo == dataItem.discountTwo) {
+
+            //                 if (formStart >= itemStart &&
+            //                     formStart <= itemEnd ||
+            //                     itemStart >= formStart &&
+            //                     itemStart <= formEnd) {
+            //                     item["error"] = "Produk sudah digunakan";
+            //                 }
+            //             } else {
+
+            //                 if (formStart >= itemStart &&
+            //                     formStart <= itemEnd ||
+            //                     itemStart >= formStart &&
+            //                     itemStart <= formEnd) {
+            //                     item["error"] = "Produk sudah digunakan";
+            //                 }
+            //             }
+            //         });
+            //     }
+
+            //     processedData.itemsDetails.push(item);
+            // }
+
+            // Object.assign(this.data, processedData);
+            //console.log(this.data);
         } else {
-            this.data.realizationOrder = processedData.realizationOrder;
-            this.data.itemsDetails = processedData.itemsDetails;
+            this.data.realizationOrder = '';
+            this.data.itemsDetails = {};
         }
         this.isShowing = true;
     }
@@ -107,7 +149,7 @@ export class ROItem {
 
         if (data.length > 0) {
             realizationOrders = data.map(item => {
-                return { 'realizationOrder': item.article.realizationOrder };
+                return { 'realizationOrder': item.ArticleRealizationOrder };
             });
         } else {
             realizationOrders.push({ 'realizationOrder': 'NO' });
@@ -140,7 +182,7 @@ export class ROItem {
 
     get addItem() {
         return (event) => {
-            this.data.itemsDetails.push({});
+            this.data.details.push({});
         };
     }
 }
