@@ -158,5 +158,18 @@ module.exports = [
       //permission: { "C9": 1 },
       iconClass: 'fa fa-dashboard'
   }
-}
+},
+{
+  route: "vat",
+  name: "vat",
+  moduleId: "./modules/master/vat/index",
+  nav: true,
+  title: "Pajak PPN",
+  auth: true,
+  settings: {
+    group: "nmaster",
+    permission: { "*": 1 },
+    iconClass: "fa fa-dashboard",
+  },
+},
 ];

@@ -4,7 +4,8 @@
     <div class="col-md-6">
       <au-input-form title.bind="title" with.bind="context" options.bind="formOptions">
 
-      
+    
+
         <au-textbox 
             label="Nama" 
             value.bind="data.Name" 
@@ -13,15 +14,16 @@
             options.bind="controlOptions">
         </au-textbox>
 
-        <au-textbox 
+        <au-numeric 
             label="Rate" 
             value.bind="data.Rate" 
             error.bind="error.Rate" 
             read-only.bind="readOnly"
             options.bind="controlOptions">
         
-        </au-textbox>
- 
+        </au-numeric>
+
+       
           <au-datepicker 
               options.bind="controlOptions" 
               value.bind="data.Date" 
