@@ -1,6 +1,8 @@
 import { inject, Lazy } from 'aurelia-framework';
 import { HttpClient } from 'aurelia-fetch-client';
 import { RestService } from '../../../utils/rest-service';
+import { Container } from 'aurelia-dependency-injection';
+import { Config } from "aurelia-api";
 
 
 const serviceUri = 'external-purchase-orders/by-user';
@@ -59,5 +61,15 @@ export class Service extends RestService {
     close(id) {
         var endpoint = `${serviceUri}/close/${id}`;
         return super.put(endpoint);
+    }
+
+    getDefaultVat(info){
+        var config = Container.instance.get(Config);
+        var _endpoint = config.getEndpoint("ncore");
+        var _serviceUri = `master/vat`;
+        return _endpoint.find(_serviceUri, info)
+        .then(result => {
+            return result.data;
+        })
     }
 }
