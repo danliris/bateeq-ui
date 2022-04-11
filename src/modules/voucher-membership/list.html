@@ -1,0 +1,74 @@
+<template>
+  <style>
+    .btn-center {
+      position: relative;
+      height: 70px;
+      text-align: center;
+    }
+  </style>
+
+  <h1 class="page-header">Voucher Membership / List Voucher</h1>
+  <hr />
+  <br />
+  <au-input-form class="form-horizontal">
+    <div class="form-group">
+      <div class="col-md-6">
+        <au-datepicker
+          label="Start Date"
+          value.bind="info.startDate"
+          error.bind="error.startDate"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+        >
+        </au-datepicker>
+
+        <au-datepicker
+          label="End Date"
+          value.bind="info.endDate"
+          error.bind="error.endDate"
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+        >
+        </au-datepicker>
+      </div>
+
+      <div class="col-md-6">
+        <au-dropdown
+          label="Voucher Type"
+          value.bind="info.voucherType"
+          items.bind="voucherType"
+          options.bind="controlOptions"
+        >
+        </au-dropdown>
+
+        <au-dropdown
+          label="Tier Member"
+          value.bind="info.tierMembership"
+          items.bind="tierMembershipType"
+          options.bind="controlOptions"
+        >
+        </au-dropdown>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="btn-center">
+        <button click.delegate="search()" class="btn btn-success">Cari</button>
+        <button click.delegate="reset()" class="btn btn-warning">Reset</button>
+      </div>
+    </div>
+
+    <au-table
+    view-model.ref="tableList"
+    data.bind="loader"
+    columns.bind="columns"
+    sortable.bind="false"
+    page-size="25"
+    context.bind="context"
+    context-click.delegate="contextClickCallback($event)">
+        <div slot="toolbar" class="btn-group">
+            <button class="btn btn-primary" click.delegate="create()">Buat</button>
+        </div>
+    </au-table>
+  </au-input-form>
+</template>

@@ -1,0 +1,144 @@
+<template>
+    <style>
+
+    </style>
+  <au-input-form 
+      title.bind="title" 
+      with.bind="context">
+
+      <div slot="actions" class="btn-group">
+          <button class="btn btn-default" click.delegate="context.cancel($event)"     if.one-way="context.hasCancel">Kembali</button>
+          <button class="btn btn-primary" click.delegate="context.edit($event)"       if.one-way="context.hasEdit">Ubah</button>
+          <button class="btn btn-success" click.delegate="context.save($event)"       if.one-way="context.hasSave">Simpan</button>
+          <button class="btn btn-danger"  click.delegate="context.delete($event)"     if.one-way="context.hasDelete">Hapus</button>
+          <button class="btn btn-primary" click.delegate="context.unpostPO($event)"     if.one-way="context.hasUnpost">Unpost</button>
+      </div>
+
+      <au-dropdown
+          label="Voucher Type*"
+          value.bind="voucherType"
+          error.bind="error.voucherType"
+          read-only.bind="readOnly || isEdit"
+          items.bind="voucherTypeSelection"
+          options.bind="controlOptions"
+          key="value"
+          text="label">
+      </au-dropdown>
+
+      <numeric 
+          label="Nominal*" 
+          value.bind="data.nominal" 
+          error.bind="errors.nominal[0]" 
+          format="#.###0,#0"
+          read-only.bind="readOnly"
+          if.bind="!isProduct">
+      </numeric>
+
+      <au-textbox 
+          label="Voucher Name*" 
+          placeholder="Voucher Name" 
+          value.bind="data.voucherName"
+          error.bind="error.voucherName"
+          read-only.bind="readOnly"
+          if.bind="true"
+          options.bind="controlOptions">
+      </au-textbox>
+
+      <numeric 
+          label="Minimum Purchases*" 
+          value.bind="data.minimumPurchase" 
+          error.bind="error.minimumPurchase" 
+          if.bind="!isProduct"
+          format="#.###0,#0"
+          read-only.bind="readOnly">
+      </numeric>
+
+      <div class="form-group">
+        <label for="pointExchange" class="col-sm-4 control-label">Point Exchange*</label>
+        <div class="col-sm-2">
+            <numeric 
+                value.bind="data.pointExchange" 
+                error.bind="error.pointExchange" 
+                format="#.###0,#0"
+                read-only.bind="readOnly">
+            </numeric>
+        </div>
+        <div class="col-sm-3 control-label" style="text-align: left !important; padding-left: 0px !important;">Pts</div>
+      </div>
+
+      <au-autocomplete 
+          value.bind="selectedProductGift" 
+          error.bind="error.productGift"
+          label="Product Gift*" 
+          loader.bind="productLoader"
+          text.bind = "productView"
+          placeholder="Cari product gift" 
+          key="name" 
+          read-only.bind="readOnly"
+          options.bind="controlOptions"
+          if.bind="isProduct">
+      </au-autocomplete>
+
+      <div repeat.for="item of productGift" class="form-group">
+        <label class="col-sm-4 control-label"></label>
+        <div class="col-sm-5">
+            <input
+            type="text"
+            class="form-control"
+            style="width: 92% !important; display: inline !important;"
+            value.bind="item.name"
+            read-only.bind="true"
+            if.bind="isProduct" />
+            <button class="btn btn-danger"
+            click.delegate="removeProductGift($index)"
+            if.one-way="context.hasSave">X</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pointExchange" class="col-sm-4 control-label">Validity Period*</label>
+        <div class="col-sm-2">
+            <numeric 
+                value.bind="data.validityPeriod" 
+                error.bind="error.validityPeriod" 
+                format="#.###0,#0"
+                read-only.bind="readOnly">
+            </numeric>
+        </div>
+        <div class="col-sm-3 control-label" style="text-align: left !important; padding-left: 0px !important;"><b>Month</b> Since Redeemed</div>
+      </div>
+
+      <au-datepicker 
+          label="Start Date" 
+          value.bind="data.startDate" 
+          error.bind="error.startDate" 
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+      </au-datepicker>
+
+      <au-datepicker 
+          label="End Date" 
+          value.bind="data.endDate" 
+          error.bind="error.endDate" 
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+      </au-datepicker>
+              
+      <au-multiline 
+          label="Description*" 
+          value.bind="data.description"
+          placeholder="Description" 
+          read-only.bind="readOnly"
+          options.bind="controlOptions">
+      </au-multiline>
+
+      <div class="form-group">
+        <label for="qtyItemGift" class="col-sm-4 control-label">Assign to member</label>
+        <div class="col-sm-5">
+            <label repeat.for="option of assignToMembership">
+                <input type="checkbox" model.bind="option" checked.bind="option.checked" disabled.bind="readOnly"> ${option.label}</input> &nbsp;
+            </label>
+        </div>
+      </div>
+</au-input-form>
+</template>

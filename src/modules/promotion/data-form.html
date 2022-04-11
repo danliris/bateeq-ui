@@ -1,0 +1,494 @@
+<template>
+  <style>
+    div.a {
+      position: relative;
+    }
+
+    div.b {
+      position: absolute;
+      right: 0;
+    }
+  </style>
+
+  <au-input-form title.bind="title" with.bind="context">
+    <au-dropdown
+      label="Voucher Type*"
+      value.bind="data.voucherType"
+      items.bind="voucherTypeList"
+      options.bind="controlOptions"
+      read-only.bind="readOnly || isEdit"
+      change.delegate"resetForm($event.target.value)"
+    >
+    </au-dropdown>
+
+    <div
+      css="display: ${data.voucherType === 'Buy n discount m%' ? '': 'none'}"
+    >
+      <au-dropdown
+        label="AssignTo*"
+        value.bind="data.assignToCategory"
+        items.bind="categorySourcesList"
+        options.bind="controlOptions"
+        read-only.bind="readOnly"
+        placeholder="Product Category"
+      >
+      </au-dropdown>
+    </div>
+
+    <div css="display: ${data.voucherType === 'Percentage' ? '': 'none'}">
+      <div class="form-group">
+        <label for="percentage" class="col-sm-4 control-label"
+          >Percentage*</label
+        >
+        <div class="col-sm-5">
+          <numeric
+            type="number"
+            name="percentage"
+            value.bind="data.percentage"
+            placeholder="Percentage"
+            read-only.bind="readOnly"
+            format="#.###0,#0"
+          >
+          </numeric>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="maxDiscount" class="col-sm-4 control-label"
+          >Max Discount</label
+        >
+        <div class="col-sm-5">
+          <numeric
+            type="number"
+            name="maxDiscount"
+            value.bind="data.maxDiscount"
+            placeholder="0.0000"
+            read-only.bind="readOnly"
+            format="#.###0,#0"
+          ></numeric>
+        </div>
+      </div>
+    </div>
+
+    <div css="display: ${data.voucherType === 'Nominal' ? '': 'none'}">
+      <div class="form-group">
+        <label for="nominal" class="col-sm-4 control-label">Nominal*</label>
+        <div class="col-sm-5">
+          <numeric
+            type="number"
+            name="nominal"
+            value.bind="data.nominal"
+            placeholder="0.0000"
+            read-only.bind="readOnly"
+            format="#.###0,#0"
+          >
+          </numeric>
+        </div>
+      </div>
+    </div>
+
+    <div
+      css="display: ${(data.voucherType === 'Buy n free m' || 
+        data.voucherType === 'Buy n discount m% product (n)th' 
+        )
+         ? '': 'none'}"
+    >
+      <au-autocomplete
+        value.bind="data.productPurchase"
+        error.bind="error.productPurchase"
+        label="Product Purchase*"
+        loader.one-time="productLoader"
+        placeholder="Search By No RO and Product Name"
+        text.bind="productView"
+        text="name"
+        options.bind="controlOptions"
+        read-only.bind="readOnly"
+      >
+      </au-autocomplete>
+    </div>
+
+    <div
+      css="display: ${
+            data.voucherType === 'Buy n free m' ? '': 'none'}"
+    >
+      <au-autocomplete
+        value.bind="data.productGift"
+        error.bind="error.productGift"
+        label="Product Gift*"
+        loader.one-time="productLoader"
+        placeholder="Search By No RO and Product Name"
+        text="name"
+        options.bind="controlOptions"
+        read-only.bind="readOnly"
+        text.bind = "productView"
+      >
+      </au-autocomplete>
+    </div>
+
+
+    <div
+      css="display: ${
+            data.voucherType === 'Pay nominal Rp.xx, Free 1 product' && !readOnly ? '': 'none'}"
+    >
+      <au-autocomplete
+        value.bind="selectedProductGiftMultiple"
+        error.bind="error.productGift"
+        label="Product Gift*"
+        loader.one-time="productLoader"
+        placeholder="Search By No RO and Product Name"
+        text="name"
+        options.bind="controlOptions"
+        read-only.bind="readOnly"
+        text.bind = "productView"
+      >
+      </au-autocomplete>
+    </div>
+    <div class="form-group">
+      <label for="productGiftMultiple" class="col-sm-4 control-label" css="display : ${data.voucherType === 'Pay nominal Rp.xx, Free 1 product' &&  readOnly?'':'none'}">Product Gift *</label>
+      <div repeat.for="item of data.productGiftMultiple" 
+      css="display: ${
+        data.voucherType === 'Pay nominal Rp.xx, Free 1 product' ? '': 'none'}" class="form-group">
+        <label class="col-sm-4 control-label"></label>
+        <div class="col-sm-5" css="display:inline">
+            <input
+            type="text"
+            class="form-control"
+            style="width: 90% !important; display: inline !important;"
+            value.bind="item.name"
+            read-only.bind="true" />
+            <button class="btn btn-danger"
+            click.delegate="removeProductGift($index)"
+            if.one-way="context.hasSave">X</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      css="display: ${data.voucherType === 'Buy n discount m%' && data.assignToCategory === 'Product'?'':'none'}"
+    >
+      <au-autocomplete
+        value.bind="selectedProductPurchaseMultiple"
+        error.bind="error.productPurchase"
+        label="Product Purchase*"
+        loader.one-time="productLoader"
+        placeholder="Search By No RO and Product Name"
+        text="name"
+        options.bind="controlOptions"
+        read-only.bind="readOnly"
+        text.bind = "productView"
+        css="display : ${!readOnly?'':'none'}"
+      >
+      </au-autocomplete>
+    </div>
+    <div>
+      <div class="form-group">
+        <label for="productPurchaseMultiple" class="col-sm-4 control-label" css="display : ${data.voucherType === 'Buy n discount m%' && data.assignToCategory === 'Product' && readOnly?'':'none'}">Product Purchase*</label>
+        <div repeat.for="item of data.productPurchaseMultiple" 
+        css="display: ${data.voucherType === 'Buy n discount m%' && data.assignToCategory === 'Product' ? '': 'none'}" class="form-group">
+          <label class="col-sm-4 control-label"></label>
+          <div class="col-sm-5" css="display:inline">
+              <input
+              type="text"
+              class="form-control"
+              style="width: 90% !important; display: inline !important;"
+              value.bind="item.name"
+              read-only.bind="true" />
+              <button class="btn btn-danger"
+              click.delegate="removeProductPurchase($index)"
+              disabled ="${readOnly?'disabled':''}"
+              if.one-way="context.hasSave">X</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div
+      css="display: ${(data.voucherType === 'Buy n discount m%')&& data.assignToCategory=== 'Category' ? '': 'none'}"
+    >
+      <au-autocomplete
+        value.bind="data.categoryPurchase"
+        error.bind="error.categoryPurchase"
+        label="Category Purchase*"
+        loader.one-time="categoryLoader"
+        placeholder="Search By Category Name"
+        text.bind = "categoryView"
+        text="name"
+        options.bind="controlOptions"
+        read-only.bind="readOnly"
+      >
+      </au-autocomplete>
+    </div> -->
+
+    <div
+      css="display: ${(data.voucherType === 'Buy n discount m%')&& data.assignToCategory=== 'Category' && !readOnly ? '': 'none'}"
+    >
+      <au-autocomplete
+        value.bind="selectedCategoryPurchase"
+        error.bind="error.categoryPurchase"
+        label="Category Purchase*"
+        loader.one-time="categoryLoader"
+        placeholder="Search By Category Name"
+        text.bind = "categoryView"
+        text="name"
+        options.bind="controlOptions"
+        read-only.bind="readOnly"
+      >
+      </au-autocomplete>
+    </div>
+    <div class="form-group">
+        <label for="categoryPurchaseMultiple" class="col-sm-4 control-label" css="display : ${(data.voucherType === 'Buy n discount m%')&& data.assignToCategory=== 'Category' && readOnly?'':'none'}">Category Purchase*</label>
+      <div repeat.for="item of data.categoryPurchaseMultiple" 
+      css="display: ${(data.voucherType === 'Buy n discount m%')&& data.assignToCategory=== 'Category' ? '': 'none'}" class="form-group">
+        <label class="col-sm-4 control-label"></label>
+        <div class="col-sm-5" css="display:inline">
+            <input
+            type="text"
+            class="form-control"
+            style="width: 90% !important; display: inline !important;"
+            value.bind="item.name"
+            read-only.bind="true" />
+            <button class="btn btn-danger"
+            click.delegate="removeCategoryPurchase($index)"
+            if.one-way="context.hasSave">X</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      css="display: ${data.voucherType === 'Buy n free m' || 
+        data.voucherType === 'Buy n discount m%' || 
+        data.voucherType === 'Buy n discount m% product (n)th'? '': 'none'}"
+    >
+      <div class="form-group">
+        <label for="qtyItemPurchase" class="col-sm-4 control-label"
+          >Qty Item Purchase (n)*</label
+        >
+        <div class="col-sm-5">
+          <numeric
+            type="number"
+            name="qtyItemPurchase"
+            value.bind="data.qtyItemPurchase"
+            placeholder="0"
+            read-only.bind="readOnly"
+            format="#.###0,#0"
+          >
+          </numeric>
+        </div>
+      </div>
+    </div>
+
+    <div css="display: ${data.voucherType === 'Buy n free m' ? '': 'none'}">
+      <div class="form-group">
+        <label for="qtyItemGift" class="col-sm-4 control-label"
+          >Qty Item Gift*</label
+        >
+        <div class="col-sm-5">
+          <numeric
+            type="number"
+            name="qtyItemGift"
+            value.bind="data.qtyItemGift"
+            placeholder="0"
+            read-only.bind="readOnly"
+            format="#.###0,#0"
+          ></numeric>
+        </div>
+      </div>
+    </div>
+
+    <div
+      css="display: ${data.voucherType === 'Buy n discount m%' || 
+        data.voucherType === 'Buy n discount m% product (n)th' ? '': 'none'}"
+    >
+      <div class="form-group">
+        <label for="discountPercentage" class="col-sm-4 control-label"
+          >Discount Percentage*</label
+        >
+        <div class="col-sm-5">
+          <numeric
+            type="number"
+            name="discountPercentage"
+            value.bind="data.discountPercentage"
+            placeholder="Discount Percentage"
+            read-only.bind="readOnly"
+            format="#.###0,#0"
+          ></numeric>
+        </div>
+      </div>
+    </div>
+
+    <div
+      css="display: ${data.voucherType === 'Nominal' || 
+        data.voucherType === 'Percentage' ||
+        data.voucherType === 'Pay nominal Rp.xx, Free 1 product' ? '': 'none'}"
+    >
+      <div class="form-group">
+        <label for="minimumPayment" class="col-sm-4 control-label"
+          >Minimum Payment*</label
+        >
+        <div class="col-sm-5">
+          <numeric
+            type="number"
+            name="minimumPayment"
+            value.bind="data.minimumPayment"
+            placeholder="0.0000"
+            read-only.bind="readOnly"
+            format="#.###0,#0"
+          ></numeric>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="discountName" class="col-sm-4 control-label"
+        >Discount Name*</label
+      >
+      <div class="col-sm-5">
+        <input
+          type="text"
+          class="form-control"
+          name="discountName"
+          value.bind="data.discountName"
+          placeholder="Discount Name"
+          read-only.bind="readOnly"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="discountCode" class="col-sm-4 control-label"
+        >Discount Code*</label
+      >
+      <div class="col-sm-5">
+        <input
+          type="text"
+          class="form-control"
+          name="discountCode"
+          value.bind="data.discountCode"
+          placeholder="Discount Code"
+          read-only.bind="readOnly"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="quantityVoucher" class="col-sm-4 control-label"
+        >Quantity Voucher*</label
+      >
+      <div class="col-sm-5">
+        <numeric
+          type="number"
+          name="quantityVoucher"
+          value.bind="data.quantityVoucher"
+          placeholder="100"
+          read-only.bind="readOnly"
+          format="#.###0,#0"
+        ></numeric>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="maxUsagePerUser" class="col-sm-4 control-label"
+        >Max Usage / User*</label
+      >
+      <div class="col-sm-5">
+        <numeric
+          type="number"
+          name="maxUsagePerUser"
+          value.bind="data.maxUsagePerUser"
+          placeholder="2"
+          read-only.bind="readOnly"
+          format="#.###0,#0"
+        ></numeric>
+      </div>
+    </div>
+
+    <au-datepicker
+      label="Start Date*"
+      value.bind="data.startDate"
+      error.bind="error.startDate"
+      read-only.bind="readOnly"
+      options.bind="controlOptions"
+    >
+    </au-datepicker>
+
+    <au-datepicker
+      label="End Date*"
+      value.bind="data.endDate"
+      error.bind="error.endDate"
+      read-only.bind="readOnly"
+      options.bind="controlOptions"
+    >
+    </au-datepicker>
+
+    <div class="form-group">
+      <label for="description" class="col-sm-4 control-label"
+        >Description*</label
+      >
+      <div class="col-md-5">
+        <textarea
+          class="form-control valid"
+          rows="4"
+          value.bind="data.description"
+          placeholder="Description"
+          read-only.bind="readOnly"
+          required
+        ></textarea>
+      </div>
+    </div>
+
+    <checkbox
+      label="Applies Multiply"
+      value.bind="data.appliesMultiply"
+      error.bind="error.appliesMultiply"
+      read-only.bind="readOnly"
+      if.bind="data.voucherType === 'Pay nominal Rp.xx, Free 1 product'">
+    </checkbox>
+    <!-- <div
+      css="display: ${data.voucherType === 'Pay nominal Rp.xx, Free 1 product' ? '': 'none'}"
+    >
+      <div class="form-group">
+        <label class="col-sm-4 control-label">Applies Multiply</label>
+        <div class="col-md-5">
+          <input
+            class="check-box"
+            type="checkbox"
+            checked.bind="data.appliesMultiply"
+          />
+        </div>
+      </div>
+    </div> -->
+
+    <div class="a col-md-9" style="margin-bottom: 100px">
+      <div class="btn-group b">
+        <button
+          class="btn btn-default"
+          click.delegate="context.cancel($event)"
+          if.one-way="context.hasCancel"
+        >
+          Kembali
+        </button>
+        <button
+          class="btn btn-primary"
+          click.delegate="context.edit($event)"
+          if.one-way="context.hasEdit"
+        >
+          Ubah
+        </button>
+        <button
+          class="btn btn-success"
+          click.delegate="context.save($event)"
+          if.one-way="context.hasSave"
+        >
+          Simpan
+        </button>
+        <button
+          class="btn btn-danger"
+          click.delegate="context.delete($event)"
+          if.one-way="context.hasDelete"
+        >
+          Hapus
+        </button>
+      </div>
+    </div>
+  </au-input-form>
+</template>

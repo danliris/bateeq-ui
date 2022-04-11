@@ -13,6 +13,7 @@ export function configure(config) {
         './form/basic/password',
         './form/basic/textbox',
         './form/basic/auto-suggest',
+        './form/basic/typeahead',
 
         './customs/auto-suggests/storage-auto-suggest',
         './customs/auto-suggests/finishedgoods-auto-suggest',
@@ -23,5 +24,7 @@ export function configure(config) {
         './customs/auto-suggests/unit-payment-order-auto-suggest',
         './customs/auto-suggests/supplier-auto-suggest',
         './customs/collections/unit-payment-quantity-correction-note/unit-payment-quantity-correction-note-collection',
+
+        './customs/typeahead/product-typeahead',
     );
 }
