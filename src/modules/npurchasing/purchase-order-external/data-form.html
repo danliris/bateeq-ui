@@ -158,6 +158,20 @@
             change.delegate="useVatChanged($event)"
             options.bind="controlOptions">
         </au-checkbox>
+
+        <au-autocomplete 
+            value.bind="selectedVatTax" 
+            error.bind="error.VatRate" 
+            label="Ppn" 
+            if.bind="data.useVat" 
+            loader.bind="vatTaxLoader" 
+            text.bind = "vatTaxView"
+            placeholder="cari ppn" 
+            key="rate" 
+            read-only.bind="readOnly" 
+            post-fix="%" 
+            options.bind="controlOptions">
+        </au-autocomplete>
                 
         <au-multiline 
             label="Keterangan" 
