@@ -50,6 +50,8 @@ export class List {
         { field: "quantity", title: "Jumlah (+/-/0)", sortable: false,formatter:(value,data)=>{
             return value.toLocaleString('en-EN', { minimumFractionDigits: 2 });
         }  },
+        { field: "price", title: "Harga per Unit", sortable: false },
+        { field: "DealPrice", title: "Total", sortable: false }, 
     ];
 
     constructor(router, service) {

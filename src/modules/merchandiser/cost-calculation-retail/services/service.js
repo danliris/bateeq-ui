@@ -50,6 +50,11 @@ export class Service extends RestService {
         return super.getPdf(endpoint);
     }
 
+    getVvipById(id) {
+        var endpoint = `${serviceUri}/vvip/${id}`;
+        return super.getPdf(endpoint);
+    }
+
     getBudgetById(id) {
         var endpoint = `${serviceUri}/budget/${id}`;
         return super.getPdf(endpoint);
