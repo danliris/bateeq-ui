@@ -67,13 +67,14 @@ export class DataForm {
         }
         if (this.data.useVat) {
             this.options.useVat = true;
-        }
-        if(this.data.VatRate){
-            this.selectedVatTax= {
-                Id: this.data.VatId,
-                Rate: this.data.VatRate
+            if(this.data.vatRate){
+                this.selectedVatTax= {
+                    Id: this.data.vatId,
+                    Rate: this.data.vatRate
+                }
             }
         }
+        
     }
 
     @computedFrom("data._id")
@@ -197,8 +198,8 @@ export class DataForm {
                     if(defaultVat[0].Id){
                         this.data.Vat = defaultVat[0];
                         this.selectedVatTax = defaultVat[0];
-                        this.data.VatRate= this.selectedVatTax.Rate;
-                        this.data.VatId=this.selectedVatTax.Id;
+                        this.data.vatRate= this.selectedVatTax.Rate;
+                        this.data.vatId=this.selectedVatTax.Id;
                     }
                 }
             }
