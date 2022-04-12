@@ -4,6 +4,7 @@ var SupplierLoader = require('../../../loader/nsupplier-loader');
 var CurrencyLoader = require('../../../loader/ncurrency-loader');
 var UnitLoader = require('../../../loader/nunit-loader');
 var IncomeTaxLoader = require('../../../loader/nincome-tax-loader');
+var VatTaxLoader = require('../../../loader/nvat-tax-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -17,6 +18,7 @@ export class DataForm {
     @bindable selectedIncomeTax;
     @bindable selectedUnit;
     @bindable options = { useVat: false };
+    @bindable selectedVatTax;
 
     IncomeTaxByOptions=["Supplier","Dan Liris"];
 
@@ -36,7 +38,13 @@ export class DataForm {
         this.service = service;
         this.bindingEngine = bindingEngine;
     }
-
+    get vatTaxLoader() {
+        return VatTaxLoader;
+    }
+    vatTaxView = (vatTax) => {
+        var rate = vatTax.rate ? vatTax.rate : vatTax.Rate;
+        return `${rate}`
+    }
     bind(context) {
         this.context = context;
         this.data = this.context.data;
@@ -59,7 +67,14 @@ export class DataForm {
         }
         if (this.data.useVat) {
             this.options.useVat = true;
+            if(this.data.vatRate){
+                this.selectedVatTax= {
+                    Id: this.data.vatId,
+                    Rate: this.data.vatRate
+                }
+            }
         }
+        
     }
 
     @computedFrom("data._id")
@@ -148,7 +163,7 @@ export class DataForm {
         }
     }
 
-    useVatChanged(e) {
+    async useVatChanged(e) {
         var selectedUseVat = e.srcElement.checked || false;
         if (!selectedUseVat) {
             this.options.useVat = false;
@@ -169,6 +184,25 @@ export class DataForm {
             
         } else {
             this.options.useVat = true;
+            let info = {
+                keyword:'',
+                order: '{ "Rate" : "desc" }',
+                size: 1,
+            };
+
+            var defaultVat = await this.service.getDefaultVat(info);
+            console.log(defaultVat);
+
+            if(defaultVat.length > 0){
+                if(defaultVat[0]){
+                    if(defaultVat[0].Id){
+                        this.data.Vat = defaultVat[0];
+                        this.selectedVatTax = defaultVat[0];
+                        this.data.vatRate= this.selectedVatTax.Rate;
+                        this.data.vatId=this.selectedVatTax.Id;
+                    }
+                }
+            }
         }
     }
 

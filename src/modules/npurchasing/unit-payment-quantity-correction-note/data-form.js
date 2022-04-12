@@ -169,6 +169,8 @@ export class DataForm {
             }
             this.data.dueDate = newValue.dueDate;
             this.data.correctionType = "Jumlah";
+            this.data.vatId=newValue.vatId;
+            this.data.vatRate=newValue.vatRate;
             var _items = [];
             if (selectedPaymentOrder.items) {
                 for (var unitPaymentOrder of selectedPaymentOrder.items) {
