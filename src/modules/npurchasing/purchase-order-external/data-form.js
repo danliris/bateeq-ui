@@ -67,6 +67,12 @@ export class DataForm {
         }
         if (this.data.useVat) {
             this.options.useVat = true;
+            if(this.data.vatRate){
+                this.selectedVatTax= {
+                    Id: this.data.vatId,
+                    Rate: this.data.vatRate
+                }
+            }
         }
         if(this.data.VatRate){
             this.selectedVatTax= {

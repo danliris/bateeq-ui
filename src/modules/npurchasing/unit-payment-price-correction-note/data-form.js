@@ -4,6 +4,7 @@ var moment = require('moment');
 
 var SupplierLoader = require('../../../loader/nsupplier-loader');
 var UPOLoader = require('../../../loader/nunit-payment-order-all-loader');
+var VatTaxLoader = require('../../../loader/nvat-tax-loader');
 
 
 @inject(BindingEngine, Element,Service)
@@ -13,6 +14,7 @@ export class DataForm {
     @bindable error = {};
     @bindable selectedSupplier;
     @bindable selectectedUnitPaymentOrder;
+    @bindable selectedVatTax;
 
     correctionTypes = ["Harga Satuan", "Harga Total"];
     correctionType = "Harga Satuan";
@@ -48,7 +50,13 @@ export class DataForm {
             }
         };
     }
-
+    get vatTaxLoader() {
+        return VatTaxLoader;
+    }
+    vatTaxView = (vatTax) => {
+        var rate = vatTax.rate ? vatTax.rate : vatTax.Rate;
+        return `${rate}`
+    }
     @computedFrom("data._id")
     get isEdit() {
         return (this.data._id || '').toString() != '';
@@ -78,7 +86,15 @@ export class DataForm {
             this.UpoItem.columns.push({ header: "" });
             this.hasView=false;
         }
-        
+        if (this.data.useVat) {
+            this.options.useVat = true;
+            if(this.data.vatRate){
+                this.selectedVatTax= {
+                    Id: this.data.vatId,
+                    Rate: this.data.vatRate
+                }
+            }
+        }
     }
 
     setItems(_paymentOrder) {
@@ -190,6 +206,8 @@ export class DataForm {
                 this.data.useVat=_selectedPaymentOrder.useVat;
                 this.data.useIncomeTax=_selectedPaymentOrder.useIncomeTax;
                 this.setItems(_selectedPaymentOrder);
+                this.data.vatRate=_selectedPaymentOrder.vatRate;
+                this.data.vatId=_selectedPaymentOrder.vatId;
             }
             else {
                 this.data.items = [];
