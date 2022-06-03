@@ -5,6 +5,7 @@ var CurrencyLoader = require('../../../loader/ncurrency-loader');
 var IncomeTaxLoader = require('../../../loader/nincome-tax-loader');
 var DivisionLoader = require('../../../loader/ndivision-loader');
 var CategoryLoader = require('../../../loader/ncategory-loader');
+var VatTaxLoader = require('../../../loader/nvat-tax-loader');
 
 @containerless()
 @inject(Service, BindingEngine)
@@ -18,6 +19,7 @@ export class DataForm {
     @bindable selectedIncomeTax;
     @bindable selectedDivision;
     @bindable selectedCategory;
+    @bindable selectedVatTax;
 
     IncomeTaxByOptions=["","Supplier","Dan Liris"];
     termPaymentOptions = ['CASH', 'KREDIT', 'DP (DOWN PAYMENT) + BP (BALANCE PAYMENT)', 'DP (DOWN PAYMENT) + TERMIN 1 + BP (BALANCE PAYMENT)', 'RETENSI'];
@@ -53,6 +55,15 @@ export class DataForm {
         this.hasCreate=true;
         if(this.data)
             this.hasCreate=false;
+
+        if (this.data.useVat) {
+            if(this.data.VatRate){
+                this.selectedVatTax= {
+                    Id: this.data.VatId,
+                    Rate: this.data.VatRate
+                }
+            }
+        }
     }
 
     @computedFrom("data._id")
@@ -149,11 +160,11 @@ export class DataForm {
         this.data.incomeTaxBy="";
     }
 
-    useVatChanged(e) {
-        this.data.items = [];
-        this.data.vatNo = "";
-        this.data.vatDate = null;
-    }
+    // useVatChanged(e) {
+    //     this.data.items = [];
+    //     this.data.vatNo = "";
+    //     this.data.vatDate = null;
+    // }
 
     resetErrorItems() {
         this.data.items = [];
@@ -207,4 +218,38 @@ export class DataForm {
     addItems = (e) => {
         this.data.items.push({ unitReceiptNote: { no: "" } })
     };
+    
+    get vatTaxLoader() {
+        return VatTaxLoader;
+    }
+    vatTaxView = (vatTax) => {
+        var rate = vatTax.rate ? vatTax.rate : vatTax.Rate;
+        return `${rate}`
+    }
+
+    async useVatChanged(e) {
+        this.data.items = [];
+        this.data.vatNo = "";
+        this.data.vatDate = null;
+        var selectedUseVat = e.srcElement.checked || false;
+        if (selectedUseVat) {
+            let info = {
+                keyword:'',
+                order: '{ "Rate" : "desc" }',
+                size: 1,
+            };
+
+            var defaultVat = await this.service.getDefaultVat(info);
+            if(defaultVat.length > 0){
+                if(defaultVat[0]){
+                    if(defaultVat[0].Id){
+                        this.data.Vat = defaultVat[0];
+                        this.selectedVatTax = defaultVat[0];
+                        this.data.VatRate= this.selectedVatTax.Rate;
+                        this.data.VatId=this.selectedVatTax.Id;
+                    }
+                }
+            }
+        }
+    }
 } 
