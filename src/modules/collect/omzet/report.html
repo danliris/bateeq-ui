@@ -1,0 +1,24 @@
+<template>
+  <div class="col-sm-4 form-horizontal">
+    <au-datepicker value.bind="dateFrom" label="From"></au-datepicker>
+    <au-datepicker value.bind="dateTo" label="To"></au-datepicker>
+    <button
+      style="margin-right: 5px"
+      click.delegate="showReport()"
+      class="btn btn-success btn-sm pull-right"
+    >
+      Tarik Data Penjualan
+    </button>
+  </div>
+  <div class="col-sm-4 form-horizontal">
+    <au-datepicker value.bind="dateFrom" label="From"></au-datepicker>
+    <au-datepicker value.bind="dateTo" label="To"></au-datepicker>
+    <button
+      style="margin-right: 10px"
+      click.delegate="showReport1()"
+      class="btn btn-success btn-sm pull-right"
+    >
+      Tarik Data Summary Penjualan
+    </button>
+  </div>
+</template>
