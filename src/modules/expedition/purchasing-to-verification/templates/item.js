@@ -56,16 +56,12 @@ export class Item {
             this.service.getCorrectionState(newV._id)
                 .then((correctionStateResponse) => {
                     let correctionState = correctionStateResponse.data ? correctionStateResponse.data : {};
-                    console.log(correctionState);
                     return this.service.getURN(filter)
                         .then((response) => {
                             let urn = response.data;
                             for (let item of newV.items) {
                                 let urnObj = urn.find(p => p.no === item.unitReceiptNote.no);
                                 // let upoItem = newV.items.find(item => item.unitReceiptNote.no === urnObj.no);
-
-                                // console.log(urnObj);
-                                // console.log(item);
 
                                 for (let detail of item.unitReceiptNote.items) {
                                     let corrections = detail.correction;
@@ -139,12 +135,10 @@ export class Item {
                                 }
                             }
 
-                            // console.log(newV)
-                            // console.log(totalPaid);
-                            let vat = newV.useVat ? Number((totalPaid * 0.1).toFixed(2)) : 0;
+                            let vat = newV.useVat ? Number((totalPaid * newV.VatRate/100).toFixed(2)) : 0;
                             let incomeTax = newV.useIncomeTax ? Number(((newV.incomeTax.rate * totalPaid) / 100).toFixed(2)) : 0;
                             let income = newV.useIncomeTax ? newV.incomeTax : null;
-                            // console.log(vat);
+                            
                             Object.assign(this.data, {
                                 id: newV._id,
                                 no: newV.no,
