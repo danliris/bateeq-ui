@@ -87,7 +87,7 @@ export class DataForm {
             this.hasView=false;
         }
         if (this.data.useVat) {
-            this.options.useVat = true;
+            //this.options.useVat = true;
             if(this.data.vatRate){
                 this.selectedVatTax= {
                     Id: this.data.vatId,
